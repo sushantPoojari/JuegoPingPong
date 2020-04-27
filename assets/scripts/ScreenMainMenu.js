@@ -1,0 +1,1689 @@
+"use strict";
+
+// require("core-js/modules/es6.string.iterator");
+
+// require("core-js/modules/es6.array.from");
+
+// require("core-js/modules/es6.regexp.to-string");
+
+// require("core-js/modules/es7.symbol.async-iterator");
+
+// require("core-js/modules/es6.symbol");
+
+// require("core-js/modules/es6.array.find");
+
+// require("core-js/modules/web.dom.iterable");
+
+// require("core-js/modules/es6.array.iterator");
+
+// require("core-js/modules/es6.object.to-string");
+
+// require("core-js/modules/es6.object.keys");
+
+// require("core-js/modules/es6.function.name");
+
+var MainMenuLocation;
+var MultiplayerStarted = false;
+var IsHost = false;
+NORD.mainMenu = null;
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
+}
+
+function _iterableToArray(iter) {
+  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
+    return arr2;
+  }
+}
+
+NORD.ScreenMainMenu = function(config) {
+  var _this = this;
+  NORD.mainMenu = this;
+  var isAllButtonEnabled;
+  this.isAllButtonEnabled = true;
+  config.sizeType = 'relative';
+  config.widthRelative = 1;
+  config.heightRelative = 1;
+  NORD.GUI.BasePanel.call(this, config);
+  var self = this;
+  MainMenuLocation = this;
+  this.state = 'hide';
+  this.visible = false;
+  this.interactiveChildren = false;
+  var logo = Util.createSprite({
+    parent: this,
+    x: 0,
+    y: -150,
+    atlas: 'texture_atlas',
+    texture: 'logo.png',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.666,
+    scaleY: 0.666
+  });
+  this.containerSwitchers = new PIXI.Container();
+  this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
+
+  //sushant
+  var dividerLine = Util.createSprite({
+    parent: this,
+    x: 160,
+    y: 20,
+    texture: 'DividerLine',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.666,
+    scaleY: 0.666
+  });
+  //sushant
+
+  this.labelBoards = Util.createSprite({
+    parent: this.containerSwitchers,
+    x: -150,
+    y: 0,
+    atlas: 'texture_atlas',
+    texture: 'label_boards.png',
+    aX: 1.0,
+    aY: 0.5,
+    scaleXY: 0.666
+  });
+  var startY = -50;
+  var gConfig = NORD.game.config;
+  this.switcherPlayers = this.createSwitcher(0, startY + 0, 'label_players', 'players', gConfig.players == 'one' ? 'left' : 'right', function(side) {
+    var dataMap = {
+      left: 'one',
+      right: 'two'
+    };
+    var config = NORD.game.config;
+    config.players = dataMap[side];
+    NORD.game.setConfig(config); // console.log('SSS:', config)
+  });
+  var ddd = '';
+  if (gConfig.dificulty == 'easy') ddd = 'left';
+  else if (gConfig.dificulty == 'hard') ddd = 'right';
+  else if (gConfig.dificulty == 'medium') ddd = 'center';
+  this.switcherDificulty = this.createSwitcher(0, startY + 100, 'label_dificulty', 'dificulty', ddd, function(side) {
+    var dataMap = {
+      left: 'easy',
+      right: 'hard',
+      center: 'medium'
+    };
+    var config = NORD.game.config;
+    config.dificulty = dataMap[side];
+    NORD.game.setConfig(config); // console.log('SSS:', config)
+  });
+  var darkDificulty = new PIXI.Container();
+  this.containerSwitchers.addChild(darkDificulty);
+  var d1 = Util.createSprite({
+    parent: darkDificulty,
+    x: -95,
+    y: 0,
+    atlas: 'texture_atlas',
+    texture: 'd_1.png',
+    aX: 0.5,
+    aY: 0.5
+  });
+  var d2 = Util.createSprite({
+    parent: darkDificulty,
+    x: 0,
+    y: 0,
+    atlas: 'texture_atlas',
+    texture: 'd_2.png',
+    aX: 0.5,
+    aY: 0.5
+  });
+  var d3 = Util.createSprite({
+    parent: darkDificulty,
+    x: 95,
+    y: 0,
+    atlas: 'texture_atlas',
+    texture: 'd_3.png',
+    aX: 0.5,
+    aY: 0.5
+  });
+  d1.scale = d2.scale = d3.scale = new PIXI.Point(0.79, 0.79);
+  darkDificulty.y = this.switcherDificulty.y; // darkDificulty.y = 200;
+
+  darkDificulty.visible = false;
+  this.darkDificulty = darkDificulty;
+  this.switcherMode = this.createSwitcher(0, startY + 50, 'label_mode', 'mode', gConfig.mode == 'classic' ? 'left' : 'right', function(side) {
+    var dataMap = {
+      left: 'classic',
+      right: 'action'
+    };
+    var config = NORD.game.config;
+    config.mode = dataMap[side];
+    NORD.game.setConfig(config);
+  });
+  this.switcherMode.on('switch_start', function(side) {
+    if (side === 'right' && _this.actionHint.visible) {
+      _this.clearPulse(); // console.log('CLEAR:', this.switcherMode.containerRight.alpha);
+
+    } else if (side === 'left' && _this.actionHintShows % 2 == 0 && !NORD.game.config.isActionPlayed) {
+      // console.log('PLAY:', this.switcherMode.containerRight.alpha);
+      _this.clearPulse();
+
+      _this.tweenPulse();
+    }
+  });
+  this.switcherPlayers.on('switch_start', function(side) {
+    if (side === 'right') {
+      _this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
+
+      _this.switcherDificulty.interactive = false;
+      _this.switcherDificulty.interactiveChildren = false;
+    } else {
+      _this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
+
+      _this.switcherDificulty.interactive = true;
+      _this.switcherDificulty.interactiveChildren = true;
+    }
+  });
+  this.boardSelected = 'board_2';
+  this.ballDiamondGeneratedPos = 0;
+
+  var btn = Util.createButton('btn', this, null, '', 0, 160, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
+    atlas: 'texture_atlas',
+    texture: 'button_play.png',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.5,
+    scaleY: 0.5
+  });
+  btn.addListener('button_click', function(data) {
+    MultiplayerStarted = false;
+    // if(!(this.switcherPlayers.switchingState == 'none' && this.switcherDificulty.switchingState == 'none' && this.switcherMode.switchingState == 'none')) return;
+    if (!(_this.switcherPlayers.switchingState == 'none' && _this.switcherMode.switchingState == 'none')) return; // console.log('Click!');
+
+    if (NORD.game.config.mode == 'action') {
+      if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.DIAMOND_MODE)
+        _this.boardSelected = 'board_3';
+      if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.PARALLEL_MODE)
+        _this.boardSelected = 'board_1';
+    }
+
+    TweenMax.delayedCall(0.07 * 2, function() {
+      if (NORD.game.config.mode !== 'action') self.toGame('board_2');
+      else self.toGame(_this.boardSelected);
+    });
+  }, this);
+  alignItems([logo, this.containerSwitchers, btn], 480);
+
+  var multiplayerButton = Util.createButton('btn', this, null, '', 230, 20, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('OnlineMultiPlayerBtn'), {
+    texture: 'OnlineMultiPlayerBtn',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.8,
+    scaleY: 0.8
+  });
+  multiplayerButton.soundClick = NORD.assetsManager.getAsset('play_button')
+  multiplayerButton.addListener('button_click', function(data) {
+
+
+    // if (NORD.mainMenu.isAllButtonEnabled == true) {
+    //   var _this2 = this;
+    //   NORD.mainMenu.isAllButtonEnabled = true;
+    //   NORD.gameState =  NORD.GAME_STATE.SERARCHING;
+    //   NORD.sfsController.loginTo();
+    // }
+    if (NORD.mainMenu.isAllButtonEnabled == true) {
+
+      NORD.MultiplayerPopupSowed = true;
+      var _this2 = this;
+
+      NORD.gameState = NORD.GAME_STATE.SERARCHING;
+
+      this.disableAllButtons();
+      TweenMax.delayedCall(0.07 * 2, function() {
+
+        var currentTime = Date.now();
+
+        if (NORD.App.playerController.config.playerAdjectiveId == -1) {
+          NORD.App.playerController.getRandomName();
+          _this2.randomNamePopup.updateName();
+          _this2.randomNamePopup.show();
+        } else {
+          if (PP.server_using == PP.SERVER_USING.Photon) {
+            _this2.multiplayerSelectionPopup.show();
+            _this2.multiplayerSelectionPopup.startPhotonSerer();
+          } else {
+            _this2.multiplayerSelectionPopup.loginToSmartBox();
+          }
+        }
+        // _this2.multilayerPanel.show();
+      });
+    }
+
+  }, this);
+
+
+  this.buttonText = new PIXI.Text(NORD.App.playerController.getTierType() + " | Wins: " + NORD.App.playerController.config.playerRankNumber, {
+    font: '35px Snippet',
+    fontSize: 12,
+    fill: 'black',
+    align: 'center'
+  });
+  this.buttonText.anchor.set(0.5);
+  this.buttonText.position.set(0, 60);
+  multiplayerButton.addChild(this.buttonText);
+
+  //sushant
+
+  function alignItems(items, height) {
+    var totalHeight = 0;
+    items.forEach(function(item) {
+      totalHeight += item.height;
+    });
+    var freeSpace = height - totalHeight;
+    var shift = freeSpace / (items.length + 1);
+    var posY = -height / 2 + shift;
+    items.forEach(function(item) {
+      item.y = posY + item.height / 2; // item.posi y = posY + item.height/2;
+      // console.log('Q:', item.height,  posY + item.height/2);
+
+      posY += item.height + shift;
+    });
+    items[1].y -= 4; // console.log('Align:', totalHeight, freeSpace)
+  }
+
+  var audioButton = new NORD.GUI.ButtonAudio({
+    parentPanel: this,
+    x: -320 + 21 + 10,
+    y: 240 - 21 - 10,
+    width: 42,
+    height: 42,
+    soundClick: NORD.assetsManager.getAsset('sound_click'),
+    skin: {
+      on: {
+        atlas: 'texture_atlas',
+        texture: 'button_audio_0001.png'
+      },
+      off: {
+        atlas: 'texture_atlas',
+        texture: 'button_audio_0002.png'
+      }
+    }
+  });
+  this.actionHint = Util.createSprite({
+    parent: this,
+    x: 195,
+    y: 18,
+    rotation: -6.7 * Util.TO_RADIANS,
+    atlas: 'texture_atlas',
+    texture: 'action_hint.png',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.41,
+    scaleY: 0.41
+  }); // this.actionBorder = Util.createSprite({ parent: this.switcherMode.containerRight, atlas: 'texture_atlas', texture: 'action_border.png', aX: 0.5, aY: 0.5, scaleXY: 0.79, alpha: 0.0 });
+  // this.actionBorder.alpha = 0.0;
+  // this.actionBorder.width = this.switcherPlayers.sideRight.spriteOn.width;
+  // this.actionBorder.height = this.switcherPlayers.sideRight.spriteOn.height;
+  // this.actionBorder.height -= 2;
+
+  this.actionWhite = Util.createSprite({
+    parent: this.switcherMode.containerRight,
+    atlas: 'texture_atlas',
+    texture: 'action_white.png',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.79,
+    alpha: 0.0
+  });
+  this.actionWhite.alpha = 0.0; // this.actionHintShows = NORD.game.config.actionHintShows;
+
+  this.actionHintShows = 0; // var audioButton = new NORD.GUI.ButtonAudio({ parentPanel: this, x: 200, y: 0, width: 100, height: 100 });
+
+
+  this.randomNamePopup = new NORD.randomNamePopup({
+    name: 'panel_randomName',
+    parentPanel: NORD.GUIManager.stage,
+    container: this
+  });
+  this.randomNamePopup.visible = false;
+
+  this.multiplayerSelectionPopup = new NORD.MultiplayerSelectionPopup({
+    name: 'panel_randomName',
+    parentPanel: NORD.GUIManager.stage,
+    container: this
+  });
+  this.multiplayerSelectionPopup.visible = false;
+
+  this.loadingPopup = new NORD.LoadingPopup({
+    name: 'loading popup',
+    parentPanel: NORD.GUIManager.stage,
+    container: this
+  });
+  this.loadingPopup.visible = false;
+  rotateAction();
+
+  function rotateAction() {
+    NORD.mainMenu.loadingPopup.currentAngle += 90;
+    // NORD.game.screenGame.currentAngle = NORD.game.screenGame.currentAngle % 360;
+    TweenMax.to(NORD.mainMenu.loadingPopup.loadingIndicator, 1, {
+      angle: NORD.mainMenu.loadingPopup.currentAngle,
+      onComplete: () => {
+        rotateAction();
+      }
+    });
+  }
+
+
+
+  if (PP.server_using == PP.SERVER_USING.Photon) {
+
+  } else {
+    NORD.sfsController.initiializeSFS();
+  }
+};
+
+NORD.ScreenMainMenu.prototype = Object.create(NORD.GUI.BasePanel.prototype);
+NORD.ScreenMainMenu.prototype.constructor = NORD.ScreenMainMenu;
+
+NORD.ScreenMainMenu.prototype.disableAllButtons = function() {
+
+  this.isAllButtonEnabled = false;
+
+  this.darkDificulty.visible = true;
+  NORD.game.screenGame.panelEndGame.buttonRestart.interactive = false;
+  // this.switcherDificulty.alpha = 0.3;
+  //disable difficulty
+  this.switcherDificulty.interactive = false;
+  this.switcherDificulty.interactiveChildren = false;
+
+  //disable switcherPlayers
+  this.switcherPlayers.interactive = false;
+  this.switcherPlayers.interactiveChildren = false;
+
+  //disable switcherPlayers
+  this.switcherMode.interactive = false;
+  this.switcherMode.interactiveChildren = false;
+
+  this.switcherPlayers.switchingState = 'none1';
+};
+NORD.ScreenMainMenu.prototype.enableAllButtons = function() {
+  this.isAllButtonEnabled = true;
+  this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
+  NORD.game.screenGame.panelEndGame.buttonRestart.interactive = true;
+
+  if (NORD.game.config.players == 'one') {
+    this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
+
+    this.switcherDificulty.interactive = true;
+    this.switcherDificulty.interactiveChildren = true;
+  }
+
+  //disable switcherPlayers
+  this.switcherPlayers.interactive = true;
+  this.switcherPlayers.interactiveChildren = true;
+
+  //disable switcherPlayers
+  this.switcherMode.interactive = true;
+  this.switcherMode.interactiveChildren = true;
+
+  this.switcherPlayers.switchingState = 'none';
+};
+//sushant
+
+NORD.ScreenMainMenu.prototype.drawPaddle = function() {
+  var paddleView = new PaddleView2(0xFFFFFF, true);
+  this.addChild(paddleView);
+  paddleView.scale.x = paddleView.scale.y = 2;
+  paddleView.on('change', function(data) {
+    paddleView2.size = data.size;
+    paddleView2.controlPoints = data.controlPoints;
+    paddleView2.updatePaddle();
+  });
+  var paddleView2 = new PaddleView2(0xFFFFFF, false);
+  this.addChild(paddleView2); // paddleView2.scale.x = paddleView.scale.y = 1.5;
+
+  paddleView.x = 200;
+  paddleView2.y = 200;
+  paddleView2.x = 200;
+};
+
+NORD.ScreenMainMenu.prototype.toGame = function(board) {
+  this.tween({
+    name: 'hide_anim'
+  }, function() {
+    NORD.game.screenGame.toGame(board);
+    NORD.app.apiCallback('start');
+  });
+};
+
+NORD.ScreenMainMenu.prototype.toMainMenu = function() {
+
+  NORD.game.screenMainMenu.buttonText.text = NORD.App.playerController.getTierType() + " | Wins: " + NORD.App.playerController.config.playerRankNumber;
+  // this.actionHintShows ++;
+  this.actionHint.visible = this.actionHintShows % 2 == 0 && !NORD.game.config.isActionPlayed;
+  //sushant
+  this.actionHint.visible = false;
+  //sushant
+  this.actionHint.alpha = 1.0; // this.actionBorder.alpha = 0.0;
+  // console.log('FFFF":', this.actionHint.visible, NORD.game.config.isActionPlayed);
+
+  this.tween({
+    name: 'show_anim'
+  }, function() {
+    MainMenuLocation.enableAllButtons();
+
+    // NORD.game.screenGame.toGame(board);
+  });
+};
+
+NORD.ScreenMainMenu.prototype.clearPulse = function() {
+  // TweenMax.killAll(false, true, true);
+  if (this.tweenActionHint) {
+    // this.tweenActionContainer.kill();
+    // this.tweenActionContainerScale.kill();
+    this.tweenActionHint.kill(); // this.tweenActionHintScale.kill();
+    // this.tweenActionBorder.kill();
+    // this.tweenActionWhite.kill();
+    // this.tweenActionContainer = this.tweenActionContainerScale = this.tweenActionHint = this.tweenActionHintScale = this.tweenActionBorder = null;
+    // this.tweenActionWhite = null;
+  } // this.actionBorder.alpha = 0.0;
+
+
+  this.actionWhite.alpha = 0.0;
+  this.switcherMode.containerRight.scale.x = this.switcherMode.containerRight.scale.y = 1.0;
+  this.switcherMode.containerRight.alpha = 1.0;
+};
+
+NORD.ScreenMainMenu.prototype.tweenPulse = function() {
+  var self = this;
+  var time = 25 / 30; // function tw(data)
+  // {
+  //   const { name, target, dir = 'up', normalScale = 1.0, normalRotation = 0, useRotation = false } = data;
+  //
+  //   const tScale = dir === 'up'?1.05 * normalScale:1.0 * normalScale;
+  //   const tAlpha = dir === 'up'?1.00:0.8;
+  //   const tRotation = useRotation?(dir === 'up'?normalRotation + 3*Util.TO_RADIANS:normalRotation):0;
+  //
+  //   self[name] = TweenMax.to(target, time, { rotation: tRotation, alpha: tAlpha, ease: Power1.easeInOut });
+  //   self[name+'Scale'] = TweenMax.to(target.scale, time, { x: tScale, y: tScale, ease: Power1.easeInOut, onComplete: () =>
+  //   {
+  //     self[name] = null;
+  //     self[name + 'Scale'] = null;
+  //
+  //     tw({...data, dir: dir === 'up'?'down':'up'})
+  //   }});
+  // }
+  // tw({ name: 'tween_pulse', name: 'tweenActionContainer', target: this.switcherMode.containerRight });
+  // tw({ name: 'tween_pulse', name: 'tweenActionHint', target: this.actionHint, normalScale: 0.41, normalRotation: -5.7*Util.TO_RADIANS, useRotation: true });
+
+  /*
+  this.actionBorder.alpha = 0.0;
+  function tweenBorder(dir = 'up')
+  {
+    const tAlpha = dir === 'up'?1.0:0.24;
+    self.tweenActionBorder = TweenMax.to(self.actionBorder, time, { alpha: tAlpha, ease: Power1.easeInOut, onComplete: () =>
+    {
+      self.tweenActionBorder = null;
+      tweenBorder(dir === 'up'?'down':'up');
+    }});
+  }
+  tweenBorder();
+  */
+  // this.actionWhite.alpha = 1;
+  // function tweenWhite(dir = 'up') {
+  //   const tAlpha = dir === 'up'?0.2:0.0;
+  //   self.tweenActionWhite = TweenMax.to(self.actionWhite, time, { alpha: tAlpha, ease: Power2.easeInOut, onComplete: () =>
+  //   {
+  //     self.tweenActionWhite = null;
+  //     tweenWhite(dir === 'up'?'down':'up');
+  //   }});
+  // }
+  // tweenWhite();
+  // this.actionBorder.alpha = 0.0;
+  // function tweenHint(dir = 'up') {
+  //   const tAlpha = dir === 'up' ? 1.0 : 0.34;
+  //   self.tweenActionHint = TweenMax.to(self.actionHint, time, {
+  //     alpha: tAlpha, ease: Power1.easeInOut, onComplete: () => {
+  //       self.tweenActionHint = null;
+  //       tweenHint(dir === 'up' ? 'down' : 'up');
+  //     }
+  //   });
+  // }
+  // tweenHint(this.actionHint.alpha > 0.9 ? 'down' : 'up');
+  // this.actionBorder.alpha = 1.0;
+};
+
+NORD.ScreenMainMenu.prototype.tween = function(data, callback) {
+  var self = this;
+
+  if (data.name == 'show_anim' && this.state == 'hide') {
+    this.state = 'show_anim'; // this.visible = true;
+    // this.alpha = 0;
+    //
+    // var time = 20 / 30;
+    //
+    // TweenMax.to(this, time, {alpha: 1, x: 0, y: 0, ease: Power2.easeOut, onComplete: function()
+    // {
+    //   self.tween({name: 'show'}, callback);
+    // }});
+
+    this.tween({
+      name: 'show'
+    }, callback);
+  }
+
+  if (data.name == 'show_anim_from_preloader' && this.state == 'hide') {
+    this.state = 'show_anim';
+    this.visible = true;
+    this.alpha = 0;
+    this.actionHint.visible = this.actionHintShows % 2 == 0 && !NORD.game.config.isActionPlayed;
+
+    //sushant
+    this.actionHint.visible = false;
+    //sushant
+
+    if (NORD.game.config.players !== 'one') {
+      this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
+
+      this.switcherDificulty.interactive = false;
+      this.switcherDificulty.interactiveChildren = false;
+    } else {
+      this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
+
+      this.switcherDificulty.interactive = true;
+      this.switcherDificulty.interactiveChildren = true;
+    }
+
+    if (this.actionHint.visible && NORD.game.config.mode === 'classic') {
+      this.tweenPulse();
+    }
+
+    var time = 12 / 30;
+    TweenMax.to(this, time, {
+      alpha: 1,
+      x: 0,
+      y: 0,
+      ease: Power2.easeOut,
+      onComplete: function onComplete() {
+        self.tween({
+          name: 'show'
+        }, callback);
+      }
+    }); // this.tween({ name: 'show' }, callback);
+  }
+
+  if (data.name == 'hide_anim' && this.state == 'show') {
+    this.state = 'hide_anim'; // this.interactiveChildren = false;
+    //
+    // var time = 20 / 30;
+    //
+    // TweenMax.to(this, time, {alpha: 0, x: 0, y: 0, ease: Power2.easeOut, onComplete: function()
+    // {
+    //   self.tween({name: 'hide'}, callback);
+    // }});
+
+    this.tween({
+      name: 'hide'
+    }, callback);
+  }
+
+  if (data.name == 'show' && this.state != 'show') {
+    this.state = 'show';
+    this.visible = true;
+    this.interactiveChildren = true;
+    this.clearPulse();
+
+    if (this.actionHint.visible && NORD.game.config.mode === 'classic') {
+      this.tweenPulse();
+    }
+
+    if (callback) callback();
+  }
+
+  if (data.name == 'hide' && this.state != 'hide') {
+    this.state = 'hide';
+    this.visible = false;
+    this.interactiveChildren = false;
+    if (callback) callback();
+  }
+}; // ======================================================================================================================================== //
+// ======================================================================================================================================== //
+// ======================================================================================================================================== //
+
+
+NORD.MenuSwitcher = function(config, switcherConfig) {
+  var _this2 = this;
+
+  NORD.GUI.BasePanel.call(this, config);
+  this.selected = switcherConfig.selected;
+  this.isCenter = !!switcherConfig.center;
+  this.sideLeft = {
+    x: -72,
+    y: 0,
+    name: 'left',
+    spriteOn: Util.createSprite(switcherConfig.left.spriteOn),
+    spriteOff: Util.createSprite(switcherConfig.left.spriteOff)
+  };
+  this.sideRight = {
+    x: 72,
+    y: 0,
+    name: 'right',
+    spriteOn: Util.createSprite(switcherConfig.right.spriteOn),
+    spriteOff: Util.createSprite(switcherConfig.right.spriteOff)
+  };
+
+  if (this.isCenter) {
+    this.sideLeft.x = -95;
+    this.sideRight.x = 95;
+    this.sideCenter = {
+      x: 0,
+      y: 0,
+      name: 'center',
+      spriteOn: Util.createSprite(switcherConfig.center.spriteOn),
+      spriteOff: Util.createSprite(switcherConfig.center.spriteOff)
+    };
+  } else this.sideCenter = null;
+
+  this.sides = {
+    left: this.sideLeft,
+    right: this.sideRight,
+    center: this.sideCenter
+  };
+  this.addChild(this.sideLeft.spriteOff);
+  this.sideLeft.spriteOff.x = this.sideLeft.x;
+  this.sideLeft.spriteOff.y = this.sideLeft.y;
+  this.addChild(this.sideLeft.spriteOn);
+  this.sideLeft.spriteOn.x = this.sideLeft.x;
+  this.sideLeft.spriteOn.y = this.sideLeft.y;
+  this.containerRight = new PIXI.Container();
+  this.addChild(this.containerRight);
+  this.containerRight.x = this.sideRight.x;
+  this.containerRight.y = this.sideRight.y;
+  this.containerRight.addChild(this.sideRight.spriteOff);
+  this.containerRight.addChild(this.sideRight.spriteOn); // this.addChild(this.sideRight.spriteOff);
+  // this.sideRight.spriteOff.x = this.sideRight.x;
+  // this.sideRight.spriteOff.y = this.sideRight.y;
+  // this.addChild(this.sideRight.spriteOn);
+  // this.sideRight.spriteOn.x = this.sideRight.x;
+  // this.sideRight.spriteOn.y = this.sideRight.y;
+
+  this.sideLeft.spriteOn.visible = false;
+  this.sideLeft.spriteOff.visible = false;
+  this.sideRight.spriteOn.visible = false;
+  this.sideRight.spriteOff.visible = false;
+
+  if (this.isCenter) {
+    this.addChild(this.sideCenter.spriteOff);
+    this.sideCenter.spriteOff.x = this.sideCenter.x;
+    this.sideCenter.spriteOff.y = this.sideCenter.y;
+    this.addChild(this.sideCenter.spriteOn);
+    this.sideCenter.spriteOn.x = this.sideCenter.x;
+    this.sideCenter.spriteOn.y = this.sideCenter.y;
+    this.sideCenter.spriteOn.visible = false;
+    this.sideCenter.spriteOff.visible = false; // this.sideCenter.spriteOn.height = this.sideCenter.spriteOff.height = 50 * 0.79;
+    // this.sideLeft.spriteOn.width = this.sideLeft.spriteOff.width = this.sideRight.spriteOn.width = this.sideRight.spriteOff.width = this.sideCenter.spriteOn.width = this.sideCenter.spriteOff.width = 110 * 0.79;
+    // this.sideLeft.spriteOn.height = this.sideLeft.spriteOff.height = this.sideRight.spriteOn.height = this.sideRight.spriteOff.height = this.sideCenter.spriteOn.height = this.sideCenter.spriteOff.height = 50 * 0.79;
+
+    this.sideLeft.spriteOn.scale.x = this.sideLeft.spriteOff.scale.x = this.sideRight.spriteOn.scale.x = this.sideRight.spriteOff.scale.x = this.sideCenter.spriteOn.scale.x = this.sideCenter.spriteOff.scale.x = 0.79;
+    this.sideLeft.spriteOn.scale.y = this.sideLeft.spriteOff.scale.y = this.sideRight.spriteOn.scale.y = this.sideRight.spriteOff.scale.y = this.sideCenter.spriteOn.scale.y = this.sideCenter.spriteOff.scale.y = 0.79;
+  } else {
+    // this.sideLeft.spriteOn.width = this.sideLeft.spriteOff.width = this.sideRight.spriteOn.width = this.sideRight.spriteOff.width = 168 * 0.79;
+    // this.sideLeft.spriteOn.height = this.sideLeft.spriteOff.height = this.sideRight.spriteOn.height = this.sideRight.spriteOff.height = 50 * 0.79;
+    this.sideLeft.spriteOn.scale.x = this.sideLeft.spriteOff.scale.x = this.sideRight.spriteOn.scale.x = this.sideRight.spriteOff.scale.x = 0.79;
+    this.sideLeft.spriteOn.scale.y = this.sideLeft.spriteOff.scale.y = this.sideRight.spriteOn.scale.y = this.sideRight.spriteOff.scale.y = 0.79;
+  }
+
+  this.switchingState = 'none';
+  this.soundClick = NORD.game.soundClickSimple();
+
+  var setSideInteractive = function setSideInteractive(side) {
+    // const { spriteOn, spriteOff } = side;
+    var spriteOn = side.spriteOn;
+    var spriteOff = side.spriteOff;
+    side.clickState = 'off';
+    spriteOn.interactive = true;
+    spriteOn.buttonMode = true;
+    spriteOff.interactive = true;
+    spriteOff.buttonMode = true;
+    spriteOn.on('pointerdown', function() {
+      if (side.clickState != 'off') return;
+
+      _this2.setSelected(side.name); // side.clickState = 'on';
+      // NORD.GUI.Button.tweenClickSimple({ target: spriteOn, time: 0.07, scaleNormal: 0.79, scale:  0.79 * 0.95, completeCallback: () => { side.clickState = 'off'; } });
+      // this.soundClick.play();
+
+    }, _this2);
+    spriteOff.on('pointerdown', function() {
+      if (side.clickState != 'off') return;
+
+      _this2.setSelected(side.name); // side.clickState = 'on';
+      // NORD.GUI.Button.tweenClickSimple({ target: spriteOff, time: 0.07, scaleNormal: 0.79, scale:  0.79 * 0.95, completeCallback: () => { side.clickState = 'off'; } });
+      // this.soundClick.play();
+
+    }, _this2);
+  }; // function tweenT = (target) => {
+  //   NORD.app.tweenClickSimple({ target });
+  // }
+
+
+  setSideInteractive(this.sideLeft);
+  setSideInteractive(this.sideRight);
+  if (this.isCenter) setSideInteractive(this.sideCenter); // this.spriteBg = Util.createSprite({ atlas: 'texture_atlas', texture: 'Controls/Slider/bg.png', parent: this, aX: 0.5, aY: 0.5 });
+  // this.spriteBg.rotation = this.orientation === 'vertical'?0:Math.PI/2;
+  //
+  // this.spriteSlider = Util.createSprite({ atlas: 'texture_atlas', texture: 'Controls/Slider/thumb.png', parent: this, aX: 0.5, aY: 0.5 });
+  // this.spriteSlider.interactive = true;
+  //
+  // this.spriteSlider.on('click', this.onClickListener, this);
+  // this.spriteSlider.on('tap', this.onClickListener, this);
+  // this.spriteSlider.on('pointerdown', this.onMouseDownListener, this);
+  // this.spriteSlider.on('pointerup', this.onMouseUpListener, this);
+  // this.spriteSlider.on('pointerupoutside', this.onMouseUpListener, this);
+  // // this.spriteSlider.on('touchdown', this.onMouseDownListener, this);
+  // this.spriteSlider.on('mouseover', this.onMouseOverListener, this);
+  // this.spriteSlider.on('mouseout', this.onMouseOutListener, this);
+  //
+  // this.state = new Util.StateStore();
+  // this.state.on('state_change', this.onStateChange, this);
+  // this.state.setState({ phase: 'wait' });
+  // this.state.setState({ value: 0.0 });
+  // this.state.setState({ progress: 0.0 });
+
+  this.setSide(switcherConfig.selected); // NORD.app.on('update', this.update, this);
+};
+
+NORD.MenuSwitcher.prototype = Object.create(NORD.GUI.BasePanel.prototype);
+NORD.MenuSwitcher.prototype.constructor = NORD.MenuSwitcher;
+
+NORD.MenuSwitcher.prototype.setSelected = function(side) {
+  var _this3 = this;
+
+  if (this.selected == side || this.switchingState !== 'none') return;
+  this.tween({
+    name: 'switch',
+    side: side
+  }, function() {
+    _this3.setSide(side);
+  });
+  this.emit('switch_start', side);
+};
+
+NORD.MenuSwitcher.prototype.setSide = function(side) {
+  var _this4 = this;
+
+  this.selected = side; // const onSide = this.sides[side];
+  // const offSide = this.sides[(side == 'left'?'right':'left')];
+  //
+  // onSide.spriteOff.visible = false;
+  // onSide.spriteOn.visible = true;
+  // onSide.spriteOn.aplha = 1.0;
+  //
+  // offSide.spriteOn.visible = false;
+  // offSide.spriteOff.visible = true;
+  // offSide.spriteOff.aplha = 1.0;
+
+  var offSides = [];
+  Object.keys(this.sides).forEach(function(s) {
+    var object = _this4.sides[s];
+    if (!object) return;
+
+    if (s == side) {
+      object.spriteOff.visible = false;
+      object.spriteOn.visible = true;
+      object.spriteOn.aplha = 1.0;
+    } else {
+      object.spriteOn.visible = false;
+      object.spriteOff.visible = true;
+      object.spriteOff.aplha = 1.0;
+    }
+  });
+  this.emit('side_change', side);
+};
+
+NORD.MenuSwitcher.prototype.tween = function(data, callback) {
+  var _this5 = this;
+
+  if (data.name == 'switch') {
+    var side = data.side;
+    this.switchingState = 'switching_' + side; // const onSide = this.sides[side];
+    // const offSide = this.sides[(side == 'left'?'right':'left')];
+    // onSide.spriteOn.visible = true;
+    // offSide.spriteOff.visible = true;
+
+    var offSides = [];
+    Object.keys(this.sides).forEach(function(s) {
+      var object = _this5.sides[s];
+      if (!object) return;
+
+      if (s == side) {
+        object.spriteOn.visible = true;
+        TweenMax.to(object.spriteOn, 12 / 30, {
+          alpha: 1.0,
+          ease: Power2.easeOut,
+          onComplete: function onComplete() {
+            _this5.switchingState = 'none';
+            if (callback) callback();
+          }
+        });
+        ttt(object.spriteOn);
+        ttt(object.spriteOff);
+
+        _this5.soundClick.play();
+      } else {
+        object.spriteOff.visible = true;
+        TweenMax.to(object.spriteOn, 12 / 30, {
+          alpha: 0.0,
+          ease: Power2.easeOut,
+          onComplete: function onComplete() {}
+        });
+      }
+    });
+
+    function ttt(target) {
+      target.scale.x = target.scale.y = 0.79;
+      TweenMax.to(target.scale, 0.07, {
+        x: 0.79 * 0.95,
+        y: 0.79 * 0.95,
+        ease: Power2.easeOut,
+        onComplete: function onComplete() {
+          TweenMax.to(target.scale, 0.07, {
+            x: 0.79,
+            y: 0.79,
+            ease: Power2.easeOut,
+            onComplete: function onComplete() {}
+          });
+        }
+      });
+    }
+  }
+}; // ======================================================================================================================================== //
+// ======================================================================================================================================== //
+// ======================================================================================================================================== //
+
+
+NORD.BoardsCarousel = function(config, carouselConfig) {
+  var _this6 = this;
+
+  NORD.GUI.BasePanel.call(this, config);
+  this.positionsMap = {
+    '-2': {
+      x: -102,
+      y: 0,
+      scale: 0.6,
+      alpha: 0.0
+    },
+    '-1': {
+      x: -74,
+      y: 0,
+      scale: 0.85,
+      alpha: 1.0
+    },
+    '0': {
+      x: 0,
+      y: 0,
+      scale: 0.86,
+      alpha: 1.0
+    },
+    '1': {
+      x: 74,
+      y: 0,
+      scale: 0.85,
+      alpha: 1.0
+    },
+    '2': {
+      x: 102,
+      y: 0,
+      scale: 0.6,
+      alpha: 0.0
+    },
+    'hide': {
+      x: 0,
+      y: 0,
+      scale: 1.0,
+      alpha: 0.0,
+      visible: false
+    }
+  };
+  this.centerIndex = 1;
+  this.board = null;
+  this.boards = [];
+  carouselConfig.boards.forEach(function(boardData) {
+    var boardName = boardData.name;
+    var container = new PIXI.Container();
+
+    _this6.addChild(container);
+
+    var spriteOff = Util.createSprite({
+      parent: container,
+      atlas: 'texture_atlas',
+      texture: boardName + '_off.png',
+      aX: 0.5,
+      aY: 0.5
+    });
+    var spriteOn = Util.createSprite({
+      parent: container,
+      atlas: 'texture_atlas',
+      texture: boardName + '_on.png',
+      aX: 0.5,
+      aY: 0.5
+    });
+    spriteOn.alpha = 0; // container.visible = false;
+
+    var board = {
+      container: container,
+      name: boardName,
+      spriteOff: spriteOff,
+      spriteOn: spriteOn
+    };
+    container.interactive = true;
+    container.buttonMode = true;
+    container.on('pointerdown', function() {
+      _this6.switchBoard(board.name);
+    }, _this6);
+
+    board.setToPosition = function(position) {
+      board.container.alpha = position.alpha;
+      board.container.x = position.x;
+      board.container.y = position.y;
+      board.container.scale.x = board.container.scale.y = position.scale;
+      if (position.visible !== undefined) board.container.visible = position.visible;
+      else board.container.visible = true;
+    };
+
+    board.tweenToPosition = function(position, callback) {
+      TweenMax.to(board.container.scale, 10 / 30, {
+        x: position.scale,
+        y: position.scale,
+        ease: Power2.easeOut
+      });
+      TweenMax.to(board.container, 10 / 30, {
+        x: position.x,
+        y: position.y,
+        alpha: position.alpha,
+        ease: Power2.easeOut,
+        onComplete: callback
+      });
+    };
+
+    _this6.boards.push(board);
+  });
+  this.boards.forEach(function(board, i) {
+    var prevN = i - 1;
+    if (_this6.boards.length > 3 && prevN < 0) prevN = _this6.boards.length - 1;
+    var nextN = i + 1;
+    if (_this6.boards.length > 3 && nextN > _this6.boards.length - 1) nextN = 0;
+    board.prev = _this6.boards[prevN] || null;
+    board.next = _this6.boards[nextN] || null;
+  });
+  this.state = 'normal'; // console.log('Boards:', this.boards);
+
+  this.setBoard(carouselConfig.selected);
+};
+
+NORD.BoardsCarousel.prototype = Object.create(NORD.GUI.BasePanel.prototype);
+NORD.BoardsCarousel.prototype.constructor = NORD.BoardsCarousel;
+
+NORD.BoardsCarousel.prototype.switchBoard = function(name) {
+  var _this7 = this;
+
+  if (this.board.name == name || this.state !== 'normal') return;
+  var board = this.boards.find(function(b) {
+    return b.name === name;
+  }); // const shiftIndex = this.centerIndex - this.boards.indexOf(board);
+
+  var turnSide = board.next == this.board ? 'right' : 'left';
+  var positionPrev = this.positionsMap['-1'];
+  var positionPrev2 = this.positionsMap['-2'];
+  var positionNext = this.positionsMap['1'];
+  var positionNext2 = this.positionsMap['2'];
+  var position = this.positionsMap['0'];
+
+  if (turnSide == 'right') {
+    this.state = 'turning_' + turnSide;
+    this.board.tweenToPosition(positionNext);
+    TweenMax.to(this.board.spriteOn, 10 / 30, {
+      alpha: 0,
+      ease: Power2.easeOut
+    });
+    if (this.board.next) this.board.next.tweenToPosition(positionNext2);
+
+    if (this.board.prev) {
+      this.board.prev.tweenToPosition(position, function() {
+        _this7.state = 'normal';
+
+        _this7.setBoard(_this7.board.prev.name);
+      });
+      TweenMax.to(this.board.prev.spriteOn, 10 / 30, {
+        alpha: 1,
+        ease: Power2.easeOut
+      });
+
+      if (this.board.prev.prev) {
+        this.board.prev.prev.setToPosition(positionPrev2);
+        this.board.prev.prev.tweenToPosition(positionPrev);
+      }
+    }
+  } else if (turnSide == 'left') {
+    this.state = 'turning_' + turnSide;
+    this.board.tweenToPosition(positionPrev);
+    TweenMax.to(this.board.spriteOn, 10 / 30, {
+      alpha: 0,
+      ease: Power2.easeOut
+    });
+    if (this.board.prev) this.board.prev.tweenToPosition(positionPrev2);
+
+    if (this.board.next) {
+      this.board.next.tweenToPosition(position, function() {
+        _this7.state = 'normal';
+
+        _this7.setBoard(_this7.board.next.name);
+      });
+      TweenMax.to(this.board.next.spriteOn, 10 / 30, {
+        alpha: 1,
+        ease: Power2.easeOut
+      });
+
+      if (this.board.next.next) {
+        this.board.next.next.setToPosition(positionNext2);
+        this.board.next.next.tweenToPosition(positionNext);
+      }
+    }
+  } // console.log('Switch board:', turnSide);
+
+};
+
+NORD.BoardsCarousel.prototype.setBoard = function(name) {
+  var _this8 = this;
+
+  var board = this.boards.find(function(b) {
+    return b.name === name;
+  });
+  if (!board) return;
+  var boardPrev = board.prev;
+  var boardNext = board.next;
+  var positionPrev = this.positionsMap['-1'];
+  var positionNext = this.positionsMap['1'];
+  var position = this.positionsMap['0'];
+  if (boardPrev) boardPrev.setToPosition(positionPrev);
+  if (boardNext) boardNext.setToPosition(positionNext);
+  board.setToPosition(position);
+  board.spriteOn.alpha = 1.0;
+  this.boards.forEach(function(b) {
+    if (b == board) return;
+    b.spriteOn.alpha = 0;
+    if (b == boardPrev || b == boardNext) return;
+    b.setToPosition(_this8.positionsMap['hide']);
+  });
+  this.board = board; // console.log('Set board:', board);
+
+  this.emit('board_change', board.name);
+};
+
+NORD.BoardsCarousel.prototype.tween = function(data, callback) {
+  if (data.name == 'switch') {}
+};
+
+var drawBezier = function drawBezier(graphics, curve) {
+  // console.log('Draw bezier:', curve);
+  var LUT = curve.getLUT(16);
+  graphics.lineStyle(1.0, 0xFFFFFF);
+  graphics.moveTo(LUT[0].x, LUT[0].y);
+  LUT.forEach(function(point, i) {
+    if (i == 0) return;
+    graphics.lineTo(point.x, point.y); // console.log('P:', point);
+    // drawPoint(point.x, point.y);
+  });
+  graphics.lineTo(LUT[0].x, LUT[0].y);
+
+  function drawPoint(x, y) {
+    graphics.drawCircle(x, y, 5);
+  }
+};
+
+var DragablePoint = function DragablePoint(color, radius, checkPosition) {
+  PIXI.Graphics.call(this);
+  this.checkPosition = checkPosition;
+  this.color = color;
+  this.radius = radius;
+  this.lineStyle(0.0, this.color);
+  this.beginFill(this.color, 1);
+  this.drawCircle(0, 0, this.radius);
+  this.interactive = true;
+  this.on('pointerdown', this.onDragStart, this);
+  this.on('pointerup', this.onDragEnd, this);
+  this.on('pointerupoutside', this.onDragEnd, this);
+  this.isDrag = false;
+  NORD.app.on('update', this.update, this);
+};
+
+DragablePoint.prototype = Object.create(PIXI.Graphics.prototype);
+DragablePoint.prototype.constructor = DragablePoint;
+
+DragablePoint.prototype.onDragStart = function(e) {
+  if (this.isDrag) return;
+  this.isDrag = true;
+};
+
+DragablePoint.prototype.onDragEnd = function(e) {
+  if (!this.isDrag) return;
+  this.isDrag = false;
+};
+
+DragablePoint.prototype.update = function() {
+  if (!this.isDrag) return;
+  var p = this.parent.toLocal(NORD.app.mouseGlobal);
+  p = this.checkPosition(p);
+  this.x = p.x;
+  this.y = p.y;
+  this.emit('change', {
+    x: this.x,
+    y: this.y
+  });
+};
+
+var PaddleView2 = function PaddleView2() {
+  var _this9 = this;
+
+  var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0xFFFFFF;
+  var isEditable = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  PIXI.Container.call(this);
+  this.isEditable = isEditable;
+
+  var createDragablePoint = function createDragablePoint(name, color, radius, ddd) {
+    var dragablePoint = new DragablePoint(color, radius, ddd ? ddd : function(p) {
+      if (p.x > 0) p.x = 0; // if(p.y > 0) p.y = 0;
+
+      return p;
+    });
+
+    _this9.addChild(dragablePoint); // this.dragablePoint1.x = this.pointStart.x + this.controlPoint.x;
+    // this.dragablePoint1.y = this.pointStart.y + this.controlPoint.y;
+
+
+    var controlPoint = _this9.controlPoints[name]; // dragablePoint.x = controlPoint.x;
+    // dragablePoint.y = controlPoint.y;
+    // this.controlPoints[name] = { x, y };
+
+    dragablePoint.on('change', function(data) {
+      data.x -= _this9.pointStart.x;
+      data.y -= _this9.pointStart.y;
+      _this9.controlPoints[name] = data;
+
+      _this9.updatePaddle(); // const p = { x: data.x - this.pointStart.x, y: data.y - this.pointStart.y }
+      // const p = data
+      // this.updateShape(p);
+      // this.emit('shape_change', { size: this.size, controlPoint: this.controlPoint });
+
+    }, _this9);
+    return dragablePoint;
+  };
+
+  this.color = color;
+  this.graphics = new PIXI.Graphics();
+  this.addChild(this.graphics);
+  this.controlPoints = {
+    point_1: {
+      x: 0,
+      y: 0
+    },
+    point_2: {
+      x: -15,
+      y: 0
+    },
+    point_3: {
+      x: -15,
+      y: 5
+    },
+    point_4: {
+      x: 0,
+      y: 5
+    }
+  };
+  this.dragablePoints = {}; // this.updatePaddle();
+
+  if (isEditable) {
+    // createDragablePoint('point_1', 0xBDFF00, 3, (p) =>
+    // {
+    //   if(p.y !== 0) p.y = 0;
+    //
+    //   return p;
+    // });
+    this.dragablePoints['point_2'] = createDragablePoint('point_2', 0xFF7000, 3);
+    this.dragablePoints['point_3'] = createDragablePoint('point_3', 0xFF7000, 3);
+    this.dragablePoints['point_4'] = createDragablePoint('point_4', 0xBDFF00, 3, function(p) {
+      if (p.x > 0) p.x = 0;
+      if (p.y < 3) p.y = 3;
+      return p;
+    });
+  }
+
+  this.updateSize(20);
+};
+
+PaddleView2.prototype = Object.create(PIXI.Container.prototype);
+PaddleView2.prototype.constructor = PaddleView2;
+
+PaddleView2.prototype.updateSize = function(size) {
+  this.size = size;
+  this.updatePaddle();
+};
+
+PaddleView2.prototype.updateControlPoints = function(controlPoints) {
+  this.controlPoints = controlPoints;
+  this.updatePaddle();
+};
+
+PaddleView2.prototype.updatePaddle = function() {
+  var _this10 = this;
+
+  // this.size = size;
+  this.pointStart = {
+    x: -this.size / 2,
+    y: 0
+  };
+  this.pointEnd = {
+    x: this.size / 2,
+    y: 0
+  }; // console.log('S:', this.pointStart);
+  // const { point_1, point_2, point_3, point_4 } = this.controlPoints;
+
+  var point_1 = this.controlPoints.point_1;
+  var point_2 = this.controlPoints.point_2;
+  var point_3 = this.controlPoints.point_3;
+  var point_4 = this.controlPoints.point_4;
+  this.curveLeft = new Bezier(point_1.x + this.pointStart.x, point_1.y + this.pointStart.y, point_2.x + this.pointStart.x, point_2.y + this.pointStart.y, point_3.x + this.pointStart.x, point_3.y + this.pointStart.y, point_4.x + this.pointStart.x, point_4.y + this.pointStart.y);
+  this.curveRight = new Bezier(-point_4.x + this.pointEnd.x, point_4.y + this.pointEnd.y, -point_3.x + this.pointEnd.x, point_3.y + this.pointEnd.y, -point_2.x + this.pointEnd.x, point_2.y + this.pointEnd.y, -point_1.x + this.pointEnd.x, point_1.y + this.pointEnd.y);
+  this.points = [].concat(_toConsumableArray(this.curveLeft.getLUT(20)), _toConsumableArray(this.curveRight.getLUT(20)));
+  var minX = null;
+  var maxX = null;
+  var minY = null;
+  var maxY = null;
+  this.points.forEach(function(p) {
+    if (minX == null || p.x < minX) minX = p.x;
+    if (maxX == null || p.x > maxX) maxX = p.x;
+    if (minY == null || p.y < minY) minY = p.y;
+    if (maxY == null || p.y > maxY) maxY = p.y;
+  });
+  this.paddleWidth = Math.abs(minX - maxX);
+  this.paddleHeight = Math.abs(minY - maxY);
+  this.graphics.clear();
+  this.drawPaddle(this.graphics, this.color, this.points);
+
+  if (this.isEditable) {
+    this.graphics.lineStyle(0.34, 0xFF7000);
+    this.graphics.moveTo(point_1.x + this.pointStart.x, point_1.y + this.pointStart.y);
+    this.graphics.lineTo(point_2.x + this.pointStart.x, point_2.y + this.pointStart.y);
+    this.graphics.moveTo(point_3.x + this.pointStart.x, point_3.y + this.pointStart.y);
+    this.graphics.lineTo(point_4.x + this.pointStart.x, point_4.y + this.pointStart.y);
+    Object.keys(this.dragablePoints).forEach(function(key) {
+      var dragablePoint = _this10.dragablePoints[key];
+      var point = _this10.controlPoints[key]; // console.log('K:', key, dragablePoint, point)
+
+      dragablePoint.x = point.x + _this10.pointStart.x;
+      dragablePoint.y = point.y + _this10.pointStart.y;
+    });
+  }
+
+  this.emit('change', {
+    size: this.size,
+    controlPoints: this.controlPoints,
+    paddleWidth: this.paddleWidth,
+    paddleHeight: this.paddleHeight
+  });
+};
+
+PaddleView2.prototype.getPoints = function() {
+  var angle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  return this.points.map(function(point) {
+    return Util.rotatePointDeg(point.x, point.y, 0, 0, angle);
+  });
+};
+
+PaddleView2.prototype.drawPaddle = function(graphics, color, vertices) {
+  graphics.beginFill(color, 1);
+  graphics.lineStyle(1, color, 1.0);
+  var startVertice = vertices[0];
+  graphics.moveTo(startVertice.x, startVertice.y);
+
+  for (var i = 1; i < vertices.length; i++) {
+    graphics.lineTo(vertices[i].x, vertices[i].y);
+  }
+
+  graphics.lineTo(startVertice.x, startVertice.y);
+};
+
+NORD.ScreenMainMenu.prototype.createSwitcher = function(x, y, labelName, switcherName, selected, onChange) {
+  // const label = Util.createSprite({ parent: this, x: -112, y: y, atlas: 'texture_atlas', texture: labelName+'.png', aX: 1.0, aY: 0.5 });
+  var config = null;
+
+  if (switcherName == 'dificulty') {
+    config = {
+      selected: selected,
+      left: {
+        spriteOn: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_1_on.png',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_1_off.png',
+          aX: 0.5,
+          aY: 0.5
+        }
+      },
+      center: {
+        spriteOn: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_2_on.png',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_2_off.png',
+          aX: 0.5,
+          aY: 0.5
+        }
+      },
+      right: {
+        spriteOn: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_3_on.png',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_3_off.png',
+          aX: 0.5,
+          aY: 0.5
+        }
+      }
+    };
+  } else {
+    config = {
+      selected: selected,
+      left: {
+        spriteOn: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_1_on.png',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_1_off.png',
+          aX: 0.5,
+          aY: 0.5
+        }
+      },
+      right: {
+        spriteOn: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_2_on.png',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_2_off.png',
+          aX: 0.5,
+          aY: 0.5
+        }
+      }
+    };
+  }
+
+  var switcher = new NORD.MenuSwitcher({
+    parentPanel: this,
+    container: this.containerSwitchers,
+    x: 0,
+    y: y
+  }, config);
+  switcher.on('side_change', function(side) {
+    // console.log('Side change:', side);
+    onChange(side);
+  });
+  return switcher; // switcher.scale.x = switcher.scale.y = Util.randomRange(1.0, 1.1);
+};
+
+//Shunmugam Random Name Popup
+NORD.randomNamePopup = function(config) {
+
+  var l_playerName;
+  var s_namePanel;
+  config.sizeType = 'relative';
+  config.width = 300;
+  config.height = 244;
+  NORD.GUI.BasePanel.call(this, config);
+  var self = this;
+  this.state = 'hide';
+  this.visible = false;
+  this.interactiveChildren = false; // this.alpha = 0;
+  // let Plane9 = new PIXI.NineSlicePlane(PIXI.Texture.from('BoxWithRoundedCorners.png'), 15, 15, 15, 15);
+
+  this.backBG = new PIXI.NineSlicePlane(NORD.assetsManager.getTexture('PopupSmall'), 15, 15, 15, 15);
+  this.backBG.width = 640 + 15;
+  this.backBG.height = 480 + 15;
+  this.backBG.position.x = -(640 + 15) * 0.5;
+  this.backBG.position.y = -(480 + 15) * 0.5;
+  this.addChild(this.backBG);
+
+  // this.bg = new PIXI.Sprite(NORD.assetsManager.getTexture('PopupSmall'));
+  this.bg = new PIXI.NineSlicePlane(NORD.assetsManager.getTexture('PopupSmall'), 15, 15, 15, 15);
+
+  this.bg.width = 300;
+  this.bg.height = 244;
+  this.bg.position.x = -150;
+  this.bg.position.y = -122;
+  // this.bg.anchor.set(0.5);
+  this.addChild(this.bg);
+
+  var textTitle = new PIXI.Text('CHOOSE A NICKNAME', {
+    font: '35px Snippet',
+    fontSize: 17,
+    fill: 'white',
+    align: 'center'
+  });
+  textTitle.anchor.set(0.5);
+  textTitle.position.set(this.bg.width * 0.5, this.bg.height * 0.25);
+  this.bg.addChild(textTitle);
+
+  this.s_namePanel = new PIXI.Sprite(NORD.assetsManager.getTexture('SubPanel01'));
+  this.s_namePanel.width = 150;
+  this.s_namePanel.height = 40;
+  this.s_namePanel.anchor.set(0.5);
+  this.s_namePanel.position.set(-24, -12);
+  this.addChild(this.s_namePanel);
+
+  this.refreshNameButton = Util.createButton('btn', this, null, '', 78, -12, 40, 40, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('RefreshIcon'), {
+    texture: 'RefreshIcon',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 1,
+    scaleY: 1
+  });
+  this.refreshNameButton.position.set(80, -12);
+  this.refreshNameButton.soundClick = NORD.assetsManager.getAsset('play_button')
+  this.refreshNameButton.addListener('button_click', function(data) {
+    var _this5 = this;
+    this.updateRandomName();
+
+  }, this);
+
+  this.l_playerName = new PIXI.Text('Random', {
+    font: '35px Snippet',
+    fontSize: 17,
+    fill: 'white',
+    align: 'center'
+  });
+  this.l_playerName.anchor.set(0.5);
+  this.l_playerName.position.set(0, 0);
+  this.s_namePanel.addChild(this.l_playerName);
+
+  this.closeButton = Util.createButton('btn', this, null, '', 169, -141, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseBtn'), {
+    texture: 'CloseBtn',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 1,
+    scaleY: 1
+  });
+  this.closeButton.soundClick = NORD.assetsManager.getAsset('play_button')
+  this.closeButton.addListener('button_click', function(data) {
+    var _this5 = this;
+    MainMenuLocation.enableAllButtons();
+    if (this.state !== 'show') return;
+    TweenMax.delayedCall(0.07 * 2, function() {
+      _this5.hide("", function() {
+        NORD.mainMenu.randomNamePopup.hide();
+      });
+    });
+
+  }, this);
+
+  this.okButton = Util.createButton('btn', this, null, '', 0, 53, 100, 40, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CommonBtn'), {
+    texture: 'CommonBtn',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 1,
+    scaleY: 1
+  });
+  this.okButton.soundClick = NORD.assetsManager.getAsset('play_button')
+  this.okButton.addListener('button_click', function(data) {
+    var _this5 = this;
+    MainMenuLocation.enableAllButtons();
+    if (this.state !== 'show') return;
+    TweenMax.delayedCall(0.07 * 2, function() {
+
+      NORD.App.playerController.config.playerAdjectiveId = NORD.App.playerController.randomAdjectiveNumber;
+      NORD.App.playerController.config.playerNounId = NORD.App.playerController.randomNounNumber;
+
+      NORD.App.playerController.saveConfig();
+
+      _this5.hide("", function() {
+        if (PP.server_using == PP.SERVER_USING.Photon) {
+          NORD.mainMenu.multiplayerSelectionPopup.show();
+          NORD.mainMenu.multiplayerSelectionPopup.startPhotonSerer();
+        } else {
+          NORD.mainMenu.multiplayerSelectionPopup.loginToSmartBox();
+        }
+      });
+    });
+    // DemoLoadFunction.createRoom(name, k);
+  }, this);
+
+  var textSample = new PIXI.Text('OK', {
+    font: '35px Snippet',
+    fontSize: 17,
+    fill: 'white',
+    align: 'center'
+  });
+  textSample.anchor.set(0.5);
+  textSample.position.set(-0, -0);
+  this.okButton.addChild(textSample);
+};
+
+NORD.randomNamePopup.prototype = Object.create(NORD.GUI.BasePanel.prototype);
+NORD.randomNamePopup.prototype.constructor = NORD.randomNamePopup;
+
+NORD.randomNamePopup.prototype.show = function(data) {
+  this.tween({
+    name: 'show_anim'
+  });
+};
+
+NORD.randomNamePopup.prototype.hide = function(data, callback) {
+  this.tween({
+    name: 'hide_anim'
+  }, function() {
+    if (callback) callback();
+  });
+};
+
+NORD.randomNamePopup.prototype.tween = function(data, callback) {
+  var self = this;
+  if (data.name == 'show_anim' && this.state == 'hide') {
+    this.state = 'show_anim';
+    this.visible = true;
+    this.alpha = 0;
+    this.y = -30;
+    var time = 6 / 30;
+    TweenMax.to(this, time, {
+      alpha: 1,
+      x: 0,
+      y: 0,
+      ease: Power2.easeOut,
+      onComplete: function onComplete() {
+        self.tween({
+          name: 'show'
+        }, callback);
+      }
+    }); // this.tween({ name: 'show' }, callback);
+  }
+
+  if (data.name == 'hide_anim' && this.state == 'show') {
+    this.state = 'hide_anim';
+    this.interactiveChildren = false;
+    TweenMax.to(NORD.game.screenGame.buttonPause.regularSkin, 6 / 30, {
+      alpha: 1,
+      ease: Power2.easeOut
+    });
+    var time = 6 / 30;
+    TweenMax.to(this, time, {
+      alpha: 0,
+      x: 0,
+      y: -30,
+      ease: Power2.easeOut,
+      onComplete: function onComplete() {
+        self.tween({
+          name: 'hide'
+        }, callback);
+      }
+    }); // this.tween({ name: 'hide' }, callback);
+  }
+
+  if (data.name == 'show' && this.state != 'show') {
+    this.state = 'show';
+    this.visible = true;
+    this.interactiveChildren = true;
+    this.alpha = 1.0;
+    if (callback) callback();
+  }
+
+  if (data.name == 'hide') {
+    this.state = 'hide';
+    this.visible = false;
+    this.interactiveChildren = false;
+    if (callback) callback();
+  }
+};
+
+NORD.randomNamePopup.prototype.updateName = function() {
+  // this.l_playerName.scale = 1;
+  this.l_playerName.text = NORD.App.playerController.getName();
+  this.updateNameSize();
+};
+
+NORD.randomNamePopup.prototype.updateNameSize = function() {
+  if (this.l_playerName.width > this.s_namePanel.width) {
+    var toScale = this.s_namePanel.width / this.l_playerName.width;
+    this.l_playerName.scale.x = toScale;
+    this.l_playerName.scale.y = toScale;
+  }
+}
+
+NORD.randomNamePopup.prototype.updateRandomName = function() {
+  // this.l_playerName.scale = 1;
+  this.l_playerName.text = NORD.App.playerController.getRandomName();
+  this.updateNameSize();
+};
+//Shunmugam Random Name Popup End
