@@ -50,22 +50,32 @@ function _arrayWithoutHoles(arr) {
 
 NORD.ScreenMainMenu = function (config) {
   var _this = this;
-  NORD.mainMenu = this;
   var isAllButtonEnabled;
   this.isAllButtonEnabled = true;
-  config.sizeType = 'relative';
-  config.widthRelative = 1;
-  config.heightRelative = 1;
-  NORD.GUI.BasePanel.call(this, config);
   var self = this;
+
   MainMenuLocation = this;
   this.state = 'hide';
   this.visible = false;
   this.interactiveChildren = false;
+
+  config.sizeType = 'relative';
+  config.widthRelative = 1;
+  config.heightRelative = 1;
+  NORD.GUI.BasePanel.call(this, config);
+  NORD.mainMenu = this;
+
+  var startY = -50;
+  var gConfig = NORD.game.config;
+
+  this.boardSelected = 'board_2';
+  this.ballDiamondGeneratedPos = 0;
+
+  /****************************************************************************************Game Logo**************************************************************************/
   var logo = Util.createSprite({
     parent: this,
     x: 0,
-    y: -150,
+    y: 150,
     atlas: 'texture_atlas',
     texture: 'logo.png',
     aX: 0.5,
@@ -75,19 +85,143 @@ NORD.ScreenMainMenu = function (config) {
   });
   this.containerSwitchers = new PIXI.Container();
   this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
+  alignItems([logo, this.containerSwitchers], 920);
 
-  // //sushant
-  // var dividerLine = Util.createSprite({
-  //   parent: this,
-  //   x: 160,
-  //   y: 20,
-  //   texture: 'DividerLine',
-  //   aX: 0.5,
-  //   aY: 0.5,
-  //   scaleX: 0.666,
-  //   scaleY: 0.666
-  // });
-  // //sushant
+  /****************************************************************************************Single Player**************************************************************************/
+  var singlePlayerButton = Util.createButton('btn', this, null, '', -150, 20, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('OnlineMultiPlayerBtn'), {
+    texture: 'OnlineMultiPlayerBtn',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.8,
+    scaleY: 0.8
+  });
+  singlePlayerButton.soundClick = NORD.assetsManager.getAsset('play_button')
+  singlePlayerButton.addListener('button_click', function (data) {
+
+    var config = NORD.game.config;
+    config.players = "one";
+    NORD.game.setConfig(config); // console.log('SSS:', config)
+
+  MultiplayerStarted = false;
+    // if(!(this.switcherPlayers.switchingState == 'none' && this.switcherDificulty.switchingState == 'none' && this.switcherMode.switchingState == 'none')) return;
+    // if (!(_this.switcherPlayers.switchingState == 'none' /*&& _this.switcherMode.switchingState == 'none'*/)) return; // console.log('Click!');
+
+    if (NORD.game.config.mode == 'action') {
+      if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.DIAMOND_MODE)
+        _this.boardSelected = 'board_3';
+      if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.PARALLEL_MODE)
+        _this.boardSelected = 'board_1';
+    }
+
+    TweenMax.delayedCall(0.07 * 2, function () {
+      if (NORD.game.config.mode !== 'action') self.toGame('board_2');
+      else self.toGame(_this.boardSelected);
+    });
+
+  }, this);
+
+  /****************************************************************************************Local MultiPlayer**************************************************************************/
+  var dividerLine = Util.createSprite({
+    parent: this,
+    x: -75,
+    y: 20,
+    texture: 'DividerLine',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.666,
+    scaleY: 0.666
+  });
+
+  var localMultiPlayerButton = Util.createButton('btn', this, null, '', 0, 20, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('OnlineMultiPlayerBtn'), {
+    texture: 'OnlineMultiPlayerBtn',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.8,
+    scaleY: 0.8
+  });
+  localMultiPlayerButton.soundClick = NORD.assetsManager.getAsset('play_button')
+  localMultiPlayerButton.addListener('button_click', function (data) {
+
+    var config = NORD.game.config;
+    config.players = "two";
+    NORD.game.setConfig(config); // console.log('SSS:', config)
+
+    MultiplayerStarted = false;
+    // if(!(this.switcherPlayers.switchingState == 'none' && this.switcherDificulty.switchingState == 'none' && this.switcherMode.switchingState == 'none')) return;
+    // if (!(_this.switcherPlayers.switchingState == 'none' /*&& _this.switcherMode.switchingState == 'none'*/)) return; // console.log('Click!');
+
+    if (NORD.game.config.mode == 'action') {
+      if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.DIAMOND_MODE)
+        _this.boardSelected = 'board_3';
+      if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.PARALLEL_MODE)
+        _this.boardSelected = 'board_1';
+    }
+
+    TweenMax.delayedCall(0.07 * 2, function () {
+      if (NORD.game.config.mode !== 'action') self.toGame('board_2');
+      else self.toGame(_this.boardSelected);
+    });
+  }, this);
+
+  /****************************************************************************************Online MultiPlayer**************************************************************************/
+  var dividerLine = Util.createSprite({
+    parent: this,
+    x: 75,
+    y: 20,
+    texture: 'DividerLine',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.666,
+    scaleY: 0.666
+  });
+
+  var onlineMultiPlayerButton = Util.createButton('btn', this, null, '', 150, 20, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('OnlineMultiPlayerBtn'), {
+    texture: 'OnlineMultiPlayerBtn',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.8,
+    scaleY: 0.8
+  });
+  onlineMultiPlayerButton.soundClick = NORD.assetsManager.getAsset('play_button')
+  onlineMultiPlayerButton.addListener('button_click', function (data) {
+
+
+    // if (NORD.mainMenu.isAllButtonEnabled == true) {
+    //   var _this2 = this;
+    //   NORD.mainMenu.isAllButtonEnabled = true;
+    //   NORD.gameState =  NORD.GAME_STATE.SERARCHING;
+    //   NORD.sfsController.loginTo();
+    // }
+    if (NORD.mainMenu.isAllButtonEnabled == true) {
+
+      NORD.MultiplayerPopupSowed = true;
+      var _this2 = this;
+
+      NORD.gameState = NORD.GAME_STATE.SERARCHING;
+
+      this.disableAllButtons();
+      TweenMax.delayedCall(0.07 * 2, function () {
+
+        var currentTime = Date.now();
+
+        if (NORD.App.playerController.config.playerAdjectiveId == -1) {
+          NORD.App.playerController.getRandomName();
+          _this2.randomNamePopup.updateName();
+          _this2.randomNamePopup.show();
+        } else {
+          if (PP.server_using == PP.SERVER_USING.Photon) {
+            _this2.multiplayerSelectionPopup.show();
+            _this2.multiplayerSelectionPopup.startPhotonSerer();
+          } else {
+            _this2.multiplayerSelectionPopup.loginToSmartBox();
+          }
+        }
+        // _this2.multilayerPanel.show();
+      });
+    }
+
+  }, this);
+
 
   // this.labelBoards = Util.createSprite({
   //   parent: this.containerSwitchers,
@@ -99,19 +233,18 @@ NORD.ScreenMainMenu = function (config) {
   //   aY: 0.5,
   //   scaleXY: 0.666
   // });
-  var startY = -50;
-  var gConfig = NORD.game.config;
-  debugger;
-  this.switcherPlayers = this.createSwitcher(0, startY + 0, 'label_players', 'players', gConfig.players == 'one' ? 'left' : 'right', function (side) {
-    var dataMap = {
-      left: 'one',
-      center: 'two',
-      right: 'three'
-    };
-    var config = NORD.game.config;
-    config.players = dataMap[side];
-    NORD.game.setConfig(config); // console.log('SSS:', config)
-  });
+
+
+  // this.switcherPlayers = this.createSwitcher(0, startY + 0, 'label_players', 'players', gConfig.players == 'one' ? 'left' : 'right', function (side) {
+  //   var dataMap = {
+  //     left: 'one',
+  //     center: 'two',
+  //     right: 'three'
+  //   };
+  //   var config = NORD.game.config;
+  //   config.players = dataMap[side];
+  //   NORD.game.setConfig(config); // console.log('SSS:', config)
+  // });
 
   // var ddd = '';
   // if (gConfig.dificulty == 'easy') ddd = 'left';
@@ -161,122 +294,73 @@ NORD.ScreenMainMenu = function (config) {
   // });
 
   // d1.scale = d2.scale = d3.scale = new PIXI.Point(0.79, 0.79);
-  darkDificulty.y =  darkDificulty.y = 200; //this.switcherDificulty.y; //
+  darkDificulty.y = darkDificulty.y = 200; //this.switcherDificulty.y; //
   darkDificulty.visible = false;
   this.darkDificulty = darkDificulty;
 
-  this.switcherMode = this.createSwitcher(0, startY + 125, 'label_mode', 'mode', gConfig.mode == 'classic' ? 'left' : 'right', function (side) {
-    var dataMap = {
-      left: 'classic',
-      right: 'action'
-    };
-    var config = NORD.game.config;
-    config.mode = dataMap[side];
-    NORD.game.setConfig(config);
-  });
+  // this.switcherMode = this.createSwitcher(0, startY + 125, 'label_mode', 'mode', gConfig.mode == 'classic' ? 'left' : 'right', function (side) {
+  //   var dataMap = {
+  //     left: 'classic',
+  //     right: 'action'
+  //   };
+  //   var config = NORD.game.config;
+  //   config.mode = dataMap[side];
+  //   NORD.game.setConfig(config);
+  // });
 
-  this.switcherMode.on('switch_start', function (side) {
-    if (side === 'right' && _this.actionHint.visible) {
-      _this.clearPulse(); // console.log('CLEAR:', this.switcherMode.containerRight.alpha);
+  // this.switcherMode.on('switch_start', function (side) {
+  //   if (side === 'right' && _this.actionHint.visible) {
+  //     _this.clearPulse(); // console.log('CLEAR:', this.switcherMode.containerRight.alpha);
 
-    } else if (side === 'left' && _this.actionHintShows % 2 == 0 && !NORD.game.config.isActionPlayed) {
-      // console.log('PLAY:', this.switcherMode.containerRight.alpha);
-      _this.clearPulse();
+  //   } else if (side === 'left' && _this.actionHintShows % 2 == 0 && !NORD.game.config.isActionPlayed) {
+  //     // console.log('PLAY:', this.switcherMode.containerRight.alpha);
+  //     _this.clearPulse();
 
-      _this.tweenPulse();
-    }
-  });
+  //     _this.tweenPulse();
+  //   }
+  // });
 
-  this.switcherPlayers.on('switch_start', function (side) {
-    // if (side === 'right') {
-    //   _this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
+  // this.switcherPlayers.on('switch_start', function (side) {
+  // if (side === 'right') {
+  //   _this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
 
-      // _this.switcherDificulty.interactive = false;
-      // _this.switcherDificulty.interactiveChildren = false;
-    // } else {
-    //   _this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
+  // _this.switcherDificulty.interactive = false;
+  // _this.switcherDificulty.interactiveChildren = false;
+  // } else {
+  //   _this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
 
-      // _this.switcherDificulty.interactive = true;
-      // _this.switcherDificulty.interactiveChildren = true;
-    // }
-  });
-
-  this.boardSelected = 'board_2';
-  this.ballDiamondGeneratedPos = 0;
-
-  var btn = Util.createButton('btn', this, null, '', 0, 160, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
-    atlas: 'texture_atlas',
-    texture: 'button_play.png',
-    aX: 0.5,
-    aY: 0.5,
-    scaleX: 0.5,
-    scaleY: 0.5
-  });
-  btn.addListener('button_click', function (data) {
-    MultiplayerStarted = false;
-    // if(!(this.switcherPlayers.switchingState == 'none' && this.switcherDificulty.switchingState == 'none' && this.switcherMode.switchingState == 'none')) return;
-    if (!(_this.switcherPlayers.switchingState == 'none' && _this.switcherMode.switchingState == 'none')) return; // console.log('Click!');
-
-    if (NORD.game.config.mode == 'action') {
-      if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.DIAMOND_MODE)
-        _this.boardSelected = 'board_3';
-      if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.PARALLEL_MODE)
-        _this.boardSelected = 'board_1';
-    }
-
-    TweenMax.delayedCall(0.07 * 2, function () {
-      if (NORD.game.config.mode !== 'action') self.toGame('board_2');
-      else self.toGame(_this.boardSelected);
-    });
-  }, this);
-  alignItems([logo, this.containerSwitchers, btn], 480);
-
-  var multiplayerButton = Util.createButton('btn', this, null, '', 230, 20, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('OnlineMultiPlayerBtn'), {
-    texture: 'OnlineMultiPlayerBtn',
-    aX: 0.5,
-    aY: 0.5,
-    scaleX: 0.8,
-    scaleY: 0.8
-  });
-  multiplayerButton.soundClick = NORD.assetsManager.getAsset('play_button')
-  multiplayerButton.addListener('button_click', function (data) {
+  // _this.switcherDificulty.interactive = true;
+  // _this.switcherDificulty.interactiveChildren = true;
+  // }
+  // });
 
 
-    // if (NORD.mainMenu.isAllButtonEnabled == true) {
-    //   var _this2 = this;
-    //   NORD.mainMenu.isAllButtonEnabled = true;
-    //   NORD.gameState =  NORD.GAME_STATE.SERARCHING;
-    //   NORD.sfsController.loginTo();
-    // }
-    if (NORD.mainMenu.isAllButtonEnabled == true) {
 
-      NORD.MultiplayerPopupSowed = true;
-      var _this2 = this;
+  // var btn = Util.createButton('btn', this, null, '', 0, 160, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
+  //   atlas: 'texture_atlas',
+  //   texture: 'button_play.png',
+  //   aX: 0.5,
+  //   aY: 0.5,
+  //   scaleX: 0.5,
+  //   scaleY: 0.5
+  // });
+  // btn.addListener('button_click', function (data) {
+  //   MultiplayerStarted = false;
+  //   // if(!(this.switcherPlayers.switchingState == 'none' && this.switcherDificulty.switchingState == 'none' && this.switcherMode.switchingState == 'none')) return;
+  //   // if (!(_this.switcherPlayers.switchingState == 'none' /*&& _this.switcherMode.switchingState == 'none'*/)) return; // console.log('Click!');
 
-      NORD.gameState = NORD.GAME_STATE.SERARCHING;
+  //   if (NORD.game.config.mode == 'action') {
+  //     if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.DIAMOND_MODE)
+  //       _this.boardSelected = 'board_3';
+  //     if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.PARALLEL_MODE)
+  //       _this.boardSelected = 'board_1';
+  //   }
 
-      this.disableAllButtons();
-      TweenMax.delayedCall(0.07 * 2, function () {
-
-        var currentTime = Date.now();
-
-        if (NORD.App.playerController.config.playerAdjectiveId == -1) {
-          NORD.App.playerController.getRandomName();
-          _this2.randomNamePopup.updateName();
-          _this2.randomNamePopup.show();
-        } else {
-          if (PP.server_using == PP.SERVER_USING.Photon) {
-            _this2.multiplayerSelectionPopup.show();
-            _this2.multiplayerSelectionPopup.startPhotonSerer();
-          } else {
-            _this2.multiplayerSelectionPopup.loginToSmartBox();
-          }
-        }
-        // _this2.multilayerPanel.show();
-      });
-    }
-
-  }, this);
+  //   TweenMax.delayedCall(0.07 * 2, function () {
+  //     if (NORD.game.config.mode !== 'action') self.toGame('board_2');
+  //     else self.toGame(_this.boardSelected);
+  //   });
+  // }, this);
 
 
   this.buttonText = new PIXI.Text(NORD.App.playerController.getTierType() + " | Wins: " + NORD.App.playerController.config.playerRankNumber, {
@@ -287,7 +371,7 @@ NORD.ScreenMainMenu = function (config) {
   });
   this.buttonText.anchor.set(0.5);
   this.buttonText.position.set(0, 60);
-  multiplayerButton.addChild(this.buttonText);
+  onlineMultiPlayerButton.addChild(this.buttonText);
 
   //sushant
 
@@ -310,7 +394,7 @@ NORD.ScreenMainMenu = function (config) {
 
   var audioButton = new NORD.GUI.ButtonAudio({
     parentPanel: this,
-    x: -320 + 21 + 10,
+    x: +320 - 21 - 10,
     y: 240 - 21 - 10,
     width: 42,
     height: 42,
@@ -326,6 +410,7 @@ NORD.ScreenMainMenu = function (config) {
       }
     }
   });
+
   this.actionHint = Util.createSprite({
     parent: this,
     x: 195,
@@ -337,14 +422,16 @@ NORD.ScreenMainMenu = function (config) {
     aY: 0.5,
     scaleX: 0.41,
     scaleY: 0.41
-  }); // this.actionBorder = Util.createSprite({ parent: this.switcherMode.containerRight, atlas: 'texture_atlas', texture: 'action_border.png', aX: 0.5, aY: 0.5, scaleXY: 0.79, alpha: 0.0 });
+  }); 
+  
+  // this.actionBorder = Util.createSprite({ parent: this.switcherMode.containerRight, atlas: 'texture_atlas', texture: 'action_border.png', aX: 0.5, aY: 0.5, scaleXY: 0.79, alpha: 0.0 });
   // this.actionBorder.alpha = 0.0;
   // this.actionBorder.width = this.switcherPlayers.sideRight.spriteOn.width;
   // this.actionBorder.height = this.switcherPlayers.sideRight.spriteOn.height;
   // this.actionBorder.height -= 2;
 
   this.actionWhite = Util.createSprite({
-    parent: this.switcherMode.containerRight,
+    parent: this, //.switcherMode.containerRight,
     atlas: 'texture_atlas',
     texture: 'action_white.png',
     aX: 0.5,
@@ -353,7 +440,6 @@ NORD.ScreenMainMenu = function (config) {
     alpha: 0.0
   });
   this.actionWhite.alpha = 0.0; // this.actionHintShows = NORD.game.config.actionHintShows;
-
   this.actionHintShows = 0; // var audioButton = new NORD.GUI.ButtonAudio({ parentPanel: this, x: 200, y: 0, width: 100, height: 100 });
 
 
@@ -390,8 +476,6 @@ NORD.ScreenMainMenu = function (config) {
     });
   }
 
-
-
   if (PP.server_using == PP.SERVER_USING.Photon) {
 
   } else {
@@ -414,14 +498,14 @@ NORD.ScreenMainMenu.prototype.disableAllButtons = function () {
   // this.switcherDificulty.interactiveChildren = false;
 
   //disable switcherPlayers
-  this.switcherPlayers.interactive = false;
-  this.switcherPlayers.interactiveChildren = false;
+  // this.switcherPlayers.interactive = false;
+  // this.switcherPlayers.interactiveChildren = false;
 
   //disable switcherPlayers
-  this.switcherMode.interactive = false;
-  this.switcherMode.interactiveChildren = false;
+  // this.switcherMode.interactive = false;
+  // this.switcherMode.interactiveChildren = false;
 
-  this.switcherPlayers.switchingState = 'none1';
+  // this.switcherPlayers.switchingState = 'none1';
 };
 NORD.ScreenMainMenu.prototype.enableAllButtons = function () {
   this.isAllButtonEnabled = true;
@@ -436,14 +520,14 @@ NORD.ScreenMainMenu.prototype.enableAllButtons = function () {
   }
 
   //disable switcherPlayers
-  this.switcherPlayers.interactive = true;
-  this.switcherPlayers.interactiveChildren = true;
+  // this.switcherPlayers.interactive = true;
+  // this.switcherPlayers.interactiveChildren = true;
 
   //disable switcherPlayers
-  this.switcherMode.interactive = true;
-  this.switcherMode.interactiveChildren = true;
+  // this.switcherMode.interactive = true;
+  // this.switcherMode.interactiveChildren = true;
 
-  this.switcherPlayers.switchingState = 'none';
+  // this.switcherPlayers.switchingState = 'none';
 };
 //sushant
 
@@ -507,8 +591,8 @@ NORD.ScreenMainMenu.prototype.clearPulse = function () {
 
 
   this.actionWhite.alpha = 0.0;
-  this.switcherMode.containerRight.scale.x = this.switcherMode.containerRight.scale.y = 1.0;
-  this.switcherMode.containerRight.alpha = 1.0;
+  // this.switcherMode.containerRight.scale.x = this.switcherMode.containerRight.scale.y = 1.0;
+  // this.switcherMode.containerRight.alpha = 1.0;
 };
 
 NORD.ScreenMainMenu.prototype.tweenPulse = function () {
@@ -891,7 +975,7 @@ NORD.MenuSwitcher.prototype.tween = function (data, callback) {
         TweenMax.to(object.spriteOn, 12 / 30, {
           alpha: 0.0,
           ease: Power2.easeOut,
-          onComplete: function onComplete() { }
+          onComplete: function onComplete() {}
         });
       }
     });
@@ -907,7 +991,7 @@ NORD.MenuSwitcher.prototype.tween = function (data, callback) {
             x: 0.79,
             y: 0.79,
             ease: Power2.easeOut,
-            onComplete: function onComplete() { }
+            onComplete: function onComplete() {}
           });
         }
       });
@@ -1137,7 +1221,7 @@ NORD.BoardsCarousel.prototype.setBoard = function (name) {
 };
 
 NORD.BoardsCarousel.prototype.tween = function (data, callback) {
-  if (data.name == 'switch') { }
+  if (data.name == 'switch') {}
 };
 
 var drawBezier = function drawBezier(graphics, curve) {
@@ -1373,7 +1457,7 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function (x, y, labelName, switch
   // const label = Util.createSprite({ parent: this, x: -112, y: y, atlas: 'texture_atlas', texture: labelName+'.png', aX: 1.0, aY: 0.5 });
   var config = null;
 
-  if (switcherName == 'dificulty' ) {
+  if (switcherName == 'dificulty') {
     config = {
       selected: selected,
       left: {
@@ -1419,8 +1503,7 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function (x, y, labelName, switch
         }
       }
     };
-  }else if(switcherName == 'players')
-  {
+  } else if (switcherName == 'players') {
     config = {
       selected: selected,
       left: {
@@ -1466,9 +1549,7 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function (x, y, labelName, switch
         }
       }
     };
-  }
-  
-  else {
+  } else {
     config = {
       selected: selected,
       left: {
