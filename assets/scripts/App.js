@@ -245,6 +245,9 @@ NORD.initGameDefinitions = function() {
     name: 'PopupSmall',
     url: 'assets/images/popup/PopupSmall.png'
   }, {
+    name: 'SubPanel01',
+    url: 'assets/images/popup/SubPanel01.png'
+  }, {
     name: 'RefreshIcon',
     url: 'assets/images/popup/RefreshIcon.png'
   }, {
