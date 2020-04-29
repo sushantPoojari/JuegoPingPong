@@ -294,10 +294,20 @@ NORD.Field = function() {
 
   this.centerLine = Util.createSprite({
     parent: this,
-    atlas: 'texture_atlas',
-    texture: 'center_line.png',
+    texture: 'Separator-Line',
     aX: 0.5,
-    aY: 0.5
+    aY: 0.5,
+    scaleX: 0.5,
+    scaleY: 1
+  });
+
+  this.sideImage = Util.createSprite({
+    parent: this,
+    texture: 'Game-Board',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.35,
+    scaleY: 0.5
   });
   this.containerGravityHole = new PIXI.Container();
   this.addChild(this.containerGravityHole);

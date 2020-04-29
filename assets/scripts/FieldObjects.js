@@ -19,6 +19,7 @@ function _defineProperty(obj, key, value) {
 }
 
 NORD.Field.Wall = function(field, config) {
+  //sushant wall
   if (config.type == 'BUMPER') this.container = field.contaierObstacles;
   NORD.Field.FieldObject.call(this, field);
   this.color = NORD.definitionsManager.colorYellow;
@@ -62,7 +63,7 @@ NORD.Field.Wall.prototype.initBorderWall = function(config) {
   Matter.World.add(this.field.physics, [this.body]);
   this.bg = new PIXI.Graphics();
   this.addChild(this.bg);
-  this.bg.beginFill(this.color, 1.0);
+  // this.bg.beginFill(this.color, 1.0);
   this.bg.drawRect(0, 0, 10, 10);
   this.bg.width = width;
   this.bg.height = height;
