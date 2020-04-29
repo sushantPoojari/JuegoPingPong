@@ -1,27 +1,5 @@
 "use strict";
 
-// require("core-js/modules/es6.string.iterator");
-
-// require("core-js/modules/es6.array.from");
-
-// require("core-js/modules/es6.regexp.to-string");
-
-// require("core-js/modules/es7.symbol.async-iterator");
-
-// require("core-js/modules/es6.symbol");
-
-// require("core-js/modules/es6.array.find");
-
-// require("core-js/modules/web.dom.iterable");
-
-// require("core-js/modules/es6.array.iterator");
-
-// require("core-js/modules/es6.object.to-string");
-
-// require("core-js/modules/es6.object.keys");
-
-// require("core-js/modules/es6.function.name");
-
 var MainMenuLocation;
 var MultiplayerStarted = false;
 var IsHost = false;
@@ -50,32 +28,29 @@ function _arrayWithoutHoles(arr) {
 
 NORD.ScreenMainMenu = function(config) {
   var _this = this;
+  NORD.mainMenu = this;
   var isAllButtonEnabled;
   this.isAllButtonEnabled = true;
+  
+  config.sizeType = 'relative';
+  config.widthRelative = 1;
+  config.heightRelative = 1;
+  NORD.GUI.BasePanel.call(this, config);
+
   var self = this;
+  var startY = -50;
+  var gConfig = NORD.game.config;
 
   MainMenuLocation = this;
   this.state = 'hide';
   this.visible = false;
   this.interactiveChildren = false;
 
-  config.sizeType = 'relative';
-  config.widthRelative = 1;
-  config.heightRelative = 1;
-  NORD.GUI.BasePanel.call(this, config);
-  NORD.mainMenu = this;
-
-  var startY = -50;
-  var gConfig = NORD.game.config;
-
-  this.boardSelected = 'board_2';
-  this.ballDiamondGeneratedPos = 0;
-
-  /****************************************************************************************Game Logo**************************************************************************/
+  /*********************************************************************************Game Logo**************************************************************************************************/
   var logo = Util.createSprite({
     parent: this,
     x: 0,
-    y: 150,
+    y: -150,
     atlas: 'texture_atlas',
     texture: 'logo.png',
     aX: 0.5,
@@ -85,91 +60,26 @@ NORD.ScreenMainMenu = function(config) {
   });
   this.containerSwitchers = new PIXI.Container();
   this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
-  alignItems([logo, this.containerSwitchers], 920);
 
-  //sushant
-  var dividerLine = Util.createSprite({
-    parent: this,
-    x: 160,
-    y: 20,
-    texture: 'DividerLine',
-    aX: 0.5,
-    aY: 0.5,
-    scaleX: 0.666,
-    scaleY: 0.666
-  });
-  //sushant
 
-  this.labelBoards = Util.createSprite({
-    parent: this.containerSwitchers,
-    x: -150,
-    y: 0,
-    atlas: 'texture_atlas',
-    texture: 'label_boards.png',
-    aX: 1.0,
-    aY: 0.5,
-    scaleXY: 0.666
-  });
-  var startY = -50;
-  var gConfig = NORD.game.config;
+
+
+    /*********************************************************************************Game Type**************************************************************************************************/
   this.switcherPlayers = this.createSwitcher(0, startY + 0, 'label_players', 'players', gConfig.players == 'one' ? 'left' : 'right', function(side) {
     var dataMap = {
       left: 'one',
-      right: 'two'
+      center: 'two',
+      right: 'three'
     };
+    debugger;
     var config = NORD.game.config;
     config.players = dataMap[side];
     NORD.game.setConfig(config); // console.log('SSS:', config)
   });
-  var ddd = '';
-  if (gConfig.dificulty == 'easy') ddd = 'left';
-  else if (gConfig.dificulty == 'hard') ddd = 'right';
-  else if (gConfig.dificulty == 'medium') ddd = 'center';
-  this.switcherDificulty = this.createSwitcher(0, startY + 100, 'label_dificulty', 'dificulty', ddd, function(side) {
-    var dataMap = {
-      left: 'easy',
-      right: 'hard',
-      center: 'medium'
-    };
-    var config = NORD.game.config;
-    config.dificulty = dataMap[side];
-    NORD.game.setConfig(config); // console.log('SSS:', config)
-  });
-  var darkDificulty = new PIXI.Container();
-  this.containerSwitchers.addChild(darkDificulty);
-  var d1 = Util.createSprite({
-    parent: darkDificulty,
-    x: -95,
-    y: 0,
-    atlas: 'texture_atlas',
-    texture: 'd_1.png',
-    aX: 0.5,
-    aY: 0.5
-  });
-  var d2 = Util.createSprite({
-    parent: darkDificulty,
-    x: 0,
-    y: 0,
-    atlas: 'texture_atlas',
-    texture: 'd_2.png',
-    aX: 0.5,
-    aY: 0.5
-  });
-  var d3 = Util.createSprite({
-    parent: darkDificulty,
-    x: 95,
-    y: 0,
-    atlas: 'texture_atlas',
-    texture: 'd_3.png',
-    aX: 0.5,
-    aY: 0.5
-  });
-  d1.scale = d2.scale = d3.scale = new PIXI.Point(0.79, 0.79);
-  darkDificulty.y = this.switcherDificulty.y; // darkDificulty.y = 200;
 
-  darkDificulty.visible = false;
-  this.darkDificulty = darkDificulty;
-  this.switcherMode = this.createSwitcher(0, startY + 50, 'label_mode', 'mode', gConfig.mode == 'classic' ? 'left' : 'right', function(side) {
+    /*********************************************************************************Game Mode**************************************************************************************************/
+
+  this.switcherMode = this.createSwitcher(0, startY + 150, 'label_mode', 'mode', gConfig.mode == 'classic' ? 'left' : 'right', function(side) {
     var dataMap = {
       left: 'classic',
       right: 'action'
@@ -178,49 +88,112 @@ NORD.ScreenMainMenu = function(config) {
     config.mode = dataMap[side];
     NORD.game.setConfig(config);
   });
+  
   this.switcherMode.on('switch_start', function(side) {
     if (side === 'right' && _this.actionHint.visible) {
       _this.clearPulse(); // console.log('CLEAR:', this.switcherMode.containerRight.alpha);
 
-  MultiplayerStarted = false;
-    // if(!(this.switcherPlayers.switchingState == 'none' && this.switcherDificulty.switchingState == 'none' && this.switcherMode.switchingState == 'none')) return;
-    // if (!(_this.switcherPlayers.switchingState == 'none' /*&& _this.switcherMode.switchingState == 'none'*/)) return; // console.log('Click!');
+    } else if (side === 'left' && _this.actionHintShows % 2 == 0 && !NORD.game.config.isActionPlayed) {
+      // console.log('PLAY:', this.switcherMode.containerRight.alpha);
+      _this.clearPulse();
 
-    if (NORD.game.config.mode == 'action') {
-      if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.DIAMOND_MODE)
-        _this.boardSelected = 'board_3';
-      if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.PARALLEL_MODE)
-        _this.boardSelected = 'board_1';
+      _this.tweenPulse();
     }
   });
+
+
+  // //sushant
+  // var dividerLine = Util.createSprite({
+  //   parent: this,
+  //   x: 160,
+  //   y: 20,
+  //   texture: 'DividerLine',
+  //   aX: 0.5,
+  //   aY: 0.5,
+  //   scaleX: 0.666,
+  //   scaleY: 0.666
+  // });
+  // //sushant
+
+  // var ddd = '';
+  // if (gConfig.dificulty == 'easy') ddd = 'left';
+  // else if (gConfig.dificulty == 'hard') ddd = 'right';
+  // else if (gConfig.dificulty == 'medium') ddd = 'center';
+  // this.switcherDificulty = this.createSwitcher(0, startY + 100, 'label_dificulty', 'dificulty', ddd, function(side) {
+  //   var dataMap = {
+  //     left: 'easy',
+  //     right: 'hard',
+  //     center: 'medium'
+  //   };
+  //   var config = NORD.game.config;
+  //   config.dificulty = dataMap[side];
+  //   NORD.game.setConfig(config); // console.log('SSS:', config)
+  // });
+  // var darkDificulty = new PIXI.Container();
+  // this.containerSwitchers.addChild(darkDificulty);
+  // var d1 = Util.createSprite({
+  //   parent: darkDificulty,
+  //   x: -95,
+  //   y: 0,
+  //   atlas: 'texture_atlas',
+  //   texture: 'd_1.png',
+  //   aX: 0.5,
+  //   aY: 0.5
+  // });
+  // var d2 = Util.createSprite({
+  //   parent: darkDificulty,
+  //   x: 0,
+  //   y: 0,
+  //   atlas: 'texture_atlas',
+  //   texture: 'd_2.png',
+  //   aX: 0.5,
+  //   aY: 0.5
+  // });
+  // var d3 = Util.createSprite({
+  //   parent: darkDificulty,
+  //   x: 95,
+  //   y: 0,
+  //   atlas: 'texture_atlas',
+  //   texture: 'd_3.png',
+  //   aX: 0.5,
+  //   aY: 0.5
+  // });
+  // d1.scale = d2.scale = d3.scale = new PIXI.Point(0.79, 0.79);
+  // darkDificulty.y = this.switcherDificulty.y; // darkDificulty.y = 200;
+
+  // darkDificulty.visible = false;
+  // this.darkDificulty = darkDificulty;
+
+
+
   this.switcherPlayers.on('switch_start', function(side) {
     if (side === 'right') {
-      _this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
+      // _this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
 
-      _this.switcherDificulty.interactive = false;
-      _this.switcherDificulty.interactiveChildren = false;
+      // _this.switcherDificulty.interactive = false;
+      // _this.switcherDificulty.interactiveChildren = false;
     } else {
-      _this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
+      // _this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
 
-      _this.switcherDificulty.interactive = true;
-      _this.switcherDificulty.interactiveChildren = true;
+      // _this.switcherDificulty.interactive = true;
+      // _this.switcherDificulty.interactiveChildren = true;
     }
   });
   this.boardSelected = 'board_2';
   this.ballDiamondGeneratedPos = 0;
 
-  var btn = Util.createButton('btn', this, null, '', 0, 160, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
+  var btn = Util.createButton('btn', this, null, '', 200, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
     atlas: 'texture_atlas',
     texture: 'button_play.png',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 0.8,
-    scaleY: 0.8
+    scaleX: 0.5,
+    scaleY: 0.5
   });
   btn.addListener('button_click', function(data) {
     MultiplayerStarted = false;
     // if(!(this.switcherPlayers.switchingState == 'none' && this.switcherDificulty.switchingState == 'none' && this.switcherMode.switchingState == 'none')) return;
-    // if (!(_this.switcherPlayers.switchingState == 'none' /*&& _this.switcherMode.switchingState == 'none'*/)) return; // console.log('Click!');
+    if (!(_this.switcherPlayers.switchingState == 'none' && _this.switcherMode.switchingState == 'none')) return; // console.log('Click!');
 
     if (NORD.game.config.mode == 'action') {
       if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.DIAMOND_MODE)
@@ -234,20 +207,9 @@ NORD.ScreenMainMenu = function(config) {
       else self.toGame(_this.boardSelected);
     });
   }, this);
+  alignItems([logo, this.containerSwitchers, btn], 480);
 
-  /****************************************************************************************Online MultiPlayer**************************************************************************/
-  var dividerLine = Util.createSprite({
-    parent: this,
-    x: 75,
-    y: 20,
-    texture: 'DividerLine',
-    aX: 0.5,
-    aY: 0.5,
-    scaleX: 0.666,
-    scaleY: 0.666
-  });
-
-  var onlineMultiPlayerButton = Util.createButton('btn', this, null, '', 150, 20, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('OnlineMultiPlayerBtn'), {
+  var multiplayerButton = Util.createButton('btn', this, null, '', 230, 20, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('OnlineMultiPlayerBtn'), {
     texture: 'OnlineMultiPlayerBtn',
     aX: 0.5,
     aY: 0.5,
@@ -295,146 +257,6 @@ NORD.ScreenMainMenu = function(config) {
   }, this);
 
 
-  // this.labelBoards = Util.createSprite({
-  //   parent: this.containerSwitchers,
-  //   x: -150,
-  //   y: 0,
-  //   atlas: 'texture_atlas',
-  //   texture: 'label_boards.png',
-  //   aX: 1.0,
-  //   aY: 0.5,
-  //   scaleXY: 0.666
-  // });
-
-
-  // this.switcherPlayers = this.createSwitcher(0, startY + 0, 'label_players', 'players', gConfig.players == 'one' ? 'left' : 'right', function (side) {
-  //   var dataMap = {
-  //     left: 'one',
-  //     center: 'two',
-  //     right: 'three'
-  //   };
-  //   var config = NORD.game.config;
-  //   config.players = dataMap[side];
-  //   NORD.game.setConfig(config); // console.log('SSS:', config)
-  // });
-
-  // var ddd = '';
-  // if (gConfig.dificulty == 'easy') ddd = 'left';
-  // else if (gConfig.dificulty == 'hard') ddd = 'right';
-  // else if (gConfig.dificulty == 'medium') ddd = 'center';
-  // this.switcherDificulty = this.createSwitcher(0, startY + 100, 'label_dificulty', 'dificulty', ddd, function (side) {
-  //   var dataMap = {
-  //     left: 'easy',
-  //     right: 'hard',
-  //     center: 'medium'
-  //   };
-  //   var config = NORD.game.config;
-  //   config.dificulty = dataMap[side];
-  //   NORD.game.setConfig(config); // console.log('SSS:', config)
-  // });
-
-  var darkDificulty = new PIXI.Container();
-  // this.containerSwitchers.addChild(darkDificulty);
-  // var d1 = Util.createSprite({
-  //   parent: darkDificulty,
-  //   x: -95,
-  //   y: 0,
-  //   atlas: 'texture_atlas',
-  //   texture: 'd_1.png',
-  //   aX: 0.5,
-  //   aY: 0.5
-  // });
-
-  // var d2 = Util.createSprite({
-  //   parent: darkDificulty,
-  //   x: 0,
-  //   y: 0,
-  //   atlas: 'texture_atlas',
-  //   texture: 'd_2.png',
-  //   aX: 0.5,
-  //   aY: 0.5
-  // });
-
-  // var d3 = Util.createSprite({
-  //   parent: darkDificulty,
-  //   x: 95,
-  //   y: 0,
-  //   atlas: 'texture_atlas',
-  //   texture: 'd_3.png',
-  //   aX: 0.5,
-  //   aY: 0.5
-  // });
-
-  // d1.scale = d2.scale = d3.scale = new PIXI.Point(0.79, 0.79);
-  darkDificulty.y = darkDificulty.y = 200; //this.switcherDificulty.y; //
-  darkDificulty.visible = false;
-  this.darkDificulty = darkDificulty;
-
-  // this.switcherMode = this.createSwitcher(0, startY + 125, 'label_mode', 'mode', gConfig.mode == 'classic' ? 'left' : 'right', function (side) {
-  //   var dataMap = {
-  //     left: 'classic',
-  //     right: 'action'
-  //   };
-  //   var config = NORD.game.config;
-  //   config.mode = dataMap[side];
-  //   NORD.game.setConfig(config);
-  // });
-
-  // this.switcherMode.on('switch_start', function (side) {
-  //   if (side === 'right' && _this.actionHint.visible) {
-  //     _this.clearPulse(); // console.log('CLEAR:', this.switcherMode.containerRight.alpha);
-
-  //   } else if (side === 'left' && _this.actionHintShows % 2 == 0 && !NORD.game.config.isActionPlayed) {
-  //     // console.log('PLAY:', this.switcherMode.containerRight.alpha);
-  //     _this.clearPulse();
-
-  //     _this.tweenPulse();
-  //   }
-  // });
-
-  // this.switcherPlayers.on('switch_start', function (side) {
-  // if (side === 'right') {
-  //   _this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
-
-  // _this.switcherDificulty.interactive = false;
-  // _this.switcherDificulty.interactiveChildren = false;
-  // } else {
-  //   _this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
-
-  // _this.switcherDificulty.interactive = true;
-  // _this.switcherDificulty.interactiveChildren = true;
-  // }
-  // });
-
-
-
-  // var btn = Util.createButton('btn', this, null, '', 0, 160, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
-  //   atlas: 'texture_atlas',
-  //   texture: 'button_play.png',
-  //   aX: 0.5,
-  //   aY: 0.5,
-  //   scaleX: 0.5,
-  //   scaleY: 0.5
-  // });
-  // btn.addListener('button_click', function (data) {
-  //   MultiplayerStarted = false;
-  //   // if(!(this.switcherPlayers.switchingState == 'none' && this.switcherDificulty.switchingState == 'none' && this.switcherMode.switchingState == 'none')) return;
-  //   // if (!(_this.switcherPlayers.switchingState == 'none' /*&& _this.switcherMode.switchingState == 'none'*/)) return; // console.log('Click!');
-
-  //   if (NORD.game.config.mode == 'action') {
-  //     if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.DIAMOND_MODE)
-  //       _this.boardSelected = 'board_3';
-  //     if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.PARALLEL_MODE)
-  //       _this.boardSelected = 'board_1';
-  //   }
-
-  //   TweenMax.delayedCall(0.07 * 2, function () {
-  //     if (NORD.game.config.mode !== 'action') self.toGame('board_2');
-  //     else self.toGame(_this.boardSelected);
-  //   });
-  // }, this);
-
-
   this.buttonText = new PIXI.Text(NORD.App.playerController.getTierType() + " | Wins: " + NORD.App.playerController.config.playerRankNumber, {
     font: '35px Snippet',
     fontSize: 12,
@@ -443,7 +265,7 @@ NORD.ScreenMainMenu = function(config) {
   });
   this.buttonText.anchor.set(0.5);
   this.buttonText.position.set(0, 60);
-  onlineMultiPlayerButton.addChild(this.buttonText);
+  multiplayerButton.addChild(this.buttonText);
 
   //sushant
 
@@ -466,7 +288,7 @@ NORD.ScreenMainMenu = function(config) {
 
   var audioButton = new NORD.GUI.ButtonAudio({
     parentPanel: this,
-    x: +320 - 21 - 10,
+    x: -320 + 21 + 10,
     y: 240 - 21 - 10,
     width: 42,
     height: 42,
@@ -482,7 +304,6 @@ NORD.ScreenMainMenu = function(config) {
       }
     }
   });
-
   this.actionHint = Util.createSprite({
     parent: this,
     x: 195,
@@ -494,16 +315,14 @@ NORD.ScreenMainMenu = function(config) {
     aY: 0.5,
     scaleX: 0.41,
     scaleY: 0.41
-  }); 
-  
-  // this.actionBorder = Util.createSprite({ parent: this.switcherMode.containerRight, atlas: 'texture_atlas', texture: 'action_border.png', aX: 0.5, aY: 0.5, scaleXY: 0.79, alpha: 0.0 });
+  }); // this.actionBorder = Util.createSprite({ parent: this.switcherMode.containerRight, atlas: 'texture_atlas', texture: 'action_border.png', aX: 0.5, aY: 0.5, scaleXY: 0.79, alpha: 0.0 });
   // this.actionBorder.alpha = 0.0;
   // this.actionBorder.width = this.switcherPlayers.sideRight.spriteOn.width;
   // this.actionBorder.height = this.switcherPlayers.sideRight.spriteOn.height;
   // this.actionBorder.height -= 2;
 
   this.actionWhite = Util.createSprite({
-    parent: this, //.switcherMode.containerRight,
+    parent: this.switcherMode.containerRight,
     atlas: 'texture_atlas',
     texture: 'action_white.png',
     aX: 0.5,
@@ -512,6 +331,7 @@ NORD.ScreenMainMenu = function(config) {
     alpha: 0.0
   });
   this.actionWhite.alpha = 0.0; // this.actionHintShows = NORD.game.config.actionHintShows;
+
   this.actionHintShows = 0; // var audioButton = new NORD.GUI.ButtonAudio({ parentPanel: this, x: 200, y: 0, width: 100, height: 100 });
 
 
@@ -548,6 +368,8 @@ NORD.ScreenMainMenu = function(config) {
     });
   }
 
+
+
   if (PP.server_using == PP.SERVER_USING.Photon) {
 
   } else {
@@ -562,7 +384,7 @@ NORD.ScreenMainMenu.prototype.disableAllButtons = function() {
 
   this.isAllButtonEnabled = false;
 
-  this.darkDificulty.visible = true;
+  // this.darkDificulty.visible = true;
   NORD.game.screenGame.panelEndGame.buttonRestart.interactive = false;
   // this.switcherDificulty.alpha = 0.3;
   //disable difficulty
@@ -570,36 +392,36 @@ NORD.ScreenMainMenu.prototype.disableAllButtons = function() {
   this.switcherDificulty.interactiveChildren = false;
 
   //disable switcherPlayers
-  // this.switcherPlayers.interactive = false;
-  // this.switcherPlayers.interactiveChildren = false;
+  this.switcherPlayers.interactive = false;
+  this.switcherPlayers.interactiveChildren = false;
 
   //disable switcherPlayers
-  // this.switcherMode.interactive = false;
-  // this.switcherMode.interactiveChildren = false;
+  this.switcherMode.interactive = false;
+  this.switcherMode.interactiveChildren = false;
 
-  // this.switcherPlayers.switchingState = 'none1';
+  this.switcherPlayers.switchingState = 'none1';
 };
 NORD.ScreenMainMenu.prototype.enableAllButtons = function() {
   this.isAllButtonEnabled = true;
-  this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
+  // this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
   NORD.game.screenGame.panelEndGame.buttonRestart.interactive = true;
 
   if (NORD.game.config.players == 'one') {
-    this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
+    // this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
 
-    this.switcherDificulty.interactive = true;
-    this.switcherDificulty.interactiveChildren = true;
+    // this.switcherDificulty.interactive = true;
+    // this.switcherDificulty.interactiveChildren = true;
   }
 
   //disable switcherPlayers
-  // this.switcherPlayers.interactive = true;
-  // this.switcherPlayers.interactiveChildren = true;
+  this.switcherPlayers.interactive = true;
+  this.switcherPlayers.interactiveChildren = true;
 
   //disable switcherPlayers
-  // this.switcherMode.interactive = true;
-  // this.switcherMode.interactiveChildren = true;
+  this.switcherMode.interactive = true;
+  this.switcherMode.interactiveChildren = true;
 
-  // this.switcherPlayers.switchingState = 'none';
+  this.switcherPlayers.switchingState = 'none';
 };
 //sushant
 
@@ -663,8 +485,8 @@ NORD.ScreenMainMenu.prototype.clearPulse = function() {
 
 
   this.actionWhite.alpha = 0.0;
-  // this.switcherMode.containerRight.scale.x = this.switcherMode.containerRight.scale.y = 1.0;
-  // this.switcherMode.containerRight.alpha = 1.0;
+  this.switcherMode.containerRight.scale.x = this.switcherMode.containerRight.scale.y = 1.0;
+  this.switcherMode.containerRight.alpha = 1.0;
 };
 
 NORD.ScreenMainMenu.prototype.tweenPulse = function() {
@@ -756,15 +578,15 @@ NORD.ScreenMainMenu.prototype.tween = function(data, callback) {
     //sushant
 
     if (NORD.game.config.players !== 'one') {
-      this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
+      // this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
 
-      this.switcherDificulty.interactive = false;
-      this.switcherDificulty.interactiveChildren = false;
+      // this.switcherDificulty.interactive = false;
+      // this.switcherDificulty.interactiveChildren = false;
     } else {
-      this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
+      // this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
 
-      this.switcherDificulty.interactive = true;
-      this.switcherDificulty.interactiveChildren = true;
+      // this.switcherDificulty.interactive = true;
+      // this.switcherDificulty.interactiveChildren = true;
     }
 
     if (this.actionHint.visible && NORD.game.config.mode === 'classic') {
@@ -1575,7 +1397,54 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function(x, y, labelName, switche
         }
       }
     };
-  } else {
+  }else if (switcherName == 'players') {
+    config = {
+      selected: selected,
+      left: {
+        spriteOn: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_1_on.png',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_1_off.png',
+          aX: 0.5,
+          aY: 0.5
+        }
+      },
+      center: {
+        spriteOn: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_2_on.png',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_2_off.png',
+          aX: 0.5,
+          aY: 0.5
+        }
+      },
+      right: {
+        spriteOn: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_2_on.png',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          atlas: 'texture_atlas',
+          texture: 'switcher_' + switcherName + '_2_off.png',
+          aX: 0.5,
+          aY: 0.5
+        }
+      }
+    };
+  }
+   else {
     config = {
       selected: selected,
       left: {
