@@ -48,7 +48,7 @@ function _arrayWithoutHoles(arr) {
   }
 }
 
-NORD.ScreenMainMenu = function (config) {
+NORD.ScreenMainMenu = function(config) {
   var _this = this;
   var isAllButtonEnabled;
   this.isAllButtonEnabled = true;
@@ -87,20 +87,100 @@ NORD.ScreenMainMenu = function (config) {
   this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
   alignItems([logo, this.containerSwitchers], 920);
 
-  /****************************************************************************************Single Player**************************************************************************/
-  var singlePlayerButton = Util.createButton('btn', this, null, '', -150, 20, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('OnlineMultiPlayerBtn'), {
-    texture: 'OnlineMultiPlayerBtn',
+  //sushant
+  var dividerLine = Util.createSprite({
+    parent: this,
+    x: 160,
+    y: 20,
+    texture: 'DividerLine',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 0.8,
-    scaleY: 0.8
+    scaleX: 0.666,
+    scaleY: 0.666
   });
-  singlePlayerButton.soundClick = NORD.assetsManager.getAsset('play_button')
-  singlePlayerButton.addListener('button_click', function (data) {
+  //sushant
 
+  this.labelBoards = Util.createSprite({
+    parent: this.containerSwitchers,
+    x: -150,
+    y: 0,
+    atlas: 'texture_atlas',
+    texture: 'label_boards.png',
+    aX: 1.0,
+    aY: 0.5,
+    scaleXY: 0.666
+  });
+  var startY = -50;
+  var gConfig = NORD.game.config;
+  this.switcherPlayers = this.createSwitcher(0, startY + 0, 'label_players', 'players', gConfig.players == 'one' ? 'left' : 'right', function(side) {
+    var dataMap = {
+      left: 'one',
+      right: 'two'
+    };
     var config = NORD.game.config;
-    config.players = "one";
+    config.players = dataMap[side];
     NORD.game.setConfig(config); // console.log('SSS:', config)
+  });
+  var ddd = '';
+  if (gConfig.dificulty == 'easy') ddd = 'left';
+  else if (gConfig.dificulty == 'hard') ddd = 'right';
+  else if (gConfig.dificulty == 'medium') ddd = 'center';
+  this.switcherDificulty = this.createSwitcher(0, startY + 100, 'label_dificulty', 'dificulty', ddd, function(side) {
+    var dataMap = {
+      left: 'easy',
+      right: 'hard',
+      center: 'medium'
+    };
+    var config = NORD.game.config;
+    config.dificulty = dataMap[side];
+    NORD.game.setConfig(config); // console.log('SSS:', config)
+  });
+  var darkDificulty = new PIXI.Container();
+  this.containerSwitchers.addChild(darkDificulty);
+  var d1 = Util.createSprite({
+    parent: darkDificulty,
+    x: -95,
+    y: 0,
+    atlas: 'texture_atlas',
+    texture: 'd_1.png',
+    aX: 0.5,
+    aY: 0.5
+  });
+  var d2 = Util.createSprite({
+    parent: darkDificulty,
+    x: 0,
+    y: 0,
+    atlas: 'texture_atlas',
+    texture: 'd_2.png',
+    aX: 0.5,
+    aY: 0.5
+  });
+  var d3 = Util.createSprite({
+    parent: darkDificulty,
+    x: 95,
+    y: 0,
+    atlas: 'texture_atlas',
+    texture: 'd_3.png',
+    aX: 0.5,
+    aY: 0.5
+  });
+  d1.scale = d2.scale = d3.scale = new PIXI.Point(0.79, 0.79);
+  darkDificulty.y = this.switcherDificulty.y; // darkDificulty.y = 200;
+
+  darkDificulty.visible = false;
+  this.darkDificulty = darkDificulty;
+  this.switcherMode = this.createSwitcher(0, startY + 50, 'label_mode', 'mode', gConfig.mode == 'classic' ? 'left' : 'right', function(side) {
+    var dataMap = {
+      left: 'classic',
+      right: 'action'
+    };
+    var config = NORD.game.config;
+    config.mode = dataMap[side];
+    NORD.game.setConfig(config);
+  });
+  this.switcherMode.on('switch_start', function(side) {
+    if (side === 'right' && _this.actionHint.visible) {
+      _this.clearPulse(); // console.log('CLEAR:', this.switcherMode.containerRight.alpha);
 
   MultiplayerStarted = false;
     // if(!(this.switcherPlayers.switchingState == 'none' && this.switcherDificulty.switchingState == 'none' && this.switcherMode.switchingState == 'none')) return;
@@ -112,40 +192,32 @@ NORD.ScreenMainMenu = function (config) {
       if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.PARALLEL_MODE)
         _this.boardSelected = 'board_1';
     }
-
-    TweenMax.delayedCall(0.07 * 2, function () {
-      if (NORD.game.config.mode !== 'action') self.toGame('board_2');
-      else self.toGame(_this.boardSelected);
-    });
-
-  }, this);
-
-  /****************************************************************************************Local MultiPlayer**************************************************************************/
-  var dividerLine = Util.createSprite({
-    parent: this,
-    x: -75,
-    y: 20,
-    texture: 'DividerLine',
-    aX: 0.5,
-    aY: 0.5,
-    scaleX: 0.666,
-    scaleY: 0.666
   });
+  this.switcherPlayers.on('switch_start', function(side) {
+    if (side === 'right') {
+      _this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
 
-  var localMultiPlayerButton = Util.createButton('btn', this, null, '', 0, 20, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('OnlineMultiPlayerBtn'), {
-    texture: 'OnlineMultiPlayerBtn',
+      _this.switcherDificulty.interactive = false;
+      _this.switcherDificulty.interactiveChildren = false;
+    } else {
+      _this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
+
+      _this.switcherDificulty.interactive = true;
+      _this.switcherDificulty.interactiveChildren = true;
+    }
+  });
+  this.boardSelected = 'board_2';
+  this.ballDiamondGeneratedPos = 0;
+
+  var btn = Util.createButton('btn', this, null, '', 0, 160, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
+    atlas: 'texture_atlas',
+    texture: 'button_play.png',
     aX: 0.5,
     aY: 0.5,
     scaleX: 0.8,
     scaleY: 0.8
   });
-  localMultiPlayerButton.soundClick = NORD.assetsManager.getAsset('play_button')
-  localMultiPlayerButton.addListener('button_click', function (data) {
-
-    var config = NORD.game.config;
-    config.players = "two";
-    NORD.game.setConfig(config); // console.log('SSS:', config)
-
+  btn.addListener('button_click', function(data) {
     MultiplayerStarted = false;
     // if(!(this.switcherPlayers.switchingState == 'none' && this.switcherDificulty.switchingState == 'none' && this.switcherMode.switchingState == 'none')) return;
     // if (!(_this.switcherPlayers.switchingState == 'none' /*&& _this.switcherMode.switchingState == 'none'*/)) return; // console.log('Click!');
@@ -157,7 +229,7 @@ NORD.ScreenMainMenu = function (config) {
         _this.boardSelected = 'board_1';
     }
 
-    TweenMax.delayedCall(0.07 * 2, function () {
+    TweenMax.delayedCall(0.07 * 2, function() {
       if (NORD.game.config.mode !== 'action') self.toGame('board_2');
       else self.toGame(_this.boardSelected);
     });
@@ -182,8 +254,8 @@ NORD.ScreenMainMenu = function (config) {
     scaleX: 0.8,
     scaleY: 0.8
   });
-  onlineMultiPlayerButton.soundClick = NORD.assetsManager.getAsset('play_button')
-  onlineMultiPlayerButton.addListener('button_click', function (data) {
+  multiplayerButton.soundClick = NORD.assetsManager.getAsset('play_button')
+  multiplayerButton.addListener('button_click', function(data) {
 
 
     // if (NORD.mainMenu.isAllButtonEnabled == true) {
@@ -200,7 +272,7 @@ NORD.ScreenMainMenu = function (config) {
       NORD.gameState = NORD.GAME_STATE.SERARCHING;
 
       this.disableAllButtons();
-      TweenMax.delayedCall(0.07 * 2, function () {
+      TweenMax.delayedCall(0.07 * 2, function() {
 
         var currentTime = Date.now();
 
@@ -377,13 +449,13 @@ NORD.ScreenMainMenu = function (config) {
 
   function alignItems(items, height) {
     var totalHeight = 0;
-    items.forEach(function (item) {
+    items.forEach(function(item) {
       totalHeight += item.height;
     });
     var freeSpace = height - totalHeight;
     var shift = freeSpace / (items.length + 1);
     var posY = -height / 2 + shift;
-    items.forEach(function (item) {
+    items.forEach(function(item) {
       item.y = posY + item.height / 2; // item.posi y = posY + item.height/2;
       // console.log('Q:', item.height,  posY + item.height/2);
 
@@ -486,7 +558,7 @@ NORD.ScreenMainMenu = function (config) {
 NORD.ScreenMainMenu.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.ScreenMainMenu.prototype.constructor = NORD.ScreenMainMenu;
 
-NORD.ScreenMainMenu.prototype.disableAllButtons = function () {
+NORD.ScreenMainMenu.prototype.disableAllButtons = function() {
 
   this.isAllButtonEnabled = false;
 
@@ -494,8 +566,8 @@ NORD.ScreenMainMenu.prototype.disableAllButtons = function () {
   NORD.game.screenGame.panelEndGame.buttonRestart.interactive = false;
   // this.switcherDificulty.alpha = 0.3;
   //disable difficulty
-  // this.switcherDificulty.interactive = false;
-  // this.switcherDificulty.interactiveChildren = false;
+  this.switcherDificulty.interactive = false;
+  this.switcherDificulty.interactiveChildren = false;
 
   //disable switcherPlayers
   // this.switcherPlayers.interactive = false;
@@ -507,7 +579,7 @@ NORD.ScreenMainMenu.prototype.disableAllButtons = function () {
 
   // this.switcherPlayers.switchingState = 'none1';
 };
-NORD.ScreenMainMenu.prototype.enableAllButtons = function () {
+NORD.ScreenMainMenu.prototype.enableAllButtons = function() {
   this.isAllButtonEnabled = true;
   this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
   NORD.game.screenGame.panelEndGame.buttonRestart.interactive = true;
@@ -515,8 +587,8 @@ NORD.ScreenMainMenu.prototype.enableAllButtons = function () {
   if (NORD.game.config.players == 'one') {
     this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
 
-    // this.switcherDificulty.interactive = true;
-    // this.switcherDificulty.interactiveChildren = true;
+    this.switcherDificulty.interactive = true;
+    this.switcherDificulty.interactiveChildren = true;
   }
 
   //disable switcherPlayers
@@ -531,11 +603,11 @@ NORD.ScreenMainMenu.prototype.enableAllButtons = function () {
 };
 //sushant
 
-NORD.ScreenMainMenu.prototype.drawPaddle = function () {
+NORD.ScreenMainMenu.prototype.drawPaddle = function() {
   var paddleView = new PaddleView2(0xFFFFFF, true);
   this.addChild(paddleView);
   paddleView.scale.x = paddleView.scale.y = 2;
-  paddleView.on('change', function (data) {
+  paddleView.on('change', function(data) {
     paddleView2.size = data.size;
     paddleView2.controlPoints = data.controlPoints;
     paddleView2.updatePaddle();
@@ -548,16 +620,16 @@ NORD.ScreenMainMenu.prototype.drawPaddle = function () {
   paddleView2.x = 200;
 };
 
-NORD.ScreenMainMenu.prototype.toGame = function (board) {
+NORD.ScreenMainMenu.prototype.toGame = function(board) {
   this.tween({
     name: 'hide_anim'
-  }, function () {
+  }, function() {
     NORD.game.screenGame.toGame(board);
     NORD.app.apiCallback('start');
   });
 };
 
-NORD.ScreenMainMenu.prototype.toMainMenu = function () {
+NORD.ScreenMainMenu.prototype.toMainMenu = function() {
 
   NORD.game.screenMainMenu.buttonText.text = NORD.App.playerController.getTierType() + " | Wins: " + NORD.App.playerController.config.playerRankNumber;
   // this.actionHintShows ++;
@@ -570,14 +642,14 @@ NORD.ScreenMainMenu.prototype.toMainMenu = function () {
 
   this.tween({
     name: 'show_anim'
-  }, function () {
+  }, function() {
     MainMenuLocation.enableAllButtons();
 
     // NORD.game.screenGame.toGame(board);
   });
 };
 
-NORD.ScreenMainMenu.prototype.clearPulse = function () {
+NORD.ScreenMainMenu.prototype.clearPulse = function() {
   // TweenMax.killAll(false, true, true);
   if (this.tweenActionHint) {
     // this.tweenActionContainer.kill();
@@ -595,7 +667,7 @@ NORD.ScreenMainMenu.prototype.clearPulse = function () {
   // this.switcherMode.containerRight.alpha = 1.0;
 };
 
-NORD.ScreenMainMenu.prototype.tweenPulse = function () {
+NORD.ScreenMainMenu.prototype.tweenPulse = function() {
   var self = this;
   var time = 25 / 30; // function tw(data)
   // {
@@ -654,7 +726,7 @@ NORD.ScreenMainMenu.prototype.tweenPulse = function () {
   // this.actionBorder.alpha = 1.0;
 };
 
-NORD.ScreenMainMenu.prototype.tween = function (data, callback) {
+NORD.ScreenMainMenu.prototype.tween = function(data, callback) {
   var self = this;
 
   if (data.name == 'show_anim' && this.state == 'hide') {
@@ -686,13 +758,13 @@ NORD.ScreenMainMenu.prototype.tween = function (data, callback) {
     if (NORD.game.config.players !== 'one') {
       this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
 
-      // this.switcherDificulty.interactive = false;
-      // this.switcherDificulty.interactiveChildren = false;
+      this.switcherDificulty.interactive = false;
+      this.switcherDificulty.interactiveChildren = false;
     } else {
       this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
 
-      // this.switcherDificulty.interactive = true;
-      // this.switcherDificulty.interactiveChildren = true;
+      this.switcherDificulty.interactive = true;
+      this.switcherDificulty.interactiveChildren = true;
     }
 
     if (this.actionHint.visible && NORD.game.config.mode === 'classic') {
@@ -752,7 +824,7 @@ NORD.ScreenMainMenu.prototype.tween = function (data, callback) {
 // ======================================================================================================================================== //
 
 
-NORD.MenuSwitcher = function (config, switcherConfig) {
+NORD.MenuSwitcher = function(config, switcherConfig) {
   var _this2 = this;
 
   NORD.GUI.BasePanel.call(this, config);
@@ -774,10 +846,10 @@ NORD.MenuSwitcher = function (config, switcherConfig) {
   };
 
   if (this.isCenter) {
-    this.sideRight.x = 0;
-    this.sideRight.y = 50;
+    this.sideLeft.x = -95;
+    this.sideRight.x = 95;
     this.sideCenter = {
-      x: 72,
+      x: 0,
       y: 0,
       name: 'center',
       spriteOn: Util.createSprite(switcherConfig.center.spriteOn),
@@ -846,7 +918,7 @@ NORD.MenuSwitcher = function (config, switcherConfig) {
     spriteOn.buttonMode = true;
     spriteOff.interactive = true;
     spriteOff.buttonMode = true;
-    spriteOn.on('pointerdown', function () {
+    spriteOn.on('pointerdown', function() {
       if (side.clickState != 'off') return;
 
       _this2.setSelected(side.name); // side.clickState = 'on';
@@ -854,7 +926,7 @@ NORD.MenuSwitcher = function (config, switcherConfig) {
       // this.soundClick.play();
 
     }, _this2);
-    spriteOff.on('pointerdown', function () {
+    spriteOff.on('pointerdown', function() {
       if (side.clickState != 'off') return;
 
       _this2.setSelected(side.name); // side.clickState = 'on';
@@ -896,20 +968,20 @@ NORD.MenuSwitcher = function (config, switcherConfig) {
 NORD.MenuSwitcher.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.MenuSwitcher.prototype.constructor = NORD.MenuSwitcher;
 
-NORD.MenuSwitcher.prototype.setSelected = function (side) {
+NORD.MenuSwitcher.prototype.setSelected = function(side) {
   var _this3 = this;
 
   if (this.selected == side || this.switchingState !== 'none') return;
   this.tween({
     name: 'switch',
     side: side
-  }, function () {
+  }, function() {
     _this3.setSide(side);
   });
   this.emit('switch_start', side);
 };
 
-NORD.MenuSwitcher.prototype.setSide = function (side) {
+NORD.MenuSwitcher.prototype.setSide = function(side) {
   var _this4 = this;
 
   this.selected = side; // const onSide = this.sides[side];
@@ -924,7 +996,7 @@ NORD.MenuSwitcher.prototype.setSide = function (side) {
   // offSide.spriteOff.aplha = 1.0;
 
   var offSides = [];
-  Object.keys(this.sides).forEach(function (s) {
+  Object.keys(this.sides).forEach(function(s) {
     var object = _this4.sides[s];
     if (!object) return;
 
@@ -941,7 +1013,7 @@ NORD.MenuSwitcher.prototype.setSide = function (side) {
   this.emit('side_change', side);
 };
 
-NORD.MenuSwitcher.prototype.tween = function (data, callback) {
+NORD.MenuSwitcher.prototype.tween = function(data, callback) {
   var _this5 = this;
 
   if (data.name == 'switch') {
@@ -952,7 +1024,7 @@ NORD.MenuSwitcher.prototype.tween = function (data, callback) {
     // offSide.spriteOff.visible = true;
 
     var offSides = [];
-    Object.keys(this.sides).forEach(function (s) {
+    Object.keys(this.sides).forEach(function(s) {
       var object = _this5.sides[s];
       if (!object) return;
 
@@ -1002,7 +1074,7 @@ NORD.MenuSwitcher.prototype.tween = function (data, callback) {
 // ======================================================================================================================================== //
 
 
-NORD.BoardsCarousel = function (config, carouselConfig) {
+NORD.BoardsCarousel = function(config, carouselConfig) {
   var _this6 = this;
 
   NORD.GUI.BasePanel.call(this, config);
@@ -1048,7 +1120,7 @@ NORD.BoardsCarousel = function (config, carouselConfig) {
   this.centerIndex = 1;
   this.board = null;
   this.boards = [];
-  carouselConfig.boards.forEach(function (boardData) {
+  carouselConfig.boards.forEach(function(boardData) {
     var boardName = boardData.name;
     var container = new PIXI.Container();
 
@@ -1078,11 +1150,11 @@ NORD.BoardsCarousel = function (config, carouselConfig) {
     };
     container.interactive = true;
     container.buttonMode = true;
-    container.on('pointerdown', function () {
+    container.on('pointerdown', function() {
       _this6.switchBoard(board.name);
     }, _this6);
 
-    board.setToPosition = function (position) {
+    board.setToPosition = function(position) {
       board.container.alpha = position.alpha;
       board.container.x = position.x;
       board.container.y = position.y;
@@ -1091,7 +1163,7 @@ NORD.BoardsCarousel = function (config, carouselConfig) {
       else board.container.visible = true;
     };
 
-    board.tweenToPosition = function (position, callback) {
+    board.tweenToPosition = function(position, callback) {
       TweenMax.to(board.container.scale, 10 / 30, {
         x: position.scale,
         y: position.scale,
@@ -1108,7 +1180,7 @@ NORD.BoardsCarousel = function (config, carouselConfig) {
 
     _this6.boards.push(board);
   });
-  this.boards.forEach(function (board, i) {
+  this.boards.forEach(function(board, i) {
     var prevN = i - 1;
     if (_this6.boards.length > 3 && prevN < 0) prevN = _this6.boards.length - 1;
     var nextN = i + 1;
@@ -1124,11 +1196,11 @@ NORD.BoardsCarousel = function (config, carouselConfig) {
 NORD.BoardsCarousel.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.BoardsCarousel.prototype.constructor = NORD.BoardsCarousel;
 
-NORD.BoardsCarousel.prototype.switchBoard = function (name) {
+NORD.BoardsCarousel.prototype.switchBoard = function(name) {
   var _this7 = this;
 
   if (this.board.name == name || this.state !== 'normal') return;
-  var board = this.boards.find(function (b) {
+  var board = this.boards.find(function(b) {
     return b.name === name;
   }); // const shiftIndex = this.centerIndex - this.boards.indexOf(board);
 
@@ -1149,7 +1221,7 @@ NORD.BoardsCarousel.prototype.switchBoard = function (name) {
     if (this.board.next) this.board.next.tweenToPosition(positionNext2);
 
     if (this.board.prev) {
-      this.board.prev.tweenToPosition(position, function () {
+      this.board.prev.tweenToPosition(position, function() {
         _this7.state = 'normal';
 
         _this7.setBoard(_this7.board.prev.name);
@@ -1174,7 +1246,7 @@ NORD.BoardsCarousel.prototype.switchBoard = function (name) {
     if (this.board.prev) this.board.prev.tweenToPosition(positionPrev2);
 
     if (this.board.next) {
-      this.board.next.tweenToPosition(position, function () {
+      this.board.next.tweenToPosition(position, function() {
         _this7.state = 'normal';
 
         _this7.setBoard(_this7.board.next.name);
@@ -1193,10 +1265,10 @@ NORD.BoardsCarousel.prototype.switchBoard = function (name) {
 
 };
 
-NORD.BoardsCarousel.prototype.setBoard = function (name) {
+NORD.BoardsCarousel.prototype.setBoard = function(name) {
   var _this8 = this;
 
-  var board = this.boards.find(function (b) {
+  var board = this.boards.find(function(b) {
     return b.name === name;
   });
   if (!board) return;
@@ -1209,7 +1281,7 @@ NORD.BoardsCarousel.prototype.setBoard = function (name) {
   if (boardNext) boardNext.setToPosition(positionNext);
   board.setToPosition(position);
   board.spriteOn.alpha = 1.0;
-  this.boards.forEach(function (b) {
+  this.boards.forEach(function(b) {
     if (b == board) return;
     b.spriteOn.alpha = 0;
     if (b == boardPrev || b == boardNext) return;
@@ -1220,7 +1292,7 @@ NORD.BoardsCarousel.prototype.setBoard = function (name) {
   this.emit('board_change', board.name);
 };
 
-NORD.BoardsCarousel.prototype.tween = function (data, callback) {
+NORD.BoardsCarousel.prototype.tween = function(data, callback) {
   if (data.name == 'switch') {}
 };
 
@@ -1229,7 +1301,7 @@ var drawBezier = function drawBezier(graphics, curve) {
   var LUT = curve.getLUT(16);
   graphics.lineStyle(1.0, 0xFFFFFF);
   graphics.moveTo(LUT[0].x, LUT[0].y);
-  LUT.forEach(function (point, i) {
+  LUT.forEach(function(point, i) {
     if (i == 0) return;
     graphics.lineTo(point.x, point.y); // console.log('P:', point);
     // drawPoint(point.x, point.y);
@@ -1260,17 +1332,17 @@ var DragablePoint = function DragablePoint(color, radius, checkPosition) {
 DragablePoint.prototype = Object.create(PIXI.Graphics.prototype);
 DragablePoint.prototype.constructor = DragablePoint;
 
-DragablePoint.prototype.onDragStart = function (e) {
+DragablePoint.prototype.onDragStart = function(e) {
   if (this.isDrag) return;
   this.isDrag = true;
 };
 
-DragablePoint.prototype.onDragEnd = function (e) {
+DragablePoint.prototype.onDragEnd = function(e) {
   if (!this.isDrag) return;
   this.isDrag = false;
 };
 
-DragablePoint.prototype.update = function () {
+DragablePoint.prototype.update = function() {
   if (!this.isDrag) return;
   var p = this.parent.toLocal(NORD.app.mouseGlobal);
   p = this.checkPosition(p);
@@ -1291,7 +1363,7 @@ var PaddleView2 = function PaddleView2() {
   this.isEditable = isEditable;
 
   var createDragablePoint = function createDragablePoint(name, color, radius, ddd) {
-    var dragablePoint = new DragablePoint(color, radius, ddd ? ddd : function (p) {
+    var dragablePoint = new DragablePoint(color, radius, ddd ? ddd : function(p) {
       if (p.x > 0) p.x = 0; // if(p.y > 0) p.y = 0;
 
       return p;
@@ -1305,7 +1377,7 @@ var PaddleView2 = function PaddleView2() {
     // dragablePoint.y = controlPoint.y;
     // this.controlPoints[name] = { x, y };
 
-    dragablePoint.on('change', function (data) {
+    dragablePoint.on('change', function(data) {
       data.x -= _this9.pointStart.x;
       data.y -= _this9.pointStart.y;
       _this9.controlPoints[name] = data;
@@ -1351,7 +1423,7 @@ var PaddleView2 = function PaddleView2() {
     // });
     this.dragablePoints['point_2'] = createDragablePoint('point_2', 0xFF7000, 3);
     this.dragablePoints['point_3'] = createDragablePoint('point_3', 0xFF7000, 3);
-    this.dragablePoints['point_4'] = createDragablePoint('point_4', 0xBDFF00, 3, function (p) {
+    this.dragablePoints['point_4'] = createDragablePoint('point_4', 0xBDFF00, 3, function(p) {
       if (p.x > 0) p.x = 0;
       if (p.y < 3) p.y = 3;
       return p;
@@ -1364,17 +1436,17 @@ var PaddleView2 = function PaddleView2() {
 PaddleView2.prototype = Object.create(PIXI.Container.prototype);
 PaddleView2.prototype.constructor = PaddleView2;
 
-PaddleView2.prototype.updateSize = function (size) {
+PaddleView2.prototype.updateSize = function(size) {
   this.size = size;
   this.updatePaddle();
 };
 
-PaddleView2.prototype.updateControlPoints = function (controlPoints) {
+PaddleView2.prototype.updateControlPoints = function(controlPoints) {
   this.controlPoints = controlPoints;
   this.updatePaddle();
 };
 
-PaddleView2.prototype.updatePaddle = function () {
+PaddleView2.prototype.updatePaddle = function() {
   var _this10 = this;
 
   // this.size = size;
@@ -1399,7 +1471,7 @@ PaddleView2.prototype.updatePaddle = function () {
   var maxX = null;
   var minY = null;
   var maxY = null;
-  this.points.forEach(function (p) {
+  this.points.forEach(function(p) {
     if (minX == null || p.x < minX) minX = p.x;
     if (maxX == null || p.x > maxX) maxX = p.x;
     if (minY == null || p.y < minY) minY = p.y;
@@ -1416,7 +1488,7 @@ PaddleView2.prototype.updatePaddle = function () {
     this.graphics.lineTo(point_2.x + this.pointStart.x, point_2.y + this.pointStart.y);
     this.graphics.moveTo(point_3.x + this.pointStart.x, point_3.y + this.pointStart.y);
     this.graphics.lineTo(point_4.x + this.pointStart.x, point_4.y + this.pointStart.y);
-    Object.keys(this.dragablePoints).forEach(function (key) {
+    Object.keys(this.dragablePoints).forEach(function(key) {
       var dragablePoint = _this10.dragablePoints[key];
       var point = _this10.controlPoints[key]; // console.log('K:', key, dragablePoint, point)
 
@@ -1433,14 +1505,14 @@ PaddleView2.prototype.updatePaddle = function () {
   });
 };
 
-PaddleView2.prototype.getPoints = function () {
+PaddleView2.prototype.getPoints = function() {
   var angle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-  return this.points.map(function (point) {
+  return this.points.map(function(point) {
     return Util.rotatePointDeg(point.x, point.y, 0, 0, angle);
   });
 };
 
-PaddleView2.prototype.drawPaddle = function (graphics, color, vertices) {
+PaddleView2.prototype.drawPaddle = function(graphics, color, vertices) {
   graphics.beginFill(color, 1);
   graphics.lineStyle(1, color, 1.0);
   var startVertice = vertices[0];
@@ -1453,7 +1525,7 @@ PaddleView2.prototype.drawPaddle = function (graphics, color, vertices) {
   graphics.lineTo(startVertice.x, startVertice.y);
 };
 
-NORD.ScreenMainMenu.prototype.createSwitcher = function (x, y, labelName, switcherName, selected, onChange) {
+NORD.ScreenMainMenu.prototype.createSwitcher = function(x, y, labelName, switcherName, selected, onChange) {
   // const label = Util.createSprite({ parent: this, x: -112, y: y, atlas: 'texture_atlas', texture: labelName+'.png', aX: 1.0, aY: 0.5 });
   var config = null;
 
@@ -1503,52 +1575,6 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function (x, y, labelName, switch
         }
       }
     };
-  } else if (switcherName == 'players') {
-    config = {
-      selected: selected,
-      left: {
-        spriteOn: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_1_on.png',
-          aX: 0.5,
-          aY: 0.5
-        },
-        spriteOff: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_1_off.png',
-          aX: 0.5,
-          aY: 0.5
-        }
-      },
-      center: {
-        spriteOn: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_2_on.png',
-          aX: 0.5,
-          aY: 0.5
-        },
-        spriteOff: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_2_off.png',
-          aX: 0.5,
-          aY: 0.5
-        }
-      },
-      right: {
-        spriteOn: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_2_on.png',
-          aX: 0.5,
-          aY: 0.5
-        },
-        spriteOff: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_2_off.png',
-          aX: 0.5,
-          aY: 0.5
-        }
-      }
-    };
   } else {
     config = {
       selected: selected,
@@ -1589,7 +1615,7 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function (x, y, labelName, switch
     x: 0,
     y: y
   }, config);
-  switcher.on('side_change', function (side) {
+  switcher.on('side_change', function(side) {
     // console.log('Side change:', side);
     onChange(side);
   });
@@ -1597,7 +1623,7 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function (x, y, labelName, switch
 };
 
 //Shunmugam Random Name Popup
-NORD.randomNamePopup = function (config) {
+NORD.randomNamePopup = function(config) {
 
   var l_playerName;
   var s_namePanel;
@@ -1654,7 +1680,7 @@ NORD.randomNamePopup = function (config) {
   });
   this.refreshNameButton.position.set(80, -12);
   this.refreshNameButton.soundClick = NORD.assetsManager.getAsset('play_button')
-  this.refreshNameButton.addListener('button_click', function (data) {
+  this.refreshNameButton.addListener('button_click', function(data) {
     var _this5 = this;
     this.updateRandomName();
 
@@ -1678,12 +1704,12 @@ NORD.randomNamePopup = function (config) {
     scaleY: 1
   });
   this.closeButton.soundClick = NORD.assetsManager.getAsset('play_button')
-  this.closeButton.addListener('button_click', function (data) {
+  this.closeButton.addListener('button_click', function(data) {
     var _this5 = this;
     MainMenuLocation.enableAllButtons();
     if (this.state !== 'show') return;
-    TweenMax.delayedCall(0.07 * 2, function () {
-      _this5.hide("", function () {
+    TweenMax.delayedCall(0.07 * 2, function() {
+      _this5.hide("", function() {
         NORD.mainMenu.randomNamePopup.hide();
       });
     });
@@ -1698,18 +1724,18 @@ NORD.randomNamePopup = function (config) {
     scaleY: 1
   });
   this.okButton.soundClick = NORD.assetsManager.getAsset('play_button')
-  this.okButton.addListener('button_click', function (data) {
+  this.okButton.addListener('button_click', function(data) {
     var _this5 = this;
     MainMenuLocation.enableAllButtons();
     if (this.state !== 'show') return;
-    TweenMax.delayedCall(0.07 * 2, function () {
+    TweenMax.delayedCall(0.07 * 2, function() {
 
       NORD.App.playerController.config.playerAdjectiveId = NORD.App.playerController.randomAdjectiveNumber;
       NORD.App.playerController.config.playerNounId = NORD.App.playerController.randomNounNumber;
 
       NORD.App.playerController.saveConfig();
 
-      _this5.hide("", function () {
+      _this5.hide("", function() {
         if (PP.server_using == PP.SERVER_USING.Photon) {
           NORD.mainMenu.multiplayerSelectionPopup.show();
           NORD.mainMenu.multiplayerSelectionPopup.startPhotonSerer();
@@ -1735,21 +1761,21 @@ NORD.randomNamePopup = function (config) {
 NORD.randomNamePopup.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.randomNamePopup.prototype.constructor = NORD.randomNamePopup;
 
-NORD.randomNamePopup.prototype.show = function (data) {
+NORD.randomNamePopup.prototype.show = function(data) {
   this.tween({
     name: 'show_anim'
   });
 };
 
-NORD.randomNamePopup.prototype.hide = function (data, callback) {
+NORD.randomNamePopup.prototype.hide = function(data, callback) {
   this.tween({
     name: 'hide_anim'
-  }, function () {
+  }, function() {
     if (callback) callback();
   });
 };
 
-NORD.randomNamePopup.prototype.tween = function (data, callback) {
+NORD.randomNamePopup.prototype.tween = function(data, callback) {
   var self = this;
   if (data.name == 'show_anim' && this.state == 'hide') {
     this.state = 'show_anim';
@@ -1807,13 +1833,13 @@ NORD.randomNamePopup.prototype.tween = function (data, callback) {
   }
 };
 
-NORD.randomNamePopup.prototype.updateName = function () {
+NORD.randomNamePopup.prototype.updateName = function() {
   // this.l_playerName.scale = 1;
   this.l_playerName.text = NORD.App.playerController.getName();
   this.updateNameSize();
 };
 
-NORD.randomNamePopup.prototype.updateNameSize = function () {
+NORD.randomNamePopup.prototype.updateNameSize = function() {
   if (this.l_playerName.width > this.s_namePanel.width) {
     var toScale = this.s_namePanel.width / this.l_playerName.width;
     this.l_playerName.scale.x = toScale;
@@ -1821,7 +1847,7 @@ NORD.randomNamePopup.prototype.updateNameSize = function () {
   }
 }
 
-NORD.randomNamePopup.prototype.updateRandomName = function () {
+NORD.randomNamePopup.prototype.updateRandomName = function() {
   // this.l_playerName.scale = 1;
   this.l_playerName.text = NORD.App.playerController.getRandomName();
   this.updateNameSize();
