@@ -298,7 +298,7 @@ NORD.Field = function() {
     aX: 0.5,
     aY: 0.5,
     scaleX: 0.5,
-    scaleY: 1
+    scaleY: 0.5
   });
 
   this.sideImage = Util.createSprite({
@@ -306,8 +306,8 @@ NORD.Field = function() {
     texture: 'Game-Board',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 0.35,
-    scaleY: 0.5
+    scaleX: 0.375,
+    scaleY: 0.475
   });
   this.containerGravityHole = new PIXI.Container();
   this.addChild(this.containerGravityHole);
