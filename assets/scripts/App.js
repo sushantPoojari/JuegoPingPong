@@ -277,6 +277,12 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'Game-Board',
     url: 'assets/images/popup/GamePlay/Game-Board.png'
+  }, {
+    name: 'rightPaddle',
+    url: 'assets/images/popup/GamePlay/Paddle-2.png'
+  }, {
+    name: 'leftPaddle',
+    url: 'assets/images/popup/GamePlay/Paddle-1.png'
   }]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//

@@ -1248,6 +1248,25 @@ NORD.Field.Paddle = function(field, side) {
   var shootShift = 34;
 
   if (this.side === 'LEFT') {
+    this.paddleView = Util.createSprite({
+      texture: 'leftPaddle',
+      parent: this,
+      aX: 0.8,
+      aY: 0.5,
+      scaleXY: 0.5
+    });
+  } else {
+    this.paddleView = Util.createSprite({
+      texture: 'rightPaddle',
+      parent: this,
+      aX: 0.2,
+      aY: 0.5,
+      scaleXY: 0.5
+    });
+  }
+
+
+  if (this.side === 'LEFT') {
     this.shootView.scale.x = -0.7;
     this.shootView.x = shootShift;
   } else {
