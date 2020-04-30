@@ -19,6 +19,7 @@ function _defineProperty(obj, key, value) {
 }
 
 NORD.Field.Wall = function(field, config) {
+  //sushant wall
   if (config.type == 'BUMPER') this.container = field.contaierObstacles;
   NORD.Field.FieldObject.call(this, field);
   this.color = NORD.definitionsManager.colorYellow;
@@ -62,7 +63,7 @@ NORD.Field.Wall.prototype.initBorderWall = function(config) {
   Matter.World.add(this.field.physics, [this.body]);
   this.bg = new PIXI.Graphics();
   this.addChild(this.bg);
-  this.bg.beginFill(this.color, 1.0);
+  // this.bg.beginFill(this.color, 1.0);
   this.bg.drawRect(0, 0, 10, 10);
   this.bg.width = width;
   this.bg.height = height;
@@ -280,6 +281,15 @@ NORD.Field.Ball.prototype.init = function(x, y) {
   this.playerPaddle = null;
   this.isFirstHit = false;
 
+
+  this.ballImage = Util.createSprite({
+    texture: 'Ball',
+    parent: this,
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.4
+  });
+
   if (this.invisibleTween) {
     this.invisibleTween.kill();
     this.invisibleTween = null;
@@ -376,7 +386,7 @@ NORD.Field.Ball.prototype.updateGraphics = function() {
     this.addChild(this.bg);
   }
 
-  this.bg.beginFill(this.color, 1.0);
+  this.bg.beginFill(this.color, 0);
   this.bg.drawCircle(0, 0, this.radius * 0.95);
 };
 NORD.Field.Ball.prototype.multiBallImpulse = function(dir) {
@@ -1247,6 +1257,24 @@ NORD.Field.Paddle = function(field, side) {
   var shootShift = 34;
 
   if (this.side === 'LEFT') {
+    this.paddleView = Util.createSprite({
+      texture: 'leftPaddle',
+      parent: this,
+      aX: 0.8,
+      aY: 0.5,
+      scaleXY: 0.5
+    });
+  } else {
+    this.paddleView = Util.createSprite({
+      texture: 'rightPaddle',
+      parent: this,
+      aX: 0.2,
+      aY: 0.5,
+      scaleXY: 0.5
+    });
+  }
+
+  if (this.side === 'LEFT') {
     this.shootView.scale.x = -0.7;
     this.shootView.x = shootShift;
   } else {
@@ -1540,8 +1568,8 @@ NORD.Field.Paddle.prototype.drawPaddle = function() {
         drawBody(b);
       });
     } else {
-      mainGraphics.lineStyle(1, 0xFFFFFF);
-      mainGraphics.beginFill(0xFFFFFF, 1.0);
+      mainGraphics.lineStyle(0, 0xFFFFFF);
+      mainGraphics.beginFill(0xFFFFFF, 0);
       var vertices = body.vertices.map(function(p) {
         return {
           x: p.x - bbb.position.x,

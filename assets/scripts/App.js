@@ -72,10 +72,10 @@ NORD.GAME_STATE = {
 
 NORD.initGameDefinitions = function() {
   NORD.definitionsManager.appSize = {
-    widthMin: 640,
-    widthMax: 640,
-    heightMin: 480,
-    heightMax: 480
+    widthMin: 720,
+    widthMax: 720,
+    heightMin: 500,
+    heightMax: 500
   };
   NORD.definitionsManager.stageColor = 0x00003A;
   NORD.definitionsManager.appName = 'Retro-Ping-Pong';
@@ -245,6 +245,9 @@ NORD.initGameDefinitions = function() {
     name: 'PopupSmall',
     url: 'assets/images/popup/PopupSmall.png'
   }, {
+    name: 'SubPanel01',
+    url: 'assets/images/popup/SubPanel01.png'
+  }, {
     name: 'RefreshIcon',
     url: 'assets/images/popup/RefreshIcon.png'
   }, {
@@ -268,7 +271,26 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'portal22',
     url: 'assets/images/popup/portal22.png'
-  }]);
+  }, {
+    name: 'Separator-Line',
+    url: 'assets/images/popup/GamePlay/Separator-Line.png'
+  }, {
+    name: 'Game-Board',
+    url: 'assets/images/popup/GamePlay/Game-Board.png'
+  }, {
+    name: 'rightPaddle',
+    url: 'assets/images/popup/GamePlay/Paddle-2.png'
+  }, {
+    name: 'leftPaddle',
+    url: 'assets/images/popup/GamePlay/Paddle-1.png'
+  }, {
+    name: 'Ball',
+    url: 'assets/images/popup/GamePlay/Ball.png'
+  },
+{
+  name: 'PauseButton',
+  url: 'assets/images/popup/GamePlay/Pause-Button.png'
+}]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//

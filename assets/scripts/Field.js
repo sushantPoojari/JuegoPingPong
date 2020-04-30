@@ -46,8 +46,8 @@ NORD.Field = function() {
   var self = this;
   this.config = {
     FIELD_WIDTH: 640,
-    FIELD_HEIGHT: 480 - 20 * 2,
-    WALLS_HEIGHT: 40,
+    FIELD_HEIGHT: 500 - 40 * 2,
+    WALLS_HEIGHT: 20,
     PADDLE_SHIFT: 640 / 2 - 20,
     actionMode: new Util.ObservableValue(2),
     scoresForWin: new Util.ObservableValue(2),
@@ -294,11 +294,13 @@ NORD.Field = function() {
 
   this.centerLine = Util.createSprite({
     parent: this,
-    atlas: 'texture_atlas',
-    texture: 'center_line.png',
+    texture: 'Separator-Line',
     aX: 0.5,
-    aY: 0.5
+    aY: 0.5,
+    scaleX: 0.5,
+    scaleY: 0.5
   });
+
   this.containerGravityHole = new PIXI.Container();
   this.addChild(this.containerGravityHole);
   this.containerScore = new PIXI.Container();
@@ -345,6 +347,16 @@ NORD.Field = function() {
   this.ballMaxSpeedBoostTimer = 0;
   this.ballSize = this.config.ballSize.value;
   this.ballSpeedUpDisable = false;
+
+  this.sideImage = Util.createSprite({
+    parent: this,
+    texture: 'Game-Board',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.375,
+    scaleY: 0.475
+  });
+
   this.state = new Util.StateStore();
   this.state.setState({
     gamePhase: 'NONE'
@@ -357,6 +369,8 @@ NORD.Field = function() {
   NORD.app.on('update_before', this.updateBefore, this);
   NORD.app.on('update', this.update, this);
   NORD.app.on('update_after', this.updateAfter, this);
+
+
 };
 
 NORD.Field.prototype = Object.create(PIXI.Container.prototype);
@@ -2213,6 +2227,7 @@ RoundGenerator.prototype.initRound = function() {
   this.field.roundMode = this.roundMode;
   this.initRoundMode();
 
+  this.field.ballSize = 18;
   if (this.roundMode === 'BIG_BALL_LITTLE_PADDLES') {
     this.field.ballSize = this.field.config.bblpModeBallSize.value;
     this.field.paddleLeft.setSize(this.field.smallPaddleData.size, this.field.smallPaddleData.shape);

@@ -81,11 +81,12 @@ NORD.ScreenGame = function(config) {
     }, this);
   }
 
-  this.buttonPause = Util.createButton('btn', this, null, '', -640 / 2 + 32 / 2 + 10, -480 / 2 + 32 / 2 + 30, 32, 32, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
-    atlas: 'texture_atlas',
-    texture: 'button_pause.png',
+  this.buttonPause = Util.createButton('btn', this, null, '', -710 / 2 + 32 / 2 + 10, -550 / 2 + 32 / 2 + 30, 32, 32, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+    texture: 'PauseButton',
+    parent: this,
     aX: 0.5,
-    aY: 0.5
+    aY: 0.5,
+    scaleXY: 0.4
   });
   this.buttonPause.on('button_click', function(data) {
     var _this2 = this;
