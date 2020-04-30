@@ -1265,7 +1265,6 @@ NORD.Field.Paddle = function(field, side) {
     });
   }
 
-
   if (this.side === 'LEFT') {
     this.shootView.scale.x = -0.7;
     this.shootView.x = shootShift;
@@ -1560,8 +1559,8 @@ NORD.Field.Paddle.prototype.drawPaddle = function() {
         drawBody(b);
       });
     } else {
-      mainGraphics.lineStyle(1, 0xFFFFFF);
-      mainGraphics.beginFill(0xFFFFFF, 1.0);
+      mainGraphics.lineStyle(0, 0xFFFFFF);
+      mainGraphics.beginFill(0xFFFFFF, 0);
       var vertices = body.vertices.map(function(p) {
         return {
           x: p.x - bbb.position.x,
