@@ -388,8 +388,8 @@ NORD.ScreenMainMenu.prototype.disableAllButtons = function() {
   NORD.game.screenGame.panelEndGame.buttonRestart.interactive = false;
   // this.switcherDificulty.alpha = 0.3;
   //disable difficulty
-  this.switcherDificulty.interactive = false;
-  this.switcherDificulty.interactiveChildren = false;
+  // this.switcherDificulty.interactive = false;
+  // this.switcherDificulty.interactiveChildren = false;
 
   //disable switcherPlayers
   this.switcherPlayers.interactive = false;
