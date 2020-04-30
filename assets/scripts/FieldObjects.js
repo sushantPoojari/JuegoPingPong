@@ -93,10 +93,20 @@ NORD.Field.Wall.prototype.initRectWall = function(config) {
   Matter.World.add(this.field.physics, [this.body]);
   this.bg = new PIXI.Graphics();
   this.addChild(this.bg);
-  this.bg.beginFill(this.color, 1.0);
+  this.bg.beginFill(this.color, 0);
   this.bg.drawRect(-10, -10, 20, 20);
   this.bg.width = width;
   this.bg.height = height;
+
+  this.topParallelLine = Util.createSprite({
+    parent: this,
+    texture: 'ParallelLine',
+    aX: 0.5,
+    aY: 0.4,
+    scaleX: 0.39,
+    scaleY: 0.45
+  });
+  if (config.y > 0) this.topParallelLine.rotation = Math.PI;
 };
 
 NORD.Field.Wall.prototype.initDiamondWall = function(config) {
@@ -122,12 +132,22 @@ NORD.Field.Wall.prototype.initDiamondWall = function(config) {
   Matter.Body.setAngle(this.body, Math.PI / 4);
   this.bg = new PIXI.Graphics();
   this.addChild(this.bg);
-  this.bg.beginFill(this.color, 1.0);
+  this.bg.beginFill(this.color, 0);
   this.bg.drawRect(-10, -10, 20, 20);
   this.bg.width = width;
   this.bg.height = height; // this.bg.x = -width/2;
   // this.bg.y = -height/2;
 
+
+  this.diamondImage = Util.createSprite({
+    parent: this,
+    texture: 'DiamondMode',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.45,
+    scaleY: 0.45
+  });
+  this.addChild(this.diamondImage);
   this.bg.rotation = this.body.angle; // console.log('Diamond created!');
 };
 

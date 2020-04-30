@@ -264,16 +264,7 @@ NORD.initGameDefinitions = function() {
     url: 'assets/images/popup/load.png'
   }, {
     name: 'portal1',
-    url: 'assets/images/popup/portal1.png'
-  }, {
-    name: 'portal2',
-    url: 'assets/images/popup/portal2.png'
-  }, {
-    name: 'portal21',
-    url: 'assets/images/popup/portal21.png'
-  }, {
-    name: 'portal22',
-    url: 'assets/images/popup/portal22.png'
+    url: 'assets/images/popup/GamePlay/Mode/Through-the-portal.png'
   }, {
     name: 'Separator-Line',
     url: 'assets/images/popup/GamePlay/Separator-Line.png'
@@ -295,6 +286,12 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'GameBackGround',
     url: 'assets/images/popup/GamePlay/Background.png'
+  }, {
+    name: 'DiamondMode',
+    url: 'assets/images/popup/GamePlay/Mode/Diamond.png'
+  }, {
+    name: 'ParallelLine',
+    url: 'assets/images/popup/GamePlay/Mode/Parallel-Line.png'
   }]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//

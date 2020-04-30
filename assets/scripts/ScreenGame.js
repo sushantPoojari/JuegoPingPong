@@ -365,7 +365,6 @@ NORD.ScreenGame.prototype.showIndicator = function(duration) {
 
 NORD.ScreenGame.ScoreText = function() {
   PIXI.Container.call(this);
-  debugger;
   this.scoreText = new PIXI.Text("0", {
     font: '35px Snippet',
     fontSize: 26,
