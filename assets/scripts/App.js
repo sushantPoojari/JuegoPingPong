@@ -41,8 +41,6 @@ NORD.MULTIPLAYER_GAME_MODE_TYPE = {
   STUNPLAYER: "STUN_PLAYER",
   KITTY_SHRINK_PADDLE: "KITTY_SHRINK_PADDLE",
   FOG_MODE: "FOG_MODE",
-  DIAMOND_MODE: "DIAMOND_MODE",
-  PARALLEL_MODE: "PARALLEL_MODE",
   INVERSE_MODE: "INVERSE_MODE",
   TELEPORT_MODE: "TELEPORT_MODE",
 }
@@ -50,6 +48,11 @@ NORD.MULTIPLAYER_GAME_MODE_TYPE = {
 NORD.MULTIPLAYER_GAME_TYPE = {
   RANDOM: "random",
   CUSTOM: "custom"
+}
+NORD.MULTIPLAYER_BOARD_TYPE = {
+  DIAMOND_MODE: "board_3",
+  PARALLEL_MODE: "board_1",
+  NORMAL_MODE: "board_2",
 }
 NORD.MULTIPLAYER_GAME_DIFFICULTY = {
   EASY: "easy",
@@ -286,11 +289,10 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'Ball',
     url: 'assets/images/popup/GamePlay/Ball.png'
-  },
-{
-  name: 'PauseButton',
-  url: 'assets/images/popup/GamePlay/Pause-Button.png'
-}]);
+  }, {
+    name: 'PauseButton',
+    url: 'assets/images/popup/GamePlay/Pause-Button.png'
+  }]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//

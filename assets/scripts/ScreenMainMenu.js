@@ -31,7 +31,7 @@ NORD.ScreenMainMenu = function(config) {
   NORD.mainMenu = this;
   var isAllButtonEnabled;
   this.isAllButtonEnabled = true;
-  
+
   config.sizeType = 'relative';
   config.widthRelative = 1;
   config.heightRelative = 1;
@@ -63,8 +63,7 @@ NORD.ScreenMainMenu = function(config) {
 
 
 
-
-    /*********************************************************************************Game Type**************************************************************************************************/
+  /*********************************************************************************Game Type**************************************************************************************************/
   this.switcherPlayers = this.createSwitcher(0, startY + 0, 'label_players', 'players', gConfig.players == 'one' ? 'left' : 'right', function(side) {
     var dataMap = {
       left: 'one',
@@ -77,7 +76,7 @@ NORD.ScreenMainMenu = function(config) {
     NORD.game.setConfig(config); // console.log('SSS:', config)
   });
 
-    /*********************************************************************************Game Mode**************************************************************************************************/
+  /*********************************************************************************Game Mode**************************************************************************************************/
 
   this.switcherMode = this.createSwitcher(0, startY + 150, 'label_mode', 'mode', gConfig.mode == 'classic' ? 'left' : 'right', function(side) {
     var dataMap = {
@@ -88,7 +87,7 @@ NORD.ScreenMainMenu = function(config) {
     config.mode = dataMap[side];
     NORD.game.setConfig(config);
   });
-  
+
   this.switcherMode.on('switch_start', function(side) {
     if (side === 'right' && _this.actionHint.visible) {
       _this.clearPulse(); // console.log('CLEAR:', this.switcherMode.containerRight.alpha);
@@ -101,7 +100,7 @@ NORD.ScreenMainMenu = function(config) {
     }
   });
 
-    /***********************************************************************************************************************************************************************************/
+  /***********************************************************************************************************************************************************************************/
 
   // //sushant
   // var dividerLine = Util.createSprite({
@@ -198,20 +197,19 @@ NORD.ScreenMainMenu = function(config) {
     debugger;
 
     var config = NORD.game.config;
-    if(config.players == 'three')
-    {
+    if (config.players == 'three') {
       if (NORD.mainMenu.isAllButtonEnabled == true) {
 
         NORD.MultiplayerPopupSowed = true;
         var _this2 = this;
-  
+
         NORD.gameState = NORD.GAME_STATE.SERARCHING;
-  
+
         this.disableAllButtons();
         TweenMax.delayedCall(0.07 * 2, function() {
-  
+
           var currentTime = Date.now();
-  
+
           if (NORD.App.playerController.config.playerAdjectiveId == -1) {
             NORD.App.playerController.getRandomName();
             _this2.randomNamePopup.updateName();
@@ -227,21 +225,17 @@ NORD.ScreenMainMenu = function(config) {
           // _this2.multilayerPanel.show();
         });
       }
-    }
-else{
-  if (NORD.game.config.mode == 'action') {
-    if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.DIAMOND_MODE)
-      _this.boardSelected = 'board_3';
-    if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.PARALLEL_MODE)
-      _this.boardSelected = 'board_1';
-  }
+    } else {
 
-  TweenMax.delayedCall(0.07 * 2, function() {
-    if (NORD.game.config.mode !== 'action') self.toGame('board_2');
-    else self.toGame(_this.boardSelected);
-  });
-}
-   
+      //yathiraj put a variable here \
+      _this.boardSelected = 'board_1';
+
+      TweenMax.delayedCall(0.07 * 2, function() {
+        if (NORD.game.config.mode !== 'action') self.toGame(_this.boardSelected);
+        else self.toGame('board_2');
+      });
+    }
+
   }, this);
   alignItems([logo, this.containerSwitchers, btn], 480);
 
@@ -1433,7 +1427,7 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function(x, y, labelName, switche
         }
       }
     };
-  }else if (switcherName == 'players') {
+  } else if (switcherName == 'players') {
     config = {
       selected: selected,
       left: {
@@ -1479,8 +1473,7 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function(x, y, labelName, switche
         }
       }
     };
-  }
-   else {
+  } else {
     config = {
       selected: selected,
       left: {

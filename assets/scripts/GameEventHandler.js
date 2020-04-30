@@ -495,19 +495,14 @@ NORD.GameEventHandler.prototype.onReciveEvent = function(eventType, data) {
         config.mode = DemoLoadFunction.myRoom()._customProperties.mode;
         NORD.game.setConfig(config);
 
-        if (NORD.game.config.mode == 'action') {
-          if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.DIAMOND_MODE)
-            MainMenuLocation.boardSelected = 'board_3';
-          if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.PARALLEL_MODE)
-            MainMenuLocation.boardSelected = 'board_1';
-        }
-
+        //yathiraj put a variable here \
+        MainMenuLocation.boardSelected = 'board_1';
 
         MainMenuLocation.ballDiamondGeneratedPos = serverObj.ballDiamondPos;
 
         TweenMax.delayedCall(0.07 * 2, function() {
-          if (NORD.game.config.mode !== 'action') MainMenuLocation.toGame('board_2');
-          else MainMenuLocation.toGame(MainMenuLocation.boardSelected);
+          if (NORD.game.config.mode !== 'action') MainMenuLocation.toGame(MainMenuLocation.boardSelected);
+          else MainMenuLocation.toGame('board_2');
         });
         break;
       }

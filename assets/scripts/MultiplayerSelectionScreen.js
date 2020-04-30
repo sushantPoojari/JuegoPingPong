@@ -619,10 +619,14 @@ NORD.RandomSearchInstance.prototype.getRandomWaitTime = function() {
 
 NORD.RandomSearchInstance.prototype.getRandomRoomOption = function(mode) {
   var modType;
-  if (NORD.App.playerController.config.currentSelectedmode == "classic")
+  var boardType;
+  if (NORD.App.playerController.config.currentSelectedmode == "classic") {
     modType = NORD.MULTIPLAYER_GAME_MODE_TYPE.NONE;
-  else
-    modType = NORD.game.panelSettings.actionMode;;
+    boardType = NORD.MULTIPLAYER_BOARD_TYPE.DIAMOND_MODE;
+  } else {
+    modType = NORD.game.panelSettings.actionMode;
+    boardType = NORD.MULTIPLAYER_BOARD_TYPE.NORMAL_MODE;
+  }
   // modType = NORD.game.panelSettings.actionMode;
   // modType = NORD.MULTIPLAYER_GAME_MODE_TYPE.BIG_BALL_LITTLE_PADDLES;
 
@@ -637,6 +641,7 @@ NORD.RandomSearchInstance.prototype.getRandomRoomOption = function(mode) {
       mode: NORD.App.playerController.config.currentSelectedmode, //NORD.MULTIPLAYER_GAME_MODE.CLASSIC,
       gameType: NORD.MULTIPLAYER_GAME_TYPE.RANDOM,
       modeType: modType,
+      board: boardType,
       difficulty: NORD.App.playerController.config.playerDifficultyLevel //NORD.MULTIPLAYER_GAME_DIFFICULTY.EASY
     }
   }
