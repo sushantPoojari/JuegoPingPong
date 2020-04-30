@@ -2223,6 +2223,7 @@ RoundGenerator.prototype.initRound = function() {
   this.field.roundMode = this.roundMode;
   this.initRoundMode();
 
+  this.field.ballSize = 18;
   if (this.roundMode === 'BIG_BALL_LITTLE_PADDLES') {
     this.field.ballSize = this.field.config.bblpModeBallSize.value;
     this.field.paddleLeft.setSize(this.field.smallPaddleData.size, this.field.smallPaddleData.shape);

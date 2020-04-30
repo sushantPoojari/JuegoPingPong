@@ -281,6 +281,15 @@ NORD.Field.Ball.prototype.init = function(x, y) {
   this.playerPaddle = null;
   this.isFirstHit = false;
 
+
+  this.ballImage = Util.createSprite({
+    texture: 'Ball',
+    parent: this,
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.4
+  });
+
   if (this.invisibleTween) {
     this.invisibleTween.kill();
     this.invisibleTween = null;
@@ -377,7 +386,7 @@ NORD.Field.Ball.prototype.updateGraphics = function() {
     this.addChild(this.bg);
   }
 
-  this.bg.beginFill(this.color, 1.0);
+  this.bg.beginFill(this.color, 0);
   this.bg.drawCircle(0, 0, this.radius * 0.95);
 };
 NORD.Field.Ball.prototype.multiBallImpulse = function(dir) {
