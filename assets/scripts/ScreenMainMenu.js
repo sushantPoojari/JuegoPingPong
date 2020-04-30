@@ -101,6 +101,7 @@ NORD.ScreenMainMenu = function(config) {
     }
   });
 
+    /***********************************************************************************************************************************************************************************/
 
   // //sushant
   // var dividerLine = Util.createSprite({
@@ -194,67 +195,102 @@ NORD.ScreenMainMenu = function(config) {
     MultiplayerStarted = false;
     // if(!(this.switcherPlayers.switchingState == 'none' && this.switcherDificulty.switchingState == 'none' && this.switcherMode.switchingState == 'none')) return;
     if (!(_this.switcherPlayers.switchingState == 'none' && _this.switcherMode.switchingState == 'none')) return; // console.log('Click!');
+    debugger;
 
-    if (NORD.game.config.mode == 'action') {
-      if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.DIAMOND_MODE)
-        _this.boardSelected = 'board_3';
-      if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.PARALLEL_MODE)
-        _this.boardSelected = 'board_1';
+    var config = NORD.game.config;
+    if(config.players == 'three')
+    {
+      if (NORD.mainMenu.isAllButtonEnabled == true) {
+
+        NORD.MultiplayerPopupSowed = true;
+        var _this2 = this;
+  
+        NORD.gameState = NORD.GAME_STATE.SERARCHING;
+  
+        this.disableAllButtons();
+        TweenMax.delayedCall(0.07 * 2, function() {
+  
+          var currentTime = Date.now();
+  
+          if (NORD.App.playerController.config.playerAdjectiveId == -1) {
+            NORD.App.playerController.getRandomName();
+            _this2.randomNamePopup.updateName();
+            _this2.randomNamePopup.show();
+          } else {
+            if (PP.server_using == PP.SERVER_USING.Photon) {
+              _this2.multiplayerSelectionPopup.show();
+              _this2.multiplayerSelectionPopup.startPhotonSerer();
+            } else {
+              _this2.multiplayerSelectionPopup.loginToSmartBox();
+            }
+          }
+          // _this2.multilayerPanel.show();
+        });
+      }
     }
+else{
+  if (NORD.game.config.mode == 'action') {
+    if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.DIAMOND_MODE)
+      _this.boardSelected = 'board_3';
+    if (NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.PARALLEL_MODE)
+      _this.boardSelected = 'board_1';
+  }
 
-    TweenMax.delayedCall(0.07 * 2, function() {
-      if (NORD.game.config.mode !== 'action') self.toGame('board_2');
-      else self.toGame(_this.boardSelected);
-    });
+  TweenMax.delayedCall(0.07 * 2, function() {
+    if (NORD.game.config.mode !== 'action') self.toGame('board_2');
+    else self.toGame(_this.boardSelected);
+  });
+}
+   
   }, this);
   alignItems([logo, this.containerSwitchers, btn], 480);
 
-  var multiplayerButton = Util.createButton('btn', this, null, '', 230, 20, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('OnlineMultiPlayerBtn'), {
-    texture: 'OnlineMultiPlayerBtn',
-    aX: 0.5,
-    aY: 0.5,
-    scaleX: 0.8,
-    scaleY: 0.8
-  });
-  multiplayerButton.soundClick = NORD.assetsManager.getAsset('play_button')
-  multiplayerButton.addListener('button_click', function(data) {
+  // var multiplayerButton = Util.createButton('btn', this, null, '', 230, 20, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('OnlineMultiPlayerBtn'), {
+  //   texture: 'OnlineMultiPlayerBtn',
+  //   aX: 0.5,
+  //   aY: 0.5,
+  //   scaleX: 0.8,
+  //   scaleY: 0.8
+  // });
+  // multiplayerButton.soundClick = NORD.assetsManager.getAsset('play_button')
+  // multiplayerButton.addListener('button_click', function(data) {
 
 
-    // if (NORD.mainMenu.isAllButtonEnabled == true) {
-    //   var _this2 = this;
-    //   NORD.mainMenu.isAllButtonEnabled = true;
-    //   NORD.gameState =  NORD.GAME_STATE.SERARCHING;
-    //   NORD.sfsController.loginTo();
-    // }
-    if (NORD.mainMenu.isAllButtonEnabled == true) {
+  //   // if (NORD.mainMenu.isAllButtonEnabled == true) {
+  //   //   var _this2 = this;
+  //   //   NORD.mainMenu.isAllButtonEnabled = true;
+  //   //   NORD.gameState =  NORD.GAME_STATE.SERARCHING;
+  //   //   NORD.sfsController.loginTo();
+  //   // }
+  //   if (NORD.mainMenu.isAllButtonEnabled == true) {
 
-      NORD.MultiplayerPopupSowed = true;
-      var _this2 = this;
+  //     NORD.MultiplayerPopupSowed = true;
+  //     var _this2 = this;
 
-      NORD.gameState = NORD.GAME_STATE.SERARCHING;
+  //     NORD.gameState = NORD.GAME_STATE.SERARCHING;
 
-      this.disableAllButtons();
-      TweenMax.delayedCall(0.07 * 2, function() {
+  //     this.disableAllButtons();
+  //     TweenMax.delayedCall(0.07 * 2, function() {
 
-        var currentTime = Date.now();
+  //       var currentTime = Date.now();
 
-        if (NORD.App.playerController.config.playerAdjectiveId == -1) {
-          NORD.App.playerController.getRandomName();
-          _this2.randomNamePopup.updateName();
-          _this2.randomNamePopup.show();
-        } else {
-          if (PP.server_using == PP.SERVER_USING.Photon) {
-            _this2.multiplayerSelectionPopup.show();
-            _this2.multiplayerSelectionPopup.startPhotonSerer();
-          } else {
-            _this2.multiplayerSelectionPopup.loginToSmartBox();
-          }
-        }
-        // _this2.multilayerPanel.show();
-      });
-    }
+  //       if (NORD.App.playerController.config.playerAdjectiveId == -1) {
+  //         NORD.App.playerController.getRandomName();
+  //         _this2.randomNamePopup.updateName();
+  //         _this2.randomNamePopup.show();
+  //       } else {
+  //         if (PP.server_using == PP.SERVER_USING.Photon) {
+  //           _this2.multiplayerSelectionPopup.show();
+  //           _this2.multiplayerSelectionPopup.startPhotonSerer();
+  //         } else {
+  //           _this2.multiplayerSelectionPopup.loginToSmartBox();
+  //         }
+  //       }
+  //       // _this2.multilayerPanel.show();
+  //     });
+  //   }
 
-  }, this);
+  // }, this);
 
 
   this.buttonText = new PIXI.Text(NORD.App.playerController.getTierType() + " | Wins: " + NORD.App.playerController.config.playerRankNumber, {
@@ -265,7 +301,7 @@ NORD.ScreenMainMenu = function(config) {
   });
   this.buttonText.anchor.set(0.5);
   this.buttonText.position.set(0, 60);
-  multiplayerButton.addChild(this.buttonText);
+  // multiplayerButton.addChild(this.buttonText);
 
   //sushant
 
@@ -668,8 +704,8 @@ NORD.MenuSwitcher = function(config, switcherConfig) {
   };
 
   if (this.isCenter) {
-    this.sideLeft.x = -95;
-    this.sideRight.x = 95;
+    this.sideLeft.x = -150;
+    this.sideRight.x = 150;
     this.sideCenter = {
       x: 0,
       y: 0,
