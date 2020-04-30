@@ -70,7 +70,7 @@ NORD.ScreenMainMenu = function(config) {
       center: 'two',
       right: 'three'
     };
-    debugger;
+
     var config = NORD.game.config;
     config.players = dataMap[side];
     NORD.game.setConfig(config); // console.log('SSS:', config)
@@ -194,7 +194,6 @@ NORD.ScreenMainMenu = function(config) {
     MultiplayerStarted = false;
     // if(!(this.switcherPlayers.switchingState == 'none' && this.switcherDificulty.switchingState == 'none' && this.switcherMode.switchingState == 'none')) return;
     if (!(_this.switcherPlayers.switchingState == 'none' && _this.switcherMode.switchingState == 'none')) return; // console.log('Click!');
-    debugger;
 
     var config = NORD.game.config;
     if (config.players == 'three') {

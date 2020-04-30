@@ -292,6 +292,15 @@ NORD.Field = function() {
   // this.interactive = true;
   // this.interactiveChildren = true;
 
+  this.bakGroundImage = Util.createSprite({
+    parent: this,
+    texture: 'GameBackGround',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.375,
+    scaleY: 0.475
+  });
+
   this.centerLine = Util.createSprite({
     parent: this,
     texture: 'Separator-Line',
@@ -743,7 +752,7 @@ NORD.Field.prototype.initRound = function() {
   }
 
   this.ballMaxSpeedBoostTimer = 0;
-  this.ballSize = this.config.ballSize.value;
+  this.ballSize = 18; //this.config.ballSize.value;
   this.ballSpeedUpDisable = false;
 
   if (this.roundGenerator) {
@@ -2230,7 +2239,8 @@ RoundGenerator.prototype.initRound = function() {
   console.log("mode selected", this.roundMode);
   this.initRoundMode();
 
-  this.field.ballSize = 18;
+  this.ballSize = 80;
+
   if (this.roundMode === 'BIG_BALL_LITTLE_PADDLES') {
     this.field.ballSize = this.field.config.bblpModeBallSize.value;
     this.field.paddleLeft.setSize(this.field.smallPaddleData.size, this.field.smallPaddleData.shape);
