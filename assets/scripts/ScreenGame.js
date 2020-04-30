@@ -372,8 +372,8 @@ NORD.ScreenGame.ScoreText = function() {
     fill: 'white',
     align: 'center'
   });
-  this.textWin.anchor.set(0.5);
-  this.addChild(this.textWin);
+  this.scoreText.anchor.set(0.5);
+  this.addChild(this.scoreText);
 };
 
 NORD.ScreenGame.ScoreText.prototype = Object.create(PIXI.Container.prototype);
