@@ -46,8 +46,8 @@ NORD.Field = function() {
   var self = this;
   this.config = {
     FIELD_WIDTH: 640,
-    FIELD_HEIGHT: 480 - 20 * 2,
-    WALLS_HEIGHT: 40,
+    FIELD_HEIGHT: 500 - 40 * 2,
+    WALLS_HEIGHT: 20,
     PADDLE_SHIFT: 640 / 2 - 20,
     actionMode: new Util.ObservableValue(2),
     scoresForWin: new Util.ObservableValue(2),

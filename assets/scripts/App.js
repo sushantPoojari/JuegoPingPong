@@ -74,8 +74,8 @@ NORD.initGameDefinitions = function() {
   NORD.definitionsManager.appSize = {
     widthMin: 720,
     widthMax: 720,
-    heightMin: 520,
-    heightMax: 520
+    heightMin: 500,
+    heightMax: 500
   };
   NORD.definitionsManager.stageColor = 0x00003A;
   NORD.definitionsManager.appName = 'Retro-Ping-Pong';
