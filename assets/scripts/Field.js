@@ -301,14 +301,6 @@ NORD.Field = function() {
     scaleY: 0.5
   });
 
-  this.sideImage = Util.createSprite({
-    parent: this,
-    texture: 'Game-Board',
-    aX: 0.5,
-    aY: 0.5,
-    scaleX: 0.375,
-    scaleY: 0.475
-  });
   this.containerGravityHole = new PIXI.Container();
   this.addChild(this.containerGravityHole);
   this.containerScore = new PIXI.Container();
@@ -355,6 +347,16 @@ NORD.Field = function() {
   this.ballMaxSpeedBoostTimer = 0;
   this.ballSize = this.config.ballSize.value;
   this.ballSpeedUpDisable = false;
+
+  this.sideImage = Util.createSprite({
+    parent: this,
+    texture: 'Game-Board',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.375,
+    scaleY: 0.475
+  });
+
   this.state = new Util.StateStore();
   this.state.setState({
     gamePhase: 'NONE'
@@ -367,6 +369,8 @@ NORD.Field = function() {
   NORD.app.on('update_before', this.updateBefore, this);
   NORD.app.on('update', this.update, this);
   NORD.app.on('update_after', this.updateAfter, this);
+
+
 };
 
 NORD.Field.prototype = Object.create(PIXI.Container.prototype);
