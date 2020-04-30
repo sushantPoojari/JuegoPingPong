@@ -2185,9 +2185,11 @@ RoundGenerator.prototype.updateScore = function() {
 };
 
 RoundGenerator.prototype.resetAvaiableModes = function() {
-  this.avaiableModes = ['KITTY', 'GRAVITY_WELL', 'INVISIBLE_AREA', 'INVISIBLE_WALL', 'DOUBLE_BALL', 'BIG_BALL_LITTLE_PADDLES', // 'SMALL_GRAVITY_WELL',
-    'STUN_GUN', 'FIRE_ZONE', 'BUMPER'
-  ];
+  // this.avaiableModes = ['KITTY', 'GRAVITY_WELL', 'INVISIBLE_AREA', 'INVISIBLE_WALL', 'DOUBLE_BALL', 'BIG_BALL_LITTLE_PADDLES', // 'SMALL_GRAVITY_WELL',
+  //   'STUN_GUN', 'FIRE_ZONE', 'BUMPER'
+  // ];
+
+  this.avaiableModes = ['STUN_PLAYER', 'KITTY_SHRINK_PADDLE', 'FOG_MODE', 'INVERSE_MODE', 'TELEPORT_MODE'];
 };
 
 RoundGenerator.prototype.getAvaiablesModes = function() {
@@ -2225,6 +2227,7 @@ RoundGenerator.prototype.initRound = function() {
     } else this.roundMode = NORD.game.panelSettings.actionMode;
   }
   this.field.roundMode = this.roundMode;
+  console.log("mode selected", this.roundMode);
   this.initRoundMode();
 
   this.field.ballSize = 18;

@@ -26,7 +26,7 @@ NORD.PanelSettings = function(config) {
   this.visible = false;
   this.interactiveChildren = false; // this.alpha = 0;
 
-  this.actionModes = ['KITTY', 'GRAVITY_WELL', 'INVISIBLE_AREA', 'INVISIBLE_WALL', 'DOUBLE_BALL', 'BIG_BALL_LITTLE_PADDLES', 'SMALL_GRAVITY_WELL', 'STUN_GUN', 'FIRE_ZONE', 'BUMPER', 'STUN_PLAYER', 'KITTY_SHRINK_PADDLE', 'FOG_MODE', 'DIAMOND_MODE', 'PARALLEL_MODE', 'INVERSE_MODE', 'TELEPORT_MODE']; // this.actionModesMap =
+  this.actionModes = ['STUN_PLAYER', 'KITTY_SHRINK_PADDLE', 'FOG_MODE', 'DIAMOND_MODE', 'PARALLEL_MODE', 'INVERSE_MODE', 'TELEPORT_MODE']; // this.actionModesMap =
 
   this.actionMode = 'ALL';
   this.field = NORD.game.field;
