@@ -1817,16 +1817,20 @@ var RoundGenerator = function RoundGenerator(field) {
   this.containerGraphics = new PIXI.Container();
   this.container.addChild(this.containerGraphics); // this.containerGraphics.alpha = 0.3;
 
+  //Score Left
   this.scoreLeft = new NORD.ScreenGame.ScoreText();
+  this.scoreLeft.x = -300;
+  this.scoreLeft.y = -180;
   this.containerScores.addChild(this.scoreLeft);
-  this.scoreLeft.x = -48;
-  this.scoreLeft.y = -160;
+
+  //Score Right
   this.scoreRight = new NORD.ScreenGame.ScoreText();
+  this.scoreRight.x = 300;
+  this.scoreRight.y = -180;
   this.containerScores.addChild(this.scoreRight);
-  this.scoreRight.x = 48;
-  this.scoreRight.y = -160;
-  this.roundModeLabels = (_this$roundModeLabels = {}, _defineProperty(_this$roundModeLabels, 'KITTY', 'label_round_mode_kitty.png'), _defineProperty(_this$roundModeLabels, 'INVISIBLE_WALL', 'label_round_mode_invisible_wall.png'), _defineProperty(_this$roundModeLabels, 'INVISIBLE_AREA', 'label_round_mode_invisible_area.png'), _defineProperty(_this$roundModeLabels, 'GRAVITY_WELL', 'label_round_mode_gravity_well.png'), _defineProperty(_this$roundModeLabels, 'DOUBLE_BALL', 'label_round_mode_double_ball.png'), _defineProperty(_this$roundModeLabels, 'BIG_BALL_LITTLE_PADDLES', 'label_round_mode_b_b_l_p.png'), _defineProperty(_this$roundModeLabels, 'SMALL_GRAVITY_WELL', 'label_round_mode_small_gravity_well.png'), _defineProperty(_this$roundModeLabels, 'FIRE_ZONE', 'label_round_mode_fire_zone.png'), _defineProperty(_this$roundModeLabels, 'BUMPER', 'label_round_mode_bumper.png'), _defineProperty(_this$roundModeLabels, 'STUN_GUN', 'label_round_mode_stun_gun.png'), _defineProperty(_this$roundModeLabels, 'STUN_PLAYER', 'label_round_mode_stun_gun.png'), _defineProperty(_this$roundModeLabels, 'KITTY_SHRINK_PADDLE', 'label_round_mode_stun_gun.png'), _this$roundModeLabels);
+
   this.roundModeLabelBg = new PIXI.Graphics();
+  this.roundModeLabels = (_this$roundModeLabels = {}, _defineProperty(_this$roundModeLabels, 'KITTY', 'label_round_mode_kitty.png'), _defineProperty(_this$roundModeLabels, 'INVISIBLE_WALL', 'label_round_mode_invisible_wall.png'), _defineProperty(_this$roundModeLabels, 'INVISIBLE_AREA', 'label_round_mode_invisible_area.png'), _defineProperty(_this$roundModeLabels, 'GRAVITY_WELL', 'label_round_mode_gravity_well.png'), _defineProperty(_this$roundModeLabels, 'DOUBLE_BALL', 'label_round_mode_double_ball.png'), _defineProperty(_this$roundModeLabels, 'BIG_BALL_LITTLE_PADDLES', 'label_round_mode_b_b_l_p.png'), _defineProperty(_this$roundModeLabels, 'SMALL_GRAVITY_WELL', 'label_round_mode_small_gravity_well.png'), _defineProperty(_this$roundModeLabels, 'FIRE_ZONE', 'label_round_mode_fire_zone.png'), _defineProperty(_this$roundModeLabels, 'BUMPER', 'label_round_mode_bumper.png'), _defineProperty(_this$roundModeLabels, 'STUN_GUN', 'label_round_mode_stun_gun.png'), _defineProperty(_this$roundModeLabels, 'STUN_PLAYER', 'label_round_mode_stun_gun.png'), _defineProperty(_this$roundModeLabels, 'KITTY_SHRINK_PADDLE', 'label_round_mode_stun_gun.png'), _this$roundModeLabels);
   this.containerScores.addChild(this.roundModeLabelBg);
   this.roundModeLabelBg.y = -100;
   this.gravityModeK = Util.randomRangeInt(0, 1);

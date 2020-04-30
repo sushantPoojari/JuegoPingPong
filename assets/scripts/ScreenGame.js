@@ -361,25 +361,29 @@ NORD.ScreenGame.prototype.showIndicator = function(duration) {
 
 };
 
+
+
 NORD.ScreenGame.ScoreText = function() {
   PIXI.Container.call(this);
-  this.sprite = Util.createSprite({
-    parent: this,
-    atlas: 'texture_atlas',
-    texture: 'score_number_0001.png',
-    aX: 0.5,
-    aY: 0.5,
-    scaleXY: 0.5
+  debugger;
+  this.scoreText = new PIXI.Text("0", {
+    font: '35px Snippet',
+    fontSize: 26,
+    fill: 'white',
+    align: 'center'
   });
+  this.textWin.anchor.set(0.5);
+  this.addChild(this.textWin);
 };
 
 NORD.ScreenGame.ScoreText.prototype = Object.create(PIXI.Container.prototype);
 NORD.ScreenGame.ScoreText.prototype.constructor = NORD.ScreenGame.ScoreText;
 
 NORD.ScreenGame.ScoreText.prototype.setScore = function(score) {
-  this.score = score;
-  var texture = NORD.assetsManager.getTexture('texture_atlas', 'score_number_000' + String(this.score + 1) + '.png');
-  this.sprite.texture = texture;
+  this.scoreText.text = score;
+  // this.score = score;
+  // var texture = NORD.assetsManager.getTexture('texture_atlas', 'score_number_000' + String(this.score + 1) + '.png');
+  // this.sprite.texture = texture;
 };
 
 NORD.PanelEndGame = function(config) {
