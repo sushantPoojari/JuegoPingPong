@@ -681,6 +681,7 @@ NORD.MenuSwitcher = function(config, switcherConfig) {
   NORD.GUI.BasePanel.call(this, config);
   this.selected = switcherConfig.selected;
   this.isCenter = !!switcherConfig.center;
+
   this.sideLeft = {
     x: -72,
     y: 0,
@@ -688,6 +689,7 @@ NORD.MenuSwitcher = function(config, switcherConfig) {
     spriteOn: Util.createSprite(switcherConfig.left.spriteOn),
     spriteOff: Util.createSprite(switcherConfig.left.spriteOff)
   };
+
   this.sideRight = {
     x: 72,
     y: 0,
@@ -715,6 +717,7 @@ NORD.MenuSwitcher = function(config, switcherConfig) {
   };
   this.addChild(this.sideLeft.spriteOff);
   this.sideLeft.spriteOff.x = this.sideLeft.x;
+  this.sideLeft.spriteOff.scaleX = 0.5;
   this.sideLeft.spriteOff.y = this.sideLeft.y;
   this.addChild(this.sideLeft.spriteOn);
   this.sideLeft.spriteOn.x = this.sideLeft.x;
@@ -1431,44 +1434,48 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function(x, y, labelName, switche
       selected: selected,
       left: {
         spriteOn: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_1_on.png',
+          texture: 'SinglePlayer',
           aX: 0.5,
-          aY: 0.5
+          aY: 0.5,
+          scaleXY: 0.5
+
         },
         spriteOff: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_1_off.png',
+          texture: 'SinglePlayer',
           aX: 0.5,
-          aY: 0.5
+          aY: 0.5,
+          scaleXY: 0.5
         }
       },
       center: {
         spriteOn: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_2_on.png',
+          texture: 'LocalMultiplayer',
           aX: 0.5,
-          aY: 0.5
+          aY: 0.5,
+          scaleX: 0.25
         },
         spriteOff: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_2_off.png',
+          texture: 'LocalMultiplayer',
           aX: 0.5,
-          aY: 0.5
+          aY: 0.5,
+          scaleX: 0.25,
+          scaleY: 0.25
         }
       },
       right: {
         spriteOn: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_2_on.png',
+          texture: 'OnlineMultiplayer',
           aX: 0.5,
-          aY: 0.5
+          aY: 0.5,
+          scaleX: 0.25,
+          scaleY: 0.25
         },
         spriteOff: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_2_off.png',
+          texture: 'OnlineMultiplayer',
           aX: 0.5,
-          aY: 0.5
+          aY: 0.5,
+          scaleX: 0.25,
+          scaleY: 0.25
         }
       }
     };
