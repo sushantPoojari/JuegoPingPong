@@ -579,9 +579,15 @@ NORD.GUI.ButtonAudio = function (config) {
   this.regularSkin.scale.x = this.regularSkin.scale.y = 0.35;
   this.on('button_click', this.onClick, this);
   NORD.audioManager.on('audio_mute_change', function (data) {
+    localStorage.setItem('audioStatus', data.isMute);
     this.setState(data.isMute);
   }, this);
   this.setState(NORD.audioManager.isMute);
+
+  var audios = NORD.assetsManager.getAllAudios();
+  audios.forEach(function (audio) {
+    audio.mute(NORD.audioManager.isMute);
+  });
 };
 
 NORD.GUI.ButtonAudio.prototype = Object.create(NORD.GUI.Button.prototype);

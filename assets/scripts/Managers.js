@@ -289,8 +289,9 @@ AssetsGroup.prototype.loadingComplete = function () {
 
 NORD.AudioManager = function () {
   EventEmitter.call(this);
-  this.isMute = false;
   this.assetsManager = NORD.assetsManager;
+  let val = localStorage.getItem('audioStatus');
+  this.isMute = val == null ? false : (val == 'true'  ? true : false);
 };
 
 NORD.AudioManager.prototype = Object.create(EventEmitter.prototype);
