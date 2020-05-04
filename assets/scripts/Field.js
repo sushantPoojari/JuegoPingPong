@@ -2090,11 +2090,15 @@ var RoundGenerator = function RoundGenerator(field) {
   this.field.on('kitty_hit_shrink', function(player) {
     if (player.side === 'LEFT') {
       LeftPaddle.setSize(NORD.game.field.roundGenerator.field.smallPaddleData.size, NORD.game.field.roundGenerator.field.smallPaddleData.shape);
+      LeftPaddle.paddleViewImage.scale.y = 0.2;
       RightPaddle.setSize(NORD.game.field.config.paddleSize.value, NORD.game.field.config.paddleShape.value);
+      RightPaddle.paddleViewImage.scale.y = 0.5;
     }
     if (player.side === 'RIGHT') {
       RightPaddle.setSize(NORD.game.field.roundGenerator.field.smallPaddleData.size, NORD.game.field.roundGenerator.field.smallPaddleData.shape);
+      RightPaddle.paddleViewImage.scale.y = 0.2;
       LeftPaddle.setSize(NORD.game.field.config.paddleSize.value, NORD.game.field.config.paddleShape.value);
+      LeftPaddle.paddleViewImage.scale.y = 0.5;
     }
   });
 
