@@ -299,11 +299,23 @@ NORD.initGameDefinitions = function() {
     name: 'SinglePlayer',
     url: 'assets/images/main/SinglePlayer.png'
   }, {
+    name: 'SinglePlayerSelected',
+    url: 'assets/images/main/SinglePlayerSelected.png'
+  }, {
     name: 'LocalMultiplayer',
     url: 'assets/images/main/LocalMultiplayer.png'
   }, {
+    name: 'LocalMultiplayerSelected',
+    url: 'assets/images/main/LocalMultiplayerSelected.png'
+  }, {
     name: 'OnlineMultiplayer',
     url: 'assets/images/main/OnlineMultiplayer.png'
+  }, {
+    name: 'OnlineMultiplayerSelected',
+    url: 'assets/images/main/OnlineMultiplayerSelected.png'
+  }, {
+    name: 'PlayerSelected',
+    url: 'assets/images/main/PlayerSelected.png'
   }, {
     name: 'SoundOnButton',
     url: 'assets/images/main/SoundOnButton.png'
@@ -313,9 +325,15 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'NormalMode',
     url: 'assets/images/main/NormalMode.png'
+  },{
+    name: 'NormalModeSelected',
+    url: 'assets/images/main/NormalModeSelected.png'
   }, {
     name: 'ThrillerMode',
     url: 'assets/images/main/ThrillerMode.png'
+  },{
+    name: 'ThrillerModeSelected',
+    url: 'assets/images/main/ThrillerModeSelected.png'
   }, {
     name: 'PlayButton',
     url: 'assets/images/main/PlayButton.png'

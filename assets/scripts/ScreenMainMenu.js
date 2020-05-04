@@ -72,7 +72,6 @@ NORD.ScreenMainMenu = function(config) {
   this.containerSwitchers = new PIXI.Container();
   this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
 
-
   /*********************************************************************************Game Type**************************************************************************************************/
   this.switcherPlayers = this.createSwitcher(0, startY + 0, 'label_players', 'players', gConfig.players == 'one' ? 'left' : 'right', function(side) {
     var dataMap = {
@@ -87,7 +86,6 @@ NORD.ScreenMainMenu = function(config) {
   });
 
   /*********************************************************************************Game Mode**************************************************************************************************/
-
   this.switcherMode = this.createSwitcher(0, startY + 150, 'label_mode', 'mode', gConfig.mode == 'classic' ? 'left' : 'right', function(side) {
     var dataMap = {
       left: 'classic',
@@ -693,7 +691,7 @@ NORD.MenuSwitcher = function(config, switcherConfig) {
     y: 0,
     name: 'left',
     spriteOn: Util.createSprite(switcherConfig.left.spriteOn),
-    spriteOff: Util.createSprite(switcherConfig.left.spriteOff)
+    spriteOff: Util.createSprite(switcherConfig.left.spriteOff),
   };
 
   this.sideRight = {
@@ -706,12 +704,10 @@ NORD.MenuSwitcher = function(config, switcherConfig) {
 
   if (this.isCenter) {
     this.sideLeft.x = -225;
-    this.sideLeft.y = -15;
     this.sideRight.x = 225;
-    this.sideRight.y = -15;
     this.sideCenter = {
       x: 0,
-      y: -15,
+      y: 0,
       name: 'center',
       spriteOn: Util.createSprite(switcherConfig.center.spriteOn),
       spriteOff: Util.createSprite(switcherConfig.center.spriteOff)
@@ -758,13 +754,13 @@ NORD.MenuSwitcher = function(config, switcherConfig) {
     // this.sideLeft.spriteOn.width = this.sideLeft.spriteOff.width = this.sideRight.spriteOn.width = this.sideRight.spriteOff.width = this.sideCenter.spriteOn.width = this.sideCenter.spriteOff.width = 110 * 0.79;
     // this.sideLeft.spriteOn.height = this.sideLeft.spriteOff.height = this.sideRight.spriteOn.height = this.sideRight.spriteOff.height = this.sideCenter.spriteOn.height = this.sideCenter.spriteOff.height = 50 * 0.79;
 
-    this.sideLeft.spriteOn.scale.x = this.sideLeft.spriteOff.scale.x = this.sideRight.spriteOn.scale.x = this.sideRight.spriteOff.scale.x = this.sideCenter.spriteOn.scale.x = this.sideCenter.spriteOff.scale.x = 0.79;
-    this.sideLeft.spriteOn.scale.y = this.sideLeft.spriteOff.scale.y = this.sideRight.spriteOn.scale.y = this.sideRight.spriteOff.scale.y = this.sideCenter.spriteOn.scale.y = this.sideCenter.spriteOff.scale.y = 0.79;
+    this.sideLeft.spriteOn.scale.x = this.sideLeft.spriteOff.scale.x = this.sideRight.spriteOn.scale.x = this.sideRight.spriteOff.scale.x = this.sideCenter.spriteOn.scale.x = this.sideCenter.spriteOff.scale.x = 0.45;
+    this.sideLeft.spriteOn.scale.y = this.sideLeft.spriteOff.scale.y = this.sideRight.spriteOn.scale.y = this.sideRight.spriteOff.scale.y = this.sideCenter.spriteOn.scale.y = this.sideCenter.spriteOff.scale.y = 0.45;
   } else {
     // this.sideLeft.spriteOn.width = this.sideLeft.spriteOff.width = this.sideRight.spriteOn.width = this.sideRight.spriteOff.width = 168 * 0.79;
     // this.sideLeft.spriteOn.height = this.sideLeft.spriteOff.height = this.sideRight.spriteOn.height = this.sideRight.spriteOff.height = 50 * 0.79;
-    this.sideLeft.spriteOn.scale.x = this.sideLeft.spriteOff.scale.x = this.sideRight.spriteOn.scale.x = this.sideRight.spriteOff.scale.x = 0.79;
-    this.sideLeft.spriteOn.scale.y = this.sideLeft.spriteOff.scale.y = this.sideRight.spriteOn.scale.y = this.sideRight.spriteOff.scale.y = 0.79;
+    this.sideLeft.spriteOn.scale.x = this.sideLeft.spriteOff.scale.x = this.sideRight.spriteOn.scale.x = this.sideRight.spriteOff.scale.x = 0.45;
+    this.sideLeft.spriteOn.scale.y = this.sideLeft.spriteOff.scale.y = this.sideRight.spriteOn.scale.y = this.sideRight.spriteOff.scale.y = 0.45;
   }
 
   this.switchingState = 'none';
@@ -914,15 +910,15 @@ NORD.MenuSwitcher.prototype.tween = function(data, callback) {
     });
 
     function ttt(target) {
-      target.scale.x = target.scale.y = 0.79;
+      target.scale.x = target.scale.y = 0.35;
       TweenMax.to(target.scale, 0.07, {
-        x: 0.79 * 0.95,
-        y: 0.79 * 0.95,
+        x: 0.45 * 0.95,
+        y: 0.45 * 0.95,
         ease: Power2.easeOut,
         onComplete: function onComplete() {
           TweenMax.to(target.scale, 0.07, {
-            x: 0.79,
-            y: 0.79,
+            x: 0.45,
+            y: 0.45,
             ease: Power2.easeOut,
             onComplete: function onComplete() {}
           });
@@ -1441,48 +1437,38 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function(x, y, labelName, switche
       selected: selected,
       left: {
         spriteOn: {
-          texture: 'SinglePlayer',
+          texture: 'SinglePlayerSelected',
           aX: 0.5,
-          aY: 0.5,
-          scaleXY: 0.5
-
+          aY: 0.5
         },
         spriteOff: {
           texture: 'SinglePlayer',
           aX: 0.5,
-          aY: 0.5,
-          scaleXY: 0.5
+          aY: 0.5
         }
       },
       center: {
         spriteOn: {
-          texture: 'LocalMultiplayer',
+          texture: 'LocalMultiplayerSelected',
           aX: 0.5,
-          aY: 0.5,
-          scaleX: 0.25
+          aY: 0.5
         },
         spriteOff: {
           texture: 'LocalMultiplayer',
           aX: 0.5,
-          aY: 0.5,
-          scaleX: 0.25,
-          scaleY: 0.25
+          aY: 0.5
         }
       },
       right: {
         spriteOn: {
-          texture: 'OnlineMultiplayer',
+          texture: 'OnlineMultiplayerSelected',
           aX: 0.5,
-          aY: 0.5,
-          scaleX: 0.25,
-          scaleY: 0.25
+          aY: 0.5
         },
         spriteOff: {
           texture: 'OnlineMultiplayer',
           aX: 0.5,
-          aY: 0.5,
-          scaleX: 0.25,
-          scaleY: 0.25
+          aY: 0.5
         }
       }
     };
@@ -1491,34 +1477,26 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function(x, y, labelName, switche
       selected: selected,
       left: {
         spriteOn: {
-          texture: 'NormalMode',
+          texture: 'NormalModeSelected',
           aX: 0.5,
-          aY: 0.5,
-          scaleX: 0.25,
-          scaleY: 0.25
+          aY: 0.5
         },
         spriteOff: {
           texture: 'NormalMode',
           aX: 0.5,
-          aY: 0.5,
-          scaleX: 0.25,
-          scaleY: 0.25
+          aY: 0.5
         }
       },
       right: {
         spriteOn: {
-          texture: 'ThrillerMode',
+          texture: 'ThrillerModeSelected',
           aX: 0.5,
-          aY: 0.5,
-          scaleX: 0.25,
-          scaleY: 0.25
+          aY: 0.5
         },
         spriteOff: {
           texture: 'ThrillerMode',
           aX: 0.5,
-          aY: 0.5,
-          scaleX: 0.25,
-          scaleY: 0.25
+          aY: 0.5
         }
       }
     };
