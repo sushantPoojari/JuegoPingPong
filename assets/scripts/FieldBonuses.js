@@ -101,10 +101,9 @@ NORD.Field.BonusContainer = function(field, config) {
   if (this.bonusType === 'KITTY') {
     this.bg = Util.createSprite({
       parent: this,
-      atlas: 'texture_atlas',
-      texture: 'kitty.png',
+      texture: 'Shrink-the-paddle',
       aX: 0.5,
-      aY: 0.5
+      aY: 0.5,
     });
     this.bgHit = Util.createSprite({
       parent: this,
@@ -115,7 +114,7 @@ NORD.Field.BonusContainer = function(field, config) {
     });
     this.bgHit.visible = false;
     this.radius = 25;
-    this.bg.scale.x = this.bg.scale.y = 0.5; // this.radius = 250;
+    this.bg.scale.x = this.bg.scale.y = 0.3; // this.radius = 250;
 
     this.blinkKitty = new Blink(this);
   }

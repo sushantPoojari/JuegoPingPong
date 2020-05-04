@@ -321,13 +321,16 @@ NORD.initGameDefinitions = function() {
     url: 'assets/images/main/PlayButton.png'
   }, {
     name: 'Stun-GUn',
-    url: 'assets/images/popup/GamePlay/Stun-GUn.png'
+    url: 'assets/images/popup/GamePlay/Mode/Stun-GUn.png'
   }, {
     name: 'Bullet',
-    url: 'assets/images/popup/GamePlay/Bullet.png'
+    url: 'assets/images/popup/GamePlay/Mode/Bullet.png'
   }, {
     name: 'Bullet-tip',
-    url: 'assets/images/popup/GamePlay/Bullet-tip.png'
+    url: 'assets/images/popup/GamePlay/Mode/Bullet-tip.png'
+  }, {
+    name: 'Shrink-the-paddle',
+    url: 'assets/images/popup/GamePlay/Mode/Shrink-the-paddle.png'
   }]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//

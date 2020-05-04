@@ -469,7 +469,7 @@ NORD.Field.Ball.prototype.startImpulse = function(dir) {
   this.angle = angle;
   var impulse = Util.getMoveVector(speed, angle);
 
-  impulse.x = 0;
+  impulse.x = 4;
   impulse.y = 0;
   //sushant
   if (MultiplayerStarted) {
@@ -1277,7 +1277,7 @@ NORD.Field.Paddle = function(field, side) {
   var shootShift = 10;
 
   if (this.side === 'LEFT') {
-    this.paddleView = Util.createSprite({
+    this.paddleViewImage = Util.createSprite({
       texture: 'leftPaddle',
       parent: this,
       aX: 0.8,
@@ -1285,7 +1285,7 @@ NORD.Field.Paddle = function(field, side) {
       scaleXY: 0.5
     });
   } else {
-    this.paddleView = Util.createSprite({
+    this.paddleViewImage = Util.createSprite({
       texture: 'rightPaddle',
       parent: this,
       aX: 0.2,
@@ -1310,6 +1310,7 @@ NORD.Field.Paddle = function(field, side) {
     this.shootViewPaddleTexture.rotation = Math.PI;
   }
 
+  this.shootViewPaddleTexture.visible = false;
   this.shootView.visible = false;
   this.shootViewTween = null; // this.shootsTotalDefault = 2;
   // this.shootsTotal = this.shootsTotalDefault;
@@ -1368,9 +1369,11 @@ NORD.Field.Paddle.prototype.setTut = function(v) {
 NORD.Field.Paddle.prototype.setShootView = function(isShow) {
   if (isShow && !this.shootView.visible) {
     this.shootView.visible = true;
+    this.shootViewPaddleTexture.visible = true;
     this.shootView.alpha = 1.0; // this.blinkShootView.start(0.25, 1.0);
   } else if (!isShow && this.shootView.visible) {
     this.shootView.visible = false;
+    this.shootViewPaddleTexture.visible = false;
     this.blinkShootView.stop();
   }
 };
