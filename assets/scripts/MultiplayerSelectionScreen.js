@@ -624,7 +624,7 @@ NORD.RandomSearchInstance.prototype.getRandomRoomOption = function(mode) {
     modType = NORD.MULTIPLAYER_GAME_MODE_TYPE.NONE;
     boardType = NORD.MULTIPLAYER_BOARD_TYPE.DIAMOND_MODE;
   } else {
-    modType = NORD.game.panelSettings.actionMode;
+    modType = NORD.MULTIPLAYER_GAME_MODE_TYPE.STUNPLAYER;
     boardType = NORD.MULTIPLAYER_BOARD_TYPE.NORMAL_MODE;
   }
   // modType = NORD.game.panelSettings.actionMode;

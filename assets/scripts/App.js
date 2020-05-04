@@ -292,6 +292,15 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'ParallelLine',
     url: 'assets/images/popup/GamePlay/Mode/Parallel-Line.png'
+  }, {
+    name: 'Stun-GUn',
+    url: 'assets/images/popup/GamePlay/Stun-GUn.png'
+  }, {
+    name: 'Bullet',
+    url: 'assets/images/popup/GamePlay/Bullet.png'
+  }, {
+    name: 'Bullet-tip',
+    url: 'assets/images/popup/GamePlay/Bullet-tip.png'
   }]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//

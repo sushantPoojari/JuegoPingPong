@@ -469,8 +469,8 @@ NORD.Field.Ball.prototype.startImpulse = function(dir) {
   this.angle = angle;
   var impulse = Util.getMoveVector(speed, angle);
 
-  // impulse.x = 4;
-  // impulse.y = 0;
+  impulse.x = 0;
+  impulse.y = 0;
   //sushant
   if (MultiplayerStarted) {
     this.distortionVelocityReceived = false;
@@ -1267,14 +1267,14 @@ NORD.Field.Paddle = function(field, side) {
   // this.shootViewTexture2 = NORD.assetsManager.getTexture('texture_atlas', 'gun_2.png');
 
   this.shootView = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'gun.png',
+    texture: 'Bullet-tip',
     parent: this,
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.7
+    scaleXY: 0.5
   });
-  var shootShift = 34;
+
+  var shootShift = 10;
 
   if (this.side === 'LEFT') {
     this.paddleView = Util.createSprite({
@@ -1294,12 +1294,20 @@ NORD.Field.Paddle = function(field, side) {
     });
   }
 
+  this.shootViewPaddleTexture = Util.createSprite({
+    texture: 'Stun-GUn',
+    parent: this,
+    aX: 0.65,
+    aY: 0.5,
+    scaleXY: 0.4
+  });
+
   if (this.side === 'LEFT') {
-    this.shootView.scale.x = -0.7;
     this.shootView.x = shootShift;
   } else {
-    this.shootView.scale.x = 0.7;
     this.shootView.x = -shootShift;
+    this.shootView.rotation = Math.PI;
+    this.shootViewPaddleTexture.rotation = Math.PI;
   }
 
   this.shootView.visible = false;
@@ -1826,10 +1834,10 @@ NORD.Field.PaddleBullet = function(field, config) {
 
   this.bg = Util.createSprite({
     parent: this,
-    atlas: 'texture_atlas',
-    texture: 'bullet.png',
+    texture: 'Bullet',
     aX: 0.5,
-    aY: 0.5
+    aY: 0.5,
+    scaleXY: 0.4
   });
   this.updatePosition();
 };
