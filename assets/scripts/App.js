@@ -313,6 +313,15 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'PlayButton',
     url: 'assets/images/main/PlayButton.png'
+  }, {
+    name: 'Stun-GUn',
+    url: 'assets/images/popup/GamePlay/Stun-GUn.png'
+  }, {
+    name: 'Bullet',
+    url: 'assets/images/popup/GamePlay/Bullet.png'
+  }, {
+    name: 'Bullet-tip',
+    url: 'assets/images/popup/GamePlay/Bullet-tip.png'
   }]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
