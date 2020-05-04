@@ -293,14 +293,26 @@ NORD.initGameDefinitions = function() {
     name: 'ParallelLine',
     url: 'assets/images/popup/GamePlay/Mode/Parallel-Line.png'
   }, {
-    name: 'Stun-GUn',
-    url: 'assets/images/popup/GamePlay/Stun-GUn.png'
+    name: 'BG',
+    url: 'assets/images/main/BG.png'
   }, {
-    name: 'Bullet',
-    url: 'assets/images/popup/GamePlay/Bullet.png'
+    name: 'SinglePlayer',
+    url: 'assets/images/main/SinglePlayer.png'
   }, {
-    name: 'Bullet-tip',
-    url: 'assets/images/popup/GamePlay/Bullet-tip.png'
+    name: 'LocalMultiplayer',
+    url: 'assets/images/main/LocalMultiplayer.png'
+  }, {
+    name: 'OnlineMultiplayer',
+    url: 'assets/images/main/OnlineMultiplayer.png'
+  }, {
+    name: 'NormalMode',
+    url: 'assets/images/main/NormalMode.png'
+  }, {
+    name: 'ThrillerMode',
+    url: 'assets/images/main/ThrillerMode.png'
+  }, {
+    name: 'PlayButton',
+    url: 'assets/images/main/PlayButton.png'
   }]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
