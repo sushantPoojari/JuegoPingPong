@@ -45,6 +45,17 @@ NORD.ScreenMainMenu = function(config) {
   this.state = 'hide';
   this.visible = false;
   this.interactiveChildren = false;
+    /*********************************************************************************BG**************************************************************************************************/
+    var logo = Util.createSprite({
+      parent: this,
+      texture: 'BG',
+      aX: 0.5,
+      aY: 0.5,
+      scaleX: 0.45,
+      scaleY: 0.45
+    });
+    this.containerSwitchers = new PIXI.Container();
+    this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
 
   /*********************************************************************************Game Logo**************************************************************************************************/
   var logo = Util.createSprite({
@@ -55,8 +66,8 @@ NORD.ScreenMainMenu = function(config) {
     texture: 'logo.png',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 0.666,
-    scaleY: 0.666
+    scaleX: 0.45,
+    scaleY: 0.45
   });
   this.containerSwitchers = new PIXI.Container();
   this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
@@ -182,13 +193,11 @@ NORD.ScreenMainMenu = function(config) {
   this.boardSelected = 'board_2';
   this.ballDiamondGeneratedPos = 0;
 
-  var btn = Util.createButton('btn', this, null, '', 200, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
-    atlas: 'texture_atlas',
-    texture: 'button_play.png',
+  var btn = Util.createButton('btn', this, null, '', 250, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
+    texture: 'PlayButton',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 0.5,
-    scaleY: 0.5
+    scaleXY: 0.5,
   });
   btn.addListener('button_click', function(data) {
     MultiplayerStarted = false;
@@ -717,7 +726,6 @@ NORD.MenuSwitcher = function(config, switcherConfig) {
   };
   this.addChild(this.sideLeft.spriteOff);
   this.sideLeft.spriteOff.x = this.sideLeft.x;
-  this.sideLeft.spriteOff.scaleX = 0.5;
   this.sideLeft.spriteOff.y = this.sideLeft.y;
   this.addChild(this.sideLeft.spriteOn);
   this.sideLeft.spriteOn.x = this.sideLeft.x;
@@ -1484,30 +1492,34 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function(x, y, labelName, switche
       selected: selected,
       left: {
         spriteOn: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_1_on.png',
+          texture: 'NormalMode',
           aX: 0.5,
-          aY: 0.5
+          aY: 0.5,
+          scaleX: 0.25,
+          scaleY: 0.25
         },
         spriteOff: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_1_off.png',
+          texture: 'NormalMode',
           aX: 0.5,
-          aY: 0.5
+          aY: 0.5,
+          scaleX: 0.25,
+          scaleY: 0.25
         }
       },
       right: {
         spriteOn: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_2_on.png',
+          texture: 'ThrillerMode',
           aX: 0.5,
-          aY: 0.5
+          aY: 0.5,
+          scaleX: 0.25,
+          scaleY: 0.25
         },
         spriteOff: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_2_off.png',
+          texture: 'ThrillerMode',
           aX: 0.5,
-          aY: 0.5
+          aY: 0.5,
+          scaleX: 0.25,
+          scaleY: 0.25
         }
       }
     };
