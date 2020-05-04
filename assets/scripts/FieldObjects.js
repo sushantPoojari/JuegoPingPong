@@ -1462,6 +1462,7 @@ NORD.Field.Paddle.prototype.init = function(player) {
 
   this.setTo(this.sidePosition, 0);
   this.visible = true;
+  this.paddleViewImage.scale.y = 0.5;
 };
 
 NORD.Field.Paddle.prototype.clear = function() {
