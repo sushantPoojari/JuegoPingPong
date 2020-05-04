@@ -61,17 +61,16 @@ NORD.ScreenMainMenu = function(config) {
   var logo = Util.createSprite({
     parent: this,
     x: 0,
-    y: -150,
+    y: -140,
     atlas: 'texture_atlas',
     texture: 'logo.png',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 0.45,
-    scaleY: 0.45
+    scaleX: 0.4,
+    scaleY: 0.4
   });
   this.containerSwitchers = new PIXI.Container();
   this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
-
 
 
   /*********************************************************************************Game Type**************************************************************************************************/
@@ -193,7 +192,7 @@ NORD.ScreenMainMenu = function(config) {
   this.boardSelected = 'board_2';
   this.ballDiamondGeneratedPos = 0;
 
-  var btn = Util.createButton('btn', this, null, '', 250, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
+  var btn = Util.createButton('btn', this, null, '', 0, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
     texture: 'PlayButton',
     aX: 0.5,
     aY: 0.5,
@@ -245,7 +244,7 @@ NORD.ScreenMainMenu = function(config) {
     }
 
   }, this);
-  alignItems([logo, this.containerSwitchers, btn], 480);
+  alignItems([logo, this.containerSwitchers, btn], 460);
 
   // var multiplayerButton = Util.createButton('btn', this, null, '', 230, 20, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('OnlineMultiPlayerBtn'), {
   //   texture: 'OnlineMultiPlayerBtn',
@@ -323,25 +322,23 @@ NORD.ScreenMainMenu = function(config) {
     });
     items[1].y -= 4; // console.log('Align:', totalHeight, freeSpace)
   }
-
   var audioButton = new NORD.GUI.ButtonAudio({
     parentPanel: this,
-    x: -320 + 21 + 10,
-    y: 240 - 21 - 10,
+    x: -325,
+    y: -185,
     width: 42,
     height: 42,
     soundClick: NORD.assetsManager.getAsset('sound_click'),
     skin: {
       on: {
-        atlas: 'texture_atlas',
-        texture: 'button_audio_0001.png'
+        texture: 'SoundOnButton'
       },
       off: {
-        atlas: 'texture_atlas',
-        texture: 'button_audio_0002.png'
+        texture: 'SoundOffButton'
       }
     }
   });
+
   this.actionHint = Util.createSprite({
     parent: this,
     x: 195,
@@ -692,7 +689,7 @@ NORD.MenuSwitcher = function(config, switcherConfig) {
   this.isCenter = !!switcherConfig.center;
 
   this.sideLeft = {
-    x: -72,
+    x: -100,
     y: 0,
     name: 'left',
     spriteOn: Util.createSprite(switcherConfig.left.spriteOn),
@@ -700,7 +697,7 @@ NORD.MenuSwitcher = function(config, switcherConfig) {
   };
 
   this.sideRight = {
-    x: 72,
+    x: 100,
     y: 0,
     name: 'right',
     spriteOn: Util.createSprite(switcherConfig.right.spriteOn),
@@ -708,11 +705,13 @@ NORD.MenuSwitcher = function(config, switcherConfig) {
   };
 
   if (this.isCenter) {
-    this.sideLeft.x = -150;
-    this.sideRight.x = 150;
+    this.sideLeft.x = -225;
+    this.sideLeft.y = -15;
+    this.sideRight.x = 225;
+    this.sideRight.y = -15;
     this.sideCenter = {
       x: 0,
-      y: 0,
+      y: -15,
       name: 'center',
       spriteOn: Util.createSprite(switcherConfig.center.spriteOn),
       spriteOff: Util.createSprite(switcherConfig.center.spriteOff)

@@ -569,12 +569,14 @@ NORD.GUI.ButtonAudio = function (config) {
   // this.mouseOverBg = buttonOverBg;
   // this.textureOn = NORD.assetsManager.getTexture(config.skin.on.atlas, config.skin.on.texture);
 
-  this.textureOn = NORD.assetsManager.getTexture(config.skin.on.atlas, config.skin.on.texture);
-  this.textureOff = NORD.assetsManager.getTexture(config.skin.off.atlas, config.skin.off.texture);
+  if(config.skin.on.atlas != undefined) this.textureOn = NORD.assetsManager.getTexture(config.skin.on.atlas, config.skin.on.texture);
+  else this.textureOn = NORD.assetsManager.getTexture( config.skin.on.texture);
+  if(config.skin.off.atlas != undefined) this.textureOff = NORD.assetsManager.getTexture(config.skin.off.atlas, config.skin.off.texture);
+  else this.textureOff = NORD.assetsManager.getTexture( config.skin.off.texture);
   this.regularSkin = new PIXI.Sprite(this.textureOff);
   this.addChild(this.regularSkin);
   this.regularSkin.anchor.set(0.5, 0.5);
-  this.regularSkin.scale.x = this.regularSkin.scale.y = 0.5;
+  this.regularSkin.scale.x = this.regularSkin.scale.y = 0.35;
   this.on('button_click', this.onClick, this);
   NORD.audioManager.on('audio_mute_change', function (data) {
     this.setState(data.isMute);

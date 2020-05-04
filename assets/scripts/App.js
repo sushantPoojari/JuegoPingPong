@@ -305,6 +305,12 @@ NORD.initGameDefinitions = function() {
     name: 'OnlineMultiplayer',
     url: 'assets/images/main/OnlineMultiplayer.png'
   }, {
+    name: 'SoundOnButton',
+    url: 'assets/images/main/SoundOnButton.png'
+  }, {
+    name: 'SoundOffButton',
+    url: 'assets/images/main/SoundOffButton.png'
+  }, {
     name: 'NormalMode',
     url: 'assets/images/main/NormalMode.png'
   }, {
