@@ -1684,7 +1684,7 @@ NORD.subModeSelectionPopup = function (config) {
       right: 'KITTY_SHRINK_PADDLE',
       center: 'TELEPORT_MODE',
       bottomLeft: 'SHADOW_MODE',
-      bottomRight: 'GRAVITY_WELL',
+      bottomRight: 'BLACK_HOLE_MODE',
       bottomCenter: 'INVERSE_MODE',
       playAll:'ALL'
     };
