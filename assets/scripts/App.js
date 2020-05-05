@@ -43,6 +43,7 @@ NORD.MULTIPLAYER_GAME_MODE_TYPE = {
   SHADOW_MODE: "SHADOW_MODE",
   INVERSE_MODE: "INVERSE_MODE",
   TELEPORT_MODE: "TELEPORT_MODE",
+  BLACK_HOLE_MODE: "BLACK_HOLE_MODE",
 }
 
 NORD.MULTIPLAYER_GAME_TYPE = {
@@ -352,6 +353,9 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'Shadow-bubble',
     url: 'assets/images/popup/GamePlay/Mode/Shadow-bubble.png'
+  }, {
+    name: 'Blackhole',
+    url: 'assets/images/popup/GamePlay/Mode/Blackhole.png'
   }]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//

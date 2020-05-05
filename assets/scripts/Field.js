@@ -952,7 +952,7 @@ NORD.Field.prototype.ballHitPaddle = function(ball, paddle) {
     if (paddle.side == "RIGHT") {
       ball.hitPaddle(paddle);
     } else {
-      // console.log("---------------------------------------------------");
+      console.log("---------------------------------------------------");
     }
   } else {
     ball.hitPaddle(paddle);
@@ -2140,7 +2140,7 @@ var RoundGenerator = function RoundGenerator(field) {
     }
   });
 
-  this.field.on('kitty_hit_shrink', function(player) {
+  this.field.on('black_hole_mode_hit', function(player) {
     if (player.side === 'LEFT') {
       LeftPaddle.setSize(NORD.game.field.roundGenerator.field.smallPaddleData.size, NORD.game.field.roundGenerator.field.smallPaddleData.shape);
       LeftPaddle.paddleViewImage.scale.y = 0.2;
@@ -2148,6 +2148,20 @@ var RoundGenerator = function RoundGenerator(field) {
       RightPaddle.paddleViewImage.scale.y = 0.5;
     }
     if (player.side === 'RIGHT') {
+      RightPaddle.setSize(NORD.game.field.roundGenerator.field.smallPaddleData.size, NORD.game.field.roundGenerator.field.smallPaddleData.shape);
+      RightPaddle.paddleViewImage.scale.y = 0.2;
+      LeftPaddle.setSize(NORD.game.field.config.paddleSize.value, NORD.game.field.config.paddleShape.value);
+      LeftPaddle.paddleViewImage.scale.y = 0.5;
+    }
+  });
+
+  this.field.on('kitty_hit_shrink', function(ball) {
+    if (ball.body.velocity.x < 0) {
+      LeftPaddle.setSize(NORD.game.field.roundGenerator.field.smallPaddleData.size, NORD.game.field.roundGenerator.field.smallPaddleData.shape);
+      LeftPaddle.paddleViewImage.scale.y = 0.2;
+      RightPaddle.setSize(NORD.game.field.config.paddleSize.value, NORD.game.field.config.paddleShape.value);
+      RightPaddle.paddleViewImage.scale.y = 0.5;
+    } else {
       RightPaddle.setSize(NORD.game.field.roundGenerator.field.smallPaddleData.size, NORD.game.field.roundGenerator.field.smallPaddleData.shape);
       RightPaddle.paddleViewImage.scale.y = 0.2;
       LeftPaddle.setSize(NORD.game.field.config.paddleSize.value, NORD.game.field.config.paddleShape.value);
@@ -2259,7 +2273,7 @@ RoundGenerator.prototype.resetAvaiableModes = function() {
   //   'STUN_GUN', 'FIRE_ZONE', 'BUMPER'
   // ];
 
-  this.avaiableModes = ['STUN_PLAYER', 'KITTY_SHRINK_PADDLE', 'SHADOW_MODE', 'INVERSE_MODE', 'TELEPORT_MODE'];
+  this.avaiableModes = ['STUN_PLAYER', 'KITTY_SHRINK_PADDLE', 'SHADOW_MODE', 'INVERSE_MODE', 'TELEPORT_MODE', 'BLACK_HOLE_MODE'];
 };
 
 RoundGenerator.prototype.getAvaiablesModes = function() {
@@ -2350,7 +2364,7 @@ RoundGenerator.prototype.createObstacle = function(mode) {
     //sushant
     NORD.game.field.roundGenerator.bonus = bonus;
   }
-  if (mode === 'TELEPORT_MODE') {
+  if (mode === 'TELEPORT_MODE' || mode === 'BLACK_HOLE_MODE') {
     if (MultiplayerStarted) {
       var bonusData = {
         type: mode,
@@ -2868,7 +2882,7 @@ var createBonus = function createBonus(field, data) {
   } else if (data.type === 'NEW_BALL') {
     config.time = field.config.bonusNewBallContainerDuration.value;
     return createBonusBall(field, config);
-  } else if (data.type === 'TELEPORT_MODE') {
+  } else if (data.type === 'TELEPORT_MODE' || data.type === 'BLACK_HOLE_MODE') {
     config.x = config.y = 0;
     config.speed = field.config.bonusKittySpeed.value;
     config.time = config.time != undefined ? config.time : field.config.bonusKittyDuration.value;
@@ -3042,11 +3056,14 @@ var createTeleport1 = function createTeleport1(field, config, data) {
       bonusType: 'TELEPORT1',
       contactType: 'aaaq',
       activateCallback: function activateCallback(ball) {
-        if (ball.body.velocity.x < 0) {
-          ball.setTo(-80, -100);
+        if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
+          var player = field.players[ball.playerPaddle.side];
+          field.emit('black_hole_mode_hit', player);
+        } else {
+          if (ball.body.velocity.x < 0) {
+            ball.setTo(-80, -100);
+          }
         }
-        // player = field.players[ball.playerPaddle.side === 'LEFT'?'RIGHT':'LEFT'];
-
       }
     }));
     bonusContainer.x = 80;
@@ -3061,15 +3078,21 @@ var createTeleport1 = function createTeleport1(field, config, data) {
       bonusType: 'TELEPORT2',
       contactType: 'aaaq',
       activateCallback: function activateCallback(ball) {
-        if (ball.body.velocity.x > 0) {
-          ball.setTo(80, 100);
+        if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
+          var player = field.players[ball.playerPaddle.side];
+          field.emit('black_hole_mode_hit', player);
+        } else {
+          if (ball.body.velocity.x > 0) {
+            ball.setTo(80, 100);
+          }
         }
-        // player = field.players[ball.playerPaddle.side === 'LEFT'?'RIGHT':'LEFT'];
-
       }
     }));
     bonusContainer.x = -80;
     bonusContainer.y = -100;
+  }
+  if (NORD.game.panelSettings.actionMode === 'BLACK_HOLE_MODE') {
+    bonusContainer.bg.texture = NORD.assetsManager.getTexture('Blackhole');
   }
 
   return bonusContainer;
@@ -3087,11 +3110,14 @@ var createTeleport2 = function createTeleport1(field, config, data) {
       bonusType: 'TELEPORT21',
       contactType: 'aaaq',
       activateCallback: function activateCallback(ball) {
-        if (ball.body.velocity.x > 0) {
-          ball.setTo(80, -100);
+        if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
+          var player = field.players[ball.playerPaddle.side];
+          field.emit('black_hole_mode_hit', player);
+        } else {
+          if (ball.body.velocity.x > 0) {
+            ball.setTo(80, -100);
+          }
         }
-        // player = field.players[ball.playerPaddle.side === 'LEFT'?'RIGHT':'LEFT'];
-
       }
     }));
     bonusContainer.x = -80;
@@ -3106,15 +3132,21 @@ var createTeleport2 = function createTeleport1(field, config, data) {
       bonusType: 'TELEPORT22',
       contactType: 'aaaq',
       activateCallback: function activateCallback(ball) {
-        if (ball.body.velocity.x < 0) {
-          ball.setTo(-80, 100);
+        if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
+          var player = field.players[ball.playerPaddle.side];
+          field.emit('black_hole_mode_hit', player);
+        } else {
+          if (ball.body.velocity.x < 0) {
+            ball.setTo(-80, 100);
+          }
         }
-        // player = field.players[ball.playerPaddle.side === 'LEFT'?'RIGHT':'LEFT'];
-
       }
     }));
     bonusContainer.x = 80;
     bonusContainer.y = -100;
+  }
+  if (NORD.game.panelSettings.actionMode === 'BLACK_HOLE_MODE') {
+    bonusContainer.bg.texture = NORD.assetsManager.getTexture('Blackhole');
   }
 
   return bonusContainer;
@@ -3209,7 +3241,7 @@ var createKitty = function createKitty(field) {
           } // field.goal(player, ball, true);
         }
       } else {
-        field.emit('kitty_hit_shrink', player);
+        field.emit('kitty_hit_shrink', ball);
       }
     }
   }));
