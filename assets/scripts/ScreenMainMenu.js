@@ -582,7 +582,7 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
     this.playAll = {
       x: 0,
       y: 120,
-      name: 'bottomCenter',
+      name: 'playAll',
       spriteOn: Util.createSprite(switcherConfig.playAll.spriteOn),
       spriteOff: Util.createSprite(switcherConfig.playAll.spriteOff)
     };
@@ -595,7 +595,7 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
     bottomLeft: this.bottomLeft,
     bottomRight: this.bottomRight,
     bottomCenter: this.bottomCenter,
-    playAll: this.playAll,
+    playAll: this.playAll
   };
 
   if (switcher == "Thriller") {
