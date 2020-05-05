@@ -124,6 +124,7 @@ NORD.ScreenMainMenu = function (config) {
       }
     }
   });
+
   /***************************************************************************************Play Button*************************************************************************************/
   var btn = Util.createButton('btn', this, null, '', 0, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
     texture: 'PlayButton',
@@ -133,61 +134,12 @@ NORD.ScreenMainMenu = function (config) {
   });
 
   btn.addListener('button_click', function (data) {
-
     var _this2 = this;
 
     // if (this.state !== 'show' || this.panelEndGame.state !== 'hide') return;
     TweenMax.delayedCall(0.07 * 2, function () {
       _this2.subModeSelectionPopup.show();
     });
-
-    return;
-
-
-    MultiplayerStarted = false;
-    // if(!(this.switcherPlayers.switchingState == 'none' && this.switcherDificulty.switchingState == 'none' && this.switcherMode.switchingState == 'none')) return;
-    if (!(_this.switcherPlayers.switchingState == 'none' && _this.switcherMode.switchingState == 'none')) return; // console.log('Click!');
-
-    var config = NORD.game.config;
-    if (config.players == 'three') {
-      if (NORD.mainMenu.isAllButtonEnabled == true) {
-
-        NORD.MultiplayerPopupSowed = true;
-        var _this2 = this;
-
-        NORD.gameState = NORD.GAME_STATE.SERARCHING;
-
-        this.disableAllButtons();
-        TweenMax.delayedCall(0.07 * 2, function () {
-
-          var currentTime = Date.now();
-
-          if (NORD.App.playerController.config.playerAdjectiveId == -1) {
-            NORD.App.playerController.getRandomName();
-            _this2.randomNamePopup.updateName();
-            _this2.randomNamePopup.show();
-          } else {
-            if (PP.server_using == PP.SERVER_USING.Photon) {
-              _this2.multiplayerSelectionPopup.show();
-              _this2.multiplayerSelectionPopup.startPhotonSerer();
-            } else {
-              _this2.multiplayerSelectionPopup.loginToSmartBox();
-            }
-          }
-          // _this2.multilayerPanel.show();
-        });
-      }
-    } else {
-
-      //yathiraj put a variable here \
-      _this.boardSelected = 'board_1';
-
-      TweenMax.delayedCall(0.07 * 2, function () {
-        if (NORD.game.config.mode !== 'action') self.toGame(_this.boardSelected);
-        else self.toGame('board_2');
-      });
-    }
-
   }, this);
   alignItems([logo, this.containerSwitchers, btn], 460);
 
@@ -201,146 +153,9 @@ NORD.ScreenMainMenu = function (config) {
 
   /************************************************************************************************************************************************************************************/
 
-  // //sushant
-  // var dividerLine = Util.createSprite({
-  //   parent: this,
-  //   x: 160,
-  //   y: 20,
-  //   texture: 'DividerLine',
-  //   aX: 0.5,
-  //   aY: 0.5,
-  //   scaleX: 0.666,
-  //   scaleY: 0.666
-  // });
-  // //sushant
 
-  // var ddd = '';
-  // if (gConfig.dificulty == 'easy') ddd = 'left';
-  // else if (gConfig.dificulty == 'hard') ddd = 'right';
-  // else if (gConfig.dificulty == 'medium') ddd = 'center';
-  // this.switcherDificulty = this.createSwitcher(0, startY + 100, 'label_dificulty', 'dificulty', ddd, function(side) {
-  //   var dataMap = {
-  //     left: 'easy',
-  //     right: 'hard',
-  //     center: 'medium'
-  //   };
-  //   var config = NORD.game.config;
-  //   config.dificulty = dataMap[side];
-  //   NORD.game.setConfig(config); // console.log('SSS:', config)
-  // });
-  // var darkDificulty = new PIXI.Container();
-  // this.containerSwitchers.addChild(darkDificulty);
-  // var d1 = Util.createSprite({
-  //   parent: darkDificulty,
-  //   x: -95,
-  //   y: 0,
-  //   atlas: 'texture_atlas',
-  //   texture: 'd_1.png',
-  //   aX: 0.5,
-  //   aY: 0.5
-  // });
-  // var d2 = Util.createSprite({
-  //   parent: darkDificulty,
-  //   x: 0,
-  //   y: 0,
-  //   atlas: 'texture_atlas',
-  //   texture: 'd_2.png',
-  //   aX: 0.5,
-  //   aY: 0.5
-  // });
-  // var d3 = Util.createSprite({
-  //   parent: darkDificulty,
-  //   x: 95,
-  //   y: 0,
-  //   atlas: 'texture_atlas',
-  //   texture: 'd_3.png',
-  //   aX: 0.5,
-  //   aY: 0.5
-  // });
-  // d1.scale = d2.scale = d3.scale = new PIXI.Point(0.79, 0.79);
-  // darkDificulty.y = this.switcherDificulty.y; // darkDificulty.y = 200;
-
-  // darkDificulty.visible = false;
-  // this.darkDificulty = darkDificulty;
-
-
-
-  this.switcherPlayers.on('switch_start', function (side) {
-    if (side === 'right') {
-      // _this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
-
-      // _this.switcherDificulty.interactive = false;
-      // _this.switcherDificulty.interactiveChildren = false;
-    } else {
-      // _this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
-
-      // _this.switcherDificulty.interactive = true;
-      // _this.switcherDificulty.interactiveChildren = true;
-    }
-  });
   this.boardSelected = 'board_2';
   this.ballDiamondGeneratedPos = 0;
-
-
-  // var multiplayerButton = Util.createButton('btn', this, null, '', 230, 20, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('OnlineMultiPlayerBtn'), {
-  //   texture: 'OnlineMultiPlayerBtn',
-  //   aX: 0.5,
-  //   aY: 0.5,
-  //   scaleX: 0.8,
-  //   scaleY: 0.8
-  // });
-  // multiplayerButton.soundClick = NORD.assetsManager.getAsset('play_button')
-  // multiplayerButton.addListener('button_click', function(data) {
-
-
-  //   // if (NORD.mainMenu.isAllButtonEnabled == true) {
-  //   //   var _this2 = this;
-  //   //   NORD.mainMenu.isAllButtonEnabled = true;
-  //   //   NORD.gameState =  NORD.GAME_STATE.SERARCHING;
-  //   //   NORD.sfsController.loginTo();
-  //   // }
-  //   if (NORD.mainMenu.isAllButtonEnabled == true) {
-
-  //     NORD.MultiplayerPopupSowed = true;
-  //     var _this2 = this;
-
-  //     NORD.gameState = NORD.GAME_STATE.SERARCHING;
-
-  //     this.disableAllButtons();
-  //     TweenMax.delayedCall(0.07 * 2, function() {
-
-  //       var currentTime = Date.now();
-
-  //       if (NORD.App.playerController.config.playerAdjectiveId == -1) {
-  //         NORD.App.playerController.getRandomName();
-  //         _this2.randomNamePopup.updateName();
-  //         _this2.randomNamePopup.show();
-  //       } else {
-  //         if (PP.server_using == PP.SERVER_USING.Photon) {
-  //           _this2.multiplayerSelectionPopup.show();
-  //           _this2.multiplayerSelectionPopup.startPhotonSerer();
-  //         } else {
-  //           _this2.multiplayerSelectionPopup.loginToSmartBox();
-  //         }
-  //       }
-  //       // _this2.multilayerPanel.show();
-  //     });
-  //   }
-
-  // }, this);
-
-
-  this.buttonText = new PIXI.Text(NORD.App.playerController.getTierType() + " | Wins: " + NORD.App.playerController.config.playerRankNumber, {
-    font: '35px Snippet',
-    fontSize: 12,
-    fill: 'black',
-    align: 'center'
-  });
-  this.buttonText.anchor.set(0.5);
-  this.buttonText.position.set(0, 60);
-  // multiplayerButton.addChild(this.buttonText);
-
-  //sushant
 
   function alignItems(items, height) {
     var totalHeight = 0;
@@ -509,7 +324,7 @@ NORD.ScreenMainMenu.prototype.toGame = function (board) {
 
 NORD.ScreenMainMenu.prototype.toMainMenu = function () {
 
-  NORD.game.screenMainMenu.buttonText.text = NORD.App.playerController.getTierType() + " | Wins: " + NORD.App.playerController.config.playerRankNumber;
+  //NORD.game.screenMainMenu.buttonText.text = NORD.App.playerController.getTierType() + " | Wins: " + NORD.App.playerController.config.playerRankNumber;
   // this.actionHintShows ++;
   this.actionHint.visible = this.actionHintShows % 2 == 0 && !NORD.game.config.isActionPlayed;
   //sushant
@@ -738,8 +553,6 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
   } else this.sideCenter = null;
 
 
- 
-
     if(switcher == "Thriller")
     {
     this.bottomLeft = {
@@ -765,6 +578,14 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
       spriteOn: Util.createSprite(switcherConfig.bottomCenter.spriteOn),
       spriteOff: Util.createSprite(switcherConfig.bottomCenter.spriteOff)
     };
+
+    this.playAll = {
+      x: 0,
+      y: 120,
+      name: 'bottomCenter',
+      spriteOn: Util.createSprite(switcherConfig.playAll.spriteOn),
+      spriteOff: Util.createSprite(switcherConfig.playAll.spriteOff)
+    };
   }
 
   this.sides = {
@@ -774,6 +595,7 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
     bottomLeft: this.bottomLeft,
     bottomRight: this.bottomRight,
     bottomCenter: this.bottomCenter,
+    playAll: this.playAll,
   };
 
   if (switcher == "Thriller") {
@@ -784,9 +606,6 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
     this.bottomLeft.spriteOn.x = this.bottomLeft.x;
     this.bottomLeft.spriteOn.y = this.bottomLeft.y;
   
-    this.bottomLeft.spriteOff.scale.x = 0.45;
-    this.bottomLeft.spriteOn.scale.y = 0.45;
-
     this.addChild(this.bottomRight.spriteOff);
     this.bottomRight.spriteOff.x = this.bottomRight.x;
     this.bottomRight.spriteOff.y = this.bottomRight.y;
@@ -794,9 +613,6 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
     this.bottomRight.spriteOn.x = this.bottomRight.x;
     this.bottomRight.spriteOn.y = this.bottomRight.y;
   
-    this.bottomRight.spriteOff.scale.x = 0.45;
-    this.bottomRight.spriteOn.scale.y = 0.45;
-
   this.addChild(this.bottomCenter.spriteOff);
   this.bottomCenter.spriteOff.x = this.bottomCenter.x;
   this.bottomCenter.spriteOff.y = this.bottomCenter.y;
@@ -804,8 +620,18 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
   this.bottomCenter.spriteOn.x = this.bottomCenter.x;
   this.bottomCenter.spriteOn.y = this.bottomCenter.y;
 
-  this.bottomCenter.spriteOff.scale.x = 0.45;
-  this.bottomCenter.spriteOn.scale.y = 0.45;
+  this.addChild(this.playAll.spriteOff);
+  this.playAll.spriteOff.x = this.playAll.x;
+  this.playAll.spriteOff.y = this.playAll.y;
+  this.addChild(this.playAll.spriteOn);
+  this.playAll.spriteOn.x = this.playAll.x;
+  this.playAll.spriteOn.y = this.playAll.y;
+
+  this.bottomLeft.spriteOn.scale.x = this.bottomLeft.spriteOff.scale.x  = this.bottomRight.spriteOn.scale.x = this.bottomRight.spriteOff.scale.x = this.bottomCenter.spriteOn.scale.x = this.bottomCenter.spriteOff.scale.x = this.playAll.spriteOn.scale.x = this.playAll.spriteOff.scale.x = 0.45;
+  this.bottomLeft.spriteOn.scale.y = this.bottomLeft.spriteOff.scale.y = this.bottomRight.spriteOn.scale.y = this.bottomRight.spriteOff.scale.y =   this.bottomCenter.spriteOn.scale.y = this.bottomCenter.spriteOff.scale.y = this.playAll.spriteOn.scale.y = this.playAll.spriteOff.scale.y = 0.45;
+
+  this.bottomLeft.spriteOn.visible = this.bottomRight.spriteOn.visible = this.bottomCenter.spriteOn.visible = this.playAll.spriteOn.visible = false;
+  this.bottomLeft.spriteOff.visible = this.bottomRight.spriteOff.visible =  this.bottomCenter.spriteOff.visible = this.playAll.spriteOff.visible = false;
   }
 
   this.addChild(this.sideLeft.spriteOff);
@@ -893,6 +719,7 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
   if (this.bottomLeft) setSideInteractive(this.bottomLeft);
   if (this.bottomRight) setSideInteractive(this.bottomRight);
   if (this.bottomCenter) setSideInteractive(this.bottomCenter);
+  if (this.playAll) setSideInteractive(this.playAll);
   // this.spriteBg = Util.createSprite({ atlas: 'texture_atlas', texture: 'Controls/Slider/bg.png', parent: this, aX: 0.5, aY: 0.5 });
   // this.spriteBg.rotation = this.orientation === 'vertical'?0:Math.PI/2;
   //
@@ -1481,53 +1308,7 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function (x, y, labelName, switch
   // const label = Util.createSprite({ parent: this, x: -112, y: y, atlas: 'texture_atlas', texture: labelName+'.png', aX: 1.0, aY: 0.5 });
   var config = null;
 
-  if (switcherName == 'dificulty') {
-    config = {
-      selected: selected,
-      left: {
-        spriteOn: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_1_on.png',
-          aX: 0.5,
-          aY: 0.5
-        },
-        spriteOff: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_1_off.png',
-          aX: 0.5,
-          aY: 0.5
-        }
-      },
-      center: {
-        spriteOn: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_2_on.png',
-          aX: 0.5,
-          aY: 0.5
-        },
-        spriteOff: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_2_off.png',
-          aX: 0.5,
-          aY: 0.5
-        }
-      },
-      right: {
-        spriteOn: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_3_on.png',
-          aX: 0.5,
-          aY: 0.5
-        },
-        spriteOff: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_3_off.png',
-          aX: 0.5,
-          aY: 0.5
-        }
-      }
-    };
-  } else if (switcherName == 'players') {
+ if (switcherName == 'players') {
     config = {
       selected: selected,
       left: {
@@ -1855,6 +1636,20 @@ NORD.subModeSelectionPopup = function (config) {
   this.interactiveChildren = false; // this.alpha = 0;
   this.board = "board_1";
 
+  
+  // //sushant
+  // var dividerLine = Util.createSprite({
+  //   parent: this,
+  //   x: 160,
+  //   y: 20,
+  //   texture: 'DividerLine',
+  //   aX: 0.5,
+  //   aY: 0.5,
+  //   scaleX: 0.666,
+  //   scaleY: 0.666
+  // });
+  // //sushant
+
   this.bg = Util.createSprite({
     parent: this,
     texture: 'BG',
@@ -1863,7 +1658,7 @@ NORD.subModeSelectionPopup = function (config) {
     scaleXY: 0.45
   });
 
-  this.closeButton = Util.createButton('btn', this, null, '', 169, -141, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseBtn'), {
+  this.closeButton = Util.createButton('btn', this, null, '', -320, -200, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseBtn'), {
     texture: 'CloseBtn',
     aX: 0.5,
     aY: 0.5,
@@ -1883,18 +1678,20 @@ NORD.subModeSelectionPopup = function (config) {
 
   }, this);
 
-  // this.switchThrillerMode = this.createSwitcher(0, 0, 'label_board', 'Thriller', 'left', function (side) {
-  //   var dataMap = {
-  //     left: 'board_2',
-  //     right: 'board_1',
-  //     center: 'board_3'
-  //   };
-  //   var config = NORD.game.config;
-  //   config.board = dataMap[side];
-  //   NORD.game.setConfig(config); // console.log('SSS:', config)
-  // });
+  this.switchThrillerMode = this.createSwitcher(0, -150, 'label_Thriller', 'Thriller', 'left', function (side) {
+    var dataMap = {
+      left: 'STUN_GUN',
+      right: 'KITTY_SHRINK_PADDLE',
+      center: 'TELEPORT_MODE',
+      bottomLeft: 'SHADOW_MODE',
+      bottomRight: 'GRAVITY_WELL',
+      bottomCenter: 'INVERSE_MODE',
+      playAll:'ALL'
+    };
+    NORD.game.panelSettings.actionMode = dataMap[side];
+  });
 
-  this.switcherBoard = this.createSwitcher(0, 0, 'label_board', 'Normal', 'left', function (side) {
+  this.switchNormalMode = this.createSwitcher(0, -100, 'label_Normal', 'Normal', 'left', function (side) {
     var dataMap = {
       left: 'board_2',
       right: 'board_1',
@@ -1905,7 +1702,7 @@ NORD.subModeSelectionPopup = function (config) {
     NORD.game.setConfig(config); // console.log('SSS:', config)
   });
 
-  this.switcherDificulty = this.createSwitcher(0, 100, 'label_dificulty', 'Normal', 'left', function (side) {
+  this.switchDificulty = this.createSwitcher(0, 100, 'label_difficulty', 'Difficulty', 'left', function (side) {
     var dataMap = {
       left: 'easy',
       right: 'hard',
@@ -1915,9 +1712,6 @@ NORD.subModeSelectionPopup = function (config) {
     config.dificulty = dataMap[side];
     NORD.game.setConfig(config); // console.log('SSS:', config)
   });
-
-  // this.switcherBoard.visible = false;
-  // this.switcherDificulty.visible = false;
 
   var btn = Util.createButton('btn', this, null, '', 0, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
     texture: 'PlayButton',
@@ -1960,8 +1754,6 @@ NORD.subModeSelectionPopup = function (config) {
         });
       }
     } else {
-
-      //yathiraj put a variable here \
       MainMenuLocation.boardSelected = config.board;
 
       TweenMax.delayedCall(0.07 * 2, function () {
@@ -1978,10 +1770,20 @@ NORD.subModeSelectionPopup.prototype.constructor = NORD.subModeSelectionPopup;
 
 NORD.subModeSelectionPopup.prototype.show = function (data) {
   var config = NORD.game.config;
+
+  this.switchNormalMode.visible = true;
+  this.switchThrillerMode.visible = true;
+
   if (config.players != 'one')
-    this.switcherDificulty.visible = false;
+    this.switchDificulty.visible = false;
   else
-  this.switcherDificulty.visible = true;
+  this.switchDificulty.visible = true;
+
+  if(config.mode == 'action')
+  this.switchNormalMode.visible = false;
+  else
+  this.switchThrillerMode.visible = false;
+
 
   if (!MultiplayerStarted) {
     NORD.game.field.setPause(true);
@@ -2009,6 +1811,46 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
   var config = null;
 
   if (switcherName == 'Normal') {
+    config = {
+      selected: selected,
+      left: {
+        spriteOn: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        }
+      },
+      center: {
+        spriteOn: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        }
+      },
+      right: {
+        spriteOn: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        }
+      }
+    };
+  }else if(switcherName == 'Difficulty') {
     config = {
       selected: selected,
       left: {
@@ -2123,8 +1965,21 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           aX: 0.5,
           aY: 0.5
         }
+      },
+      playAll: {
+        spriteOn: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        }
       }
     };
+    
   }
 
   var switcher = new NORD.MenuSwitcher({
