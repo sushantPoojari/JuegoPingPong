@@ -107,6 +107,23 @@ NORD.ScreenMainMenu = function (config) {
       _this.tweenPulse();
     }
   });
+  /***************************************************************************************Audio Button*************************************************************************************/
+  var audioButton = new NORD.GUI.ButtonAudio({
+    parentPanel: this,
+    x: -325,
+    y: -185,
+    width: 42,
+    height: 42,
+    soundClick: NORD.assetsManager.getAsset('sound_click'),
+    skin: {
+      on: {
+        texture: 'SoundOnButton'
+      },
+      off: {
+        texture: 'SoundOffButton'
+      }
+    }
+  });
   /***************************************************************************************Play Button*************************************************************************************/
   var btn = Util.createButton('btn', this, null, '', 0, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
     texture: 'PlayButton',
@@ -341,22 +358,7 @@ NORD.ScreenMainMenu = function (config) {
     });
     items[1].y -= 4; // console.log('Align:', totalHeight, freeSpace)
   }
-  var audioButton = new NORD.GUI.ButtonAudio({
-    parentPanel: this,
-    x: -325,
-    y: -185,
-    width: 42,
-    height: 42,
-    soundClick: NORD.assetsManager.getAsset('sound_click'),
-    skin: {
-      on: {
-        texture: 'SoundOnButton'
-      },
-      off: {
-        texture: 'SoundOffButton'
-      }
-    }
-  });
+
 
   this.actionHint = Util.createSprite({
     parent: this,
@@ -700,7 +702,7 @@ NORD.ScreenMainMenu.prototype.tween = function (data, callback) {
 // ======================================================================================================================================== //
 
 
-NORD.MenuSwitcher = function (config, switcherConfig, parent) {
+NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
   var _this2 = this;
 
   NORD.GUI.BasePanel.call(this, config);
@@ -735,16 +737,76 @@ NORD.MenuSwitcher = function (config, switcherConfig, parent) {
     };
   } else this.sideCenter = null;
 
-  if (parent == "Popup") {
-    this.sideLeft.x = -75;
-    this.sideRight.x = +75;
+
+ 
+
+    if(switcher == "Thriller")
+    {
+    this.bottomLeft = {
+      x: -225,
+      y: 50,
+      name: 'bottomLeft',
+      spriteOn: Util.createSprite(switcherConfig.bottomLeft.spriteOn),
+      spriteOff: Util.createSprite(switcherConfig.bottomLeft.spriteOff)
+    };
+
+    this.bottomRight = {
+      x: 225,
+      y: 50,
+      name: 'bottomRight',
+      spriteOn: Util.createSprite(switcherConfig.bottomRight.spriteOn),
+      spriteOff: Util.createSprite(switcherConfig.bottomRight.spriteOff)
+    };
+
+    this.bottomCenter = {
+      x: 0,
+      y: 50,
+      name: 'bottomCenter',
+      spriteOn: Util.createSprite(switcherConfig.bottomCenter.spriteOn),
+      spriteOff: Util.createSprite(switcherConfig.bottomCenter.spriteOff)
+    };
   }
 
   this.sides = {
     left: this.sideLeft,
     right: this.sideRight,
-    center: this.sideCenter
+    center: this.sideCenter,
+    bottomLeft: this.bottomLeft,
+    bottomRight: this.bottomRight,
+    bottomCenter: this.bottomCenter,
   };
+
+  if (switcher == "Thriller") {
+    this.addChild(this.bottomLeft.spriteOff);
+    this.bottomLeft.spriteOff.x = this.bottomLeft.x;
+    this.bottomLeft.spriteOff.y = this.bottomLeft.y;
+    this.addChild(this.bottomLeft.spriteOn);
+    this.bottomLeft.spriteOn.x = this.bottomLeft.x;
+    this.bottomLeft.spriteOn.y = this.bottomLeft.y;
+  
+    this.bottomLeft.spriteOff.scale.x = 0.45;
+    this.bottomLeft.spriteOn.scale.y = 0.45;
+
+    this.addChild(this.bottomRight.spriteOff);
+    this.bottomRight.spriteOff.x = this.bottomRight.x;
+    this.bottomRight.spriteOff.y = this.bottomRight.y;
+    this.addChild(this.bottomRight.spriteOn);
+    this.bottomRight.spriteOn.x = this.bottomRight.x;
+    this.bottomRight.spriteOn.y = this.bottomRight.y;
+  
+    this.bottomRight.spriteOff.scale.x = 0.45;
+    this.bottomRight.spriteOn.scale.y = 0.45;
+
+  this.addChild(this.bottomCenter.spriteOff);
+  this.bottomCenter.spriteOff.x = this.bottomCenter.x;
+  this.bottomCenter.spriteOff.y = this.bottomCenter.y;
+  this.addChild(this.bottomCenter.spriteOn);
+  this.bottomCenter.spriteOn.x = this.bottomCenter.x;
+  this.bottomCenter.spriteOn.y = this.bottomCenter.y;
+
+  this.bottomCenter.spriteOff.scale.x = 0.45;
+  this.bottomCenter.spriteOn.scale.y = 0.45;
+  }
 
   this.addChild(this.sideLeft.spriteOff);
   this.sideLeft.spriteOff.x = this.sideLeft.x;
@@ -826,7 +888,12 @@ NORD.MenuSwitcher = function (config, switcherConfig, parent) {
 
   setSideInteractive(this.sideLeft);
   setSideInteractive(this.sideRight);
-  if (this.isCenter) setSideInteractive(this.sideCenter); // this.spriteBg = Util.createSprite({ atlas: 'texture_atlas', texture: 'Controls/Slider/bg.png', parent: this, aX: 0.5, aY: 0.5 });
+
+  if (this.isCenter) setSideInteractive(this.sideCenter);
+  if (this.bottomLeft) setSideInteractive(this.bottomLeft);
+  if (this.bottomRight) setSideInteractive(this.bottomRight);
+  if (this.bottomCenter) setSideInteractive(this.bottomCenter);
+  // this.spriteBg = Util.createSprite({ atlas: 'texture_atlas', texture: 'Controls/Slider/bg.png', parent: this, aX: 0.5, aY: 0.5 });
   // this.spriteBg.rotation = this.orientation === 'vertical'?0:Math.PI/2;
   //
   // this.spriteSlider = Util.createSprite({ atlas: 'texture_atlas', texture: 'Controls/Slider/thumb.png', parent: this, aX: 0.5, aY: 0.5 });
@@ -1788,15 +1855,12 @@ NORD.subModeSelectionPopup = function (config) {
   this.interactiveChildren = false; // this.alpha = 0;
   this.board = "board_1";
 
-
-
   this.bg = Util.createSprite({
     parent: this,
-    atlas: 'texture_atlas',
-    texture: 'panel_pause_bg.png',
+    texture: 'BG',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 1.5
+    scaleXY: 0.45
   });
 
   this.closeButton = Util.createButton('btn', this, null, '', 169, -141, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseBtn'), {
@@ -1819,7 +1883,18 @@ NORD.subModeSelectionPopup = function (config) {
 
   }, this);
 
-  this.switcherBoard = this.createSwitcher(0, 0, 'label_board', 'dificulty', 'left', function (side) {
+  // this.switchThrillerMode = this.createSwitcher(0, 0, 'label_board', 'Thriller', 'left', function (side) {
+  //   var dataMap = {
+  //     left: 'board_2',
+  //     right: 'board_1',
+  //     center: 'board_3'
+  //   };
+  //   var config = NORD.game.config;
+  //   config.board = dataMap[side];
+  //   NORD.game.setConfig(config); // console.log('SSS:', config)
+  // });
+
+  this.switcherBoard = this.createSwitcher(0, 0, 'label_board', 'Normal', 'left', function (side) {
     var dataMap = {
       left: 'board_2',
       right: 'board_1',
@@ -1830,7 +1905,7 @@ NORD.subModeSelectionPopup = function (config) {
     NORD.game.setConfig(config); // console.log('SSS:', config)
   });
 
-  this.switcherDificulty = this.createSwitcher(0, 100, 'label_dificulty', 'dificulty', 'left', function (side) {
+  this.switcherDificulty = this.createSwitcher(0, 100, 'label_dificulty', 'Normal', 'left', function (side) {
     var dataMap = {
       left: 'easy',
       right: 'hard',
@@ -1840,6 +1915,9 @@ NORD.subModeSelectionPopup = function (config) {
     config.dificulty = dataMap[side];
     NORD.game.setConfig(config); // console.log('SSS:', config)
   });
+
+  // this.switcherBoard.visible = false;
+  // this.switcherDificulty.visible = false;
 
   var btn = Util.createButton('btn', this, null, '', 0, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
     texture: 'PlayButton',
@@ -1930,47 +2008,118 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
   // const label = Util.createSprite({ parent: this, x: -112, y: y, atlas: 'texture_atlas', texture: labelName+'.png', aX: 1.0, aY: 0.5 });
   var config = null;
 
-  if (switcherName == 'dificulty') {
+  if (switcherName == 'Normal') {
     config = {
       selected: selected,
       left: {
         spriteOn: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_1_on.png',
+          texture: 'PlayButton',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_1_off.png',
+          texture: 'PlayButton',
           aX: 0.5,
           aY: 0.5
         }
       },
       center: {
         spriteOn: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_2_on.png',
+          texture: 'PlayButton',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_2_off.png',
+          texture: 'PlayButton',
           aX: 0.5,
           aY: 0.5
         }
       },
       right: {
         spriteOn: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_3_on.png',
+          texture: 'PlayButton',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          atlas: 'texture_atlas',
-          texture: 'switcher_' + switcherName + '_3_off.png',
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        }
+      }
+    };
+  } else if(switcherName == 'Thriller')
+  {
+    config = {
+      selected: selected,
+      left: {
+        spriteOn: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        }
+      },
+      center: {
+        spriteOn: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        }
+      },
+      right: {
+        spriteOn: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        }
+      },
+      bottomLeft: {
+        spriteOn: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        }
+      },
+      bottomRight: {
+        spriteOn: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        }
+      },
+      bottomCenter: {
+        spriteOn: {
+          texture: 'PlayButton',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'PlayButton',
           aX: 0.5,
           aY: 0.5
         }
@@ -1983,7 +2132,7 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
     container: this.containerSwitchers,
     x: 0,
     y: y
-  }, config, "Popup");
+  }, config, switcherName);
   switcher.on('side_change', function (side) {
     // console.log('Side change:', side);
     onChange(side);
