@@ -562,7 +562,8 @@ NORD.Game = function() {
     gamesCount: 0,
     actionHintShows: 0,
     isActionPlayed: false,
-    isControlVSCompTutorial: false
+    isControlVSCompTutorial: false,
+    board: 'board_2'
   };
 
   //sushant
