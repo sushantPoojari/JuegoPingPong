@@ -588,10 +588,7 @@ NORD.Field.Ball.prototype.update = function() {
 
   //sushant
   if (MultiplayerStarted)
-    if (NORD.game.config.mode == NORD.MULTIPLAYER_GAME_MODE.ACTION && ScoreHolder.roundMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.MULTIBALL)
-      this.checkGoal();
-    else
-      this.checkMultiplayerBoundaryGoal();
+    this.checkMultiplayerBoundaryGoal();
   else
     this.checkGoal();
   //sushant
@@ -677,11 +674,8 @@ NORD.Field.Ball.prototype.checkMultiplayerBoundaryGoal = function() {
       NORD.gameEventHandler.sendEvent(seObj);
     }
   }
-  var widthX = 2.25;
-  if (NORD.game.config.mode == NORD.MULTIPLAYER_GAME_MODE.ACTION && ScoreHolder.roundMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.BIG_BALL_LITTLE_PADDLES)
-    widthX = 2.45;
-  if (this.body.position.x < -this.field.config.FIELD_WIDTH / widthX && !this.ballCollideToEdge) {
 
+  if (this.body.position.x < -this.field.config.FIELD_WIDTH / 2.25 && !this.ballCollideToEdge) {
     this.ballCollideToEdge = true;
     console.log("balleeeeddddee");
 
@@ -967,7 +961,7 @@ NORD.Field.Ball.prototype.hitPaddle = function(paddle) {
   //sushant
   if (MultiplayerStarted) {
     if (paddle.side == "RIGHT") {
-      console.log("distortionVelocity send --- " + this.body.speed);
+      console.log("distortionVelocity send --- " + this.body.velocity.x);
       var seObj = new PP.ServerObject();
       seObj.ballBodyPositionX = this.body.position.x;
       seObj.ballBodyPositionY = this.body.position.y;
@@ -975,16 +969,7 @@ NORD.Field.Ball.prototype.hitPaddle = function(paddle) {
       seObj.ballPositionX = this.body.velocity.x;
       seObj.ballPositionY = this.body.velocity.y;
 
-      if (NORD.game.config.mode == NORD.MULTIPLAYER_GAME_MODE.ACTION && this.field.roundMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.MULTIBALL) {
-        if (Ball == this) {
-          console.log("ball sent");
-          seObj.eventType = NORD.PP_EVENT.EVENT_GAME_PADDLE_DISTORTIONONE_VELOCITY;
-        } else {
-          console.log("ball1 sent");
-          seObj.eventType = NORD.PP_EVENT.EVENT_GAME_PADDLE_DISTORTIONTWO_VELOCITY;
-        }
-      } else
-        seObj.eventType = NORD.PP_EVENT.EVENT_GAME_PADDLE_DISTORTION_VELOCITY;
+      seObj.eventType = NORD.PP_EVENT.EVENT_GAME_PADDLE_DISTORTION_VELOCITY;
 
       NORD.gameEventHandler.sendEvent(seObj);
       Matter.Body.setVelocity(this.body, {

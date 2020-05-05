@@ -580,7 +580,7 @@ NORD.GameEventHandler.prototype.onReciveEvent = function(eventType, data) {
     case NORD.PP_EVENT.EVENT_GAME_PADDLE_DISTORTION_VELOCITY:
       {
 
-        console.log("distortionVelocity received --- " + Ball.body.speed);
+        console.log("distortionVelocity received --- ");
         Ball.distortionVelocityReceived = false;
 
         NORD.game.ballImpulse.x = serverObj.ballPositionX * -1;
@@ -592,8 +592,8 @@ NORD.GameEventHandler.prototype.onReciveEvent = function(eventType, data) {
         NORD.game.ballImpulse.bodypositionX = serverObj.ballBodyPositionX * -1;
         NORD.game.ballImpulse.bodypositionY = serverObj.ballBodyPositionY;
 
-        if (Ball.ballCollideToEdge) {
-          console.log("ball ballCollideToEdge");
+        if (!Ball.ballCollideToEdge) {
+          console.log("ball ballCollideToEdge" + serverObj.ballPositionX * -1);
           if (Ball.body.velocity.x > 0 && !Util.inbetweenRange(NORD.game.ballImpulse.x, Ball.body.velocity.x.toFixed(3))) {
             NORD.game.screenGame.showIndicator(0.5);
           }
