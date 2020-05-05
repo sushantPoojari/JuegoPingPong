@@ -2140,19 +2140,32 @@ var RoundGenerator = function RoundGenerator(field) {
     }
   });
 
-  this.field.on('black_hole_mode_hit', function(player) {
-    if (player.side === 'LEFT') {
-      LeftPaddle.setSize(NORD.game.field.roundGenerator.field.smallPaddleData.size, NORD.game.field.roundGenerator.field.smallPaddleData.shape);
-      LeftPaddle.paddleViewImage.scale.y = 0.2;
-      RightPaddle.setSize(NORD.game.field.config.paddleSize.value, NORD.game.field.config.paddleShape.value);
-      RightPaddle.paddleViewImage.scale.y = 0.5;
-    }
-    if (player.side === 'RIGHT') {
-      RightPaddle.setSize(NORD.game.field.roundGenerator.field.smallPaddleData.size, NORD.game.field.roundGenerator.field.smallPaddleData.shape);
-      RightPaddle.paddleViewImage.scale.y = 0.2;
-      LeftPaddle.setSize(NORD.game.field.config.paddleSize.value, NORD.game.field.config.paddleShape.value);
-      LeftPaddle.paddleViewImage.scale.y = 0.5;
-    }
+  this.field.on('black_hole_mode_hit', function(ball) {
+    var side = 'LEFT';
+    if (ball.body.velocity.x < 0)
+      side = 'RIGHT'
+
+    var goalPlayer = this.players[side === 'LEFT' ? 'RIGHT' : 'LEFT'];
+    this.goal(goalPlayer, this);
+
+    // var seObj = new PP.ServerObject();
+    // seObj.eventType = NORD.PP_EVENT.EVENT_GAME_DEFEATED;
+    //
+    // NORD.gameEventHandler.sendEvent(seObj);
+    // NORD.game.screenGame.panelPause.hide();
+
+    // if (player.side === 'LEFT') {
+    //   LeftPaddle.setSize(NORD.game.field.roundGenerator.field.smallPaddleData.size, NORD.game.field.roundGenerator.field.smallPaddleData.shape);
+    //   LeftPaddle.paddleViewImage.scale.y = 0.2;
+    //   RightPaddle.setSize(NORD.game.field.config.paddleSize.value, NORD.game.field.config.paddleShape.value);
+    //   RightPaddle.paddleViewImage.scale.y = 0.5;
+    // }
+    // if (player.side === 'RIGHT') {
+    //   RightPaddle.setSize(NORD.game.field.roundGenerator.field.smallPaddleData.size, NORD.game.field.roundGenerator.field.smallPaddleData.shape);
+    //   RightPaddle.paddleViewImage.scale.y = 0.2;
+    //   LeftPaddle.setSize(NORD.game.field.config.paddleSize.value, NORD.game.field.config.paddleShape.value);
+    //   LeftPaddle.paddleViewImage.scale.y = 0.5;
+    // }
   });
 
   this.field.on('kitty_hit_shrink', function(ball) {
@@ -3058,7 +3071,7 @@ var createTeleport1 = function createTeleport1(field, config, data) {
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
           var player = field.players[ball.playerPaddle.side];
-          field.emit('black_hole_mode_hit', player);
+          field.emit('black_hole_mode_hit', ball);
         } else {
           if (ball.body.velocity.x < 0) {
             ball.setTo(-80, -100);
@@ -3080,7 +3093,7 @@ var createTeleport1 = function createTeleport1(field, config, data) {
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
           var player = field.players[ball.playerPaddle.side];
-          field.emit('black_hole_mode_hit', player);
+          field.emit('black_hole_mode_hit', ball);
         } else {
           if (ball.body.velocity.x > 0) {
             ball.setTo(80, 100);
@@ -3112,7 +3125,7 @@ var createTeleport2 = function createTeleport1(field, config, data) {
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
           var player = field.players[ball.playerPaddle.side];
-          field.emit('black_hole_mode_hit', player);
+          field.emit('black_hole_mode_hit', ball);
         } else {
           if (ball.body.velocity.x > 0) {
             ball.setTo(80, -100);
@@ -3134,7 +3147,7 @@ var createTeleport2 = function createTeleport1(field, config, data) {
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
           var player = field.players[ball.playerPaddle.side];
-          field.emit('black_hole_mode_hit', player);
+          field.emit('black_hole_mode_hit', ball);
         } else {
           if (ball.body.velocity.x < 0) {
             ball.setTo(-80, 100);

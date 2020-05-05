@@ -592,55 +592,55 @@ NORD.GameEventHandler.prototype.onReciveEvent = function(eventType, data) {
         NORD.game.ballImpulse.bodypositionX = serverObj.ballBodyPositionX * -1;
         NORD.game.ballImpulse.bodypositionY = serverObj.ballBodyPositionY;
 
-        if (!Ball.ballCollideToEdge) {
-          console.log("ball ballCollideToEdge" + serverObj.ballPositionX * -1);
-          if (Ball.body.velocity.x > 0 && !Util.inbetweenRange(NORD.game.ballImpulse.x, Ball.body.velocity.x.toFixed(3))) {
-            NORD.game.screenGame.showIndicator(0.5);
-          }
-
-          Ball.velocityActivated = true;
-
-          var positionNeedToChange = false;
-          if (Ball.body.velocity.x <= 0)
-            positionNeedToChange = true;
-
-          Matter.Body.setVelocity(Ball.body, {
-            x: 0,
-            y: 0
-          });
-          if (positionNeedToChange)
-            Ball.setTo(NORD.game.ballImpulse.bodypositionX, NORD.game.ballImpulse.bodypositionY);
-          Matter.Body.setVelocity(Ball.body, {
-            x: NORD.game.ballImpulse.x,
-            y: NORD.game.ballImpulse.y
-          });
-
-          if (positionNeedToChange) {
-            LeftPaddle.paddleGettingTeleported = true;
-
-            if (Util.exceedsRange(LeftPaddle.body.position.y, NORD.game.ballImpulse.paddleYPosition, 20))
-              NORD.game.screenGame.showIndicator(0.5);
-
-            if (LeftPaddle.tweenBody != null)
-              LeftPaddle.tweenBody.kill();
-            LeftPaddle.bodyY = LeftPaddle.body.position.y;
-            LeftPaddle.tweenBody = TweenMax.to(LeftPaddle, 0.1, {
-              bodyY: serverObj.paddlePositionY,
-              onUpdate: tweenUpdate
-            });
-
-            function tweenUpdate() {
-              LeftPaddle.setTo(LeftPaddle.body.position.x, LeftPaddle.bodyY);
-            }
-
-            TweenMax.delayedCall(0.5, function() {
-              LeftPaddle.paddleGettingTeleported = false;
-            });
-          }
-
-          NORD.game.ballImpulse.x = 0;
-          NORD.game.ballImpulse.y = 0;
+        // if (!Ball.ballCollideToEdge) {
+        console.log("ball ballCollideToEdge" + serverObj.ballPositionX * -1);
+        if (Ball.body.velocity.x > 0 && !Util.inbetweenRange(NORD.game.ballImpulse.x, Ball.body.velocity.x.toFixed(3))) {
+          NORD.game.screenGame.showIndicator(0.5);
         }
+
+        Ball.velocityActivated = true;
+
+        var positionNeedToChange = false;
+        if (Ball.body.velocity.x <= 0)
+          positionNeedToChange = true;
+
+        Matter.Body.setVelocity(Ball.body, {
+          x: 0,
+          y: 0
+        });
+        if (positionNeedToChange)
+          Ball.setTo(NORD.game.ballImpulse.bodypositionX, NORD.game.ballImpulse.bodypositionY);
+        Matter.Body.setVelocity(Ball.body, {
+          x: NORD.game.ballImpulse.x,
+          y: NORD.game.ballImpulse.y
+        });
+
+        if (positionNeedToChange) {
+          LeftPaddle.paddleGettingTeleported = true;
+
+          if (Util.exceedsRange(LeftPaddle.body.position.y, NORD.game.ballImpulse.paddleYPosition, 20))
+            NORD.game.screenGame.showIndicator(0.5);
+
+          if (LeftPaddle.tweenBody != null)
+            LeftPaddle.tweenBody.kill();
+          LeftPaddle.bodyY = LeftPaddle.body.position.y;
+          LeftPaddle.tweenBody = TweenMax.to(LeftPaddle, 0.1, {
+            bodyY: serverObj.paddlePositionY,
+            onUpdate: tweenUpdate
+          });
+
+          function tweenUpdate() {
+            LeftPaddle.setTo(LeftPaddle.body.position.x, LeftPaddle.bodyY);
+          }
+
+          TweenMax.delayedCall(0.5, function() {
+            LeftPaddle.paddleGettingTeleported = false;
+          });
+        }
+
+        NORD.game.ballImpulse.x = 0;
+        NORD.game.ballImpulse.y = 0;
+        // }
         break;
       }
     case NORD.PP_EVENT.EVENT_GAME_PADDLE_DISTORTIONONE_VELOCITY:
