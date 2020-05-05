@@ -2087,6 +2087,59 @@ var RoundGenerator = function RoundGenerator(field) {
     }
   }, this);
 
+  this.field.on('shadow_hit_disappear', function(player) {
+    if (player.side === 'LEFT') {
+      if (LeftPaddle.tweenBodyAlpha != null)
+        LeftPaddle.tweenBodyAlpha.kill();
+      LeftPaddle.tweenBodyAlpha = TweenMax.to(LeftPaddle, 2, {
+        alpha: 0,
+        onComplete: function onComplete() {
+          LeftPaddle.tweenBodyAlpha = null;
+          setTimeout(function() {
+            increaseLeftPaddleAlpha();
+          }, 1000);
+        }
+      });
+      increaseRightPaddleAlpha();
+    }
+    if (player.side === 'RIGHT') {
+      if (RightPaddle.tweenBodyAlpha != null)
+        RightPaddle.tweenBodyAlpha.kill();
+      RightPaddle.tweenBodyAlpha = TweenMax.to(RightPaddle, 2, {
+        alpha: 0,
+        onComplete: function onComplete() {
+          RightPaddle.tweenBodyAlpha = null;
+          setTimeout(function() {
+            increaseRightPaddleAlpha();
+          }, 1000);
+        }
+      });
+      increaseLeftPaddleAlpha();
+    }
+
+    function increaseLeftPaddleAlpha() {
+      if (LeftPaddle.tweenBodyAlpha != null)
+        LeftPaddle.tweenBodyAlpha.kill();
+      LeftPaddle.tweenBodyAlpha = TweenMax.to(LeftPaddle, 1, {
+        alpha: 1,
+        onComplete: function onComplete() {
+          LeftPaddle.tweenBodyAlpha = null;
+        }
+      });
+    }
+
+    function increaseRightPaddleAlpha() {
+      if (RightPaddle.tweenBodyAlpha != null)
+        RightPaddle.tweenBodyAlpha.kill();
+      RightPaddle.tweenBodyAlpha = TweenMax.to(RightPaddle, 1, {
+        alpha: 1,
+        onComplete: function onComplete() {
+          RightPaddle.tweenBodyAlpha = null;
+        }
+      });
+    }
+  });
+
   this.field.on('kitty_hit_shrink', function(player) {
     if (player.side === 'LEFT') {
       LeftPaddle.setSize(NORD.game.field.roundGenerator.field.smallPaddleData.size, NORD.game.field.roundGenerator.field.smallPaddleData.shape);
@@ -2206,7 +2259,7 @@ RoundGenerator.prototype.resetAvaiableModes = function() {
   //   'STUN_GUN', 'FIRE_ZONE', 'BUMPER'
   // ];
 
-  this.avaiableModes = ['STUN_PLAYER', 'KITTY_SHRINK_PADDLE', 'FOG_MODE', 'INVERSE_MODE', 'TELEPORT_MODE'];
+  this.avaiableModes = ['STUN_PLAYER', 'KITTY_SHRINK_PADDLE', 'SHADOW_MODE', 'INVERSE_MODE', 'TELEPORT_MODE'];
 };
 
 RoundGenerator.prototype.getAvaiablesModes = function() {
@@ -2285,40 +2338,17 @@ RoundGenerator.prototype.initRoundMode = function() {
 
 RoundGenerator.prototype.createObstacle = function(mode) {
 
-  if (mode === 'FOG_MODE') {
+  if (mode === 'SHADOW_MODE') {
 
-    increasePaddleAlpha();
-
-    function decreasePaddleAlpha() {
-
-      if (RightPaddle.tweenBodyAlpha != null)
-        RightPaddle.tweenBodyAlpha.kill();
-      RightPaddle.tweenBodyAlpha = TweenMax.to(RightPaddle, 2, {
-        alpha: 0,
-        onComplete: function onComplete() {
-          RightPaddle.tweenBodyAlpha = null;
-          setTimeout(function() {
-            increasePaddleAlpha();
-          }, 1000);
-        }
-      });
-    }
-
-    function increasePaddleAlpha() {
-
-      if (RightPaddle.tweenBodyAlpha != null)
-        RightPaddle.tweenBodyAlpha.kill();
-      RightPaddle.tweenBodyAlpha = TweenMax.to(RightPaddle, 1, {
-        alpha: 1,
-        onComplete: function onComplete() {
-          RightPaddle.tweenBodyAlpha = null;
-          setTimeout(function() {
-            decreasePaddleAlpha();
-          }, 3000);
-        }
-      });
-    }
-
+    var bonusData = {
+      type: mode,
+      time: -1,
+      x: 0,
+      y: 0
+    };
+    var bonus = createBonus(this.field, bonusData);
+    //sushant
+    NORD.game.field.roundGenerator.bonus = bonus;
   }
   if (mode === 'TELEPORT_MODE') {
     if (MultiplayerStarted) {
@@ -2853,6 +2883,12 @@ var createBonus = function createBonus(field, data) {
     config.time = config.time != undefined ? config.time : field.config.bonusKittyDuration.value;
     config.warningTime = -1;
     return createKitty(field, config);
+  } else if (data.type === 'SHADOW_MODE') {
+    config.x = config.y = 0;
+    config.speed = field.config.bonusKittySpeed.value;
+    config.time = config.time != undefined ? config.time : field.config.bonusKittyDuration.value;
+    config.warningTime = -1;
+    return createShadow(field, config);
   } else if (data.type === 'GRAVITY_WELL') {
     config.gravityPower = data.power != undefined ? data.power : field.config.bonusGravityWellPower.value;
     if (data.radius == undefined) config.radius = field.config.bonusGravityWellRadius.value;
@@ -3083,6 +3119,31 @@ var createTeleport2 = function createTeleport1(field, config, data) {
 
   return bonusContainer;
 };
+
+var createShadow = function createShadow(field) {
+  var containerConfig = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+    x: 0,
+    y: 0
+  };
+  var bonusConfig = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var playersHit = {
+    LEFT: 0,
+    RIGHT: 0
+  };
+  var bonusContainer = new NORD.Field.BonusContainer(field, Object.assign({}, containerConfig, {
+    bonusType: 'KITTY',
+    contactType: 'aaa',
+    activateCallback: function activateCallback(ball) {
+      // console.log('Meow!');
+      // player = field.players[ball.playerPaddle.side === 'LEFT'?'RIGHT':'LEFT'];
+      var player = field.players[ball.playerPaddle.side];
+      field.emit('shadow_hit_disappear', player);
+    }
+  }));
+  bonusContainer.bg.texture = NORD.assetsManager.getTexture('Shadow-bubble');
+  return bonusContainer;
+};
+
 
 var createKitty = function createKitty(field) {
   var containerConfig = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {

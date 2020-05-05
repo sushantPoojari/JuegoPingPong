@@ -26,7 +26,7 @@ NORD.PanelSettings = function(config) {
   this.visible = false;
   this.interactiveChildren = false; // this.alpha = 0;
 
-  this.actionModes = ['STUN_PLAYER', 'KITTY_SHRINK_PADDLE', 'FOG_MODE', 'DIAMOND_MODE', 'PARALLEL_MODE', 'INVERSE_MODE', 'TELEPORT_MODE']; // this.actionModesMap =
+  this.actionModes = ['STUN_PLAYER', 'KITTY_SHRINK_PADDLE', 'SHADOW_MODE', 'DIAMOND_MODE', 'PARALLEL_MODE', 'INVERSE_MODE', 'TELEPORT_MODE']; // this.actionModesMap =
 
   this.actionMode = 'ALL';
   this.field = NORD.game.field;
