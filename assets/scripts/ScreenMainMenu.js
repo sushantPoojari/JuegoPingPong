@@ -735,8 +735,7 @@ NORD.MenuSwitcher = function (config, switcherConfig, parent) {
     };
   } else this.sideCenter = null;
 
-  if(parent == "Popup")
-  {
+  if (parent == "Popup") {
     this.sideLeft.x = -75;
     this.sideRight.x = +75;
   }
@@ -1820,7 +1819,7 @@ NORD.subModeSelectionPopup = function (config) {
 
   }, this);
 
-  this.switcherBoard = this.createSwitcher(0, 0, 'label_board', 'dificulty', 'left', function(side) {
+  this.switcherBoard = this.createSwitcher(0, 0, 'label_board', 'dificulty', 'left', function (side) {
     var dataMap = {
       left: 'board_2',
       right: 'board_1',
@@ -1831,7 +1830,7 @@ NORD.subModeSelectionPopup = function (config) {
     NORD.game.setConfig(config); // console.log('SSS:', config)
   });
 
-  this.switcherDificulty = this.createSwitcher(0, 100, 'label_dificulty', 'dificulty', 'left', function(side) {
+  this.switcherDificulty = this.createSwitcher(0, 100, 'label_dificulty', 'dificulty', 'left', function (side) {
     var dataMap = {
       left: 'easy',
       right: 'hard',
@@ -1900,6 +1899,12 @@ NORD.subModeSelectionPopup.prototype = Object.create(NORD.GUI.BasePanel.prototyp
 NORD.subModeSelectionPopup.prototype.constructor = NORD.subModeSelectionPopup;
 
 NORD.subModeSelectionPopup.prototype.show = function (data) {
+  var config = NORD.game.config;
+  if (config.players != 'one')
+    this.switcherDificulty.visible = false;
+  else
+  this.switcherDificulty.visible = true;
+
   if (!MultiplayerStarted) {
     NORD.game.field.setPause(true);
     TweenMax.pauseAll();
