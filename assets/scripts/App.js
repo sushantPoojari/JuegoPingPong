@@ -40,7 +40,7 @@ NORD.MULTIPLAYER_GAME_MODE_TYPE = {
   BIG_BALL_LITTLE_PADDLES: "BIG_BALL_LITTLE_PADDLES",
   STUNPLAYER: "STUN_PLAYER",
   KITTY_SHRINK_PADDLE: "KITTY_SHRINK_PADDLE",
-  FOG_MODE: "FOG_MODE",
+  SHADOW_MODE: "SHADOW_MODE",
   INVERSE_MODE: "INVERSE_MODE",
   TELEPORT_MODE: "TELEPORT_MODE",
 }
@@ -325,13 +325,13 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'NormalMode',
     url: 'assets/images/main/NormalMode.png'
-  },{
+  }, {
     name: 'NormalModeSelected',
     url: 'assets/images/main/NormalModeSelected.png'
   }, {
     name: 'ThrillerMode',
     url: 'assets/images/main/ThrillerMode.png'
-  },{
+  }, {
     name: 'ThrillerModeSelected',
     url: 'assets/images/main/ThrillerModeSelected.png'
   }, {
@@ -349,6 +349,9 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'Shrink-the-paddle',
     url: 'assets/images/popup/GamePlay/Mode/Shrink-the-paddle.png'
+  }, {
+    name: 'Shadow-bubble',
+    url: 'assets/images/popup/GamePlay/Mode/Shadow-bubble.png'
   }]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
