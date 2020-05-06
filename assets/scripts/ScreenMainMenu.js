@@ -524,6 +524,17 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
   this.selected = switcherConfig.selected;
   this.isCenter = !!switcherConfig.center;
 
+  var setText = function setText(text) {
+    var text = new PIXI.Text(text, {
+      font: '35px Snippet',
+      fontSize: 30,
+      fill: 'white',
+      align: 'center'
+    });
+    text.anchor.set(0.5);
+    return text;
+  };
+
   this.sideLeft = {
     x: -100,
     y: 0,
@@ -550,11 +561,12 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
       spriteOn: Util.createSprite(switcherConfig.center.spriteOn),
       spriteOff: Util.createSprite(switcherConfig.center.spriteOff)
     };
+    if (switcherConfig.center.spriteOnText != undefined) this.sideCenter.spriteOn.addChild(setText(switcherConfig.center.spriteOnText));
+    if (switcherConfig.center.spriteOffText != undefined) this.sideCenter.spriteOff.addChild(setText(switcherConfig.center.spriteOffText));
   } else this.sideCenter = null;
 
 
-    if(switcher == "Thriller")
-    {
+  if (switcher == "Thriller") {
     this.bottomLeft = {
       x: -225,
       y: 50,
@@ -598,6 +610,14 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
     playAll: this.playAll
   };
 
+  if (switcherConfig.left.spriteOnText != undefined) this.sideLeft.spriteOn.addChild(setText(switcherConfig.left.spriteOnText));
+  if (switcherConfig.left.spriteOffText != undefined) this.sideLeft.spriteOff.addChild(setText(switcherConfig.left.spriteOffText));
+
+  if (switcherConfig.right.spriteOnText != undefined) this.sideRight.spriteOn.addChild(setText(switcherConfig.right.spriteOnText));
+  if (switcherConfig.right.spriteOffText != undefined) this.sideRight.spriteOff.addChild(setText(switcherConfig.right.spriteOffText));
+
+
+
   if (switcher == "Thriller") {
     this.addChild(this.bottomLeft.spriteOff);
     this.bottomLeft.spriteOff.x = this.bottomLeft.x;
@@ -605,33 +625,45 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
     this.addChild(this.bottomLeft.spriteOn);
     this.bottomLeft.spriteOn.x = this.bottomLeft.x;
     this.bottomLeft.spriteOn.y = this.bottomLeft.y;
-  
+
     this.addChild(this.bottomRight.spriteOff);
     this.bottomRight.spriteOff.x = this.bottomRight.x;
     this.bottomRight.spriteOff.y = this.bottomRight.y;
     this.addChild(this.bottomRight.spriteOn);
     this.bottomRight.spriteOn.x = this.bottomRight.x;
     this.bottomRight.spriteOn.y = this.bottomRight.y;
-  
-  this.addChild(this.bottomCenter.spriteOff);
-  this.bottomCenter.spriteOff.x = this.bottomCenter.x;
-  this.bottomCenter.spriteOff.y = this.bottomCenter.y;
-  this.addChild(this.bottomCenter.spriteOn);
-  this.bottomCenter.spriteOn.x = this.bottomCenter.x;
-  this.bottomCenter.spriteOn.y = this.bottomCenter.y;
 
-  this.addChild(this.playAll.spriteOff);
-  this.playAll.spriteOff.x = this.playAll.x;
-  this.playAll.spriteOff.y = this.playAll.y;
-  this.addChild(this.playAll.spriteOn);
-  this.playAll.spriteOn.x = this.playAll.x;
-  this.playAll.spriteOn.y = this.playAll.y;
+    this.addChild(this.bottomCenter.spriteOff);
+    this.bottomCenter.spriteOff.x = this.bottomCenter.x;
+    this.bottomCenter.spriteOff.y = this.bottomCenter.y;
+    this.addChild(this.bottomCenter.spriteOn);
+    this.bottomCenter.spriteOn.x = this.bottomCenter.x;
+    this.bottomCenter.spriteOn.y = this.bottomCenter.y;
 
-  this.bottomLeft.spriteOn.scale.x = this.bottomLeft.spriteOff.scale.x  = this.bottomRight.spriteOn.scale.x = this.bottomRight.spriteOff.scale.x = this.bottomCenter.spriteOn.scale.x = this.bottomCenter.spriteOff.scale.x = this.playAll.spriteOn.scale.x = this.playAll.spriteOff.scale.x = 0.45;
-  this.bottomLeft.spriteOn.scale.y = this.bottomLeft.spriteOff.scale.y = this.bottomRight.spriteOn.scale.y = this.bottomRight.spriteOff.scale.y =   this.bottomCenter.spriteOn.scale.y = this.bottomCenter.spriteOff.scale.y = this.playAll.spriteOn.scale.y = this.playAll.spriteOff.scale.y = 0.45;
+    this.addChild(this.playAll.spriteOff);
+    this.playAll.spriteOff.x = this.playAll.x;
+    this.playAll.spriteOff.y = this.playAll.y;
+    this.addChild(this.playAll.spriteOn);
+    this.playAll.spriteOn.x = this.playAll.x;
+    this.playAll.spriteOn.y = this.playAll.y;
 
-  this.bottomLeft.spriteOn.visible = this.bottomRight.spriteOn.visible = this.bottomCenter.spriteOn.visible = this.playAll.spriteOn.visible = false;
-  this.bottomLeft.spriteOff.visible = this.bottomRight.spriteOff.visible =  this.bottomCenter.spriteOff.visible = this.playAll.spriteOff.visible = false;
+    this.bottomLeft.spriteOn.scale.x = this.bottomLeft.spriteOff.scale.x = this.bottomRight.spriteOn.scale.x = this.bottomRight.spriteOff.scale.x = this.bottomCenter.spriteOn.scale.x = this.bottomCenter.spriteOff.scale.x = this.playAll.spriteOn.scale.x = this.playAll.spriteOff.scale.x = 0.45;
+    this.bottomLeft.spriteOn.scale.y = this.bottomLeft.spriteOff.scale.y = this.bottomRight.spriteOn.scale.y = this.bottomRight.spriteOff.scale.y = this.bottomCenter.spriteOn.scale.y = this.bottomCenter.spriteOff.scale.y = this.playAll.spriteOn.scale.y = this.playAll.spriteOff.scale.y = 0.45;
+
+    this.bottomLeft.spriteOn.visible = this.bottomRight.spriteOn.visible = this.bottomCenter.spriteOn.visible = this.playAll.spriteOn.visible = false;
+    this.bottomLeft.spriteOff.visible = this.bottomRight.spriteOff.visible = this.bottomCenter.spriteOff.visible = this.playAll.spriteOff.visible = false;
+
+    if(switcherConfig.bottomLeft.spriteOnText != undefined) this.bottomLeft.spriteOn.addChild(setText(switcherConfig.bottomLeft.spriteOnText));
+    if(switcherConfig.bottomLeft.spriteOffText != undefined) this.bottomLeft.spriteOff.addChild(setText(switcherConfig.bottomLeft.spriteOffText));
+    
+    if(switcherConfig.bottomRight.spriteOnText != undefined) this.bottomRight.spriteOn.addChild(setText(switcherConfig.bottomRight.spriteOnText));
+    if(switcherConfig.bottomRight.spriteOffText != undefined) this.bottomRight.spriteOff.addChild(setText(switcherConfig.bottomRight.spriteOffText));
+
+    if(switcherConfig.bottomCenter.spriteOnText != undefined) this.bottomCenter.spriteOn.addChild(setText(switcherConfig.bottomCenter.spriteOnText));
+    if(switcherConfig.bottomCenter.spriteOffText != undefined) this.bottomCenter.spriteOff.addChild(setText(switcherConfig.bottomCenter.spriteOffText));
+
+    if(switcherConfig.playAll.spriteOnText != undefined) this.playAll.spriteOn.addChild(setText(switcherConfig.playAll.spriteOnText));
+    if(switcherConfig.playAll.spriteOffText != undefined) this.playAll.spriteOff.addChild(setText(switcherConfig.playAll.spriteOffText));
   }
 
   this.addChild(this.sideLeft.spriteOff);
@@ -712,6 +744,9 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
   // }
 
 
+
+
+
   setSideInteractive(this.sideLeft);
   setSideInteractive(this.sideRight);
 
@@ -746,6 +781,7 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
 
 NORD.MenuSwitcher.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.MenuSwitcher.prototype.constructor = NORD.MenuSwitcher;
+
 
 NORD.MenuSwitcher.prototype.setSelected = function (side) {
   var _this3 = this;
@@ -1308,7 +1344,7 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function (x, y, labelName, switch
   // const label = Util.createSprite({ parent: this, x: -112, y: y, atlas: 'texture_atlas', texture: labelName+'.png', aX: 1.0, aY: 0.5 });
   var config = null;
 
- if (switcherName == 'players') {
+  if (switcherName == 'players') {
     config = {
       selected: selected,
       left: {
@@ -1442,27 +1478,27 @@ NORD.randomNamePopup = function (config) {
 
 
 
-this.l_playerName = new PIXI.TextInput({
-		input: {
-			fontFamily: 'Arial',
-			fontSize: '16px',
-			padding: '14px 24px',
-			width: '150px',
+  this.l_playerName = new PIXI.TextInput({
+    input: {
+      fontFamily: 'Arial',
+      fontSize: '16px',
+      padding: '14px 24px',
+      width: '150px',
       height: '40px',
-			color: 'white'
-		},
-		box: {
-			default: {fill: 0xE8E9F3, rounded: 10, stroke: {color: 0xCBCEE0, width: 2}},
-			focused: {fill: 0xE1E3EE, rounded: 10, stroke: {color: 0xABAFC6, width: 2}},
-			disabled: {fill: 0xDBDBDB, rounded: 10}
-		}
-	})
+      color: 'white'
+    },
+    box: {
+      default: { fill: 0xE8E9F3, rounded: 10, stroke: { color: 0xCBCEE0, width: 2 } },
+      focused: { fill: 0xE1E3EE, rounded: 10, stroke: { color: 0xABAFC6, width: 2 } },
+      disabled: { fill: 0xDBDBDB, rounded: 10 }
+    }
+  })
 
-	this.l_playerName.placeholder = 'Enter your Text...'
-  	this.l_playerName.x = this.bg.width / 2;
-		this.l_playerName.y = this.bg.height / 2;
-	this.l_playerName.pivot.x = this.l_playerName.width / 2
-	this.l_playerName.pivot.y = this.l_playerName.height / 2
+  this.l_playerName.placeholder = 'Enter your Text...'
+  this.l_playerName.x = this.bg.width / 2;
+  this.l_playerName.y = this.bg.height / 2;
+  this.l_playerName.pivot.x = this.l_playerName.width / 2
+  this.l_playerName.pivot.y = this.l_playerName.height / 2
   this.bg.addChild(this.l_playerName);
 
 
@@ -1678,6 +1714,8 @@ NORD.subModeSelectionPopup = function (config) {
 
   }, this);
 
+
+
   this.switchThrillerMode = this.createSwitcher(0, -150, 'label_Thriller', 'Thriller', 'left', function (side) {
     var dataMap = {
       left: 'STUN_GUN',
@@ -1686,10 +1724,20 @@ NORD.subModeSelectionPopup = function (config) {
       bottomLeft: 'SHADOW_MODE',
       bottomRight: 'BLACK_HOLE_MODE',
       bottomCenter: 'INVERSE_MODE',
-      playAll:'ALL'
+      playAll: 'ALL'
     };
     NORD.game.panelSettings.actionMode = dataMap[side];
   });
+
+  this.separatorText = new PIXI.Text('OR', {
+    font: '35px Snippet',
+    fontSize: 20,
+    fill: 'green',
+    align: 'center',
+  });
+  this.separatorText.anchor.set(0.5);
+  this.separatorText.position.set(0, -65);
+  this.addChild(this.separatorText);
 
   this.switchNormalMode = this.createSwitcher(0, -75, 'label_Normal', 'Normal', 'left', function (side) {
     var dataMap = {
@@ -1702,7 +1750,7 @@ NORD.subModeSelectionPopup = function (config) {
     NORD.game.setConfig(config); // console.log('SSS:', config)
   });
 
-    var dividerLine = Util.createSprite({
+  var dividerLine = Util.createSprite({
     parent: this,
     x: 0,
     y: 20,
@@ -1760,7 +1808,7 @@ NORD.subModeSelectionPopup = function (config) {
 
           if (NORD.App.playerController.config.playerAdjectiveId == -1) {
             //NORD.App.playerController.getRandomName();
-           // _this2.randomNamePopup.updateName();
+            // _this2.randomNamePopup.updateName();
             _this2.randomNamePopup.show();
           } else {
             if (PP.server_using == PP.SERVER_USING.Photon) {
@@ -1794,19 +1842,20 @@ NORD.subModeSelectionPopup.prototype.show = function (data) {
   this.switchNormalMode.visible = true;
   this.switchThrillerMode.visible = true;
 
-  if (config.players != 'one')
-    this.switchDificulty.visible = false;
-  else
+  // if (config.players == 'three')
+  //   this.switchDificulty.visible = false;
+  // else
   this.switchDificulty.visible = true;
 
-  if(config.mode == 'action')
-  {
+  if (config.mode == 'action') {
     this.switchNormalMode.visible = false;
+    this.separatorText.visible = true;
+
     this.popupHeader.text = "CHOOSE A MODE";
   }
-  else
-  {
+  else {
     this.switchThrillerMode.visible = false;
+    this.separatorText.visible = false;
     this.popupHeader.text = "SELECT A GAME BOARD";
   }
 
@@ -1876,7 +1925,7 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
         }
       }
     };
-  }else if(switcherName == 'Difficulty') {
+  } else if (switcherName == 'Difficulty') {
     config = {
       selected: selected,
       left: {
@@ -1889,7 +1938,8 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           texture: 'BlankPanel',
           aX: 0.5,
           aY: 0.5
-        }
+        },
+        spriteOffText: 'EASY'
       },
       center: {
         spriteOn: {
@@ -1901,7 +1951,8 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           texture: 'BlankPanel',
           aX: 0.5,
           aY: 0.5
-        }
+        },
+        spriteOffText: 'MEDIUM'
       },
       right: {
         spriteOn: {
@@ -1913,11 +1964,11 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           texture: 'BlankPanel',
           aX: 0.5,
           aY: 0.5
-        }
+        },
+        spriteOffText: 'HARD'
       }
     };
-  } else if(switcherName == 'Thriller')
-  {
+  } else if (switcherName == 'Thriller') {
     config = {
       selected: selected,
       left: {
@@ -1930,7 +1981,9 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           texture: 'BlankPanel2',
           aX: 0.5,
           aY: 0.5
-        }
+        },
+        spriteOnText : 'STUN GUN',
+        spriteOffText : 'STUN GUN',
       },
       center: {
         spriteOn: {
@@ -1942,7 +1995,9 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           texture: 'BlankPanel2',
           aX: 0.5,
           aY: 0.5
-        }
+        },
+        spriteOnText : 'SHRINK THE PADDLE',
+        spriteOffText : 'SHRINK THE PADDLE',
       },
       right: {
         spriteOn: {
@@ -1954,7 +2009,9 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           texture: 'BlankPanel2',
           aX: 0.5,
           aY: 0.5
-        }
+        },
+        spriteOnText : 'THROUGH THE PORTAL',
+        spriteOffText : 'THROUGH THE PORTAL',
       },
       bottomLeft: {
         spriteOn: {
@@ -1966,7 +2023,9 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           texture: 'BlankPanel2',
           aX: 0.5,
           aY: 0.5
-        }
+        },
+        spriteOnText : 'SHADOW MODE',
+        spriteOffText : 'SHADOW MODE',
       },
       bottomRight: {
         spriteOn: {
@@ -1978,7 +2037,9 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           texture: 'BlankPanel2',
           aX: 0.5,
           aY: 0.5
-        }
+        },
+        spriteOnText : 'BLACK HOLE',
+        spriteOffText : 'BLACK HOLE',
       },
       bottomCenter: {
         spriteOn: {
@@ -1990,7 +2051,9 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           texture: 'BlankPanel2',
           aX: 0.5,
           aY: 0.5
-        }
+        },
+        spriteOnText : 'REVERSE MODE',
+        spriteOffText : 'REVERSE MODE',
       },
       playAll: {
         spriteOn: {
@@ -2002,10 +2065,12 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           texture: 'BlankPanel2',
           aX: 0.5,
           aY: 0.5
-        }
+        },
+        spriteOnText : 'PLAY ALL',
+        spriteOffText : 'PLAY ALL',
       }
     };
-    
+
   }
 
   var switcher = new NORD.MenuSwitcher({

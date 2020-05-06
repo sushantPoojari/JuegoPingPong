@@ -315,9 +315,6 @@ NORD.initGameDefinitions = function() {
     name: 'OnlineMultiplayerSelected',
     url: 'assets/images/main/OnlineMultiplayerSelected.png'
   }, {
-    name: 'PlayerSelected',
-    url: 'assets/images/main/PlayerSelected.png'
-  }, {
     name: 'SoundOnButton',
     url: 'assets/images/main/SoundOnButton.png'
   }, {
