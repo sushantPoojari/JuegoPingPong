@@ -26,7 +26,7 @@ function _arrayWithoutHoles(arr) {
   }
 }
 
-NORD.ScreenMainMenu = function (config) {
+NORD.ScreenMainMenu = function(config) {
   var _this = this;
   NORD.mainMenu = this;
   var isAllButtonEnabled;
@@ -73,7 +73,7 @@ NORD.ScreenMainMenu = function (config) {
   this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
 
   /*********************************************************************************Game Type**************************************************************************************************/
-  this.switcherPlayers = this.createSwitcher(0, startY + 0, 'label_players', 'players', gConfig.players == 'one' ? 'left' : 'right', function (side) {
+  this.switcherPlayers = this.createSwitcher(0, startY + 0, 'label_players', 'players', gConfig.players == 'one' ? 'left' : 'right', function(side) {
     var dataMap = {
       left: 'one',
       center: 'two',
@@ -86,7 +86,7 @@ NORD.ScreenMainMenu = function (config) {
   });
 
   /*********************************************************************************Game Mode**************************************************************************************************/
-  this.switcherMode = this.createSwitcher(0, startY + 150, 'label_mode', 'mode', gConfig.mode == 'classic' ? 'left' : 'right', function (side) {
+  this.switcherMode = this.createSwitcher(0, startY + 150, 'label_mode', 'mode', gConfig.mode == 'classic' ? 'left' : 'right', function(side) {
     var dataMap = {
       left: 'classic',
       right: 'action'
@@ -96,7 +96,7 @@ NORD.ScreenMainMenu = function (config) {
     NORD.game.setConfig(config);
   });
 
-  this.switcherMode.on('switch_start', function (side) {
+  this.switcherMode.on('switch_start', function(side) {
     if (side === 'right' && _this.actionHint.visible) {
       _this.clearPulse(); // console.log('CLEAR:', this.switcherMode.containerRight.alpha);
 
@@ -133,11 +133,11 @@ NORD.ScreenMainMenu = function (config) {
     scaleXY: 0.5,
   });
 
-  btn.addListener('button_click', function (data) {
+  btn.addListener('button_click', function(data) {
     var _this2 = this;
 
     // if (this.state !== 'show' || this.panelEndGame.state !== 'hide') return;
-    TweenMax.delayedCall(0.07 * 2, function () {
+    TweenMax.delayedCall(0.07 * 2, function() {
       _this2.subModeSelectionPopup.show();
     });
   }, this);
@@ -159,13 +159,13 @@ NORD.ScreenMainMenu = function (config) {
 
   function alignItems(items, height) {
     var totalHeight = 0;
-    items.forEach(function (item) {
+    items.forEach(function(item) {
       totalHeight += item.height;
     });
     var freeSpace = height - totalHeight;
     var shift = freeSpace / (items.length + 1);
     var posY = -height / 2 + shift;
-    items.forEach(function (item) {
+    items.forEach(function(item) {
       item.y = posY + item.height / 2; // item.posi y = posY + item.height/2;
       // console.log('Q:', item.height,  posY + item.height/2);
 
@@ -251,7 +251,7 @@ NORD.ScreenMainMenu = function (config) {
 NORD.ScreenMainMenu.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.ScreenMainMenu.prototype.constructor = NORD.ScreenMainMenu;
 
-NORD.ScreenMainMenu.prototype.disableAllButtons = function () {
+NORD.ScreenMainMenu.prototype.disableAllButtons = function() {
 
   this.isAllButtonEnabled = false;
 
@@ -272,7 +272,7 @@ NORD.ScreenMainMenu.prototype.disableAllButtons = function () {
 
   this.switcherPlayers.switchingState = 'none1';
 };
-NORD.ScreenMainMenu.prototype.enableAllButtons = function () {
+NORD.ScreenMainMenu.prototype.enableAllButtons = function() {
   this.isAllButtonEnabled = true;
   // this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
   NORD.game.screenGame.panelEndGame.buttonRestart.interactive = true;
@@ -296,11 +296,11 @@ NORD.ScreenMainMenu.prototype.enableAllButtons = function () {
 };
 //sushant
 
-NORD.ScreenMainMenu.prototype.drawPaddle = function () {
+NORD.ScreenMainMenu.prototype.drawPaddle = function() {
   var paddleView = new PaddleView2(0xFFFFFF, true);
   this.addChild(paddleView);
   paddleView.scale.x = paddleView.scale.y = 2;
-  paddleView.on('change', function (data) {
+  paddleView.on('change', function(data) {
     paddleView2.size = data.size;
     paddleView2.controlPoints = data.controlPoints;
     paddleView2.updatePaddle();
@@ -313,16 +313,16 @@ NORD.ScreenMainMenu.prototype.drawPaddle = function () {
   paddleView2.x = 200;
 };
 
-NORD.ScreenMainMenu.prototype.toGame = function (board) {
+NORD.ScreenMainMenu.prototype.toGame = function(board) {
   this.tween({
     name: 'hide_anim'
-  }, function () {
+  }, function() {
     NORD.game.screenGame.toGame(board);
     NORD.app.apiCallback('start');
   });
 };
 
-NORD.ScreenMainMenu.prototype.toMainMenu = function () {
+NORD.ScreenMainMenu.prototype.toMainMenu = function() {
 
   //NORD.game.screenMainMenu.buttonText.text = NORD.App.playerController.getTierType() + " | Wins: " + NORD.App.playerController.config.playerRankNumber;
   // this.actionHintShows ++;
@@ -335,14 +335,14 @@ NORD.ScreenMainMenu.prototype.toMainMenu = function () {
 
   this.tween({
     name: 'show_anim'
-  }, function () {
+  }, function() {
     MainMenuLocation.enableAllButtons();
 
     // NORD.game.screenGame.toGame(board);
   });
 };
 
-NORD.ScreenMainMenu.prototype.clearPulse = function () {
+NORD.ScreenMainMenu.prototype.clearPulse = function() {
   // TweenMax.killAll(false, true, true);
   if (this.tweenActionHint) {
     // this.tweenActionContainer.kill();
@@ -360,7 +360,7 @@ NORD.ScreenMainMenu.prototype.clearPulse = function () {
   this.switcherMode.containerRight.alpha = 1.0;
 };
 
-NORD.ScreenMainMenu.prototype.tweenPulse = function () {
+NORD.ScreenMainMenu.prototype.tweenPulse = function() {
   var self = this;
   var time = 25 / 30; // function tw(data)
   // {
@@ -419,7 +419,7 @@ NORD.ScreenMainMenu.prototype.tweenPulse = function () {
   // this.actionBorder.alpha = 1.0;
 };
 
-NORD.ScreenMainMenu.prototype.tween = function (data, callback) {
+NORD.ScreenMainMenu.prototype.tween = function(data, callback) {
   var self = this;
 
   if (data.name == 'show_anim' && this.state == 'hide') {
@@ -517,7 +517,7 @@ NORD.ScreenMainMenu.prototype.tween = function (data, callback) {
 // ======================================================================================================================================== //
 
 
-NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
+NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
   var _this2 = this;
 
   NORD.GUI.BasePanel.call(this, config);
@@ -653,17 +653,17 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
     this.bottomLeft.spriteOn.visible = this.bottomRight.spriteOn.visible = this.bottomCenter.spriteOn.visible = this.playAll.spriteOn.visible = false;
     this.bottomLeft.spriteOff.visible = this.bottomRight.spriteOff.visible = this.bottomCenter.spriteOff.visible = this.playAll.spriteOff.visible = false;
 
-    if(switcherConfig.bottomLeft.spriteOnText != undefined) this.bottomLeft.spriteOn.addChild(setText(switcherConfig.bottomLeft.spriteOnText));
-    if(switcherConfig.bottomLeft.spriteOffText != undefined) this.bottomLeft.spriteOff.addChild(setText(switcherConfig.bottomLeft.spriteOffText));
+    if (switcherConfig.bottomLeft.spriteOnText != undefined) this.bottomLeft.spriteOn.addChild(setText(switcherConfig.bottomLeft.spriteOnText));
+    if (switcherConfig.bottomLeft.spriteOffText != undefined) this.bottomLeft.spriteOff.addChild(setText(switcherConfig.bottomLeft.spriteOffText));
 
-    if(switcherConfig.bottomRight.spriteOnText != undefined) this.bottomRight.spriteOn.addChild(setText(switcherConfig.bottomRight.spriteOnText));
-    if(switcherConfig.bottomRight.spriteOffText != undefined) this.bottomRight.spriteOff.addChild(setText(switcherConfig.bottomRight.spriteOffText));
+    if (switcherConfig.bottomRight.spriteOnText != undefined) this.bottomRight.spriteOn.addChild(setText(switcherConfig.bottomRight.spriteOnText));
+    if (switcherConfig.bottomRight.spriteOffText != undefined) this.bottomRight.spriteOff.addChild(setText(switcherConfig.bottomRight.spriteOffText));
 
-    if(switcherConfig.bottomCenter.spriteOnText != undefined) this.bottomCenter.spriteOn.addChild(setText(switcherConfig.bottomCenter.spriteOnText));
-    if(switcherConfig.bottomCenter.spriteOffText != undefined) this.bottomCenter.spriteOff.addChild(setText(switcherConfig.bottomCenter.spriteOffText));
+    if (switcherConfig.bottomCenter.spriteOnText != undefined) this.bottomCenter.spriteOn.addChild(setText(switcherConfig.bottomCenter.spriteOnText));
+    if (switcherConfig.bottomCenter.spriteOffText != undefined) this.bottomCenter.spriteOff.addChild(setText(switcherConfig.bottomCenter.spriteOffText));
 
-    if(switcherConfig.playAll.spriteOnText != undefined) this.playAll.spriteOn.addChild(setText(switcherConfig.playAll.spriteOnText));
-    if(switcherConfig.playAll.spriteOffText != undefined) this.playAll.spriteOff.addChild(setText(switcherConfig.playAll.spriteOffText));
+    if (switcherConfig.playAll.spriteOnText != undefined) this.playAll.spriteOn.addChild(setText(switcherConfig.playAll.spriteOnText));
+    if (switcherConfig.playAll.spriteOffText != undefined) this.playAll.spriteOff.addChild(setText(switcherConfig.playAll.spriteOffText));
   }
 
   this.addChild(this.sideLeft.spriteOff);
@@ -723,7 +723,7 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
     spriteOn.buttonMode = true;
     spriteOff.interactive = true;
     spriteOff.buttonMode = true;
-    spriteOn.on('pointerdown', function () {
+    spriteOn.on('pointerdown', function() {
       if (side.clickState != 'off') return;
 
       _this2.setSelected(side.name); // side.clickState = 'on';
@@ -731,7 +731,7 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
       // this.soundClick.play();
 
     }, _this2);
-    spriteOff.on('pointerdown', function () {
+    spriteOff.on('pointerdown', function() {
       if (side.clickState != 'off') return;
 
       _this2.setSelected(side.name); // side.clickState = 'on';
@@ -742,8 +742,6 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
   }; // function tweenT = (target) => {
   //   NORD.app.tweenClickSimple({ target });
   // }
-
-
 
 
 
@@ -783,20 +781,20 @@ NORD.MenuSwitcher.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.MenuSwitcher.prototype.constructor = NORD.MenuSwitcher;
 
 
-NORD.MenuSwitcher.prototype.setSelected = function (side) {
+NORD.MenuSwitcher.prototype.setSelected = function(side) {
   var _this3 = this;
 
   if (this.selected == side || this.switchingState !== 'none') return;
   this.tween({
     name: 'switch',
     side: side
-  }, function () {
+  }, function() {
     _this3.setSide(side);
   });
   this.emit('switch_start', side);
 };
 
-NORD.MenuSwitcher.prototype.setSide = function (side) {
+NORD.MenuSwitcher.prototype.setSide = function(side) {
   var _this4 = this;
 
   this.selected = side; // const onSide = this.sides[side];
@@ -811,7 +809,7 @@ NORD.MenuSwitcher.prototype.setSide = function (side) {
   // offSide.spriteOff.aplha = 1.0;
 
   var offSides = [];
-  Object.keys(this.sides).forEach(function (s) {
+  Object.keys(this.sides).forEach(function(s) {
     var object = _this4.sides[s];
     if (!object) return;
 
@@ -828,7 +826,7 @@ NORD.MenuSwitcher.prototype.setSide = function (side) {
   this.emit('side_change', side);
 };
 
-NORD.MenuSwitcher.prototype.tween = function (data, callback) {
+NORD.MenuSwitcher.prototype.tween = function(data, callback) {
   var _this5 = this;
 
   if (data.name == 'switch') {
@@ -839,7 +837,7 @@ NORD.MenuSwitcher.prototype.tween = function (data, callback) {
     // offSide.spriteOff.visible = true;
 
     var offSides = [];
-    Object.keys(this.sides).forEach(function (s) {
+    Object.keys(this.sides).forEach(function(s) {
       var object = _this5.sides[s];
       if (!object) return;
 
@@ -862,7 +860,7 @@ NORD.MenuSwitcher.prototype.tween = function (data, callback) {
         TweenMax.to(object.spriteOn, 12 / 30, {
           alpha: 0.0,
           ease: Power2.easeOut,
-          onComplete: function onComplete() { }
+          onComplete: function onComplete() {}
         });
       }
     });
@@ -878,7 +876,7 @@ NORD.MenuSwitcher.prototype.tween = function (data, callback) {
             x: 0.45,
             y: 0.45,
             ease: Power2.easeOut,
-            onComplete: function onComplete() { }
+            onComplete: function onComplete() {}
           });
         }
       });
@@ -889,7 +887,7 @@ NORD.MenuSwitcher.prototype.tween = function (data, callback) {
 // ======================================================================================================================================== //
 
 
-NORD.BoardsCarousel = function (config, carouselConfig) {
+NORD.BoardsCarousel = function(config, carouselConfig) {
   var _this6 = this;
 
   NORD.GUI.BasePanel.call(this, config);
@@ -935,7 +933,7 @@ NORD.BoardsCarousel = function (config, carouselConfig) {
   this.centerIndex = 1;
   this.board = null;
   this.boards = [];
-  carouselConfig.boards.forEach(function (boardData) {
+  carouselConfig.boards.forEach(function(boardData) {
     var boardName = boardData.name;
     var container = new PIXI.Container();
 
@@ -965,11 +963,11 @@ NORD.BoardsCarousel = function (config, carouselConfig) {
     };
     container.interactive = true;
     container.buttonMode = true;
-    container.on('pointerdown', function () {
+    container.on('pointerdown', function() {
       _this6.switchBoard(board.name);
     }, _this6);
 
-    board.setToPosition = function (position) {
+    board.setToPosition = function(position) {
       board.container.alpha = position.alpha;
       board.container.x = position.x;
       board.container.y = position.y;
@@ -978,7 +976,7 @@ NORD.BoardsCarousel = function (config, carouselConfig) {
       else board.container.visible = true;
     };
 
-    board.tweenToPosition = function (position, callback) {
+    board.tweenToPosition = function(position, callback) {
       TweenMax.to(board.container.scale, 10 / 30, {
         x: position.scale,
         y: position.scale,
@@ -995,7 +993,7 @@ NORD.BoardsCarousel = function (config, carouselConfig) {
 
     _this6.boards.push(board);
   });
-  this.boards.forEach(function (board, i) {
+  this.boards.forEach(function(board, i) {
     var prevN = i - 1;
     if (_this6.boards.length > 3 && prevN < 0) prevN = _this6.boards.length - 1;
     var nextN = i + 1;
@@ -1011,11 +1009,11 @@ NORD.BoardsCarousel = function (config, carouselConfig) {
 NORD.BoardsCarousel.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.BoardsCarousel.prototype.constructor = NORD.BoardsCarousel;
 
-NORD.BoardsCarousel.prototype.switchBoard = function (name) {
+NORD.BoardsCarousel.prototype.switchBoard = function(name) {
   var _this7 = this;
 
   if (this.board.name == name || this.state !== 'normal') return;
-  var board = this.boards.find(function (b) {
+  var board = this.boards.find(function(b) {
     return b.name === name;
   }); // const shiftIndex = this.centerIndex - this.boards.indexOf(board);
 
@@ -1036,7 +1034,7 @@ NORD.BoardsCarousel.prototype.switchBoard = function (name) {
     if (this.board.next) this.board.next.tweenToPosition(positionNext2);
 
     if (this.board.prev) {
-      this.board.prev.tweenToPosition(position, function () {
+      this.board.prev.tweenToPosition(position, function() {
         _this7.state = 'normal';
 
         _this7.setBoard(_this7.board.prev.name);
@@ -1061,7 +1059,7 @@ NORD.BoardsCarousel.prototype.switchBoard = function (name) {
     if (this.board.prev) this.board.prev.tweenToPosition(positionPrev2);
 
     if (this.board.next) {
-      this.board.next.tweenToPosition(position, function () {
+      this.board.next.tweenToPosition(position, function() {
         _this7.state = 'normal';
 
         _this7.setBoard(_this7.board.next.name);
@@ -1080,10 +1078,10 @@ NORD.BoardsCarousel.prototype.switchBoard = function (name) {
 
 };
 
-NORD.BoardsCarousel.prototype.setBoard = function (name) {
+NORD.BoardsCarousel.prototype.setBoard = function(name) {
   var _this8 = this;
 
-  var board = this.boards.find(function (b) {
+  var board = this.boards.find(function(b) {
     return b.name === name;
   });
   if (!board) return;
@@ -1096,7 +1094,7 @@ NORD.BoardsCarousel.prototype.setBoard = function (name) {
   if (boardNext) boardNext.setToPosition(positionNext);
   board.setToPosition(position);
   board.spriteOn.alpha = 1.0;
-  this.boards.forEach(function (b) {
+  this.boards.forEach(function(b) {
     if (b == board) return;
     b.spriteOn.alpha = 0;
     if (b == boardPrev || b == boardNext) return;
@@ -1107,8 +1105,8 @@ NORD.BoardsCarousel.prototype.setBoard = function (name) {
   this.emit('board_change', board.name);
 };
 
-NORD.BoardsCarousel.prototype.tween = function (data, callback) {
-  if (data.name == 'switch') { }
+NORD.BoardsCarousel.prototype.tween = function(data, callback) {
+  if (data.name == 'switch') {}
 };
 
 var drawBezier = function drawBezier(graphics, curve) {
@@ -1116,7 +1114,7 @@ var drawBezier = function drawBezier(graphics, curve) {
   var LUT = curve.getLUT(16);
   graphics.lineStyle(1.0, 0xFFFFFF);
   graphics.moveTo(LUT[0].x, LUT[0].y);
-  LUT.forEach(function (point, i) {
+  LUT.forEach(function(point, i) {
     if (i == 0) return;
     graphics.lineTo(point.x, point.y); // console.log('P:', point);
     // drawPoint(point.x, point.y);
@@ -1147,17 +1145,17 @@ var DragablePoint = function DragablePoint(color, radius, checkPosition) {
 DragablePoint.prototype = Object.create(PIXI.Graphics.prototype);
 DragablePoint.prototype.constructor = DragablePoint;
 
-DragablePoint.prototype.onDragStart = function (e) {
+DragablePoint.prototype.onDragStart = function(e) {
   if (this.isDrag) return;
   this.isDrag = true;
 };
 
-DragablePoint.prototype.onDragEnd = function (e) {
+DragablePoint.prototype.onDragEnd = function(e) {
   if (!this.isDrag) return;
   this.isDrag = false;
 };
 
-DragablePoint.prototype.update = function () {
+DragablePoint.prototype.update = function() {
   if (!this.isDrag) return;
   var p = this.parent.toLocal(NORD.app.mouseGlobal);
   p = this.checkPosition(p);
@@ -1178,7 +1176,7 @@ var PaddleView2 = function PaddleView2() {
   this.isEditable = isEditable;
 
   var createDragablePoint = function createDragablePoint(name, color, radius, ddd) {
-    var dragablePoint = new DragablePoint(color, radius, ddd ? ddd : function (p) {
+    var dragablePoint = new DragablePoint(color, radius, ddd ? ddd : function(p) {
       if (p.x > 0) p.x = 0; // if(p.y > 0) p.y = 0;
 
       return p;
@@ -1192,7 +1190,7 @@ var PaddleView2 = function PaddleView2() {
     // dragablePoint.y = controlPoint.y;
     // this.controlPoints[name] = { x, y };
 
-    dragablePoint.on('change', function (data) {
+    dragablePoint.on('change', function(data) {
       data.x -= _this9.pointStart.x;
       data.y -= _this9.pointStart.y;
       _this9.controlPoints[name] = data;
@@ -1238,7 +1236,7 @@ var PaddleView2 = function PaddleView2() {
     // });
     this.dragablePoints['point_2'] = createDragablePoint('point_2', 0xFF7000, 3);
     this.dragablePoints['point_3'] = createDragablePoint('point_3', 0xFF7000, 3);
-    this.dragablePoints['point_4'] = createDragablePoint('point_4', 0xBDFF00, 3, function (p) {
+    this.dragablePoints['point_4'] = createDragablePoint('point_4', 0xBDFF00, 3, function(p) {
       if (p.x > 0) p.x = 0;
       if (p.y < 3) p.y = 3;
       return p;
@@ -1251,17 +1249,17 @@ var PaddleView2 = function PaddleView2() {
 PaddleView2.prototype = Object.create(PIXI.Container.prototype);
 PaddleView2.prototype.constructor = PaddleView2;
 
-PaddleView2.prototype.updateSize = function (size) {
+PaddleView2.prototype.updateSize = function(size) {
   this.size = size;
   this.updatePaddle();
 };
 
-PaddleView2.prototype.updateControlPoints = function (controlPoints) {
+PaddleView2.prototype.updateControlPoints = function(controlPoints) {
   this.controlPoints = controlPoints;
   this.updatePaddle();
 };
 
-PaddleView2.prototype.updatePaddle = function () {
+PaddleView2.prototype.updatePaddle = function() {
   var _this10 = this;
 
   // this.size = size;
@@ -1286,7 +1284,7 @@ PaddleView2.prototype.updatePaddle = function () {
   var maxX = null;
   var minY = null;
   var maxY = null;
-  this.points.forEach(function (p) {
+  this.points.forEach(function(p) {
     if (minX == null || p.x < minX) minX = p.x;
     if (maxX == null || p.x > maxX) maxX = p.x;
     if (minY == null || p.y < minY) minY = p.y;
@@ -1303,7 +1301,7 @@ PaddleView2.prototype.updatePaddle = function () {
     this.graphics.lineTo(point_2.x + this.pointStart.x, point_2.y + this.pointStart.y);
     this.graphics.moveTo(point_3.x + this.pointStart.x, point_3.y + this.pointStart.y);
     this.graphics.lineTo(point_4.x + this.pointStart.x, point_4.y + this.pointStart.y);
-    Object.keys(this.dragablePoints).forEach(function (key) {
+    Object.keys(this.dragablePoints).forEach(function(key) {
       var dragablePoint = _this10.dragablePoints[key];
       var point = _this10.controlPoints[key]; // console.log('K:', key, dragablePoint, point)
 
@@ -1320,14 +1318,14 @@ PaddleView2.prototype.updatePaddle = function () {
   });
 };
 
-PaddleView2.prototype.getPoints = function () {
+PaddleView2.prototype.getPoints = function() {
   var angle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-  return this.points.map(function (point) {
+  return this.points.map(function(point) {
     return Util.rotatePointDeg(point.x, point.y, 0, 0, angle);
   });
 };
 
-PaddleView2.prototype.drawPaddle = function (graphics, color, vertices) {
+PaddleView2.prototype.drawPaddle = function(graphics, color, vertices) {
   graphics.beginFill(color, 1);
   graphics.lineStyle(1, color, 1.0);
   var startVertice = vertices[0];
@@ -1340,7 +1338,7 @@ PaddleView2.prototype.drawPaddle = function (graphics, color, vertices) {
   graphics.lineTo(startVertice.x, startVertice.y);
 };
 
-NORD.ScreenMainMenu.prototype.createSwitcher = function (x, y, labelName, switcherName, selected, onChange) {
+NORD.ScreenMainMenu.prototype.createSwitcher = function(x, y, labelName, switcherName, selected, onChange) {
   // const label = Util.createSprite({ parent: this, x: -112, y: y, atlas: 'texture_atlas', texture: labelName+'.png', aX: 1.0, aY: 0.5 });
   var config = null;
 
@@ -1420,7 +1418,7 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function (x, y, labelName, switch
     x: 0,
     y: y
   }, config, "Main");
-  switcher.on('side_change', function (side) {
+  switcher.on('side_change', function(side) {
     // console.log('Side change:', side);
     onChange(side);
   });
@@ -1428,7 +1426,7 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function (x, y, labelName, switch
 };
 
 //Shunmugam Random Name Popup
-NORD.randomNamePopup = function (config) {
+NORD.randomNamePopup = function(config) {
   var l_playerName;
   var s_namePanel;
   config.sizeType = 'relative';
@@ -1477,7 +1475,6 @@ NORD.randomNamePopup = function (config) {
 
 
 
-
   this.l_playerName = new PIXI.TextInput({
     input: {
       fontFamily: 'Arial',
@@ -1488,9 +1485,26 @@ NORD.randomNamePopup = function (config) {
       color: 'white'
     },
     box: {
-      default: { fill: 0xE8E9F3, rounded: 10, stroke: { color: 0xCBCEE0, width: 2 } },
-      focused: { fill: 0xE1E3EE, rounded: 10, stroke: { color: 0xABAFC6, width: 2 } },
-      disabled: { fill: 0xDBDBDB, rounded: 10 }
+      default: {
+        fill: 0xE8E9F3,
+        rounded: 10,
+        stroke: {
+          color: 0xCBCEE0,
+          width: 2
+        }
+      },
+      focused: {
+        fill: 0xE1E3EE,
+        rounded: 10,
+        stroke: {
+          color: 0xABAFC6,
+          width: 2
+        }
+      },
+      disabled: {
+        fill: 0xDBDBDB,
+        rounded: 10
+      }
     }
   })
 
@@ -1511,12 +1525,12 @@ NORD.randomNamePopup = function (config) {
     scaleY: 1
   });
   this.closeButton.soundClick = NORD.assetsManager.getAsset('play_button')
-  this.closeButton.addListener('button_click', function (data) {
+  this.closeButton.addListener('button_click', function(data) {
     var _this5 = this;
     MainMenuLocation.enableAllButtons();
     if (this.state !== 'show') return;
-    TweenMax.delayedCall(0.07 * 2, function () {
-      _this5.hide("", function () {
+    TweenMax.delayedCall(0.07 * 2, function() {
+      _this5.hide("", function() {
         NORD.mainMenu.randomNamePopup.hide();
       });
     });
@@ -1531,18 +1545,18 @@ NORD.randomNamePopup = function (config) {
     scaleY: 1
   });
   this.okButton.soundClick = NORD.assetsManager.getAsset('play_button')
-  this.okButton.addListener('button_click', function (data) {
+  this.okButton.addListener('button_click', function(data) {
     var _this5 = this;
     MainMenuLocation.enableAllButtons();
     if (this.state !== 'show') return;
-    TweenMax.delayedCall(0.07 * 2, function () {
+    TweenMax.delayedCall(0.07 * 2, function() {
 
       NORD.App.playerController.config.playerAdjectiveId = NORD.App.playerController.randomAdjectiveNumber;
       NORD.App.playerController.config.playerNounId = NORD.App.playerController.randomNounNumber;
 
       NORD.App.playerController.saveConfig();
 
-      _this5.hide("", function () {
+      _this5.hide("", function() {
         if (PP.server_using == PP.SERVER_USING.Photon) {
           NORD.mainMenu.multiplayerSelectionPopup.show();
           NORD.mainMenu.multiplayerSelectionPopup.startPhotonSerer();
@@ -1568,21 +1582,21 @@ NORD.randomNamePopup = function (config) {
 NORD.randomNamePopup.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.randomNamePopup.prototype.constructor = NORD.randomNamePopup;
 
-NORD.randomNamePopup.prototype.show = function (data) {
+NORD.randomNamePopup.prototype.show = function(data) {
   this.tween({
     name: 'show_anim'
   });
 };
 
-NORD.randomNamePopup.prototype.hide = function (data, callback) {
+NORD.randomNamePopup.prototype.hide = function(data, callback) {
   this.tween({
     name: 'hide_anim'
-  }, function () {
+  }, function() {
     if (callback) callback();
   });
 };
 
-NORD.randomNamePopup.prototype.tween = function (data, callback) {
+NORD.randomNamePopup.prototype.tween = function(data, callback) {
   var self = this;
   if (data.name == 'show_anim' && this.state == 'hide') {
     this.state = 'show_anim';
@@ -1640,14 +1654,14 @@ NORD.randomNamePopup.prototype.tween = function (data, callback) {
   }
 };
 
-NORD.randomNamePopup.prototype.updateName = function () {
+NORD.randomNamePopup.prototype.updateName = function() {
   debugger;
   // this.l_playerName.scale = 1;
   this.l_playerName.text = NORD.App.playerController.getName();
   this.updateNameSize();
 };
 
-NORD.randomNamePopup.prototype.updateNameSize = function () {
+NORD.randomNamePopup.prototype.updateNameSize = function() {
   if (this.l_playerName.width > this.s_namePanel.width) {
     var toScale = this.s_namePanel.width / this.l_playerName.width;
     this.l_playerName.scale.x = toScale;
@@ -1655,7 +1669,7 @@ NORD.randomNamePopup.prototype.updateNameSize = function () {
   }
 }
 
-NORD.randomNamePopup.prototype.updateRandomName = function () {
+NORD.randomNamePopup.prototype.updateRandomName = function() {
   debugger;
   // this.l_playerName.scale = 1;
   this.l_playerName.text = NORD.App.playerController.getRandomName();
@@ -1665,7 +1679,7 @@ NORD.randomNamePopup.prototype.updateRandomName = function () {
 
 
 /***************************************************************************************Popup Sub Mode Selection*************************************************************************************/
-NORD.subModeSelectionPopup = function (config) {
+NORD.subModeSelectionPopup = function(config) {
   config.sizeType = 'relative';
   config.width = 300;
   config.height = 300;
@@ -1702,12 +1716,12 @@ NORD.subModeSelectionPopup = function (config) {
   });
 
   this.backButton.soundClick = NORD.assetsManager.getAsset('play_button')
-  this.backButton.addListener('button_click', function (data) {
+  this.backButton.addListener('button_click', function(data) {
     var _this5 = this;
     MainMenuLocation.enableAllButtons();
     if (this.state !== 'show') return;
-    TweenMax.delayedCall(0.07 * 2, function () {
-      _this5.hide("", function () {
+    TweenMax.delayedCall(0.07 * 2, function() {
+      _this5.hide("", function() {
         NORD.mainMenu.randomNamePopup.hide();
       });
     });
@@ -1716,9 +1730,9 @@ NORD.subModeSelectionPopup = function (config) {
 
 
 
-  this.switchThrillerMode = this.createSwitcher(0, -150, 'label_Thriller', 'Thriller', 'left', function (side) {
+  this.switchThrillerMode = this.createSwitcher(0, -150, 'label_Thriller', 'Thriller', 'left', function(side) {
     var dataMap = {
-      left: 'STUN_GUN',
+      left: 'STUN_PLAYER',
       right: 'KITTY_SHRINK_PADDLE',
       center: 'TELEPORT_MODE',
       bottomLeft: 'SHADOW_MODE',
@@ -1739,7 +1753,7 @@ NORD.subModeSelectionPopup = function (config) {
   this.separatorText.position.set(0, -65);
   this.addChild(this.separatorText);
 
-  this.switchNormalMode = this.createSwitcher(0, -75, 'label_Normal', 'Normal', 'left', function (side) {
+  this.switchNormalMode = this.createSwitcher(0, -75, 'label_Normal', 'Normal', 'left', function(side) {
     var dataMap = {
       left: 'board_2',
       right: 'board_1',
@@ -1770,7 +1784,7 @@ NORD.subModeSelectionPopup = function (config) {
   difficultyHeader.position.set(0, 50);
   this.addChild(difficultyHeader);
 
-  this.switchDificulty = this.createSwitcher(0, 100, 'label_difficulty', 'Difficulty', 'left', function (side) {
+  this.switchDificulty = this.createSwitcher(0, 100, 'label_difficulty', 'Difficulty', 'left', function(side) {
     var dataMap = {
       left: 'easy',
       right: 'hard',
@@ -1788,7 +1802,7 @@ NORD.subModeSelectionPopup = function (config) {
     scaleXY: 0.5,
   });
 
-  btn.addListener('button_click', function (data) {
+  btn.addListener('button_click', function(data) {
     MultiplayerStarted = false;
     this.hide();
 
@@ -1802,7 +1816,7 @@ NORD.subModeSelectionPopup = function (config) {
         NORD.gameState = NORD.GAME_STATE.SERARCHING;
 
         MainMenuLocation.disableAllButtons();
-        TweenMax.delayedCall(0.07 * 2, function () {
+        TweenMax.delayedCall(0.07 * 2, function() {
 
           var currentTime = Date.now();
 
@@ -1824,7 +1838,7 @@ NORD.subModeSelectionPopup = function (config) {
     } else {
       MainMenuLocation.boardSelected = config.board;
 
-      TweenMax.delayedCall(0.07 * 2, function () {
+      TweenMax.delayedCall(0.07 * 2, function() {
         if (NORD.game.config.mode !== 'action') MainMenuLocation.toGame(MainMenuLocation.boardSelected);
         else MainMenuLocation.toGame('board_2');
       });
@@ -1836,7 +1850,7 @@ NORD.subModeSelectionPopup = function (config) {
 NORD.subModeSelectionPopup.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.subModeSelectionPopup.prototype.constructor = NORD.subModeSelectionPopup;
 
-NORD.subModeSelectionPopup.prototype.show = function (data) {
+NORD.subModeSelectionPopup.prototype.show = function(data) {
   var config = NORD.game.config;
 
   this.switchNormalMode.visible = true;
@@ -1852,8 +1866,7 @@ NORD.subModeSelectionPopup.prototype.show = function (data) {
     this.separatorText.visible = true;
 
     this.popupHeader.text = "CHOOSE A MODE";
-  }
-  else {
+  } else {
     this.switchThrillerMode.visible = false;
     this.separatorText.visible = false;
     this.popupHeader.text = "SELECT A GAME BOARD";
@@ -1869,10 +1882,10 @@ NORD.subModeSelectionPopup.prototype.show = function (data) {
   });
 };
 
-NORD.subModeSelectionPopup.prototype.hide = function (data, callback) {
+NORD.subModeSelectionPopup.prototype.hide = function(data, callback) {
   this.tween({
     name: 'hide_anim'
-  }, function () {
+  }, function() {
     if (!MultiplayerStarted) {
       NORD.game.field.setPause(false);
       TweenMax.resumeAll();
@@ -1881,7 +1894,7 @@ NORD.subModeSelectionPopup.prototype.hide = function (data, callback) {
   });
 };
 
-NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName, switcherName, selected, onChange) {
+NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, switcherName, selected, onChange) {
   // const label = Util.createSprite({ parent: this, x: -112, y: y, atlas: 'texture_atlas', texture: labelName+'.png', aX: 1.0, aY: 0.5 });
   var config = null;
 
@@ -1982,8 +1995,8 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           aX: 0.5,
           aY: 0.5
         },
-        spriteOnText : 'STUN GUN',
-        spriteOffText : 'STUN GUN',
+        spriteOnText: 'STUN GUN',
+        spriteOffText: 'STUN GUN',
       },
       center: {
         spriteOn: {
@@ -1996,8 +2009,8 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           aX: 0.5,
           aY: 0.5
         },
-        spriteOnText : 'SHRINK THE PADDLE',
-        spriteOffText : 'SHRINK THE PADDLE',
+        spriteOnText: 'SHRINK THE PADDLE',
+        spriteOffText: 'SHRINK THE PADDLE',
       },
       right: {
         spriteOn: {
@@ -2010,8 +2023,8 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           aX: 0.5,
           aY: 0.5
         },
-        spriteOnText : 'THROUGH THE PORTAL',
-        spriteOffText : 'THROUGH THE PORTAL',
+        spriteOnText: 'THROUGH THE PORTAL',
+        spriteOffText: 'THROUGH THE PORTAL',
       },
       bottomLeft: {
         spriteOn: {
@@ -2024,8 +2037,8 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           aX: 0.5,
           aY: 0.5
         },
-        spriteOnText : 'SHADOW MODE',
-        spriteOffText : 'SHADOW MODE',
+        spriteOnText: 'SHADOW MODE',
+        spriteOffText: 'SHADOW MODE',
       },
       bottomRight: {
         spriteOn: {
@@ -2038,8 +2051,8 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           aX: 0.5,
           aY: 0.5
         },
-        spriteOnText : 'BLACK HOLE',
-        spriteOffText : 'BLACK HOLE',
+        spriteOnText: 'BLACK HOLE',
+        spriteOffText: 'BLACK HOLE',
       },
       bottomCenter: {
         spriteOn: {
@@ -2052,8 +2065,8 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           aX: 0.5,
           aY: 0.5
         },
-        spriteOnText : 'REVERSE MODE',
-        spriteOffText : 'REVERSE MODE',
+        spriteOnText: 'REVERSE MODE',
+        spriteOffText: 'REVERSE MODE',
       },
       playAll: {
         spriteOn: {
@@ -2066,8 +2079,8 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
           aX: 0.5,
           aY: 0.5
         },
-        spriteOnText : 'PLAY ALL',
-        spriteOffText : 'PLAY ALL',
+        spriteOnText: 'PLAY ALL',
+        spriteOffText: 'PLAY ALL',
       }
     };
 
@@ -2079,14 +2092,14 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
     x: 0,
     y: y
   }, config, switcherName);
-  switcher.on('side_change', function (side) {
+  switcher.on('side_change', function(side) {
     // console.log('Side change:', side);
     onChange(side);
   });
   return switcher; // switcher.scale.x = switcher.scale.y = Util.randomRange(1.0, 1.1);
 };
 
-NORD.subModeSelectionPopup.prototype.tween = function (data, callback) {
+NORD.subModeSelectionPopup.prototype.tween = function(data, callback) {
   var self = this;
 
   if (data.name == 'show_anim' && this.state == 'hide') {
