@@ -128,31 +128,34 @@ NORD.ScreenGame = function(config) {
   //sushant
   // if (MultiplayerStarted) {
 
-  this.serverText = new PIXI.Text("", {
+  this.serverText = new PIXI.Text("- IN", {
     font: '35px Snippet',
-    fontSize: 15,
-    fill: 'black',
-    align: 'center'
+    fontSize: 12,
+    fill: 'white',
+    align: 'center',
+    aX: 0,
+    aY: 0.5,
   });
-  this.serverText.anchor.set(1);
-  this.serverText.position.set(0, -this.field.config.FIELD_HEIGHT / 2);
+  this.serverText.position.set(this.field.config.FIELD_WIDTH / 2.45, this.field.config.FIELD_HEIGHT / 1.93);
   this.addChild(this.serverText);
 
 
-  this.ActualServerpingText = new PIXI.Text("S.PING - 0ms", {
+  this.ActualServerpingText = new PIXI.Text("- 23ms", {
     font: '35px Snippet',
-    fontSize: 15,
-    fill: 'black',
-    align: 'center'
+    fontSize: 12,
+    fill: 'white',
+    align: 'center',
+    aX: 0,
+    aY: 0.5,
   });
-  this.ActualServerpingText.anchor.set(1);
-  this.ActualServerpingText.position.set(-this.field.config.FIELD_WIDTH / 3.4, -this.field.config.FIELD_HEIGHT / 2);
+  this.ActualServerpingText.position.set(-this.field.config.FIELD_WIDTH / 2.4, this.field.config.FIELD_HEIGHT / 1.93);
   this.addChild(this.ActualServerpingText);
+
   NORD.game.screenGame.ServerPing = 0;
   NORD.game.screenGame.OpponentServerPing = 0;
   NORD.events.on(NORD.EVENT_CODE.PING_RECIEVED, function(data) {
     NORD.game.screenGame.ServerPing = data;
-    NORD.game.screenGame.ActualServerpingText.text = "S.PING - " + data + "ms";
+    NORD.game.screenGame.ActualServerpingText.text = "- " + data + "ms";
   });
 
   this.pingText = new PIXI.Text("My T.Diff - 0ms", {
@@ -330,7 +333,10 @@ NORD.ScreenGame.prototype.tween = function(data, callback) {
 
 
     if (MultiplayerStarted) {
-      this.serverText.text = "REGN - " + localStorage.getItem('savedServerRegion');
+      this.ActualServerpingText.text = "- 60ms";
+      this.serverText.text = "- " + localStorage.getItem('savedServerRegion');
+      NORD.game.field.sideImage.children[0].visible = true;
+      NORD.game.field.sideImage.children[1].visible = true;
       if (NORD.playersName.playerName)
         this.rightPlayerText.text = NORD.playersName.playerName;
       if (NORD.playersName.opponentName)

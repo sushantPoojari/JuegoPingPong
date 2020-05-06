@@ -366,6 +366,48 @@ NORD.Field = function() {
     scaleY: 0.475
   });
 
+  var regionHoldermage = Util.createSprite({
+    parent: this,
+    texture: 'Ping-panel',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 1.1,
+    x: this.sideImage.width - 35,
+    y: this.sideImage.height - 43
+  });
+  this.sideImage.addChild(regionHoldermage);
+  regionHoldermage.visible = false;
+
+  var regionImage = Util.createSprite({
+    parent: this,
+    texture: 'Region-Icon',
+    aX: 0.5,
+    aY: 0.5,
+    x: -40,
+  });
+  regionHoldermage.addChild(regionImage);
+
+  var pingHolderImage = Util.createSprite({
+    parent: this,
+    texture: 'Ping-panel',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 1.1,
+    x: -(this.sideImage.width - 35),
+    y: this.sideImage.height - 43
+  });
+  this.sideImage.addChild(pingHolderImage);
+  pingHolderImage.visible = false;
+
+  var pingImage = Util.createSprite({
+    parent: this,
+    texture: 'Wifi-Icon',
+    aX: 0.5,
+    aY: 0.5,
+    x: -45,
+  });
+  pingHolderImage.addChild(pingImage);
+
   this.state = new Util.StateStore();
   this.state.setState({
     gamePhase: 'NONE'
