@@ -495,8 +495,7 @@ NORD.GameEventHandler.prototype.onReciveEvent = function(eventType, data) {
         config.mode = DemoLoadFunction.myRoom()._customProperties.mode;
         NORD.game.setConfig(config);
 
-        //yathiraj put a variable here \
-        MainMenuLocation.boardSelected = 'board_1';
+        MainMenuLocation.boardSelected = DemoLoadFunction.myRoom()._customProperties.board;
 
         MainMenuLocation.ballDiamondGeneratedPos = serverObj.ballDiamondPos;
 

@@ -501,7 +501,7 @@ NORD.RandomSearchInstance.prototype.randomJoinToRoom = function() {
     var option = this.getRandomRoomOption();
 
     for (var i = 0; i < DemoLoadFunction.roomInfos.length; i++) {
-      if (DemoLoadFunction.roomInfos[i]._customProperties.gameType == NORD.MULTIPLAYER_GAME_TYPE.RANDOM) {
+      if (DemoLoadFunction.roomInfos[i]._customProperties.gameType == NORD.MULTIPLAYER_GAME_TYPE.RANDOM && DemoLoadFunction.roomInfos[i]._customProperties.modeType == NORD.game.panelSettings.actionMode && DemoLoadFunction.roomInfos[i]._customProperties.board == NORD.game.config.board) {
         if (DemoLoadFunction.roomInfos[i]._customProperties.difficulty == NORD.App.playerController.config.playerDifficultyLevel) {
           console.log("joining room for " + DemoLoadFunction.roomInfos[i]._customProperties.difficulty)
           DemoLoadFunction.joinRoom(DemoLoadFunction.roomInfos[i].name);
@@ -621,17 +621,14 @@ NORD.RandomSearchInstance.prototype.getRandomRoomOption = function(mode) {
   var modType;
   var boardType;
   if (NORD.App.playerController.config.currentSelectedmode == "classic") {
-    modType = NORD.MULTIPLAYER_GAME_MODE_TYPE.NONE;
-    boardType = NORD.MULTIPLAYER_BOARD_TYPE.DIAMOND_MODE;
+    modType = NORD.game.panelSettings.actionMode;
+    boardType = NORD.game.config.board;
   } else {
     modType = NORD.game.panelSettings.actionMode;
-    boardType = NORD.MULTIPLAYER_BOARD_TYPE.NORMAL_MODE;
+    boardType = NORD.game.config.board;
   }
-  // modType = NORD.game.panelSettings.actionMode;
-  // modType = NORD.MULTIPLAYER_GAME_MODE_TYPE.BIG_BALL_LITTLE_PADDLES;
 
-
-  // modType = NORD.MULTIPLAYER_GAME_MODE_TYPE.KITTY;
+  console.log("%%%%%%%%%%%", NORD.game.panelSettings.actionMode, "%%%%%%%%%%%", NORD.game.config.board);
 
   var option = {
     isVisible: true,

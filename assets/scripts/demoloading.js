@@ -370,8 +370,7 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
         config.mode = this.myRoom()._customProperties.mode;
         NORD.game.setConfig(config);
 
-        //yathiraj put a variable here \
-        MainMenuLocation.boardSelected = 'board_1';
+        MainMenuLocation.boardSelected = DemoLoadFunction.myRoom()._customProperties.board;
 
         TweenMax.delayedCall(0.07 * 2, function() {
           if (NORD.game.config.mode !== 'action') MainMenuLocation.toGame(MainMenuLocation.boardSelected);

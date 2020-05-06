@@ -2087,8 +2087,8 @@ var RoundGenerator = function RoundGenerator(field) {
     }
   }, this);
 
-  this.field.on('shadow_hit_disappear', function(player) {
-    if (player.side === 'LEFT') {
+  this.field.on('shadow_hit_disappear', function(ball) {
+    if (ball.body.velocity.x > 0) {
       if (LeftPaddle.tweenBodyAlpha != null)
         LeftPaddle.tweenBodyAlpha.kill();
       LeftPaddle.tweenBodyAlpha = TweenMax.to(LeftPaddle, 2, {
@@ -2101,8 +2101,7 @@ var RoundGenerator = function RoundGenerator(field) {
         }
       });
       increaseRightPaddleAlpha();
-    }
-    if (player.side === 'RIGHT') {
+    } else {
       if (RightPaddle.tweenBodyAlpha != null)
         RightPaddle.tweenBodyAlpha.kill();
       RightPaddle.tweenBodyAlpha = TweenMax.to(RightPaddle, 2, {
@@ -2147,25 +2146,6 @@ var RoundGenerator = function RoundGenerator(field) {
 
     var goalPlayer = this.players[side === 'LEFT' ? 'RIGHT' : 'LEFT'];
     this.goal(goalPlayer, this);
-
-    // var seObj = new PP.ServerObject();
-    // seObj.eventType = NORD.PP_EVENT.EVENT_GAME_DEFEATED;
-    //
-    // NORD.gameEventHandler.sendEvent(seObj);
-    // NORD.game.screenGame.panelPause.hide();
-
-    // if (player.side === 'LEFT') {
-    //   LeftPaddle.setSize(NORD.game.field.roundGenerator.field.smallPaddleData.size, NORD.game.field.roundGenerator.field.smallPaddleData.shape);
-    //   LeftPaddle.paddleViewImage.scale.y = 0.2;
-    //   RightPaddle.setSize(NORD.game.field.config.paddleSize.value, NORD.game.field.config.paddleShape.value);
-    //   RightPaddle.paddleViewImage.scale.y = 0.5;
-    // }
-    // if (player.side === 'RIGHT') {
-    //   RightPaddle.setSize(NORD.game.field.roundGenerator.field.smallPaddleData.size, NORD.game.field.roundGenerator.field.smallPaddleData.shape);
-    //   RightPaddle.paddleViewImage.scale.y = 0.2;
-    //   LeftPaddle.setSize(NORD.game.field.config.paddleSize.value, NORD.game.field.config.paddleShape.value);
-    //   LeftPaddle.paddleViewImage.scale.y = 0.5;
-    // }
   });
 
   this.field.on('kitty_hit_shrink', function(ball) {
@@ -3182,7 +3162,7 @@ var createShadow = function createShadow(field) {
       // console.log('Meow!');
       // player = field.players[ball.playerPaddle.side === 'LEFT'?'RIGHT':'LEFT'];
       var player = field.players[ball.playerPaddle.side];
-      field.emit('shadow_hit_disappear', player);
+      field.emit('shadow_hit_disappear', ball);
     }
   }));
   bonusContainer.bg.texture = NORD.assetsManager.getTexture('Shadow-bubble');

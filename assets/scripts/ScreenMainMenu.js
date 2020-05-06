@@ -655,7 +655,7 @@ NORD.MenuSwitcher = function (config, switcherConfig, switcher) {
 
     if(switcherConfig.bottomLeft.spriteOnText != undefined) this.bottomLeft.spriteOn.addChild(setText(switcherConfig.bottomLeft.spriteOnText));
     if(switcherConfig.bottomLeft.spriteOffText != undefined) this.bottomLeft.spriteOff.addChild(setText(switcherConfig.bottomLeft.spriteOffText));
-    
+
     if(switcherConfig.bottomRight.spriteOnText != undefined) this.bottomRight.spriteOn.addChild(setText(switcherConfig.bottomRight.spriteOnText));
     if(switcherConfig.bottomRight.spriteOffText != undefined) this.bottomRight.spriteOff.addChild(setText(switcherConfig.bottomRight.spriteOffText));
 
