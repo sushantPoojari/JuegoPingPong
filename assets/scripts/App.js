@@ -356,7 +356,51 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'Blackhole',
     url: 'assets/images/popup/GamePlay/Mode/Blackhole.png'
-  }]);
+  }, {
+    name : 'BackButton',
+    url : 'assets/images/submode/BackButton.png'
+  },{
+    name : 'NormalBoard',
+    url : 'assets/images/submode/NormalBoard.png'
+  },{
+    name : 'NormalBoardSelected',
+    url : 'assets/images/submode/NormalBoardSelected.png'
+  },{
+    name : 'DiamondBoard',
+    url : 'assets/images/submode/DiamondBoard.png'
+  },{
+    name : 'DiamondBoardSelected',
+    url : 'assets/images/submode/DiamondBoardSelected.png'
+  },{
+    name : 'ParallelBoard',
+    url : 'assets/images/submode/ParallelBoard.png'
+  },{
+    name : 'ParallelBoardSelected',
+    url : 'assets/images/submode/ParallelBoardSelected.png'
+  },{
+    name : 'BlankPanel',
+    url : 'assets/images/submode/BlankPanel.png'
+  },
+  {
+    name : 'BlankPanel2',
+    url : 'assets/images/submode/BlankPanel2.png'
+  },{
+    name : 'SelectedPanel2',
+    url : 'assets/images/submode/SelectedPanel2.png'
+  },{
+    name : 'Easy',
+    url : 'assets/images/submode/Easy.png'
+  },{
+    name : 'Medium',
+    url : 'assets/images/submode/Medium.png'
+  },{
+    name : 'Hard',
+    url : 'assets/images/submode/Hard.png'
+  },{
+    name : 'Separator',
+    url : 'assets/images/submode/Separator.png'
+  }
+]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//

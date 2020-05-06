@@ -1393,7 +1393,6 @@ NORD.ScreenMainMenu.prototype.createSwitcher = function (x, y, labelName, switch
 
 //Shunmugam Random Name Popup
 NORD.randomNamePopup = function (config) {
-
   var l_playerName;
   var s_namePanel;
   config.sizeType = 'relative';
@@ -1433,37 +1432,40 @@ NORD.randomNamePopup = function (config) {
   textTitle.position.set(this.bg.width * 0.5, this.bg.height * 0.25);
   this.bg.addChild(textTitle);
 
-  this.s_namePanel = new PIXI.Sprite(NORD.assetsManager.getTexture('SubPanel01'));
-  this.s_namePanel.width = 150;
-  this.s_namePanel.height = 40;
-  this.s_namePanel.anchor.set(0.5);
-  this.s_namePanel.position.set(-24, -12);
-  this.addChild(this.s_namePanel);
+  // this.s_namePanel = new PIXI.Sprite(NORD.assetsManager.getTexture('SubPanel01'));
+  // this.s_namePanel.width = 150;
+  // this.s_namePanel.height = 40;
+  // this.s_namePanel.anchor.set(0.5);
+  // this.s_namePanel.position.set(-24, -12);
+  // this.addChild(this.s_namePanel);
 
-  this.refreshNameButton = Util.createButton('btn', this, null, '', 78, -12, 40, 40, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('RefreshIcon'), {
-    texture: 'RefreshIcon',
-    aX: 0.5,
-    aY: 0.5,
-    scaleX: 1,
-    scaleY: 1
-  });
-  this.refreshNameButton.position.set(80, -12);
-  this.refreshNameButton.soundClick = NORD.assetsManager.getAsset('play_button')
-  this.refreshNameButton.addListener('button_click', function (data) {
-    var _this5 = this;
-    this.updateRandomName();
 
-  }, this);
 
-  this.l_playerName = new PIXI.Text('Random', {
-    font: '35px Snippet',
-    fontSize: 17,
-    fill: 'white',
-    align: 'center'
-  });
-  this.l_playerName.anchor.set(0.5);
-  this.l_playerName.position.set(0, 0);
-  this.s_namePanel.addChild(this.l_playerName);
+
+this.l_playerName = new PIXI.TextInput({
+		input: {
+			fontFamily: 'Arial',
+			fontSize: '16px',
+			padding: '14px 24px',
+			width: '150px',
+      height: '40px',
+			color: 'white'
+		},
+		box: {
+			default: {fill: 0xE8E9F3, rounded: 10, stroke: {color: 0xCBCEE0, width: 2}},
+			focused: {fill: 0xE1E3EE, rounded: 10, stroke: {color: 0xABAFC6, width: 2}},
+			disabled: {fill: 0xDBDBDB, rounded: 10}
+		}
+	})
+
+	this.l_playerName.placeholder = 'Enter your Text...'
+  	this.l_playerName.x = this.bg.width / 2;
+		this.l_playerName.y = this.bg.height / 2;
+	this.l_playerName.pivot.x = this.l_playerName.width / 2
+	this.l_playerName.pivot.y = this.l_playerName.height / 2
+  this.bg.addChild(this.l_playerName);
+
+
 
   this.closeButton = Util.createButton('btn', this, null, '', 169, -141, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseBtn'), {
     texture: 'CloseBtn',
@@ -1485,7 +1487,7 @@ NORD.randomNamePopup = function (config) {
 
   }, this);
 
-  this.okButton = Util.createButton('btn', this, null, '', 0, 53, 100, 40, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CommonBtn'), {
+  this.okButton = Util.createButton('btn', this, null, '', 0, 60, 100, 40, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CommonBtn'), {
     texture: 'CommonBtn',
     aX: 0.5,
     aY: 0.5,
@@ -1603,6 +1605,7 @@ NORD.randomNamePopup.prototype.tween = function (data, callback) {
 };
 
 NORD.randomNamePopup.prototype.updateName = function () {
+  debugger;
   // this.l_playerName.scale = 1;
   this.l_playerName.text = NORD.App.playerController.getName();
   this.updateNameSize();
@@ -1617,6 +1620,7 @@ NORD.randomNamePopup.prototype.updateNameSize = function () {
 }
 
 NORD.randomNamePopup.prototype.updateRandomName = function () {
+  debugger;
   // this.l_playerName.scale = 1;
   this.l_playerName.text = NORD.App.playerController.getRandomName();
   this.updateNameSize();
@@ -1636,20 +1640,6 @@ NORD.subModeSelectionPopup = function (config) {
   this.interactiveChildren = false; // this.alpha = 0;
   this.board = "board_1";
 
-  
-  // //sushant
-  // var dividerLine = Util.createSprite({
-  //   parent: this,
-  //   x: 160,
-  //   y: 20,
-  //   texture: 'DividerLine',
-  //   aX: 0.5,
-  //   aY: 0.5,
-  //   scaleX: 0.666,
-  //   scaleY: 0.666
-  // });
-  // //sushant
-
   this.bg = Util.createSprite({
     parent: this,
     texture: 'BG',
@@ -1658,11 +1648,11 @@ NORD.subModeSelectionPopup = function (config) {
     scaleXY: 0.45
   });
 
-  this.closeButton = Util.createButton('btn', this, null, '', -320, -200, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseBtn'), {
-    texture: 'CloseBtn',
+  this.closeButton = Util.createButton('btn', this, null, '', -320, -185, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
+    texture: 'BackButton',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 1.5
+    scaleXY: 0.4
   });
 
   this.closeButton.soundClick = NORD.assetsManager.getAsset('play_button')
@@ -1691,7 +1681,7 @@ NORD.subModeSelectionPopup = function (config) {
     NORD.game.panelSettings.actionMode = dataMap[side];
   });
 
-  this.switchNormalMode = this.createSwitcher(0, -100, 'label_Normal', 'Normal', 'left', function (side) {
+  this.switchNormalMode = this.createSwitcher(0, -75, 'label_Normal', 'Normal', 'left', function (side) {
     var dataMap = {
       left: 'board_2',
       right: 'board_1',
@@ -1700,6 +1690,16 @@ NORD.subModeSelectionPopup = function (config) {
     var config = NORD.game.config;
     config.board = dataMap[side];
     NORD.game.setConfig(config); // console.log('SSS:', config)
+  });
+
+    var dividerLine = Util.createSprite({
+    parent: this,
+    x: 0,
+    y: 20,
+    texture: 'Separator',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 1.5
   });
 
   this.switchDificulty = this.createSwitcher(0, 100, 'label_difficulty', 'Difficulty', 'left', function (side) {
@@ -1739,8 +1739,8 @@ NORD.subModeSelectionPopup = function (config) {
           var currentTime = Date.now();
 
           if (NORD.App.playerController.config.playerAdjectiveId == -1) {
-            NORD.App.playerController.getRandomName();
-            _this2.randomNamePopup.updateName();
+            //NORD.App.playerController.getRandomName();
+           // _this2.randomNamePopup.updateName();
             _this2.randomNamePopup.show();
           } else {
             if (PP.server_using == PP.SERVER_USING.Photon) {
@@ -1815,36 +1815,36 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
       selected: selected,
       left: {
         spriteOn: {
-          texture: 'PlayButton',
+          texture: 'NormalBoardSelected',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'PlayButton',
+          texture: 'NormalBoard',
           aX: 0.5,
           aY: 0.5
         }
       },
       center: {
         spriteOn: {
-          texture: 'PlayButton',
+          texture: 'DiamondBoardSelected',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'PlayButton',
+          texture: 'DiamondBoard',
           aX: 0.5,
           aY: 0.5
         }
       },
       right: {
         spriteOn: {
-          texture: 'PlayButton',
+          texture: 'ParallelBoardSelected',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'PlayButton',
+          texture: 'ParallelBoard',
           aX: 0.5,
           aY: 0.5
         }
@@ -1855,36 +1855,36 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
       selected: selected,
       left: {
         spriteOn: {
-          texture: 'PlayButton',
+          texture: 'Easy',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'PlayButton',
+          texture: 'BlankPanel',
           aX: 0.5,
           aY: 0.5
         }
       },
       center: {
         spriteOn: {
-          texture: 'PlayButton',
+          texture: 'Medium',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'PlayButton',
+          texture: 'BlankPanel',
           aX: 0.5,
           aY: 0.5
         }
       },
       right: {
         spriteOn: {
-          texture: 'PlayButton',
+          texture: 'Hard',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'PlayButton',
+          texture: 'BlankPanel',
           aX: 0.5,
           aY: 0.5
         }
@@ -1896,84 +1896,84 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function (x, y, labelName,
       selected: selected,
       left: {
         spriteOn: {
-          texture: 'PlayButton',
+          texture: 'SelectedPanel2',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'PlayButton',
+          texture: 'BlankPanel2',
           aX: 0.5,
           aY: 0.5
         }
       },
       center: {
         spriteOn: {
-          texture: 'PlayButton',
+          texture: 'SelectedPanel2',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'PlayButton',
+          texture: 'BlankPanel2',
           aX: 0.5,
           aY: 0.5
         }
       },
       right: {
         spriteOn: {
-          texture: 'PlayButton',
+          texture: 'SelectedPanel2',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'PlayButton',
+          texture: 'BlankPanel2',
           aX: 0.5,
           aY: 0.5
         }
       },
       bottomLeft: {
         spriteOn: {
-          texture: 'PlayButton',
+          texture: 'SelectedPanel2',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'PlayButton',
+          texture: 'BlankPanel2',
           aX: 0.5,
           aY: 0.5
         }
       },
       bottomRight: {
         spriteOn: {
-          texture: 'PlayButton',
+          texture: 'SelectedPanel2',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'PlayButton',
+          texture: 'BlankPanel2',
           aX: 0.5,
           aY: 0.5
         }
       },
       bottomCenter: {
         spriteOn: {
-          texture: 'PlayButton',
+          texture: 'SelectedPanel2',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'PlayButton',
+          texture: 'BlankPanel2',
           aX: 0.5,
           aY: 0.5
         }
       },
       playAll: {
         spriteOn: {
-          texture: 'PlayButton',
+          texture: 'SelectedPanel2',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'PlayButton',
+          texture: 'BlankPanel2',
           aX: 0.5,
           aY: 0.5
         }
