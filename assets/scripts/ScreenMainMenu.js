@@ -1648,15 +1648,25 @@ NORD.subModeSelectionPopup = function (config) {
     scaleXY: 0.45
   });
 
-  this.closeButton = Util.createButton('btn', this, null, '', -320, -185, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
+  this.popupHeader = new PIXI.Text('SELECT A GAME BOARD', {
+    font: '35px Snippet',
+    fontSize: 17,
+    fill: 'white',
+    align: 'center'
+  });
+  this.popupHeader.anchor.set(0.5);
+  this.popupHeader.position.set(0, -195);
+  this.addChild(this.popupHeader);
+
+  this.backButton = Util.createButton('btn', this, null, '', -320, -185, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
     texture: 'BackButton',
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.4
   });
 
-  this.closeButton.soundClick = NORD.assetsManager.getAsset('play_button')
-  this.closeButton.addListener('button_click', function (data) {
+  this.backButton.soundClick = NORD.assetsManager.getAsset('play_button')
+  this.backButton.addListener('button_click', function (data) {
     var _this5 = this;
     MainMenuLocation.enableAllButtons();
     if (this.state !== 'show') return;
@@ -1701,6 +1711,16 @@ NORD.subModeSelectionPopup = function (config) {
     aY: 0.5,
     scaleXY: 1.5
   });
+
+  var difficultyHeader = new PIXI.Text('CHOOSE DIFFICULTY', {
+    font: '35px Snippet',
+    fontSize: 17,
+    fill: 'white',
+    align: 'center'
+  });
+  difficultyHeader.anchor.set(0.5);
+  difficultyHeader.position.set(0, 50);
+  this.addChild(difficultyHeader);
 
   this.switchDificulty = this.createSwitcher(0, 100, 'label_difficulty', 'Difficulty', 'left', function (side) {
     var dataMap = {
@@ -1780,9 +1800,15 @@ NORD.subModeSelectionPopup.prototype.show = function (data) {
   this.switchDificulty.visible = true;
 
   if(config.mode == 'action')
-  this.switchNormalMode.visible = false;
+  {
+    this.switchNormalMode.visible = false;
+    this.popupHeader.text = "CHOOSE A MODE";
+  }
   else
-  this.switchThrillerMode.visible = false;
+  {
+    this.switchThrillerMode.visible = false;
+    this.popupHeader.text = "SELECT A GAME BOARD";
+  }
 
 
   if (!MultiplayerStarted) {
