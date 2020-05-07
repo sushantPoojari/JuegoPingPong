@@ -94,6 +94,14 @@ NORD.ScreenMainMenu = function(config) {
     var config = NORD.game.config;
     config.mode = dataMap[side];
     NORD.game.setConfig(config);
+
+    if(config.players != 'three')
+      return;
+    
+    if(side == left)
+      NORD.game.panelSettings.actionMode = NORD.MULTIPLAYER_GAME_MODE_TYPE.NONE
+    else(side == right)
+      NORD.game.config.board = NORD.MULTIPLAYER_BOARD_TYPE.NORMAL_MODE
   });
 
   this.switcherMode.on('switch_start', function(side) {
@@ -152,7 +160,6 @@ NORD.ScreenMainMenu = function(config) {
   this.subModeSelectionPopup.visible = false;
 
   /************************************************************************************************************************************************************************************/
-
 
   this.boardSelected = 'board_2';
   this.ballDiamondGeneratedPos = 0;
