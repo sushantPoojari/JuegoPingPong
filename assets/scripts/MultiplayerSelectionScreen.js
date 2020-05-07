@@ -289,8 +289,44 @@ NORD.MultiplayerSelectionPopup.prototype.startPhotonSerer = function() {
 
 NORD.MultiplayerSelectionPopup.prototype.onInitializingPhoton = function(event) {
   NORD.events.removeListener(NORD.EVENT_CODE.INITIALISING_PHOTON);
-  NORD.mainMenu.multiplayerSelectionPopup.show();
+  // NORD.mainMenu.multiplayerSelectionPopup.show();
   NORD.MultiplayerPopupSowed = false;
+
+  //loading popup
+  NORD.mainMenu.loadingPopup.timerText.timerTextValue = 26;
+  NORD.mainMenu.loadingPopup.timerText.text = "26s";
+  NORD.mainMenu.loadingPopup.Button.alpha = 0;
+
+  decreaseTimer();
+
+  function decreaseTimer() {
+    NORD.mainMenu.loadingPopup.timerText.timerTextValue -= 1;
+    NORD.mainMenu.loadingPopup.timerText.text = NORD.mainMenu.loadingPopup.timerText.timerTextValue + "s";
+    if (NORD.mainMenu.loadingPopup.timerText.timerTextValue <= 0) {
+      if (NORD.randomSearchInstance) {
+        delete NORD.randomSearchInstance;
+      }
+      if (DemoLoadFunction.myRoom())
+        DemoLoadFunction.leaveRoom();
+      NORD.mainMenu.loadingPopup.loaderText.text = "No Opponent found please try again";
+      NORD.mainMenu.loadingPopup.Button.alpha = 255;
+      return;
+    }
+
+    NORD.mainMenu.loadingPopup.timoutFunction = setTimeout(function() {
+      decreaseTimer();
+    }, 1000);
+  }
+
+
+
+  NORD.mainMenu.loadingPopup.show("Waiting For Opponent");
+
+  if (PP.server_using == PP.SERVER_USING.Photon) {
+    new NORD.RandomSearchInstance();
+  } else {
+    NORD.sfsController.joinLobbyRoomNew();
+  }
 }
 
 //Smart Fox Server

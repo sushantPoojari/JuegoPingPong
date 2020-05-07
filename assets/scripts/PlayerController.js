@@ -74,6 +74,10 @@ NORD.PlayerController = function() {
 NORD.PlayerController.prototype = Object.create(PIXI.Container.prototype);
 NORD.PlayerController.prototype.constructor = NORD.PlayerController;
 
+NORD.PlayerController.prototype.setName = function(text) {
+  this.config.playerName = text;
+  this.saveConfig();
+}
 NORD.PlayerController.prototype.getRandomName = function() {
   var totalNameCount = 0;
   while (totalNameCount < 5000) {
