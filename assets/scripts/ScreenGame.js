@@ -749,7 +749,7 @@ NORD.PanelPause.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelPause.prototype.constructor = NORD.PanelPause;
 
 NORD.PanelPause.prototype.show = function(data) {
-  // this.scoreLabel.text = NORD.Field.pla;
+   this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
 
   if (!MultiplayerStarted) {
     NORD.game.field.setPause(true);
