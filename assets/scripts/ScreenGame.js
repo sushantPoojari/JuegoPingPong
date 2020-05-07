@@ -391,6 +391,11 @@ NORD.ScreenGame.ScoreText.prototype.setScore = function(score) {
   // this.sprite.texture = texture;
 };
 
+NORD.ScreenGame.ScoreText.prototype.getScore = function() {
+  return this.scoreText.text;
+
+};
+
 NORD.PanelEndGame = function(config) {
   config.sizeType = 'relative';
   config.width = 300;
@@ -595,16 +600,25 @@ NORD.PanelPause = function(config) {
   this.visible = false;
   this.interactiveChildren = false; // this.alpha = 0;
 
+  var TransparentLayer = Util.createSprite({
+    parent: this,
+    texture: 'TransparentLayer',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.45
+  });
+
   this.bg = Util.createSprite({
     parent: this,
-    atlas: 'texture_atlas',
-    texture: 'panel_pause_bg.png',
+    texture: 'PauseBg',
     aX: 0.5,
-    aY: 0.5
+    aY: 0.5,
+    scaleXY: 0.45
   });
-  this.buttonHome = Util.createButton('btn', this, null, '', 0, -19, 234, 84, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
-    atlas: 'texture_atlas',
-    texture: 'button_resume.png',
+
+  this.buttonHome = Util.createButton('btn', this, null, '', 170, -155, 234, 84, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+    parent: this.bg,
+    texture: 'CloseButton',
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.5
@@ -617,12 +631,63 @@ NORD.PanelPause = function(config) {
       _this5.hide();
     });
   }, this);
-  this.buttonMenu = Util.createButton('btn', this, null, '', 47, 63, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
-    atlas: 'texture_atlas',
-    texture: 'button_home.png',
+
+  var popupHeader = new PIXI.Text('PAUSED', {
+    font: '35px Snippet',
+    fontSize: 34,
+    fill: 'white',
+    align: 'center'
+  });
+  popupHeader.anchor.set(0.5);
+  popupHeader.position.set(0, -110);
+  this.addChild(popupHeader);
+
+  var dividerLine = Util.createSprite({
+    parent: this,
+    x: 0,
+    y: -75,
+    texture: 'Separator',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.5
+    scaleXY: 1.25
+  });
+
+  var scoreHeader = new PIXI.Text('YOUR SCORE : ', {
+    font: '35px Snippet',
+    fontSize: 24,
+    fill: 'white',
+    align: 'center'
+  });
+  scoreHeader.anchor.set(0.5);
+  scoreHeader.position.set(0, -25);
+  this.addChild(scoreHeader);
+
+  var Highlights = Util.createSprite({
+    parent: this.bg,
+    x: 0,
+    y: 100,
+    texture: 'Highlights',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 1
+  });
+
+  this.scoreLabel = new PIXI.Text('0', {
+    font: '35px Snippet',
+    fontSize: 64,
+    fill: 'white',
+    align: 'center'
+  });
+  this.scoreLabel.anchor.set(0.5);
+  this.scoreLabel.position.set(0, 100);
+  this.bg.addChild(this.scoreLabel);
+
+  this.buttonMenu = Util.createButton('btn', this, null, '', -85, 155, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+    parent: this.bg,
+    texture: 'HomeButton',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.4
   });
   this.buttonMenu.on('button_click', function(data) {
     var _this6 = this;
@@ -655,21 +720,21 @@ NORD.PanelPause = function(config) {
       });
     });
   }, this);
+
   var audioButton = new NORD.GUI.ButtonAudio({
     parentPanel: this,
-    x: -47,
-    y: 63,
+    x: 85,
+    y: 155,
     width: 100,
     height: 100,
+    scaleXY: 0.55,
     soundClick: NORD.assetsManager.getAsset('sound_click'),
     skin: {
       on: {
-        atlas: 'texture_atlas',
-        texture: 'button_audio_big_0001.png'
+        texture: 'SoundOnButton'
       },
       off: {
-        atlas: 'texture_atlas',
-        texture: 'button_audio_big_0002.png'
+        texture: 'SoundOffButton'
       }
     }
   });
@@ -679,6 +744,8 @@ NORD.PanelPause.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelPause.prototype.constructor = NORD.PanelPause;
 
 NORD.PanelPause.prototype.show = function(data) {
+  // this.scoreLabel.text = NORD.Field.pla;
+
   if (!MultiplayerStarted) {
     NORD.game.field.setPause(true);
     TweenMax.pauseAll();

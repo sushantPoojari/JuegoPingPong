@@ -111,6 +111,9 @@ NORD.initGameDefinitions = function() {
     name: 'PH_46',
     url: 'assets/fonts/PH_46.fnt'
   }, {
+    name: 'AndroidAssassin',
+    url: 'assets/fonts/AndroidAssassin.ttf'
+  }, {
     type: 'AUDIO',
     name: 'sound_click',
     url: 'assets/audio/sound_click',
@@ -316,10 +319,10 @@ NORD.initGameDefinitions = function() {
     url: 'assets/images/main/OnlineMultiplayerSelected.png'
   }, {
     name: 'SoundOnButton',
-    url: 'assets/images/main/SoundOnButton.png'
+    url: 'assets/images/common/SoundOnButton.png'
   }, {
     name: 'SoundOffButton',
-    url: 'assets/images/main/SoundOffButton.png'
+    url: 'assets/images/common/SoundOffButton.png'
   }, {
     name: 'NormalMode',
     url: 'assets/images/main/NormalMode.png'
@@ -355,7 +358,7 @@ NORD.initGameDefinitions = function() {
     url: 'assets/images/popup/GamePlay/Mode/Blackhole.png'
   }, {
     name: 'BackButton',
-    url: 'assets/images/submode/BackButton.png'
+    url: 'assets/images/common/BackButton.png'
   }, {
     name: 'NormalBoard',
     url: 'assets/images/submode/NormalBoard.png'
@@ -394,7 +397,7 @@ NORD.initGameDefinitions = function() {
     url: 'assets/images/submode/Hard.png'
   }, {
     name: 'Separator',
-    url: 'assets/images/submode/Separator.png'
+    url: 'assets/images/common/Separator.png'
   }, {
     name: 'Ping-panel',
     url: 'assets/images/popup/GamePlay/Ping-panel.png'
@@ -404,7 +407,24 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'Wifi-Icon',
     url: 'assets/images/popup/GamePlay/Wifi-Icon.png'
-  }]);
+  },{
+    name: 'PauseBg',
+    url: 'assets/images/popup/pause/PauseBg.png'
+  }, {
+    name: 'CloseButton',
+    url: 'assets/images/common/CloseButton.png'
+  }, {
+    name: 'HomeButton',
+    url: 'assets/images/common/HomeButton.png'
+  },{
+    name: 'Highlights',
+    url: 'assets/images/popup/pause/Highlights.png'
+  },
+{
+  name: 'TransparentLayer',
+  url: 'assets/images/common/TransparentLayer.png'
+  
+}]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//

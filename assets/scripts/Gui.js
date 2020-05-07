@@ -576,7 +576,11 @@ NORD.GUI.ButtonAudio = function (config) {
   this.regularSkin = new PIXI.Sprite(this.textureOff);
   this.addChild(this.regularSkin);
   this.regularSkin.anchor.set(0.5, 0.5);
-  this.regularSkin.scale.x = this.regularSkin.scale.y = 0.35;
+  if(config.scaleXY == undefined)
+    this.regularSkin.scale.x = this.regularSkin.scale.y = 0.35;
+  else
+    this.regularSkin.scale.x = this.regularSkin.scale.y = config.scaleXY;
+
   this.on('button_click', this.onClick, this);
   NORD.audioManager.on('audio_mute_change', function (data) {
     localStorage.setItem('audioStatus', data.isMute);

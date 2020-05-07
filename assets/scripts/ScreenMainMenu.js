@@ -145,7 +145,7 @@ NORD.ScreenMainMenu = function(config) {
 
   /***************************************************************************************Popup Sub Mode Selection*************************************************************************************/
   this.subModeSelectionPopup = new NORD.subModeSelectionPopup({
-    name: 'panel_pause',
+    name: 'panel_subMode',
     parentPanel: NORD.GUIManager.stage,
     container: this
   });
@@ -1727,8 +1727,6 @@ NORD.subModeSelectionPopup = function(config) {
     });
 
   }, this);
-
-
 
   this.switchThrillerMode = this.createSwitcher(0, -150, 'label_Thriller', 'Thriller', 'left', function(side) {
     var dataMap = {
