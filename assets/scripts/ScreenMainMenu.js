@@ -98,9 +98,9 @@ NORD.ScreenMainMenu = function(config) {
     if (config.players != 'three')
       return;
 
-    if (side == 'left')
+    if (side == 'left') {
       NORD.game.panelSettings.actionMode = NORD.MULTIPLAYER_GAME_MODE_TYPE.NONE
-    else(side == 'right')
+    } else(side == 'right')
     NORD.game.config.board = NORD.MULTIPLAYER_BOARD_TYPE.NORMAL_MODE
   });
 
@@ -146,6 +146,8 @@ NORD.ScreenMainMenu = function(config) {
 
     // if (this.state !== 'show' || this.panelEndGame.state !== 'hide') return;
     TweenMax.delayedCall(0.07 * 2, function() {
+      if (NORD.game.config.players == "three")
+        NORD.mainMenu.multiplayerSelectionPopup.startPhotonSerer();
       _this2.subModeSelectionPopup.show();
     });
   }, this);

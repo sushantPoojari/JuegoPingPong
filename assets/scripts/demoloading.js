@@ -81,11 +81,13 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
         urlAddress = urlAddress.replace("wss", "https");
         console.log(urlAddress);
 
-        ServerRegionListArray.push({
-          region: region,
-          address: urlAddress,
-          country: this.checkCorrespondingRegion(region),
-        });
+        if (this.checkCorrespondingRegion(region) != null) {
+          ServerRegionListArray.push({
+            region: region,
+            address: urlAddress,
+            country: this.checkCorrespondingRegion(region),
+          });
+        }
       }
     }
     // DemoLoadFunction.getFirstPing(function(ping) {
@@ -100,14 +102,14 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
     // });
 
     RegionCounter = 0;
-    // DemoLoadFunction.getPing();
-    var connectedReg = "in"; //ServerRegionListArray[0].region;
-    if (NORD.MultiplayerPopupSowed)
-      NORD.mainMenu.loadingPopup.loaderText.text = "connecting region " + connectedReg;
-    localStorage.setItem('savedServerRegion', connectedReg);
-    console.log("connected region " + connectedReg);
-    NORD.mainMenu.multiplayerSelectionPopup.connectedRegion.text = 'connected region : ' + Util.checkCorrespondingRegion(localStorage.getItem('savedServerRegion'));
-    DemoLoadFunction.connectToRegionMaster(connectedReg);
+    DemoLoadFunction.getPing();
+    // var connectedReg = "in"; //ServerRegionListArray[0].region;
+    // if (NORD.MultiplayerPopupSowed)
+    //   NORD.mainMenu.loadingPopup.loaderText.text = "connecting region " + connectedReg;
+    // localStorage.setItem('savedServerRegion', connectedReg);
+    // console.log("connected region " + connectedReg);
+    // NORD.mainMenu.multiplayerSelectionPopup.connectedRegion.text = 'connected region : ' + Util.checkCorrespondingRegion(localStorage.getItem('savedServerRegion'));
+    // DemoLoadFunction.connectToRegionMaster(connectedReg);
 
     // for(var i=0; i<ServerRegionListArray.length; i++)
     // {
@@ -119,32 +121,34 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
   DemoLoadBalancing.prototype.checkCorrespondingRegion = function(region) {
     if (region == "asia")
       return "Asia";
-    if (region == "au")
-      return "Australia";
+    // if (region == "au")
+    //   return "Australia";
     if (region == "cae")
       return "Canada, East";
-    if (region == "cn")
-      return "Chinese Mainland";
+    // if (region == "cn")
+    //   return "Chinese Mainland";
     if (region == "eu")
       return "Europe";
     if (region == "in")
       return "India";
-    if (region == "jp")
-      return "Japan";
+    // if (region == "jp")
+    //   return "Japan";
     if (region == "ru")
       return "Russia";
-    if (region == "rue")
-      return "Russia, East";
-    if (region == "za")
-      return "South Africa";
-    if (region == "sa")
-      return "South America";
-    if (region == "kr")
-      return "South Korea";
+    // if (region == "rue")
+    //   return "Russia, East";
+    // if (region == "za")
+    //   return "South Africa";
+    // if (region == "sa")
+    //   return "South America";
+    // if (region == "kr")
+    //   return "South Korea";
     if (region == "us")
       return "USA, East	";
-    if (region == "usw")
-      return "USA, West	";
+    // if (region == "usw")
+    //   return "USA, West	";
+
+    return null;
   };
   DemoLoadBalancing.prototype.getPing = function() {
     var address = ServerRegionListArray[RegionCounter].address;
@@ -164,19 +168,45 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
 
 
       ServerRegionListArray[RegionCounter].data = data;
+
+      if (ServerRegionListArray[RegionCounter].region == "asia") {
+        NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.left.spriteOn.children[0].text = "Asia - " + ServerRegionListArray[RegionCounter].data + "ms";
+        NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.left.spriteOff.children[0].text = "Asia - " + ServerRegionListArray[RegionCounter].data + "ms";
+      }
+      if (ServerRegionListArray[RegionCounter].region == "in") {
+        NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.center.spriteOn.children[0].text = "India - " + ServerRegionListArray[RegionCounter].data + "ms";
+        NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.center.spriteOff.children[0].text = "India - " + ServerRegionListArray[RegionCounter].data + "ms";
+      }
+      if (ServerRegionListArray[RegionCounter].region == "eu") {
+        NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.right.spriteOn.children[0].text = "Europe - " + ServerRegionListArray[RegionCounter].data + "ms";
+        NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.right.spriteOff.children[0].text = "Europe - " + ServerRegionListArray[RegionCounter].data + "ms";
+      }
+      if (ServerRegionListArray[RegionCounter].region == "us") {
+        NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomLeft.spriteOn.children[0].text = "USA-East - " + ServerRegionListArray[RegionCounter].data + "ms";
+        NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomLeft.spriteOff.children[0].text = "USA-East - " + ServerRegionListArray[RegionCounter].data + "ms";
+      }
+      if (ServerRegionListArray[RegionCounter].region == "ru") {
+        NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomCenter.spriteOn.children[0].text = "Russia - " + ServerRegionListArray[RegionCounter].data + "ms";
+        NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomCenter.spriteOff.children[0].text = "Russia - " + ServerRegionListArray[RegionCounter].data + "ms";
+      }
+      if (ServerRegionListArray[RegionCounter].region == "cae") {
+        NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomRight.spriteOn.children[0].text = "Canada - " + ServerRegionListArray[RegionCounter].data + "ms";
+        NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomRight.spriteOff.children[0].text = "Canada - " + ServerRegionListArray[RegionCounter].data + "ms";
+      }
       RegionCounter++;
+
       if (RegionCounter < ServerRegionListArray.length)
         DemoLoadFunction.getPing();
-      else {
-        ServerRegionListArray.sort(compare);
-        var connectedReg = ServerRegionListArray[0].region;
-        if (NORD.MultiplayerPopupSowed)
-          NORD.mainMenu.loadingPopup.loaderText.text = "connecting region " + connectedReg;
-        localStorage.setItem('savedServerRegion', connectedReg);
-        console.log("connected region " + connectedReg);
-        NORD.mainMenu.multiplayerSelectionPopup.connectedRegion.text = 'connected region : ' + Util.checkCorrespondingRegion(localStorage.getItem('savedServerRegion'));
-        DemoLoadFunction.connectToRegionMaster(connectedReg);
-      }
+      // else {
+      //   ServerRegionListArray.sort(compare);
+      //   var connectedReg = ServerRegionListArray[0].region;
+      //   if (NORD.MultiplayerPopupSowed)
+      //     NORD.mainMenu.loadingPopup.loaderText.text = "connecting region " + connectedReg;
+      //   localStorage.setItem('savedServerRegion', connectedReg);
+      //   console.log("connected region " + connectedReg);
+      //   NORD.mainMenu.multiplayerSelectionPopup.connectedRegion.text = 'connected region : ' + Util.checkCorrespondingRegion(localStorage.getItem('savedServerRegion'));
+      //   DemoLoadFunction.connectToRegionMaster(connectedReg);
+      // }
     });
   };
 

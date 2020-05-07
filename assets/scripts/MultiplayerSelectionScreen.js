@@ -269,17 +269,19 @@ NORD.MultiplayerSelectionPopup.prototype.constructor = NORD.MultiplayerSelection
 
 NORD.MultiplayerSelectionPopup.prototype.startPhotonSerer = function() {
   if (DemoLoadFunction == undefined) {
-    NORD.mainMenu.loadingPopup.show("Initialising Server");
+    //yatthi add here popup
+    // NORD.mainMenu.loadingPopup.show("Initialising Server");
 
     NORD.events.on(NORD.EVENT_CODE.INITIALISING_PHOTON, this.onInitializingPhoton.bind(this));
 
     //initiales photon api
     NORD.demo = new DemoLoadBalancing();
     NORD.demo.start();
-  } else {
-    NORD.MultiplayerPopupSowed = false;
-    NORD.mainMenu.multiplayerSelectionPopup.show();
   }
+  // else {
+  //   NORD.MultiplayerPopupSowed = false;
+  //   NORD.mainMenu.multiplayerSelectionPopup.show();
+  // }
 
 };
 
@@ -620,7 +622,7 @@ NORD.RandomSearchInstance.prototype.getRandomWaitTime = function() {
 NORD.RandomSearchInstance.prototype.getRandomRoomOption = function(mode) {
   var modType;
   var boardType;
-  if (NORD.App.playerController.config.currentSelectedmode == "classic") {
+  if (NORD.game.config.mode == "classic") {
     modType = NORD.game.panelSettings.actionMode;
     boardType = NORD.game.config.board;
   } else {
@@ -635,7 +637,7 @@ NORD.RandomSearchInstance.prototype.getRandomRoomOption = function(mode) {
     expectedMaxPlayers: 2,
     maxPlayers: 2,
     customGameProperties: {
-      mode: NORD.App.playerController.config.currentSelectedmode, //NORD.MULTIPLAYER_GAME_MODE.CLASSIC,
+      mode: NORD.game.config.mode, //NORD.MULTIPLAYER_GAME_MODE.CLASSIC,
       gameType: NORD.MULTIPLAYER_GAME_TYPE.RANDOM,
       modeType: modType,
       board: boardType,
