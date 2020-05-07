@@ -21,12 +21,7 @@ NORD.ScreenGame = function(config) {
     container: this
   });
   this.panelEndGame.visible = false;
-  this.panelPause = new NORD.PanelPause({
-    name: 'panel_pause',
-    parentPanel: NORD.GUIManager.stage,
-    container: this
-  });
-  this.panelPause.visible = false;
+
   this.field.on('init_game', function() { // self.updateScore();
   });
   this.field.on('goal', function() { // self.updateScore();
@@ -200,6 +195,13 @@ NORD.ScreenGame = function(config) {
   this.addChild(this.rightPlayerText);
   // }
   // //sushant
+
+  this.panelPause = new NORD.PanelPause({
+    name: 'panel_pause',
+    parentPanel: NORD.GUIManager.stage,
+    container: this
+  });
+  this.panelPause.visible = false;
 };
 
 NORD.ScreenGame.prototype = Object.create(NORD.GUI.BasePanel.prototype);
@@ -605,8 +607,11 @@ NORD.PanelPause = function(config) {
     texture: 'TransparentLayer',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.45
+    scaleX: 100,
+    scaleY: 100,
+    rotation:Math.PI / 2
   });
+  TransparentLayer.alpha = 0.85;
 
   this.bg = Util.createSprite({
     parent: this,
@@ -621,7 +626,7 @@ NORD.PanelPause = function(config) {
     texture: 'CloseButton',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.5
+    scaleXY: 0.4
   });
   this.buttonHome.on('button_click', function(data) {
     var _this5 = this;
@@ -727,7 +732,7 @@ NORD.PanelPause = function(config) {
     y: 155,
     width: 100,
     height: 100,
-    scaleXY: 0.55,
+    scaleXY: 0.575,
     soundClick: NORD.assetsManager.getAsset('sound_click'),
     skin: {
       on: {
