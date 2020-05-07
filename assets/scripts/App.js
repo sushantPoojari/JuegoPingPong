@@ -384,12 +384,19 @@ NORD.initGameDefinitions = function() {
     name: 'BlankPanel2',
     url: 'assets/images/submode/BlankPanel2.png'
   },{
+    name: 'BlankPanel3',
+    url: 'assets/images/submode/BlankPanel2.png'
+  },{
     name: 'SelectedPanel',
     url: 'assets/images/submode/SelectedPanel.png'
   }, {
     name: 'SelectedPanel2',
     url: 'assets/images/submode/SelectedPanel2.png'
-  }, {
+  }, 
+  {
+    name: 'SelectedPanel3',
+    url: 'assets/images/submode/SelectedPanel2.png'
+  },{
     name: 'Easy',
     url: 'assets/images/submode/Easy.png'
   }, {

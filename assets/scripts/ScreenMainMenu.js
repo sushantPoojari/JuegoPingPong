@@ -2026,12 +2026,12 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
       selected: selected,
       left: {
         spriteOn: {
-          texture: 'SelectedPanel',
+          texture: 'SelectedPanel3',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'BlankPanel',
+          texture: 'BlankPanel3',
           aX: 0.5,
           aY: 0.5
         },
@@ -2040,12 +2040,12 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
       },
       center: {
         spriteOn: {
-          texture: 'SelectedPanel',
+          texture: 'SelectedPanel3',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'BlankPanel',
+          texture: 'BlankPanel3',
           aX: 0.5,
           aY: 0.5
         },
@@ -2054,12 +2054,12 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
       },
       right: {
         spriteOn: {
-          texture: 'SelectedPanel',
+          texture: 'SelectedPanel3',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'BlankPanel',
+          texture: 'BlankPanel3',
           aX: 0.5,
           aY: 0.5
         },
@@ -2068,12 +2068,12 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
       },
       bottomLeft: {
         spriteOn: {
-          texture: 'SelectedPanel',
+          texture: 'SelectedPanel3',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'BlankPanel',
+          texture: 'BlankPanel3',
           aX: 0.5,
           aY: 0.5
         },
@@ -2082,12 +2082,12 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
       },
       bottomRight: {
         spriteOn: {
-          texture: 'SelectedPanel',
+          texture: 'SelectedPanel3',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'BlankPanel',
+          texture: 'BlankPanel3',
           aX: 0.5,
           aY: 0.5
         },
@@ -2096,12 +2096,12 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
       },
       bottomCenter: {
         spriteOn: {
-          texture: 'SelectedPanel',
+          texture: 'SelectedPanel3',
           aX: 0.5,
           aY: 0.5
         },
         spriteOff: {
-          texture: 'BlankPanel',
+          texture: 'BlankPanel3',
           aX: 0.5,
           aY: 0.5
         },
