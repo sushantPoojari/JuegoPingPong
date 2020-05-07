@@ -566,7 +566,7 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
   } else this.sideCenter = null;
 
 
-  if (switcher == "Thriller") {
+  if (switcher == "Thriller" || switcher == "Region") {
     this.bottomLeft = {
       x: -225,
       y: 50,
@@ -591,6 +591,8 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
       spriteOff: Util.createSprite(switcherConfig.bottomCenter.spriteOff)
     };
 
+    if(switcher != "Region")
+    {
     this.playAll = {
       x: 0,
       y: 120,
@@ -599,6 +601,7 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
       spriteOff: Util.createSprite(switcherConfig.playAll.spriteOff)
     };
   }
+}
 
   this.sides = {
     left: this.sideLeft,
@@ -618,7 +621,7 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
 
 
 
-  if (switcher == "Thriller") {
+  if (switcher == "Thriller" || switcher == "Region") {
     this.addChild(this.bottomLeft.spriteOff);
     this.bottomLeft.spriteOff.x = this.bottomLeft.x;
     this.bottomLeft.spriteOff.y = this.bottomLeft.y;
@@ -640,6 +643,8 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
     this.bottomCenter.spriteOn.x = this.bottomCenter.x;
     this.bottomCenter.spriteOn.y = this.bottomCenter.y;
 
+if(switcher != "Region")
+{
     this.addChild(this.playAll.spriteOff);
     this.playAll.spriteOff.x = this.playAll.x;
     this.playAll.spriteOff.y = this.playAll.y;
@@ -647,11 +652,21 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
     this.playAll.spriteOn.x = this.playAll.x;
     this.playAll.spriteOn.y = this.playAll.y;
 
-    this.bottomLeft.spriteOn.scale.x = this.bottomLeft.spriteOff.scale.x = this.bottomRight.spriteOn.scale.x = this.bottomRight.spriteOff.scale.x = this.bottomCenter.spriteOn.scale.x = this.bottomCenter.spriteOff.scale.x = this.playAll.spriteOn.scale.x = this.playAll.spriteOff.scale.x = 0.45;
-    this.bottomLeft.spriteOn.scale.y = this.bottomLeft.spriteOff.scale.y = this.bottomRight.spriteOn.scale.y = this.bottomRight.spriteOff.scale.y = this.bottomCenter.spriteOn.scale.y = this.bottomCenter.spriteOff.scale.y = this.playAll.spriteOn.scale.y = this.playAll.spriteOff.scale.y = 0.45;
+    this.playAll.spriteOn.scale.x = this.playAll.spriteOff.scale.x = 0.45;
+    this.playAll.spriteOn.scale.y = this.playAll.spriteOff.scale.y = 0.45;
 
-    this.bottomLeft.spriteOn.visible = this.bottomRight.spriteOn.visible = this.bottomCenter.spriteOn.visible = this.playAll.spriteOn.visible = false;
-    this.bottomLeft.spriteOff.visible = this.bottomRight.spriteOff.visible = this.bottomCenter.spriteOff.visible = this.playAll.spriteOff.visible = false;
+    this.playAll.spriteOn.visible = false;
+    this.playAll.spriteOff.visible = false;
+
+    if (switcherConfig.playAll.spriteOnText != undefined) this.playAll.spriteOn.addChild(setText(switcherConfig.playAll.spriteOnText));
+    if (switcherConfig.playAll.spriteOffText != undefined) this.playAll.spriteOff.addChild(setText(switcherConfig.playAll.spriteOffText));
+  }
+
+    this.bottomLeft.spriteOn.scale.x = this.bottomLeft.spriteOff.scale.x = this.bottomRight.spriteOn.scale.x = this.bottomRight.spriteOff.scale.x = this.bottomCenter.spriteOn.scale.x = this.bottomCenter.spriteOff.scale.x =  0.45;
+    this.bottomLeft.spriteOn.scale.y = this.bottomLeft.spriteOff.scale.y = this.bottomRight.spriteOn.scale.y = this.bottomRight.spriteOff.scale.y = this.bottomCenter.spriteOn.scale.y = this.bottomCenter.spriteOff.scale.y = 0.45;
+
+    this.bottomLeft.spriteOn.visible = this.bottomRight.spriteOn.visible = this.bottomCenter.spriteOn.visible =  false;
+    this.bottomLeft.spriteOff.visible = this.bottomRight.spriteOff.visible = this.bottomCenter.spriteOff.visible =  false;
 
     if (switcherConfig.bottomLeft.spriteOnText != undefined) this.bottomLeft.spriteOn.addChild(setText(switcherConfig.bottomLeft.spriteOnText));
     if (switcherConfig.bottomLeft.spriteOffText != undefined) this.bottomLeft.spriteOff.addChild(setText(switcherConfig.bottomLeft.spriteOffText));
@@ -662,8 +677,7 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
     if (switcherConfig.bottomCenter.spriteOnText != undefined) this.bottomCenter.spriteOn.addChild(setText(switcherConfig.bottomCenter.spriteOnText));
     if (switcherConfig.bottomCenter.spriteOffText != undefined) this.bottomCenter.spriteOff.addChild(setText(switcherConfig.bottomCenter.spriteOffText));
 
-    if (switcherConfig.playAll.spriteOnText != undefined) this.playAll.spriteOn.addChild(setText(switcherConfig.playAll.spriteOnText));
-    if (switcherConfig.playAll.spriteOffText != undefined) this.playAll.spriteOff.addChild(setText(switcherConfig.playAll.spriteOffText));
+    
   }
 
   this.addChild(this.sideLeft.spriteOff);
@@ -1772,21 +1786,35 @@ NORD.subModeSelectionPopup = function(config) {
     scaleXY: 1.5
   });
 
-  var difficultyHeader = new PIXI.Text('CHOOSE DIFFICULTY', {
+  this.difficultyHeader = new PIXI.Text('CHOOSE DIFFICULTY', {
     font: '35px Snippet',
     fontSize: 17,
     fill: 'white',
     align: 'center'
   });
-  difficultyHeader.anchor.set(0.5);
-  difficultyHeader.position.set(0, 50);
-  this.addChild(difficultyHeader);
+  this.difficultyHeader.anchor.set(0.5);
+  this.difficultyHeader.position.set(0, 50);
+  this.addChild(this.difficultyHeader);
 
   this.switchDificulty = this.createSwitcher(0, 100, 'label_difficulty', 'Difficulty', 'left', function(side) {
     var dataMap = {
       left: 'easy',
       right: 'hard',
       center: 'medium'
+    };
+    var config = NORD.game.config;
+    config.dificulty = dataMap[side];
+    NORD.game.setConfig(config); // console.log('SSS:', config)
+  });
+
+  this.switchRegion = this.createSwitcher(0, 100, 'label_Region', 'Region', 'left', function(side) {
+    var dataMap = {
+      left: 'easy',
+      right: 'hard',
+      center: 'medium',
+      bottomLeft: 'SHADOW_MODE',
+      bottomRight: 'BLACK_HOLE_MODE',
+      bottomCenter: 'INVERSE_MODE'
     };
     var config = NORD.game.config;
     config.dificulty = dataMap[side];
@@ -1853,10 +1881,16 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
 
   this.switchNormalMode.visible = true;
   this.switchThrillerMode.visible = true;
+  this.switchRegion.visible = false;
+  this.difficultyHeader.text = 'CHOOSE DIFFICULTY';
 
-  // if (config.players == 'three')
-  //   this.switchDificulty.visible = false;
-  // else
+  if (config.players == 'three')
+  {
+    this.difficultyHeader.text = 'SELECT REGION';
+    this.switchDificulty.visible = false;
+    this.switchRegion.visible = true;
+  }
+  else
   this.switchDificulty.visible = true;
 
   if (config.mode == 'action') {
@@ -1979,6 +2013,96 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
         spriteOffText: 'HARD'
       }
     };
+    
+  } else if (switcherName == 'Region') {
+    config = {
+      selected: selected,
+      left: {
+        spriteOn: {
+          texture: 'BlankPanel',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'BlankPanel',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOnText: 'Asia',
+        spriteOffText: 'Asia',
+      },
+      center: {
+        spriteOn: {
+          texture: 'BlankPanel',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'BlankPanel',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOnText: 'India',
+        spriteOffText: 'India',
+      },
+      right: {
+        spriteOn: {
+          texture: 'BlankPanel',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'BlankPanel',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOnText: 'Europe',
+        spriteOffText: 'Europe',
+      },
+      bottomLeft: {
+        spriteOn: {
+          texture: 'BlankPanel',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'BlankPanel',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOnText: 'USA - East',
+        spriteOffText: 'USA - East',
+      },
+      bottomRight: {
+        spriteOn: {
+          texture: 'BlankPanel',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'BlankPanel',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOnText: 'Canada',
+        spriteOffText: 'Canada',
+      },
+      bottomCenter: {
+        spriteOn: {
+          texture: 'BlankPanel',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOff: {
+          texture: 'BlankPanel',
+          aX: 0.5,
+          aY: 0.5
+        },
+        spriteOnText: 'Russia',
+        spriteOffText: 'Russia ',
+      }
+    };
+
   } else if (switcherName == 'Thriller') {
     config = {
       selected: selected,
