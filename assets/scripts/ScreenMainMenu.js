@@ -95,13 +95,13 @@ NORD.ScreenMainMenu = function(config) {
     config.mode = dataMap[side];
     NORD.game.setConfig(config);
 
-    if(config.players != 'three')
+    if (config.players != 'three')
       return;
-    
-    if(side == 'left')
+
+    if (side == 'left')
       NORD.game.panelSettings.actionMode = NORD.MULTIPLAYER_GAME_MODE_TYPE.NONE
     else(side == 'right')
-      NORD.game.config.board = NORD.MULTIPLAYER_BOARD_TYPE.NORMAL_MODE
+    NORD.game.config.board = NORD.MULTIPLAYER_BOARD_TYPE.NORMAL_MODE
   });
 
   this.switcherMode.on('switch_start', function(side) {
@@ -598,17 +598,16 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
       spriteOff: Util.createSprite(switcherConfig.bottomCenter.spriteOff)
     };
 
-    if(switcher != "Region")
-    {
-    this.playAll = {
-      x: 0,
-      y: 120,
-      name: 'playAll',
-      spriteOn: Util.createSprite(switcherConfig.playAll.spriteOn),
-      spriteOff: Util.createSprite(switcherConfig.playAll.spriteOff)
-    };
+    if (switcher != "Region") {
+      this.playAll = {
+        x: 0,
+        y: 120,
+        name: 'playAll',
+        spriteOn: Util.createSprite(switcherConfig.playAll.spriteOn),
+        spriteOff: Util.createSprite(switcherConfig.playAll.spriteOff)
+      };
+    }
   }
-}
 
   this.sides = {
     left: this.sideLeft,
@@ -650,30 +649,29 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
     this.bottomCenter.spriteOn.x = this.bottomCenter.x;
     this.bottomCenter.spriteOn.y = this.bottomCenter.y;
 
-if(switcher != "Region")
-{
-    this.addChild(this.playAll.spriteOff);
-    this.playAll.spriteOff.x = this.playAll.x;
-    this.playAll.spriteOff.y = this.playAll.y;
-    this.addChild(this.playAll.spriteOn);
-    this.playAll.spriteOn.x = this.playAll.x;
-    this.playAll.spriteOn.y = this.playAll.y;
+    if (switcher != "Region") {
+      this.addChild(this.playAll.spriteOff);
+      this.playAll.spriteOff.x = this.playAll.x;
+      this.playAll.spriteOff.y = this.playAll.y;
+      this.addChild(this.playAll.spriteOn);
+      this.playAll.spriteOn.x = this.playAll.x;
+      this.playAll.spriteOn.y = this.playAll.y;
 
-    this.playAll.spriteOn.scale.x = this.playAll.spriteOff.scale.x = 0.45;
-    this.playAll.spriteOn.scale.y = this.playAll.spriteOff.scale.y = 0.45;
+      this.playAll.spriteOn.scale.x = this.playAll.spriteOff.scale.x = 0.45;
+      this.playAll.spriteOn.scale.y = this.playAll.spriteOff.scale.y = 0.45;
 
-    this.playAll.spriteOn.visible = false;
-    this.playAll.spriteOff.visible = false;
+      this.playAll.spriteOn.visible = false;
+      this.playAll.spriteOff.visible = false;
 
-    if (switcherConfig.playAll.spriteOnText != undefined) this.playAll.spriteOn.addChild(setText(switcherConfig.playAll.spriteOnText));
-    if (switcherConfig.playAll.spriteOffText != undefined) this.playAll.spriteOff.addChild(setText(switcherConfig.playAll.spriteOffText));
-  }
+      if (switcherConfig.playAll.spriteOnText != undefined) this.playAll.spriteOn.addChild(setText(switcherConfig.playAll.spriteOnText));
+      if (switcherConfig.playAll.spriteOffText != undefined) this.playAll.spriteOff.addChild(setText(switcherConfig.playAll.spriteOffText));
+    }
 
-    this.bottomLeft.spriteOn.scale.x = this.bottomLeft.spriteOff.scale.x = this.bottomRight.spriteOn.scale.x = this.bottomRight.spriteOff.scale.x = this.bottomCenter.spriteOn.scale.x = this.bottomCenter.spriteOff.scale.x =  0.45;
+    this.bottomLeft.spriteOn.scale.x = this.bottomLeft.spriteOff.scale.x = this.bottomRight.spriteOn.scale.x = this.bottomRight.spriteOff.scale.x = this.bottomCenter.spriteOn.scale.x = this.bottomCenter.spriteOff.scale.x = 0.45;
     this.bottomLeft.spriteOn.scale.y = this.bottomLeft.spriteOff.scale.y = this.bottomRight.spriteOn.scale.y = this.bottomRight.spriteOff.scale.y = this.bottomCenter.spriteOn.scale.y = this.bottomCenter.spriteOff.scale.y = 0.45;
 
-    this.bottomLeft.spriteOn.visible = this.bottomRight.spriteOn.visible = this.bottomCenter.spriteOn.visible =  false;
-    this.bottomLeft.spriteOff.visible = this.bottomRight.spriteOff.visible = this.bottomCenter.spriteOff.visible =  false;
+    this.bottomLeft.spriteOn.visible = this.bottomRight.spriteOn.visible = this.bottomCenter.spriteOn.visible = false;
+    this.bottomLeft.spriteOff.visible = this.bottomRight.spriteOff.visible = this.bottomCenter.spriteOff.visible = false;
 
     if (switcherConfig.bottomLeft.spriteOnText != undefined) this.bottomLeft.spriteOn.addChild(setText(switcherConfig.bottomLeft.spriteOnText));
     if (switcherConfig.bottomLeft.spriteOffText != undefined) this.bottomLeft.spriteOff.addChild(setText(switcherConfig.bottomLeft.spriteOffText));
@@ -684,7 +682,7 @@ if(switcher != "Region")
     if (switcherConfig.bottomCenter.spriteOnText != undefined) this.bottomCenter.spriteOn.addChild(setText(switcherConfig.bottomCenter.spriteOnText));
     if (switcherConfig.bottomCenter.spriteOffText != undefined) this.bottomCenter.spriteOff.addChild(setText(switcherConfig.bottomCenter.spriteOffText));
 
-    
+
   }
 
   this.addChild(this.sideLeft.spriteOff);
@@ -1891,14 +1889,12 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
   this.switchRegion.visible = false;
   this.difficultyHeader.text = 'CHOOSE DIFFICULTY';
 
-  if (config.players == 'three')
-  {
+  if (config.players == 'three') {
     this.difficultyHeader.text = 'SELECT REGION';
     this.switchDificulty.visible = false;
     this.switchRegion.visible = true;
-  }
-  else
-  this.switchDificulty.visible = true;
+  } else
+    this.switchDificulty.visible = true;
 
   if (config.mode == 'action') {
     this.switchNormalMode.visible = false;
@@ -2020,7 +2016,7 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
         spriteOffText: 'HARD'
       }
     };
-    
+
   } else if (switcherName == 'Region') {
     config = {
       selected: selected,

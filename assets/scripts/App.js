@@ -383,20 +383,19 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'BlankPanel2',
     url: 'assets/images/submode/BlankPanel2.png'
-  },{
+  }, {
     name: 'BlankPanel3',
-    url: 'assets/images/submode/BlankPanel2.png'
-  },{
+    url: 'assets/images/submode/BlankPanel3.png'
+  }, {
     name: 'SelectedPanel',
     url: 'assets/images/submode/SelectedPanel.png'
   }, {
     name: 'SelectedPanel2',
     url: 'assets/images/submode/SelectedPanel2.png'
-  }, 
-  {
+  }, {
     name: 'SelectedPanel3',
-    url: 'assets/images/submode/SelectedPanel2.png'
-  },{
+    url: 'assets/images/submode/SelectedPanel3.png'
+  }, {
     name: 'Easy',
     url: 'assets/images/submode/Easy.png'
   }, {
@@ -417,7 +416,7 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'Wifi-Icon',
     url: 'assets/images/popup/GamePlay/Wifi-Icon.png'
-  },{
+  }, {
     name: 'PauseBg',
     url: 'assets/images/popup/pause/PauseBg.png'
   }, {
@@ -426,18 +425,16 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'HomeButton',
     url: 'assets/images/common/HomeButton.png'
-  },{
+  }, {
     name: 'Highlights',
     url: 'assets/images/popup/pause/Highlights.png'
-  },
-{
-  name: 'TransparentLayer',
-  url: 'assets/images/common/TransparentLayer.png'
-},{
-  name: 'GreenRibbon',
-  url: 'assets/images/common/GreenRibbon.png'
-},
-]);
+  }, {
+    name: 'TransparentLayer',
+    url: 'assets/images/common/TransparentLayer.png'
+  }, {
+    name: 'GreenRibbon',
+    url: 'assets/images/common/GreenRibbon.png'
+  }, ]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
