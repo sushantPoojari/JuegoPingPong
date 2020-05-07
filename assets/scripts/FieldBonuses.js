@@ -867,21 +867,41 @@ NORD.Field.FireZone.prototype.destroy = function() {
 var GameStartText = function GameStartText() {
   PIXI.Container.call(this);
   this.textReady = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'text_ready.png',
+    texture: 'GreenRibbon',
     parent: this,
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.5
   });
+
+  var readyText = new PIXI.Text('READY', {
+    font: '35px Snippet',
+    fontSize: 64,
+    fill: 'white',
+    align: 'center'
+  });
+  readyText.anchor.set(0.5);
+  readyText.position.set(0, 0);
+  this.textReady.addChild(readyText);
+
   this.textGo = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'text_go.png',
+    texture: 'GreenRibbon',
     parent: this,
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.5
   });
+
+  var goText = new PIXI.Text('GO', {
+    font: '35px Snippet',
+    fontSize: 64,
+    fill: 'white',
+    align: 'center'
+  });
+  goText.anchor.set(0.5);
+  goText.position.set(0, 0);
+  this.textGo.addChild(goText);
+
   this.visible = false;
   this.tween1 = null;
   this.tween2 = null;

@@ -609,8 +609,8 @@ NORD.PanelPause = function(config) {
     aY: 0.5,
     scaleX: 100,
     scaleY: 100,
-    rotation:Math.PI / 2
   });
+
   TransparentLayer.alpha = 0.85;
 
   this.bg = Util.createSprite({
