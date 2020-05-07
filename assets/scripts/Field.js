@@ -347,6 +347,7 @@ NORD.Field = function() {
     'LEFT': this.paddleLeft,
     'RIGHT': this.paddleRight
   };
+  
   this.ball = new NORD.Field.Ball(this, 0, 0);
   this.ball1 = new NORD.Field.Ball(this, 0, 0);
   this.ball2 = new NORD.Field.Ball(this, 0, 0);
@@ -1881,9 +1882,10 @@ var RoundGenerator = function RoundGenerator(field) {
   this.containerScores.addChild(this.scoreRight);
 
   this.roundModeLabelBg = new PIXI.Graphics();
-  this.roundModeLabels = (_this$roundModeLabels = {}, _defineProperty(_this$roundModeLabels, 'KITTY', 'label_round_mode_kitty.png'), _defineProperty(_this$roundModeLabels, 'INVISIBLE_WALL', 'label_round_mode_invisible_wall.png'), _defineProperty(_this$roundModeLabels, 'INVISIBLE_AREA', 'label_round_mode_invisible_area.png'), _defineProperty(_this$roundModeLabels, 'GRAVITY_WELL', 'label_round_mode_gravity_well.png'), _defineProperty(_this$roundModeLabels, 'DOUBLE_BALL', 'label_round_mode_double_ball.png'), _defineProperty(_this$roundModeLabels, 'BIG_BALL_LITTLE_PADDLES', 'label_round_mode_b_b_l_p.png'), _defineProperty(_this$roundModeLabels, 'SMALL_GRAVITY_WELL', 'label_round_mode_small_gravity_well.png'), _defineProperty(_this$roundModeLabels, 'FIRE_ZONE', 'label_round_mode_fire_zone.png'), _defineProperty(_this$roundModeLabels, 'BUMPER', 'label_round_mode_bumper.png'), _defineProperty(_this$roundModeLabels, 'STUN_GUN', 'label_round_mode_stun_gun.png'), _defineProperty(_this$roundModeLabels, 'STUN_PLAYER', 'label_round_mode_stun_gun.png'), _defineProperty(_this$roundModeLabels, 'KITTY_SHRINK_PADDLE', 'label_round_mode_stun_gun.png'), _this$roundModeLabels);
+  this.roundModeLabels = (_this$roundModeLabels = {}, _defineProperty(_this$roundModeLabels, 'KITTY', 'KITTY'), _defineProperty(_this$roundModeLabels, 'INVISIBLE_WALL', 'INVISIBLE WALL'), _defineProperty(_this$roundModeLabels, 'INVISIBLE_AREA', 'INVISIBLE AREA'), _defineProperty(_this$roundModeLabels, 'GRAVITY_WELL', 'GRAVITY WELL'), _defineProperty(_this$roundModeLabels, 'DOUBLE_BALL', 'DOUBLE BALL'), _defineProperty(_this$roundModeLabels, 'BIG_BALL_LITTLE_PADDLES', 'BIG BALL LITTLE PADDLES'), _defineProperty(_this$roundModeLabels, 'SMALL_GRAVITY_WELL', 'SMALL GRAVITY WELL'), _defineProperty(_this$roundModeLabels, 'FIRE_ZONE', 'FIRE ZONE'), _defineProperty(_this$roundModeLabels, 'BUMPER', 'BUMPER'), _defineProperty(_this$roundModeLabels, 'STUN_GUN', 'STUN GUN'), _defineProperty(_this$roundModeLabels, 'STUN_PLAYER', 'STUN PLAYER'), _defineProperty(_this$roundModeLabels, 'KITTY_SHRINK_PADDLE', 'KITTY SHRINK PADDLE'), _this$roundModeLabels);
   this.containerScores.addChild(this.roundModeLabelBg);
   this.roundModeLabelBg.y = -100;
+  
   this.gravityModeK = Util.randomRangeInt(0, 1);
   this.roundModeLabel = Util.createSprite({
     atlas: 'texture_atlas',
@@ -1893,7 +1895,7 @@ var RoundGenerator = function RoundGenerator(field) {
   });
   this.containerScores.addChild(this.roundModeLabel);
   this.roundModeLabel.x = 0;
-  this.roundModeLabel.y = -100;
+  this.roundModeLabel.y = 0;
   this.pressSpace = Util.createSprite({
     atlas: 'texture_atlas',
     texture: NORD.app.platform === 'mobile' ? 'tap_to_shoot.png' : NORD.game.config.players == 'one' ? 'press_space.png' : 'press_both.png',
@@ -2377,12 +2379,25 @@ RoundGenerator.prototype.initRound = function() {
 };
 
 RoundGenerator.prototype.initRoundMode = function() {
-  this.roundModeLabel.texture = NORD.assetsManager.getTexture('texture_atlas', this.roundModeLabels[this.roundMode]);
-  this.roundModeLabel.scale.x = this.roundModeLabel.scale.y = 0.7;
+  debugger;
+  this.roundModeLabel.texture = NORD.assetsManager.getTexture('GreenRibbon');
+  this.roundModeLabel.scale.x = this.roundModeLabel.scale.y = 0.375;
   var padding = 10;
+
   this.roundModeLabelBg.clear();
   this.roundModeLabelBg.beginFill(0x2F2F64, 1.0);
+  this.roundModeLabelBg.alpha = 0.05;
   this.roundModeLabelBg.drawRect(-this.roundModeLabel.width / 2 - padding, -this.roundModeLabel.height / 2 - padding, this.roundModeLabel.width + padding * 2, this.roundModeLabel.height + padding * 2);
+
+  var modeName = new PIXI.Text(this.roundModeLabels[this.roundMode], {
+    font: '35px Snippet',
+    fontSize: 64,
+    fill: 'white',
+    align: 'center'
+  });
+  modeName.anchor.set(0.5);
+  modeName.position.set(0, 0);
+  this.roundModeLabel.addChild(modeName);
 };
 
 RoundGenerator.prototype.createObstacle = function(mode) {
