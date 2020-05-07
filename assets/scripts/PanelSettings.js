@@ -131,21 +131,21 @@ NORD.PanelSettings = function(config) {
   //  console.log('Click!');
   // });
 
-  // if (window.localStorage.enable_settings) {
-  var keyUp = Util.keyboard({
-    code: 'Q'.charCodeAt(0),
-    keyDownHandler: function keyDownHandler() {
-      // console.log(self);
-      if (self.state == 'hide') self.tween({
-        name: 'show_anim'
-      });
-      if (self.state == 'show') self.tween({
-        name: 'hide_anim'
-      });
-    },
-    keyUpHandler: function keyUpHandler() {}
-  });
-  // }
+  if (window.localStorage.enable_settings) {
+    var keyUp = Util.keyboard({
+      code: 'Q'.charCodeAt(0),
+      keyDownHandler: function keyDownHandler() {
+        // console.log(self);
+        if (self.state == 'hide') self.tween({
+          name: 'show_anim'
+        });
+        if (self.state == 'show') self.tween({
+          name: 'hide_anim'
+        });
+      },
+      keyUpHandler: function keyUpHandler() {}
+    });
+  }
 };
 
 NORD.PanelSettings.prototype = Object.create(NORD.GUI.BasePanel.prototype);
