@@ -98,9 +98,9 @@ NORD.ScreenMainMenu = function(config) {
     if(config.players != 'three')
       return;
     
-    if(side == left)
+    if(side == 'left')
       NORD.game.panelSettings.actionMode = NORD.MULTIPLAYER_GAME_MODE_TYPE.NONE
-    else(side == right)
+    else(side == 'right')
       NORD.game.config.board = NORD.MULTIPLAYER_BOARD_TYPE.NORMAL_MODE
   });
 
@@ -2026,7 +2026,7 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
       selected: selected,
       left: {
         spriteOn: {
-          texture: 'BlankPanel',
+          texture: 'SelectedPanel',
           aX: 0.5,
           aY: 0.5
         },
@@ -2040,7 +2040,7 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
       },
       center: {
         spriteOn: {
-          texture: 'BlankPanel',
+          texture: 'SelectedPanel',
           aX: 0.5,
           aY: 0.5
         },
@@ -2054,7 +2054,7 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
       },
       right: {
         spriteOn: {
-          texture: 'BlankPanel',
+          texture: 'SelectedPanel',
           aX: 0.5,
           aY: 0.5
         },
@@ -2068,7 +2068,7 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
       },
       bottomLeft: {
         spriteOn: {
-          texture: 'BlankPanel',
+          texture: 'SelectedPanel',
           aX: 0.5,
           aY: 0.5
         },
@@ -2082,7 +2082,7 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
       },
       bottomRight: {
         spriteOn: {
-          texture: 'BlankPanel',
+          texture: 'SelectedPanel',
           aX: 0.5,
           aY: 0.5
         },
@@ -2096,7 +2096,7 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
       },
       bottomCenter: {
         spriteOn: {
-          texture: 'BlankPanel',
+          texture: 'SelectedPanel',
           aX: 0.5,
           aY: 0.5
         },
