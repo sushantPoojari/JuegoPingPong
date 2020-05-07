@@ -145,9 +145,16 @@ NORD.ScreenMainMenu = function(config) {
     var _this2 = this;
 
     // if (this.state !== 'show' || this.panelEndGame.state !== 'hide') return;
+
+    if (NORD.game.config.players == "three") {
+      if (DemoLoadFunction != null)
+        DemoLoadFunction.disconnect();
+      DemoLoadFunction = undefined;
+    }
     TweenMax.delayedCall(0.07 * 2, function() {
-      if (NORD.game.config.players == "three")
+      if (NORD.game.config.players == "three") {
         NORD.mainMenu.multiplayerSelectionPopup.startPhotonSerer();
+      }
       _this2.subModeSelectionPopup.show();
     });
   }, this);
@@ -1503,7 +1510,7 @@ NORD.randomNamePopup = function(config) {
       padding: '14px 24px',
       width: '150px',
       height: '40px',
-      color: 'white'
+      color: 'black'
     },
     box: {
       default: {
@@ -1528,6 +1535,7 @@ NORD.randomNamePopup = function(config) {
       }
     }
   })
+  this.l_playerName.maxLength = 12;
 
   this.l_playerName.placeholder = 'Enter your Text...'
   this.l_playerName.x = this.bg.width / 2;
@@ -1571,20 +1579,26 @@ NORD.randomNamePopup = function(config) {
     MainMenuLocation.enableAllButtons();
     if (this.state !== 'show') return;
     TweenMax.delayedCall(0.07 * 2, function() {
+      if (!Util.compareProfanityWords(NORD.mainMenu.randomNamePopup.l_playerName.text)) {
+        var connectedReg = NORD.game.config.region;
+        localStorage.setItem('savedServerRegion', connectedReg);
+        console.log("connected region " + connectedReg);
+        DemoLoadFunction.connectToRegionMaster(connectedReg);
+      }
 
-      NORD.App.playerController.config.playerAdjectiveId = NORD.App.playerController.randomAdjectiveNumber;
-      NORD.App.playerController.config.playerNounId = NORD.App.playerController.randomNounNumber;
-
-      NORD.App.playerController.saveConfig();
-
-      _this5.hide("", function() {
-        if (PP.server_using == PP.SERVER_USING.Photon) {
-          NORD.mainMenu.multiplayerSelectionPopup.show();
-          NORD.mainMenu.multiplayerSelectionPopup.startPhotonSerer();
-        } else {
-          NORD.mainMenu.multiplayerSelectionPopup.loginToSmartBox();
-        }
-      });
+      // NORD.App.playerController.config.playerAdjectiveId = NORD.App.playerController.randomAdjectiveNumber;
+      // NORD.App.playerController.config.playerNounId = NORD.App.playerController.randomNounNumber;
+      //
+      // NORD.App.playerController.saveConfig();
+      //
+      // _this5.hide("", function() {
+      //   if (PP.server_using == PP.SERVER_USING.Photon) {
+      //     NORD.mainMenu.multiplayerSelectionPopup.show();
+      //     NORD.mainMenu.multiplayerSelectionPopup.startPhotonSerer();
+      //   } else {
+      //     NORD.mainMenu.multiplayerSelectionPopup.loginToSmartBox();
+      //   }
+      // });
     });
     // DemoLoadFunction.createRoom(name, k);
   }, this);
@@ -1816,15 +1830,15 @@ NORD.subModeSelectionPopup = function(config) {
 
   this.switchRegion = this.createSwitcher(0, 100, 'label_Region', 'Region', 'left', function(side) {
     var dataMap = {
-      left: 'easy',
-      right: 'hard',
-      center: 'medium',
-      bottomLeft: 'SHADOW_MODE',
-      bottomRight: 'BLACK_HOLE_MODE',
-      bottomCenter: 'INVERSE_MODE'
+      left: 'asia',
+      right: 'eu',
+      center: 'in',
+      bottomLeft: 'us',
+      bottomRight: 'cae',
+      bottomCenter: 'ru'
     };
     var config = NORD.game.config;
-    config.dificulty = dataMap[side];
+    config.region = dataMap[side];
     NORD.game.setConfig(config); // console.log('SSS:', config)
   });
 

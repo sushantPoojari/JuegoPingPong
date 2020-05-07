@@ -411,6 +411,27 @@ Util.memorySizeOf = function(obj) {
   return formatByteSize(sizeOf(obj));
 };
 
+Util.compareProfanityWords = function(text) {
+  var t_dAllNamesData = NORD.assetsManager.getJson('profanityNames');
+  var words = t_dAllNamesData['BadWords'];
+  for (var i = 0; i < words.length; i++) {
+    if (text == words[i])
+      return true;
+  }
+  if (Util.checkSpecialCharacter(text))
+    return true;
+
+  if (text == "")
+    return true;
+
+  return false;
+};
+Util.checkSpecialCharacter = function(text) {
+  var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+  var value = format.test(text);
+  return value;
+};
+
 //sushant
 
 

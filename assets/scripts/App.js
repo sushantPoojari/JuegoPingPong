@@ -105,6 +105,9 @@ NORD.initGameDefinitions = function() {
     name: 'randomNames',
     url: 'assets/RandomNames.json'
   }, {
+    name: 'profanityNames',
+    url: 'assets/ProfanityNames.json'
+  }, {
     name: 'PH_92',
     url: 'assets/fonts/PH_92.fnt'
   }, {
