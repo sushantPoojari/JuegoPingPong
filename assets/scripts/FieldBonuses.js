@@ -866,12 +866,13 @@ NORD.Field.FireZone.prototype.destroy = function() {
 
 var GameStartText = function GameStartText() {
   PIXI.Container.call(this);
+
   this.textReady = Util.createSprite({
     texture: 'GreenRibbon',
     parent: this,
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.5
+    scaleXY: 0.375
   });
 
   var readyText = new PIXI.Text('READY', {
@@ -889,7 +890,7 @@ var GameStartText = function GameStartText() {
     parent: this,
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.5
+    scaleXY: 0.375
   });
 
   var goText = new PIXI.Text('GO', {
@@ -925,7 +926,7 @@ GameStartText.prototype.play = function(callback) {
   this.visible = true;
   this.textReady.y = this.textGo.y = -30;
   this.textReady.alpha = this.textGo.alpha = 0.0;
-  this.textReady.scale.x = this.textReady.scale.y = 0.5; // this.textGo.scale.x = this.textGo.scale.y = 0.5;
+ // this.textReady.scale.x = this.textReady.scale.y = 0.5; // this.textGo.scale.x = this.textGo.scale.y = 0.5;
 
   var time = 6 / 30; // this.textReady.scale.x = this.textReady.scale.y = 0.7;
 
