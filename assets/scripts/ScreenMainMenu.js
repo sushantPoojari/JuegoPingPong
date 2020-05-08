@@ -73,7 +73,7 @@ NORD.ScreenMainMenu = function(config) {
   this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
 
   /*********************************************************************************Game Type**************************************************************************************************/
-  this.switcherPlayers = this.createSwitcher(0, startY + 0, 'label_players', 'players', gConfig.players == 'one' ? 'left' : 'right', function(side) {
+  this.switcherPlayers = this.createSwitcher(0, startY + 0, 'label_players', 'players','left', function(side) {
     var dataMap = {
       left: 'one',
       center: 'two',
@@ -86,7 +86,7 @@ NORD.ScreenMainMenu = function(config) {
   });
 
   /*********************************************************************************Game Mode**************************************************************************************************/
-  this.switcherMode = this.createSwitcher(0, startY + 150, 'label_mode', 'mode', gConfig.mode == 'classic' ? 'left' : 'right', function(side) {
+  this.switcherMode = this.createSwitcher(0, startY + 150, 'label_mode', 'mode', 'left', function(side) {
     var dataMap = {
       left: 'classic',
       right: 'action'
@@ -101,7 +101,7 @@ NORD.ScreenMainMenu = function(config) {
     if (side == 'left') {
       NORD.game.panelSettings.actionMode = NORD.MULTIPLAYER_GAME_MODE_TYPE.NONE
     } else(side == 'right')
-    NORD.game.config.board = NORD.MULTIPLAYER_BOARD_TYPE.NORMAL_MODE
+      NORD.game.config.board = NORD.MULTIPLAYER_BOARD_TYPE.NORMAL_MODE
   });
 
   this.switcherMode.on('switch_start', function(side) {
@@ -143,7 +143,6 @@ NORD.ScreenMainMenu = function(config) {
 
   btn.addListener('button_click', function(data) {
     var _this2 = this;
-
     // if (this.state !== 'show' || this.panelEndGame.state !== 'hide') return;
 
     if (NORD.game.config.players == "three") {
@@ -1691,7 +1690,6 @@ NORD.randomNamePopup.prototype.tween = function(data, callback) {
 };
 
 NORD.randomNamePopup.prototype.updateName = function() {
-  debugger;
   // this.l_playerName.scale = 1;
   this.l_playerName.text = NORD.App.playerController.getName();
   this.updateNameSize();
@@ -1706,7 +1704,6 @@ NORD.randomNamePopup.prototype.updateNameSize = function() {
 }
 
 NORD.randomNamePopup.prototype.updateRandomName = function() {
-  debugger;
   // this.l_playerName.scale = 1;
   this.l_playerName.text = NORD.App.playerController.getRandomName();
   this.updateNameSize();

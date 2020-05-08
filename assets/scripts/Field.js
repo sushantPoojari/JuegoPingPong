@@ -1895,7 +1895,7 @@ var RoundGenerator = function RoundGenerator(field) {
   });
   this.containerScores.addChild(this.roundModeLabel);
   this.roundModeLabel.x = 0;
-  this.roundModeLabel.y = 0;
+  this.roundModeLabel.y = -100;
   this.pressSpace = Util.createSprite({
     atlas: 'texture_atlas',
     texture: NORD.app.platform === 'mobile' ? 'tap_to_shoot.png' : NORD.game.config.players == 'one' ? 'press_space.png' : 'press_both.png',
