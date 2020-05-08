@@ -2381,12 +2381,13 @@ RoundGenerator.prototype.initRound = function() {
 RoundGenerator.prototype.initRoundMode = function() {
   this.roundModeLabel.texture = NORD.assetsManager.getTexture('GreenRibbon');
   this.roundModeLabel.scale.x = this.roundModeLabel.scale.y = 0.375;
-  var padding = 10;
+  var padding = 3;
+  var widthPadding = 50;
 
   this.roundModeLabelBg.clear();
-  this.roundModeLabelBg.beginFill(0x2F2F64, 1.0);
-  this.roundModeLabelBg.alpha = 0.05;
-  this.roundModeLabelBg.drawRect(-this.roundModeLabel.width / 2 - padding, -this.roundModeLabel.height / 2 - padding, this.roundModeLabel.width + padding * 2, this.roundModeLabel.height + padding * 2);
+  this.roundModeLabelBg.beginFill(0x29292b, 0.4);
+  // this.roundModeLabelBg.alpha = 1;
+  this.roundModeLabelBg.drawRect(-this.roundModeLabel.width / 2 - widthPadding, -this.roundModeLabel.height / 2 - padding, this.roundModeLabel.width + widthPadding * 2, this.roundModeLabel.height + padding * 2);
 
   var modeName = new PIXI.Text(this.roundModeLabels[this.roundMode], {
     font: '35px Snippet',
