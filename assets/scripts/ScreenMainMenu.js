@@ -1883,13 +1883,8 @@ NORD.subModeSelectionPopup = function(config) {
   rotateAction();
 
   function rotateAction() {
-    self.currentAngle += 90;
-    TweenMax.to(self.loadingIndicator, 1, {
-      angle: self.currentAngle,
-      onComplete: () => {
-        rotateAction();
-      }
-    }, this);
+    requestAnimationFrame(rotateAction);
+   self.loadingIndicator.rotation += 0.01;
   }
 
 };
