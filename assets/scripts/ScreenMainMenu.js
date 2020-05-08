@@ -145,12 +145,11 @@ NORD.ScreenMainMenu = function(config) {
     var _this2 = this;
     // if (this.state !== 'show' || this.panelEndGame.state !== 'hide') return;
 
-
     TweenMax.delayedCall(0.07 * 2, function() {
-      if (NORD.game.config.players == "three") {
+      if (NORD.game.config.players == "three")
         _this2.randomNamePopup.show();
-      }
-      _this2.subModeSelectionPopup.show();
+      else
+        _this2.subModeSelectionPopup.show();
     });
   }, this);
   alignItems([logo, this.containerSwitchers, btn], 460);
