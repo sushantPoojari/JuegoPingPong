@@ -2389,22 +2389,18 @@ RoundGenerator.prototype.initRoundMode = function() {
   // this.roundModeLabelBg.alpha = 1;
   this.roundModeLabelBg.drawRect(-this.roundModeLabel.width / 2 - widthPadding, -this.roundModeLabel.height / 2 - padding, this.roundModeLabel.width + widthPadding * 2, this.roundModeLabel.height + padding * 2);
 
-  debugger;
-
-  if(this.modeName == undefined)
-  {
-  this.modeName = new PIXI.Text(this.roundModeLabels[this.roundMode], {
-    font: '35px Snippet',
-    fontSize: 64,
-    fill: 'white',
-    align: 'center'
-  });
-  this.modeName.anchor.set(0.5);
-  this.modeName.position.set(0, 0);
-  this.roundModeLabel.addChild(this.modeName);
-}
-else
-  this.modeName.text = this.roundModeLabels[this.roundMode];
+  if (this.modeName == undefined) {
+    this.modeName = new PIXI.Text(this.roundModeLabels[this.roundMode], {
+      font: '35px Snippet',
+      fontSize: 64,
+      fill: 'white',
+      align: 'center'
+    });
+    this.modeName.anchor.set(0.5);
+    this.modeName.position.set(0, 0);
+    this.roundModeLabel.addChild(this.modeName);
+  } else
+    this.modeName.text = this.roundModeLabels[this.roundMode];
 };
 
 RoundGenerator.prototype.createObstacle = function(mode) {
