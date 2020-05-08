@@ -347,7 +347,7 @@ NORD.Field = function() {
     'LEFT': this.paddleLeft,
     'RIGHT': this.paddleRight
   };
-  
+
   this.ball = new NORD.Field.Ball(this, 0, 0);
   this.ball1 = new NORD.Field.Ball(this, 0, 0);
   this.ball2 = new NORD.Field.Ball(this, 0, 0);
@@ -1772,13 +1772,13 @@ NORD.Field.PaddleControllerHuman.prototype.updatePosition = function() {
     this.paddle.moveToSoft(this.controlArea.getPositionY());
   } else if (this.isUp) {
     // this.paddle.moveTo(-1200);
-    if (NORD.game.config.mode == 'action' && NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.INVERSE_MODE)
+    if (NORD.game.config.mode == 'action' && NORD.game.field.roundMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.INVERSE_MODE)
       this.paddle.moveTo('DOWN');
     else
       this.paddle.moveTo('UP');
   } else if (this.isDown) {
     // this.paddle.moveTo(1200);
-    if (NORD.game.config.mode == 'action' && NORD.game.panelSettings.actionMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.INVERSE_MODE)
+    if (NORD.game.config.mode == 'action' && NORD.game.field.roundMode == NORD.MULTIPLAYER_GAME_MODE_TYPE.INVERSE_MODE)
       this.paddle.moveTo('UP');
     else
       this.paddle.moveTo('DOWN');
@@ -1885,7 +1885,7 @@ var RoundGenerator = function RoundGenerator(field) {
   this.roundModeLabels = (_this$roundModeLabels = {}, _defineProperty(_this$roundModeLabels, 'KITTY', 'KITTY'), _defineProperty(_this$roundModeLabels, 'INVISIBLE_WALL', 'INVISIBLE WALL'), _defineProperty(_this$roundModeLabels, 'INVISIBLE_AREA', 'INVISIBLE AREA'), _defineProperty(_this$roundModeLabels, 'GRAVITY_WELL', 'GRAVITY WELL'), _defineProperty(_this$roundModeLabels, 'DOUBLE_BALL', 'DOUBLE BALL'), _defineProperty(_this$roundModeLabels, 'BIG_BALL_LITTLE_PADDLES', 'BIG BALL LITTLE PADDLES'), _defineProperty(_this$roundModeLabels, 'SMALL_GRAVITY_WELL', 'SMALL GRAVITY WELL'), _defineProperty(_this$roundModeLabels, 'FIRE_ZONE', 'FIRE ZONE'), _defineProperty(_this$roundModeLabels, 'BUMPER', 'BUMPER'), _defineProperty(_this$roundModeLabels, 'STUN_GUN', 'STUN GUN'), _defineProperty(_this$roundModeLabels, 'STUN_PLAYER', 'STUN PLAYER'), _defineProperty(_this$roundModeLabels, 'KITTY_SHRINK_PADDLE', 'KITTY SHRINK PADDLE'), _this$roundModeLabels);
   this.containerScores.addChild(this.roundModeLabelBg);
   this.roundModeLabelBg.y = -100;
-  
+
   this.gravityModeK = Util.randomRangeInt(0, 1);
   this.roundModeLabel = Util.createSprite({
     atlas: 'texture_atlas',
@@ -2379,7 +2379,6 @@ RoundGenerator.prototype.initRound = function() {
 };
 
 RoundGenerator.prototype.initRoundMode = function() {
-  debugger;
   this.roundModeLabel.texture = NORD.assetsManager.getTexture('GreenRibbon');
   this.roundModeLabel.scale.x = this.roundModeLabel.scale.y = 0.375;
   var padding = 10;
@@ -2766,7 +2765,7 @@ var ObstacleGenerator = function ObstacleGenerator(field) {
 };
 
 ObstacleGenerator.prototype.resetAvaiableObstacles = function() {
-  this.avaiableObstacles = ['KITTY', 'GRAVITY_WELL', 'INVISIBLE_AREA', 'INVISIBLE_WALL'];
+  this.avaiableObstacles = ['STUN_PLAYER', 'KITTY_SHRINK_PADDLE', 'SHADOW_MODE', 'BLACK_HOLE_MODE', 'INVERSE_MODE', 'TELEPORT_MODE'];
 };
 
 ObstacleGenerator.prototype.nextObstacle = function() {
@@ -3141,7 +3140,7 @@ var createTeleport1 = function createTeleport1(field, config, data) {
     bonusContainer.x = -80;
     bonusContainer.y = -100;
   }
-  if (NORD.game.panelSettings.actionMode === 'BLACK_HOLE_MODE') {
+  if (NORD.game.field.roundMode === 'BLACK_HOLE_MODE') {
     bonusContainer.bg.texture = NORD.assetsManager.getTexture('Blackhole');
   }
 
@@ -3195,7 +3194,7 @@ var createTeleport2 = function createTeleport1(field, config, data) {
     bonusContainer.x = 80;
     bonusContainer.y = -100;
   }
-  if (NORD.game.panelSettings.actionMode === 'BLACK_HOLE_MODE') {
+  if (NORD.game.field.roundMode === 'BLACK_HOLE_MODE') {
     bonusContainer.bg.texture = NORD.assetsManager.getTexture('Blackhole');
   }
 
