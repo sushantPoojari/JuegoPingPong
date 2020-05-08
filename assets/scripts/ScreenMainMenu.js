@@ -73,7 +73,7 @@ NORD.ScreenMainMenu = function(config) {
   this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
 
   /*********************************************************************************Game Type**************************************************************************************************/
-  this.switcherPlayers = this.createSwitcher(0, startY + 0, 'label_players', 'players','left', function(side) {
+  this.switcherPlayers = this.createSwitcher(0, startY + 0, 'label_players', 'players', 'left', function(side) {
     var dataMap = {
       left: 'one',
       center: 'two',
@@ -101,7 +101,7 @@ NORD.ScreenMainMenu = function(config) {
     if (side == 'left') {
       NORD.game.panelSettings.actionMode = NORD.MULTIPLAYER_GAME_MODE_TYPE.NONE
     } else(side == 'right')
-      NORD.game.config.board = NORD.MULTIPLAYER_BOARD_TYPE.NORMAL_MODE
+    NORD.game.config.board = NORD.MULTIPLAYER_BOARD_TYPE.NORMAL_MODE
   });
 
   this.switcherMode.on('switch_start', function(side) {
@@ -145,14 +145,10 @@ NORD.ScreenMainMenu = function(config) {
     var _this2 = this;
     // if (this.state !== 'show' || this.panelEndGame.state !== 'hide') return;
 
-    if (NORD.game.config.players == "three") {
-      if (DemoLoadFunction != null)
-        DemoLoadFunction.disconnect();
-      DemoLoadFunction = undefined;
-    }
+
     TweenMax.delayedCall(0.07 * 2, function() {
       if (NORD.game.config.players == "three") {
-        NORD.mainMenu.multiplayerSelectionPopup.startPhotonSerer();
+        _this2.randomNamePopup.show();
       }
       _this2.subModeSelectionPopup.show();
     });
@@ -1537,6 +1533,8 @@ NORD.randomNamePopup = function(config) {
   this.l_playerName.maxLength = 12;
 
   this.l_playerName.placeholder = 'Enter your Text...'
+  if (NORD.App.playerController.getName() != null)
+    this.l_playerName.text = NORD.App.playerController.getName();
   this.l_playerName.x = this.bg.width / 2;
   this.l_playerName.y = this.bg.height / 2;
   this.l_playerName.pivot.x = this.l_playerName.width / 2
@@ -1580,25 +1578,14 @@ NORD.randomNamePopup = function(config) {
     TweenMax.delayedCall(0.07 * 2, function() {
       if (!Util.compareProfanityWords(NORD.mainMenu.randomNamePopup.l_playerName.text)) {
         NORD.App.playerController.setName(NORD.mainMenu.randomNamePopup.l_playerName.text);
-        var connectedReg = NORD.game.config.region;
-        localStorage.setItem('savedServerRegion', connectedReg);
-        console.log("connected region " + connectedReg);
-        DemoLoadFunction.connectToRegionMaster(connectedReg);
-      }
 
-      // NORD.App.playerController.config.playerAdjectiveId = NORD.App.playerController.randomAdjectiveNumber;
-      // NORD.App.playerController.config.playerNounId = NORD.App.playerController.randomNounNumber;
-      //
-      // NORD.App.playerController.saveConfig();
-      //
-      // _this5.hide("", function() {
-      //   if (PP.server_using == PP.SERVER_USING.Photon) {
-      //     NORD.mainMenu.multiplayerSelectionPopup.show();
-      //     NORD.mainMenu.multiplayerSelectionPopup.startPhotonSerer();
-      //   } else {
-      //     NORD.mainMenu.multiplayerSelectionPopup.loginToSmartBox();
-      //   }
-      // });
+        if (DemoLoadFunction != null)
+          DemoLoadFunction.disconnect();
+        DemoLoadFunction = undefined;
+        NORD.mainMenu.multiplayerSelectionPopup.startPhotonSerer();
+        NORD.game.screenMainMenu.subModeSelectionPopup.show();
+        NORD.mainMenu.randomNamePopup.hide();
+      }
     });
     // DemoLoadFunction.createRoom(name, k);
   }, this);
@@ -1865,18 +1852,12 @@ NORD.subModeSelectionPopup = function(config) {
 
           var currentTime = Date.now();
 
-          if (NORD.App.playerController.config.playerAdjectiveId == -1) {
-            //NORD.App.playerController.getRandomName();
-            // _this2.randomNamePopup.updateName();
-            _this2.randomNamePopup.show();
-          } else {
-            if (PP.server_using == PP.SERVER_USING.Photon) {
-              _this2.multiplayerSelectionPopup.show();
-              _this2.multiplayerSelectionPopup.startPhotonSerer();
-            } else {
-              _this2.multiplayerSelectionPopup.loginToSmartBox();
-            }
-          }
+
+
+          var connectedReg = NORD.game.config.region;
+          localStorage.setItem('savedServerRegion', connectedReg);
+          console.log("connected region " + connectedReg);
+          DemoLoadFunction.connectToRegionMaster(connectedReg);
           // _this2.multilayerPanel.show();
         });
       }
