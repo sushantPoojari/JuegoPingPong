@@ -1832,8 +1832,6 @@ NORD.subModeSelectionPopup = function(config) {
 
           var currentTime = Date.now();
 
-
-
           var connectedReg = NORD.game.config.region;
           localStorage.setItem('savedServerRegion', connectedReg);
           console.log("connected region " + connectedReg);

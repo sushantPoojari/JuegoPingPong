@@ -33,27 +33,84 @@ NORD.LoadingPopup = function(config) {
     texture: 'Separator',
     aX: 0.5,
     aY: 0.5,
-    rotation: -90,
     scaleXY: 1.5
   });
 
-  this.loaderText = new PIXI.Text('Waiting For Opponent', {
+  dividerLine.angle = 90;
+
+  var ball = Util.createSprite({
+    parent: this,
+    x: 0,
+    y: 0,
+    texture: 'Ball',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.5
+  });
+
+  var PlayerRight = Util.createSprite({
+    parent: this,
+    x: 225,
+    y: 0,
+    texture: 'PlayerRight',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.5
+  });
+
+  this.playerName = new PIXI.Text('YOU', {
     font: '35px Snippet',
-    fontSize: 17,
+    fontSize: 64,
     fill: 'white',
     align: 'center',
     width: 250,
     height: 150
   });
+  this.playerName.anchor.set(0.5);
+  this.playerName.position.x = 500;
+  this.playerName.position.y = 250;
+  this.bg.addChild(this.playerName);
+
+
+  var PlayerLeft = Util.createSprite({
+    parent: this,
+    x: -225,
+    y: 0,
+    texture: 'PlayerLeft',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.5
+  });
+  PlayerLeft.alpha = 0.5;
+
+  this.playerName = new PIXI.Text('OPPONENT', {
+    font: '35px Snippet',
+    fontSize: 64,
+    fill: 'white',
+    align: 'center',
+    width: 250,
+    height: 150
+  });
+  this.playerName.anchor.set(0.5);
+  this.playerName.position.x = -500;
+  this.playerName.position.y = 250;
+  this.bg.addChild(this.playerName);
+
+  this.loaderText = new PIXI.Text('Waiting For Opponent...', {
+    font: '35px Snippet',
+    fontSize: 64,
+    fill: 'white',
+    align: 'center',
+  });
   this.loaderText.anchor.set(0.5);
-  this.loaderText.position.x = 640 * 0.5;
-  this.loaderText.position.y = 280;
+  this.loaderText.position.x = 0;
+  this.loaderText.position.y = -400;
   this.bg.addChild(this.loaderText);
 
 
   this.loadingIndicator = new PIXI.Sprite(NORD.assetsManager.getTexture('loadIcon'));
   this.loadingIndicator.anchor.set(0.5);
-  this.loadingIndicator.position.set(0, -40);
+  this.loadingIndicator.position.set(-225, 0);
   this.loadingIndicator.scale.x = 0.5;
   this.loadingIndicator.scale.y = 0.5;
   this.addChild(this.loadingIndicator);
@@ -63,22 +120,19 @@ NORD.LoadingPopup = function(config) {
   this.timerTextValue = 15;
   this.timerText = new PIXI.Text('', {
     font: '35px Snippet',
-    fontSize: 17,
+    fontSize: 64,
     fill: 'white',
     align: 'center'
   });
   this.timerText.anchor.set(0.5);
-  this.timerText.position.set(0, -80);
-  this.addChild(this.timerText);
+  this.timerText.position.set(0, 435);
+  this.bg.addChild(this.timerText);
 
-
-
-  this.Button = Util.createButton('btn', this, null, '', 0, 80, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CommonBtn'), {
-    texture: 'CommonBtn',
+  this.Button = Util.createButton('btn', this, null, '', 0, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CommonBtn'), {
+    texture: 'CancelButton',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 0.8,
-    scaleY: 0.8
+    scaleXY: 0.5
   });
   this.Button.alpha = 0;
   this.Button.soundClick = NORD.assetsManager.getAsset('play_button');
@@ -89,16 +143,6 @@ NORD.LoadingPopup = function(config) {
       MainMenuLocation.multiplayerSelectionPopup.show();
     }
   }, this);
-
-  var buttonText = new PIXI.Text('Okay', {
-    font: '35px Snippet',
-    fontSize: 17,
-    fill: 'white',
-    align: 'center'
-  });
-  buttonText.anchor.set(0.5);
-  buttonText.position.set(0, 0);
-  this.Button.addChild(buttonText);
 };
 
 NORD.LoadingPopup.prototype = Object.create(NORD.GUI.BasePanel.prototype);

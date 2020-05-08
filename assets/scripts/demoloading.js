@@ -238,8 +238,6 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
       else
         object.style.fill = 0xFF0000;
 
-
-
     };
   };
 

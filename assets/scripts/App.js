@@ -74,7 +74,7 @@ NORD.GAME_STATE = {
 }
 
 
-NORD.initGameDefinitions = function() {
+NORD.initGameDefinitions = function () {
   NORD.definitionsManager.appSize = {
     widthMin: 720,
     widthMax: 720,
@@ -265,7 +265,7 @@ NORD.initGameDefinitions = function() {
     url: 'assets/images/popup/loadingIcon.png'
   }, {
     name: 'loadIcon',
-    url: 'assets/images/popup/load.png'
+    url: 'assets/images/popup/LoadingBar.png'
   }, {
     name: 'teleport1',
     url: 'assets/images/popup/load.png'
@@ -445,12 +445,27 @@ NORD.initGameDefinitions = function() {
   {
     name: 'TextBox',
     url: 'assets/images/common/TextBox.png'
-  }  ]);
+  },
+  {
+    name: 'CancelButton',
+    url: 'assets/images/common/CancelButton.png'
+  }
+  ,
+  {
+    name: 'PlayerLeft',
+    url: 'assets/images/popup/PlayerLeft.png'
+  }
+  ,
+  {
+    name: 'PlayerRight',
+    url: 'assets/images/popup/PlayerRight.png'
+  }
+  ]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
 
-NORD.App = function() {
+NORD.App = function () {
   EventEmitter.call(this);
   NORD.App.instance = this;
   this.name = 'NoName';
@@ -472,13 +487,13 @@ NORD.App = function() {
 NORD.App.prototype = Object.create(EventEmitter.prototype);
 NORD.App.prototype.constructor = NORD.App;
 
-NORD.App.prototype.init = function() {
+NORD.App.prototype.init = function () {
   var self = this;
   NORD.initGameDefinitions();
   this.platform = Util.isMobile() ? 'mobile' : 'computer';
   this.name = NORD.definitionsManager.appName;
   this.version = NORD.definitionsManager.appVersion;
-  NORD.interaction.addListener('mousemove', function(data) {
+  NORD.interaction.addListener('mousemove', function (data) {
     NORD.app.mouseGlobal = Object.assign({}, data.data.global);
     NORD.app.mouse = NORD.GUIManager.stage.toLocal(data.data.global);
     NORD.app.touches[data.data.identifier] = Object.assign({}, NORD.app.mouseGlobal);
@@ -486,7 +501,7 @@ NORD.App.prototype.init = function() {
       mouse: NORD.app.mouse
     });
   });
-  NORD.interaction.addListener('touchmove', function(data) {
+  NORD.interaction.addListener('touchmove', function (data) {
     NORD.app.mouseGlobal = Object.assign({}, data.data.global);
     NORD.app.mouse = NORD.GUIManager.stage.toLocal(data.data.global);
     NORD.app.touches[data.data.identifier] = Object.assign({}, NORD.app.mouseGlobal); // console.log(data.data.identifier);
@@ -495,7 +510,7 @@ NORD.App.prototype.init = function() {
       mouse: NORD.app.mouse
     });
   });
-  NORD.interaction.addListener('pointerdown', function(data) {
+  NORD.interaction.addListener('pointerdown', function (data) {
     NORD.app.mouseGlobal = Object.assign({}, data.data.global);
     NORD.app.mouse = NORD.GUIManager.stage.toLocal(data.data.global); // console.log("F", data);
 
@@ -508,7 +523,7 @@ NORD.App.prototype.init = function() {
     if (NORD.app.mouse.x > 0) self.emit('tap_right');
     else if (NORD.app.mouse.x < 0) self.emit('tap_left');
   });
-  NORD.interaction.addListener('pointerup', function(data) {
+  NORD.interaction.addListener('pointerup', function (data) {
     NORD.app.mouseGlobal = Object.assign({}, data.data.global);
     NORD.app.mouse = NORD.GUIManager.stage.toLocal(data.data.global);
     NORD.app.touches[data.data.identifier] = Object.assign({}, NORD.app.mouseGlobal);
@@ -521,22 +536,22 @@ NORD.App.prototype.init = function() {
   console.log('App[' + this.name + '], version: ' + this.version + ', platform: ' + this.platform);
 };
 
-NORD.App.prototype.boot = function() {
+NORD.App.prototype.boot = function () {
   // if (NORD.definitionsManager.avaiableDomains.length && !Util.isDomainAvaiable(NORD.definitionsManager.avaiableDomains)) return;
   var self = this;
-  NORD.definitionsManager.assetsGroupBoot.once('loading_complete', function() {
+  NORD.definitionsManager.assetsGroupBoot.once('loading_complete', function () {
     self.emit('boot_loaded');
   });
   NORD.definitionsManager.assetsGroupBoot.load();
 };
 
-NORD.App.prototype.onAppResize = function(data) {};
+NORD.App.prototype.onAppResize = function (data) { };
 
-NORD.App.prototype.windowFocusChange = function(focus) {
+NORD.App.prototype.windowFocusChange = function (focus) {
   if (this.windowFocus == focus) return;
   this.windowFocus = focus;
 
-  if (this.windowFocus) {} else {}
+  if (this.windowFocus) { } else { }
 }; // NORD.App.prototype.addForUpdate = function(f, context)
 // {
 // 	if(context == undefined) context = null;
@@ -559,13 +574,13 @@ NORD.App.prototype.windowFocusChange = function(focus) {
 // };
 
 
-NORD.App.prototype.update = function() {
+NORD.App.prototype.update = function () {
   this.emit('update_before');
   this.emit('update');
   this.emit('update_after');
 };
 
-NORD.App.prototype.loop = function(time) {
+NORD.App.prototype.loop = function (time) {
   requestAnimationFrame(NORD.app.loop);
   NORD.app.et = (time - NORD.app.etTime) * 0.001;
   NORD.app.etTime = time; // console.log(this);
@@ -574,7 +589,7 @@ NORD.App.prototype.loop = function(time) {
   NORD.renderer.render(NORD.GUIManager.rootContainer);
 };
 
-NORD.App.prototype.apiCallback = function(name, data) {
+NORD.App.prototype.apiCallback = function (name, data) {
   // console.log('Api:', name, data);
   if (name == 'statistics') {
     var statistics = '';
@@ -637,14 +652,14 @@ NORD.App.prototype.apiCallback = function(name, data) {
 NORD.App.instance = null;
 NORD.App.playerController = null;
 
-NORD.App.getInstance = function() {
+NORD.App.getInstance = function () {
   return NORD.App.instance;
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
 
 
-NORD.Game = function() {
+NORD.Game = function () {
   EventEmitter.call(this);
   var self = this;
   this.screenPreloader = null;
@@ -656,7 +671,8 @@ NORD.Game = function() {
     actionHintShows: 0,
     isActionPlayed: false,
     isControlVSCompTutorial: false,
-    board: 'board_2'
+    board: 'board_2',
+    region: 'asia'
   };
 
   //sushant
@@ -674,16 +690,16 @@ NORD.Game = function() {
   this.isShootTutorial = false;
   this.isControlTutorial = false;
   this.loadConfig();
-  NORD.app.once('boot_loaded', function() {
+  NORD.app.once('boot_loaded', function () {
     self.screenPreloader = new NORD.ScreenPreloader({
       name: 'screen_preloader',
       parentPanel: NORD.GUIManager.stage,
       container: NORD.GUIManager.containerCenter
     });
-    self.screenPreloader.load(function() {
+    self.screenPreloader.load(function () {
       self.screenPreloader.tween({
         name: 'hide_anim'
-      }, function() {
+      }, function () {
         self.init();
       });
     });
@@ -693,7 +709,7 @@ NORD.Game = function() {
 NORD.Game.prototype = Object.create(EventEmitter.prototype);
 NORD.Game.prototype.constructor = NORD.Game;
 
-NORD.Game.prototype.init = function() {
+NORD.Game.prototype.init = function () {
   // this.physics = new p2.World({ gravity: [0, 0] });
   // this.bgGradient = NORD.assetsManager.getSprite('texture_atlas', 'bg_gradient.png');
   // NORD.GUIManager.containerBack.addChild(this.bgGradient);
@@ -731,19 +747,19 @@ NORD.Game.prototype.init = function() {
   NORD.app.on('update_after', this.updateAfter, this);
 };
 
-NORD.Game.prototype.setConfig = function(config) {
+NORD.Game.prototype.setConfig = function (config) {
   this.config = config;
   console.log('Set config:', config);
   this.saveConfig();
 };
 
-NORD.Game.prototype.saveConfig = function() {
+NORD.Game.prototype.saveConfig = function () {
   var data = this.config;
   var jsonString = JSON.stringify(data);
   localStorage.setItem('pong_save', jsonString);
 };
 
-NORD.Game.prototype.loadConfig = function() {
+NORD.Game.prototype.loadConfig = function () {
   var jsonString = localStorage.getItem('pong_save');
   var data = JSON.parse(jsonString);
   if (!data) return;
@@ -751,36 +767,36 @@ NORD.Game.prototype.loadConfig = function() {
 
   this.config.players = 'one';
   this.config.dificulty = 'easy',
-  this.config.mode = 'classic',
-  this.config.board = 'board_2'
+    this.config.mode = 'classic',
+    this.config.board = 'board_2'
 };
 
-NORD.Game.prototype.update = function() {};
+NORD.Game.prototype.update = function () { };
 
-NORD.Game.prototype.updateAfter = function() { // const fixedTimeStep = 1/60;
+NORD.Game.prototype.updateAfter = function () { // const fixedTimeStep = 1/60;
   // const maxSubSteps = 10;
   // this.physics.step(fixedTimeStep, NORD.app.et, maxSubSteps);
 };
 
-NORD.Game.prototype.onAppResize = function(data) {
+NORD.Game.prototype.onAppResize = function (data) {
   // this.bgGradient.width = data.appWidth;
   // this.bgGradient.height = data.appHeight;
   // console.log('RR')
   window.scrollTo(0, 0);
 };
 
-NORD.Game.prototype.soundClickSimple = function() {
+NORD.Game.prototype.soundClickSimple = function () {
   return NORD.assetsManager.getAsset('sound_click');
 };
 
-NORD.Game.prototype.tweenClickSimple = function(data) {
+NORD.Game.prototype.tweenClickSimple = function (data) {
   data.scale = 0.95;
   data.time = 0.07; // data.time = 0.0;
 
   NORD.GUI.Button.tweenClickSimple(data);
 };
 
-NORD.Game.prototype.tweenClickSimpleB = function(data) {
+NORD.Game.prototype.tweenClickSimpleB = function (data) {
   data.scale = 0.5 * 0.95;
   data.time = 0.07; // data.time = 0.0;
 
@@ -821,7 +837,7 @@ var createPaddle = function createPaddle() {
   // });
   // const width = Math.abs(startWVert.x - endWVert.x);
 
-  vertices.forEach(function(vert) {
+  vertices.forEach(function (vert) {
     var vX = vert.x;
     var vY = vert.y;
     vert.x = vX * Math.cos(angle) - vY * Math.sin(angle);
