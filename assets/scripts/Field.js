@@ -2391,7 +2391,7 @@ RoundGenerator.prototype.initRoundMode = function() {
 
   if (this.modeName == undefined) {
     this.modeName = new PIXI.Text(this.roundModeLabels[this.roundMode], {
-      font: '35px Snippet',
+      fontFamily: 'Russo One',
       fontSize: 64,
       fill: 'white',
       align: 'center'

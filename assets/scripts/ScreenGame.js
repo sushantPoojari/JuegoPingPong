@@ -124,7 +124,7 @@ NORD.ScreenGame = function(config) {
   // if (MultiplayerStarted) {
 
   this.serverText = new PIXI.Text("- IN", {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 12,
     fill: 'white',
     align: 'center',
@@ -136,7 +136,7 @@ NORD.ScreenGame = function(config) {
 
 
   this.ActualServerpingText = new PIXI.Text("- 23ms", {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 12,
     fill: 'white',
     align: 'center',
@@ -174,7 +174,7 @@ NORD.ScreenGame = function(config) {
   // this.addChild(this.pingOppText);
 
   this.leftPlayerText = new PIXI.Text("", {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 20,
     fill: 'white',
     align: 'center'
@@ -185,7 +185,7 @@ NORD.ScreenGame = function(config) {
 
 
   this.rightPlayerText = new PIXI.Text("", {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 20,
     fill: 'white',
     align: 'center'
@@ -374,7 +374,7 @@ NORD.ScreenGame.prototype.showIndicator = function(duration) {
 NORD.ScreenGame.ScoreText = function() {
   PIXI.Container.call(this);
   this.scoreText = new PIXI.Text("0", {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 26,
     fill: 'white',
     align: 'center'
@@ -512,7 +512,7 @@ NORD.PanelEndGame.prototype.show = function(data) {
     this.removeChild(this.textWin);
 
     this.textWin = new PIXI.Text(winner + " \nwins", {
-      font: '35px Snippet',
+      fontFamily: 'Russo One',
       fontSize: 26,
       fill: 'white',
       align: 'center'
@@ -621,7 +621,7 @@ NORD.PanelPause = function(config) {
     scaleXY: 0.45
   });
 
-  this.buttonClose = Util.createButton('btn', this, null, '',  this.bg.width * 0.425, -this.bg.height * 0.425, 234, 84, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+  this.buttonClose = Util.createButton('btn', this, null, '', this.bg.width * 0.425, -this.bg.height * 0.425, 234, 84, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
     parent: this.bg,
     texture: 'CloseButton',
     aX: 0.5,
@@ -639,13 +639,13 @@ NORD.PanelPause = function(config) {
 
   this.popupHeader = new PIXI.Text('PAUSED', {
     parent: this.bg,
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 34,
     fill: 'white',
     align: 'center'
   });
   this.popupHeader.anchor.set(0.5);
-  this.popupHeader.position.set(0, -this.bg.height * this.bg.scale.y* 0.65);
+  this.popupHeader.position.set(0, -this.bg.height * this.bg.scale.y * 0.65);
   this.addChild(this.popupHeader);
 
   this.dividerLine = Util.createSprite({
@@ -659,7 +659,7 @@ NORD.PanelPause = function(config) {
   });
 
   this.scoreHeader = new PIXI.Text('YOUR SCORE : ', {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 24,
     fill: 'white',
     align: 'center'
@@ -679,7 +679,7 @@ NORD.PanelPause = function(config) {
   });
 
   this.scoreLabel = new PIXI.Text('0', {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 64,
     fill: 'white',
     align: 'center'
@@ -689,7 +689,7 @@ NORD.PanelPause = function(config) {
   this.Highlights.addChild(this.scoreLabel);
 
   this.scoreHeader2 = new PIXI.Text('YOUR SCORE : ', {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 24,
     fill: 'white',
     align: 'center'
@@ -709,7 +709,7 @@ NORD.PanelPause = function(config) {
   });
 
   this.scoreLabel2 = new PIXI.Text('0', {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 64,
     fill: 'white',
     align: 'center'
@@ -780,26 +780,25 @@ NORD.PanelPause.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelPause.prototype.constructor = NORD.PanelPause;
 
 NORD.PanelPause.prototype.show = function(data) {
-   this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
-   this.scoreHeader.text = "YOUR SCORE :";
+  this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
+  this.scoreHeader.text = "YOUR SCORE :";
 
-   this.scoreHeader2.visible = false;
-        this.Highlights2.visible = false;
+  this.scoreHeader2.visible = false;
+  this.Highlights2.visible = false;
 
 
-   if(NORD.game.config.players == 'one')
-   {
-        this.scoreHeader2.visible = false;
-        this.Highlights2.visible = false;
-   }else if(NORD.game.config.players == 'two'){
-      // this.scoreHeader.text = "Player1 :";
+  if (NORD.game.config.players == 'one') {
+    this.scoreHeader2.visible = false;
+    this.Highlights2.visible = false;
+  } else if (NORD.game.config.players == 'two') {
+    // this.scoreHeader.text = "Player1 :";
 
-      // this.scoreHeader2.visible = true;
-      // this.Highlights2.visible = true;
+    // this.scoreHeader2.visible = true;
+    // this.Highlights2.visible = true;
 
-      // this.bg.scale.set(0.5);
+    // this.bg.scale.set(0.5);
 
-   }
+  }
 
 
   if (!MultiplayerStarted) {

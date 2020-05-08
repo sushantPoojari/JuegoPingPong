@@ -520,8 +520,8 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
 
   var setText = function setText(text) {
     var text = new PIXI.Text(text, {
-      font: '35px Snippet',
-      fontSize: 30,
+      fontFamily: 'Russo One',
+      fontSize: 28,
       fill: 'white',
       align: 'center'
     });
@@ -1455,7 +1455,7 @@ NORD.randomNamePopup = function(config) {
 
   this.addChild(this.backBG);
 
-  this.bg =  Util.createSprite({
+  this.bg = Util.createSprite({
     parent: this,
     texture: 'PauseBg',
     aX: 0.5,
@@ -1467,7 +1467,7 @@ NORD.randomNamePopup = function(config) {
 
   var textTitle = new PIXI.Text('TYPE YOUR NAME :', {
     parent: this.bg,
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 64,
     fill: 'white',
     align: 'center'
@@ -1489,10 +1489,10 @@ NORD.randomNamePopup = function(config) {
 
   this.l_playerName = new PIXI.TextInput({
     input: {
-      fontFamily: 'Arial',
-      fontSize: '64px',
-      padding: '14px 24px',
-      width: '300px',
+      fontFamily: 'Russo One',
+      fontSize: '50px',
+      padding: '18px 24px',
+      width: '400px',
       height: '40px',
       color: 'white',
       align: 'center'
@@ -1553,8 +1553,8 @@ NORD.randomNamePopup = function(config) {
 
   }, this);
 
-  this.okButton = Util.createButton('btn', this, null, '', 0, this.bg.height * 0.45 , 100, 40, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CommonBtn'), {
-    parent:this.bg,
+  this.okButton = Util.createButton('btn', this, null, '', 0, this.bg.height * 0.45, 100, 40, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CommonBtn'), {
+    parent: this.bg,
     texture: 'EnterButton',
     aX: 0.5,
     aY: 0.5,
@@ -1699,7 +1699,7 @@ NORD.subModeSelectionPopup = function(config) {
   });
 
   this.popupHeader = new PIXI.Text('SELECT A GAME BOARD', {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 17,
     fill: 'white',
     align: 'center'
@@ -1742,7 +1742,7 @@ NORD.subModeSelectionPopup = function(config) {
   });
 
   this.separatorText = new PIXI.Text('OR', {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 20,
     fill: 'green',
     align: 'center',
@@ -1773,7 +1773,7 @@ NORD.subModeSelectionPopup = function(config) {
   });
 
   this.difficultyHeader = new PIXI.Text('CHOOSE DIFFICULTY', {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 17,
     fill: 'white',
     align: 'center'

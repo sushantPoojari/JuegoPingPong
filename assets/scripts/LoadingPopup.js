@@ -18,7 +18,7 @@ NORD.LoadingPopup = function(config) {
   this.visible = false;
   this.interactiveChildren = false;
 
-  this.bg =  Util.createSprite({
+  this.bg = Util.createSprite({
     parent: this,
     texture: 'BG',
     aX: 0.5,
@@ -59,7 +59,7 @@ NORD.LoadingPopup = function(config) {
   });
 
   this.playerName = new PIXI.Text('YOU', {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 64,
     fill: 'white',
     align: 'center',
@@ -84,7 +84,7 @@ NORD.LoadingPopup = function(config) {
   PlayerLeft.alpha = 0.5;
 
   this.playerName = new PIXI.Text('OPPONENT', {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 64,
     fill: 'white',
     align: 'center',
@@ -97,7 +97,7 @@ NORD.LoadingPopup = function(config) {
   this.bg.addChild(this.playerName);
 
   this.loaderText = new PIXI.Text('Waiting For Opponent...', {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 64,
     fill: 'white',
     align: 'center',
@@ -119,7 +119,7 @@ NORD.LoadingPopup = function(config) {
 
   this.timerTextValue = 15;
   this.timerText = new PIXI.Text('', {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 64,
     fill: 'white',
     align: 'center'
@@ -142,7 +142,7 @@ NORD.LoadingPopup = function(config) {
       NORD.mainMenu.loadingPopup.hide();
       NORD.game.screenGame.toMainMenu();
 
-     // MainMenuLocation.multiplayerSelectionPopup.show();
+      // MainMenuLocation.multiplayerSelectionPopup.show();
     }
   }, this);
 };

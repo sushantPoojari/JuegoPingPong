@@ -867,9 +867,9 @@ NORD.Field.FireZone.prototype.destroy = function() {
 var GameStartText = function GameStartText() {
   PIXI.Container.call(this);
 
-  this.textReady =  new PIXI.Graphics();
+  this.textReady = new PIXI.Graphics();
   this.addChild(this.textReady)
-  
+
   var bg1 = Util.createSprite({
     texture: 'GreenRibbon',
     parent: this,
@@ -883,12 +883,12 @@ var GameStartText = function GameStartText() {
 
   this.textReady.clear();
   this.textReady.beginFill(0x29292b, 0.4);
-  this.textReady.drawRect(-bg1.width / 2 - widthPadding / 2, -bg1.height / 2 - padding / 2,  bg1.width + widthPadding, bg1.height + padding);
+  this.textReady.drawRect(-bg1.width / 2 - widthPadding / 2, -bg1.height / 2 - padding / 2, bg1.width + widthPadding, bg1.height + padding);
 
   this.textReady.addChild(bg1);
 
   var readyText = new PIXI.Text('READY', {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 64,
     fill: 'white',
     align: 'center'
@@ -900,7 +900,7 @@ var GameStartText = function GameStartText() {
   this.textGo = new PIXI.Graphics();
   this.addChild(this.textGo)
 
-  var bg2 =  Util.createSprite({
+  var bg2 = Util.createSprite({
     texture: 'GreenRibbon',
     parent: this,
     aX: 0.5,
@@ -913,12 +913,12 @@ var GameStartText = function GameStartText() {
 
   this.textGo.clear();
   this.textGo.beginFill(0x29292b, 0.4);
-  this.textGo.drawRect(-bg2.width / 2 - widthPadding / 2, -bg2.height / 2 - padding / 2,  bg2.width + widthPadding, bg2.height + padding);
+  this.textGo.drawRect(-bg2.width / 2 - widthPadding / 2, -bg2.height / 2 - padding / 2, bg2.width + widthPadding, bg2.height + padding);
 
   this.textGo.addChild(bg2);
 
   var goText = new PIXI.Text('GO', {
-    font: '35px Snippet',
+    fontFamily: 'Russo One',
     fontSize: 64,
     fill: 'white',
     align: 'center'
