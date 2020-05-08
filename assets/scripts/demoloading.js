@@ -168,30 +168,49 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
 
 
       ServerRegionListArray[RegionCounter].data = data;
+      
 
       if (ServerRegionListArray[RegionCounter].region == "asia") {
         NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.left.spriteOn.children[0].text = "Asia - " + ServerRegionListArray[RegionCounter].data + "ms";
         NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.left.spriteOff.children[0].text = "Asia - " + ServerRegionListArray[RegionCounter].data + "ms";
+
+        setColor(NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.left.spriteOn.children[0], ServerRegionListArray[RegionCounter].data)
+        setColor(NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.left.spriteOff.children[0], ServerRegionListArray[RegionCounter].data)
       }
       if (ServerRegionListArray[RegionCounter].region == "in") {
         NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.center.spriteOn.children[0].text = "India - " + ServerRegionListArray[RegionCounter].data + "ms";
         NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.center.spriteOff.children[0].text = "India - " + ServerRegionListArray[RegionCounter].data + "ms";
+
+        setColor(NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.center.spriteOn.children[0], ServerRegionListArray[RegionCounter].data)
+        setColor(NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.center.spriteOff.children[0], ServerRegionListArray[RegionCounter].data)
       }
       if (ServerRegionListArray[RegionCounter].region == "eu") {
         NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.right.spriteOn.children[0].text = "Europe - " + ServerRegionListArray[RegionCounter].data + "ms";
         NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.right.spriteOff.children[0].text = "Europe - " + ServerRegionListArray[RegionCounter].data + "ms";
+        
+        setColor(NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.right.spriteOn.children[0], ServerRegionListArray[RegionCounter].data)
+        setColor(NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.right.spriteOff.children[0], ServerRegionListArray[RegionCounter].data)
       }
       if (ServerRegionListArray[RegionCounter].region == "us") {
         NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomLeft.spriteOn.children[0].text = "USA-East - " + ServerRegionListArray[RegionCounter].data + "ms";
         NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomLeft.spriteOff.children[0].text = "USA-East - " + ServerRegionListArray[RegionCounter].data + "ms";
+        
+        setColor(NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomLeft.spriteOn.children[0], ServerRegionListArray[RegionCounter].data)
+        setColor(NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomLeft.spriteOff.children[0], ServerRegionListArray[RegionCounter].data)
       }
       if (ServerRegionListArray[RegionCounter].region == "ru") {
         NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomCenter.spriteOn.children[0].text = "Russia - " + ServerRegionListArray[RegionCounter].data + "ms";
         NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomCenter.spriteOff.children[0].text = "Russia - " + ServerRegionListArray[RegionCounter].data + "ms";
+        
+        setColor(NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomCenter.spriteOn.children[0], ServerRegionListArray[RegionCounter].data)
+        setColor(NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomCenter.spriteOff.children[0], ServerRegionListArray[RegionCounter].data)
       }
       if (ServerRegionListArray[RegionCounter].region == "cae") {
         NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomRight.spriteOn.children[0].text = "Canada - " + ServerRegionListArray[RegionCounter].data + "ms";
         NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomRight.spriteOff.children[0].text = "Canada - " + ServerRegionListArray[RegionCounter].data + "ms";
+        
+        setColor(NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomRight.spriteOn.children[0], ServerRegionListArray[RegionCounter].data)
+        setColor(NORD.game.screenMainMenu.subModeSelectionPopup.switchRegion.sides.bottomRight.spriteOff.children[0], ServerRegionListArray[RegionCounter].data)
       }
       RegionCounter++;
 
@@ -207,7 +226,23 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
       //   NORD.mainMenu.multiplayerSelectionPopup.connectedRegion.text = 'connected region : ' + Util.checkCorrespondingRegion(localStorage.getItem('savedServerRegion'));
       //   DemoLoadFunction.connectToRegionMaster(connectedReg);
       // }
+
+     
     });
+
+    var setColor = function(object, value)
+    {
+      debugger;
+        if(value <= 100)
+        object.style.fill = 0x00FF00;
+        else if(value <= 200)
+        object.style.fill = 0xFFA500;
+        else
+        object.style.fill = 0xFF0000;
+
+        
+
+    };
   };
 
   DemoLoadBalancing.prototype.getBestRegion = function() {};
