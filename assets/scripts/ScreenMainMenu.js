@@ -115,7 +115,7 @@ NORD.ScreenMainMenu = function(config) {
     }
   });
   /***************************************************************************************Audio Button*************************************************************************************/
-  var audioButton = new NORD.GUI.ButtonAudio({
+  this.audioButton = new NORD.GUI.ButtonAudio({
     parentPanel: this,
     x: -325,
     y: -185,
@@ -133,16 +133,18 @@ NORD.ScreenMainMenu = function(config) {
   });
 
   /***************************************************************************************Play Button*************************************************************************************/
-  var btn = Util.createButton('btn', this, null, '', 0, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
+  this.playButton = Util.createButton('btn', this, null, '', 0, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
     texture: 'PlayButton',
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.5,
   });
 
-  btn.addListener('button_click', function(data) {
+  this.playButton.addListener('button_click', function(data) {
     var _this2 = this;
     // if (this.state !== 'show' || this.panelEndGame.state !== 'hide') return;
+
+    this.disableAllButtons();
 
     TweenMax.delayedCall(0.07 * 2, function() {
       if (NORD.game.config.players == "three")
@@ -151,7 +153,7 @@ NORD.ScreenMainMenu = function(config) {
         _this2.subModeSelectionPopup.show();
     });
   }, this);
-  alignItems([logo, this.containerSwitchers, btn], 460);
+  alignItems([logo, this.containerSwitchers, this.playButton], 460);
 
   /***************************************************************************************Popup Sub Mode Selection*************************************************************************************/
   this.subModeSelectionPopup = new NORD.subModeSelectionPopup({
@@ -272,6 +274,9 @@ NORD.ScreenMainMenu.prototype.disableAllButtons = function() {
   this.switcherMode.interactive = false;
   this.switcherMode.interactiveChildren = false;
 
+  this.audioButton.interactive = false;
+  this.playButton.interactive =false;
+
   this.switcherPlayers.switchingState = 'none1';
 };
 NORD.ScreenMainMenu.prototype.enableAllButtons = function() {
@@ -285,6 +290,9 @@ NORD.ScreenMainMenu.prototype.enableAllButtons = function() {
   //disable switcherPlayers
   this.switcherMode.interactive = true;
   this.switcherMode.interactiveChildren = true;
+
+  this.audioButton.interactive = true;
+  this.playButton.interactive =true;
 
   this.switcherPlayers.switchingState = 'none';
 };
@@ -1690,6 +1698,7 @@ NORD.subModeSelectionPopup = function(config) {
   this.interactiveChildren = false; // this.alpha = 0;
   this.board = "board_1";
 
+ 
   this.bg = Util.createSprite({
     parent: this,
     texture: 'BG',
@@ -1807,14 +1816,14 @@ NORD.subModeSelectionPopup = function(config) {
     NORD.game.setConfig(config); // console.log('SSS:', config)
   });
 
-  var btn = Util.createButton('btn', this, null, '', 0, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
+  this.playButton = Util.createButton('btn', this, null, '', 0, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
     texture: 'PlayButton',
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.5,
   });
 
-  btn.addListener('button_click', function(data) {
+  this.playButton.addListener('button_click', function(data) {
     MultiplayerStarted = false;
     this.hide();
 
@@ -1849,10 +1858,93 @@ NORD.subModeSelectionPopup = function(config) {
     }
 
   }, this);
+
+
+  this.transparentLayer = Util.createSprite({
+    parent: this,
+    texture: 'TransparentLayer',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 100,
+    scaleY: 100,
+  });
+
+  this.transparentLayer.alpha = 0.85;
+
+  this.loadingIndicator  = Util.createSprite({
+    parent: this,
+    texture: 'loadIcon',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.5
+  });
+  this.currentAngle = 0;
+
+  rotateAction();
+
+  function rotateAction() {
+    requestAnimationFrame(rotateAction);
+   self.loadingIndicator.rotation += 0.01;
+  }
+
 };
 
 NORD.subModeSelectionPopup.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.subModeSelectionPopup.prototype.constructor = NORD.subModeSelectionPopup;
+
+NORD.subModeSelectionPopup.prototype.stopLoading = function()
+{
+  this.transparentLayer.visible = false;
+  this.loadingIndicator.visible = false;
+  this.enableAllButtons();
+
+};
+
+NORD.subModeSelectionPopup.prototype.enableAllButtons= function()
+{
+  //disable Switch Board
+  this.switchNormalMode.interactive = true;
+  this.switchNormalMode.interactiveChildren = true;
+
+  //disable Switch Mode
+    this.switchThrillerMode.interactive = true;
+    this.switchThrillerMode.interactiveChildren = true;
+
+  //disable switch Dificulty
+  this.switchDificulty.interactive = true;
+  this.switchDificulty.interactiveChildren = true;
+
+    //disable switch Region
+  this.switchRegion.interactive = true;
+  this.switchRegion.interactiveChildren = true;
+
+  this.backButton.interactive = true;
+  this.playButton.interactive = true;
+};
+
+NORD.subModeSelectionPopup.prototype.disableAllButtons= function()
+{
+    //disable Switch Board
+    this.switchNormalMode.interactive = false;
+    this.switchNormalMode.interactiveChildren = false;
+  
+    //disable Switch Mode
+      this.switchThrillerMode.interactive = false;
+      this.switchThrillerMode.interactiveChildren = false;
+  
+    //disable switch Dificulty
+    this.switchDificulty.interactive = false;
+    this.switchDificulty.interactiveChildren = false;
+  
+      //disable switch Region
+      this.switchRegion.interactive = false;
+      this.switchRegion.interactiveChildren = false;
+  
+      this.backButton.interactive = false;
+      this.playButton.interactive = false;
+
+
+};
 
 NORD.subModeSelectionPopup.prototype.show = function(data) {
   var config = NORD.game.config;
@@ -1861,11 +1953,17 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
   this.switchThrillerMode.visible = true;
   this.switchRegion.visible = false;
   this.difficultyHeader.text = 'CHOOSE DIFFICULTY';
+  this.loadingIndicator.visible = false;
+    this.transparentLayer.visible = false;
 
   if (config.players == 'three') {
     this.difficultyHeader.text = 'SELECT REGION';
     this.switchDificulty.visible = false;
     this.switchRegion.visible = true;
+    this.loadingIndicator.visible = true;
+    this.transparentLayer.visible = true;
+
+    this.disableAllButtons();
   } else
     this.switchDificulty.visible = true;
 

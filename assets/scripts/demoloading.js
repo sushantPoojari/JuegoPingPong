@@ -216,6 +216,8 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
 
       if (RegionCounter < ServerRegionListArray.length)
         DemoLoadFunction.getPing();
+      else
+        NORD.game.screenMainMenu.subModeSelectionPopup.stopLoading();
       // else {
       //   ServerRegionListArray.sort(compare);
       //   var connectedReg = ServerRegionListArray[0].region;
