@@ -875,6 +875,19 @@ var GameStartText = function GameStartText() {
     scaleXY: 0.375
   });
 
+
+  var bg1 = new PIXI.Graphics();
+  this.textReady.addChild(bg1);
+  var padding = 50;
+  var widthPadding = 600;
+
+  bg1.clear();
+  bg1.beginFill(0x29292b, 0.4);
+  // this.roundModeLabelBg.alpha = 1;
+  bg1.drawRect(-this.textReady.width / 2 - widthPadding, -this.textReady.height / 2 - padding, this.textReady.width + widthPadding * 2, this.textReady.height + padding * 2);
+
+
+
   var readyText = new PIXI.Text('READY', {
     font: '35px Snippet',
     fontSize: 64,
@@ -892,6 +905,17 @@ var GameStartText = function GameStartText() {
     aY: 0.5,
     scaleXY: 0.375
   });
+
+  var bg2 = new PIXI.Graphics();
+  this.textGo.addChild(bg2);
+  var padding = 50;
+  var widthPadding = 600;
+
+  bg2.clear();
+  bg2.beginFill(0x29292b, 0.4);
+  // this.roundModeLabelBg.alpha = 1;
+  bg2.drawRect(-this.textReady.width / 2 - widthPadding, -this.textReady.height / 2 - padding, this.textReady.width + widthPadding * 2, this.textReady.height + padding * 2);
+
 
   var goText = new PIXI.Text('GO', {
     font: '35px Snippet',
@@ -926,7 +950,7 @@ GameStartText.prototype.play = function(callback) {
   this.visible = true;
   this.textReady.y = this.textGo.y = -30;
   this.textReady.alpha = this.textGo.alpha = 0.0;
- // this.textReady.scale.x = this.textReady.scale.y = 0.5; // this.textGo.scale.x = this.textGo.scale.y = 0.5;
+  // this.textReady.scale.x = this.textReady.scale.y = 0.5; // this.textGo.scale.x = this.textGo.scale.y = 0.5;
 
   var time = 6 / 30; // this.textReady.scale.x = this.textReady.scale.y = 0.7;
 
