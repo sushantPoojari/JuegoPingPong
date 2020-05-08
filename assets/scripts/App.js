@@ -643,7 +643,7 @@ NORD.Game = function() {
   this.config = {
     players: 'one',
     dificulty: 'easy',
-    mode: 'action',
+    mode: 'classic',
     gamesCount: 0,
     actionHintShows: 0,
     isActionPlayed: false,
@@ -740,6 +740,11 @@ NORD.Game.prototype.loadConfig = function() {
   var data = JSON.parse(jsonString);
   if (!data) return;
   this.config = data;
+
+  this.config.players = 'one';
+  this.config.dificulty = 'easy',
+  this.config.mode = 'classic',
+  this.config.board = 'board_2'
 };
 
 NORD.Game.prototype.update = function() {};
