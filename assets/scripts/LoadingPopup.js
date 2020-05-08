@@ -18,12 +18,24 @@ NORD.LoadingPopup = function(config) {
   this.visible = false;
   this.interactiveChildren = false;
 
-  this.bg = new PIXI.NineSlicePlane(NORD.assetsManager.getTexture('PopupSmall'), 15, 15, 15, 15);
-  this.bg.width = 640;
-  this.bg.height = 480;
-  this.bg.position.x = -640 * 0.5;
-  this.bg.position.y = -240;
-  this.addChild(this.bg);
+  this.bg =  Util.createSprite({
+    parent: this,
+    texture: 'BG',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.465
+  });
+
+  var dividerLine = Util.createSprite({
+    parent: this,
+    x: 0,
+    y: 20,
+    texture: 'Separator',
+    aX: 0.5,
+    aY: 0.5,
+    rotation: -90,
+    scaleXY: 1.5
+  });
 
   this.loaderText = new PIXI.Text('Waiting For Opponent', {
     font: '35px Snippet',

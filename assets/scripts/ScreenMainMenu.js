@@ -46,13 +46,12 @@ NORD.ScreenMainMenu = function(config) {
   this.visible = false;
   this.interactiveChildren = false;
   /*********************************************************************************BG**************************************************************************************************/
-  var logo = Util.createSprite({
+  var bg = Util.createSprite({
     parent: this,
     texture: 'BG',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 0.45,
-    scaleY: 0.45
+    scaleXY: 0.465
   });
   this.containerSwitchers = new PIXI.Container();
   this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
@@ -249,8 +248,6 @@ NORD.ScreenMainMenu = function(config) {
     });
   }
 
-
-
   if (PP.server_using == PP.SERVER_USING.Photon) {
 
   } else {
@@ -265,12 +262,7 @@ NORD.ScreenMainMenu.prototype.disableAllButtons = function() {
 
   this.isAllButtonEnabled = false;
 
-  // this.darkDificulty.visible = true;
   NORD.game.screenGame.panelEndGame.buttonRestart.interactive = false;
-  // this.switcherDificulty.alpha = 0.3;
-  //disable difficulty
-  // this.switcherDificulty.interactive = false;
-  // this.switcherDificulty.interactiveChildren = false;
 
   //disable switcherPlayers
   this.switcherPlayers.interactive = false;
@@ -284,15 +276,7 @@ NORD.ScreenMainMenu.prototype.disableAllButtons = function() {
 };
 NORD.ScreenMainMenu.prototype.enableAllButtons = function() {
   this.isAllButtonEnabled = true;
-  // this.darkDificulty.visible = true; // this.switcherDificulty.alpha = 0.3;
   NORD.game.screenGame.panelEndGame.buttonRestart.interactive = true;
-
-  if (NORD.game.config.players == 'one') {
-    // this.darkDificulty.visible = false; // this.switcherDificulty.alpha = 1;
-
-    // this.switcherDificulty.interactive = true;
-    // this.switcherDificulty.interactiveChildren = true;
-  }
 
   //disable switcherPlayers
   this.switcherPlayers.interactive = true;
@@ -1510,7 +1494,8 @@ NORD.randomNamePopup = function(config) {
       padding: '14px 24px',
       width: '300px',
       height: '40px',
-      color: 'white'
+      color: 'white',
+      align: 'center'
     }
     // ,
     // box: {
@@ -1710,7 +1695,7 @@ NORD.subModeSelectionPopup = function(config) {
     texture: 'BG',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.45
+    scaleXY: 0.465
   });
 
   this.popupHeader = new PIXI.Text('SELECT A GAME BOARD', {

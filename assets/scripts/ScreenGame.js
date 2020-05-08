@@ -621,14 +621,14 @@ NORD.PanelPause = function(config) {
     scaleXY: 0.45
   });
 
-  this.buttonHome = Util.createButton('btn', this, null, '', 170, -155, 234, 84, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+  this.buttonClose = Util.createButton('btn', this, null, '',  this.bg.width * 0.425, -this.bg.height * 0.425, 234, 84, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
     parent: this.bg,
     texture: 'CloseButton',
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.4
   });
-  this.buttonHome.on('button_click', function(data) {
+  this.buttonClose.on('button_click', function(data) {
     var _this5 = this;
 
     if (this.state !== 'show') return;
@@ -637,17 +637,18 @@ NORD.PanelPause = function(config) {
     });
   }, this);
 
-  var popupHeader = new PIXI.Text('PAUSED', {
+  this.popupHeader = new PIXI.Text('PAUSED', {
+    parent: this.bg,
     font: '35px Snippet',
     fontSize: 34,
     fill: 'white',
     align: 'center'
   });
-  popupHeader.anchor.set(0.5);
-  popupHeader.position.set(0, -110);
-  this.addChild(popupHeader);
+  this.popupHeader.anchor.set(0.5);
+  this.popupHeader.position.set(0, -this.bg.height * this.bg.scale.y* 0.65);
+  this.addChild(this.popupHeader);
 
-  var dividerLine = Util.createSprite({
+  this.dividerLine = Util.createSprite({
     parent: this,
     x: 0,
     y: -75,
@@ -657,17 +658,17 @@ NORD.PanelPause = function(config) {
     scaleXY: 1.25
   });
 
-  var scoreHeader = new PIXI.Text('YOUR SCORE : ', {
+  this.scoreHeader = new PIXI.Text('YOUR SCORE : ', {
     font: '35px Snippet',
     fontSize: 24,
     fill: 'white',
     align: 'center'
   });
-  scoreHeader.anchor.set(0.5);
-  scoreHeader.position.set(0, -25);
-  this.addChild(scoreHeader);
+  this.scoreHeader.anchor.set(0.5);
+  this.scoreHeader.position.set(0, -25);
+  this.addChild(this.scoreHeader);
 
-  var Highlights = Util.createSprite({
+  this.Highlights = Util.createSprite({
     parent: this.bg,
     x: 0,
     y: 100,
@@ -684,17 +685,47 @@ NORD.PanelPause = function(config) {
     align: 'center'
   });
   this.scoreLabel.anchor.set(0.5);
-  this.scoreLabel.position.set(0, 100);
-  this.bg.addChild(this.scoreLabel);
+  this.scoreLabel.position.set(0, 0);
+  this.Highlights.addChild(this.scoreLabel);
 
-  this.buttonMenu = Util.createButton('btn', this, null, '', -85, 155, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+  this.scoreHeader2 = new PIXI.Text('YOUR SCORE : ', {
+    font: '35px Snippet',
+    fontSize: 24,
+    fill: 'white',
+    align: 'center'
+  });
+  this.scoreHeader2.anchor.set(0.5);
+  this.scoreHeader2.position.set(0, -25);
+  this.addChild(this.scoreHeader2);
+
+  this.Highlights2 = Util.createSprite({
+    parent: this.bg,
+    x: 0,
+    y: 100,
+    texture: 'Highlights',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 1
+  });
+
+  this.scoreLabel2 = new PIXI.Text('0', {
+    font: '35px Snippet',
+    fontSize: 64,
+    fill: 'white',
+    align: 'center'
+  });
+  this.scoreLabel2.anchor.set(0.5);
+  this.scoreLabel2.position.set(0, 0);
+  this.Highlights2.addChild(this.scoreLabel2);
+
+  this.buttonHome = Util.createButton('btn', this, null, '', -this.bg.width * this.bg.scale.x / 2, this.bg.height * 0.45, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
     parent: this.bg,
     texture: 'HomeButton',
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.4
   });
-  this.buttonMenu.on('button_click', function(data) {
+  this.buttonHome.on('button_click', function(data) {
     var _this6 = this;
 
     if (this.state !== 'show') return;
@@ -729,7 +760,7 @@ NORD.PanelPause = function(config) {
   var audioButton = new NORD.GUI.ButtonAudio({
     parentPanel: this,
     x: 85,
-    y: 155,
+    y: 160,
     width: 100,
     height: 100,
     scaleXY: 0.575,
@@ -750,6 +781,26 @@ NORD.PanelPause.prototype.constructor = NORD.PanelPause;
 
 NORD.PanelPause.prototype.show = function(data) {
    this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
+   this.scoreHeader.text = "YOUR SCORE :";
+
+   this.scoreHeader2.visible = false;
+        this.Highlights2.visible = false;
+
+
+   if(NORD.game.config.players == 'one')
+   {
+        this.scoreHeader2.visible = false;
+        this.Highlights2.visible = false;
+   }else if(NORD.game.config.players == 'two'){
+      // this.scoreHeader.text = "Player1 :";
+
+      // this.scoreHeader2.visible = true;
+      // this.Highlights2.visible = true;
+
+      // this.bg.scale.set(0.5);
+
+   }
+
 
   if (!MultiplayerStarted) {
     NORD.game.field.setPause(true);
