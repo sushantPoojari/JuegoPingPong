@@ -107,7 +107,7 @@ NORD.PlayerController.prototype.getName = function() {
   if (this.config.playerName != "ping pong" && this.config.playerName != undefined) {
     return this.config.playerName;
   }
-  return this.getNameById(this.config.playerAdjectiveId, this.config.playerNounId);
+  return null;
 }
 
 NORD.PlayerController.prototype.getNameById = function(adjectiveId, nounId) {

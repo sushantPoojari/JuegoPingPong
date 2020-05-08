@@ -407,10 +407,10 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
         NORD.events.emit(NORD.EVENT_CODE.GAME_INITIATED, "Success");
 
 
-        var seObj1 = new PP.ServerObject();
-        seObj1.eventType = NORD.PP_EVENT.EVENT_GAME_EVENT_HOST_HANDSHAKE;
-        seObj1.currentPing = 0;
-        NORD.gameEventHandler.sendEvent(seObj1);
+        // var seObj1 = new PP.ServerObject();
+        // seObj1.eventType = NORD.PP_EVENT.EVENT_GAME_EVENT_HOST_HANDSHAKE;
+        // seObj1.currentPing = 0;
+        // NORD.gameEventHandler.sendEvent(seObj1);
 
         MultiplayerStarted = true;
 
