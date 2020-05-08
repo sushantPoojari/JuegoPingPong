@@ -140,7 +140,9 @@ NORD.LoadingPopup = function(config) {
     if (NORD.mainMenu.loadingPopup.timerText.timerTextValue <= 0) {
       MainMenuLocation.enableAllButtons();
       NORD.mainMenu.loadingPopup.hide();
-      MainMenuLocation.multiplayerSelectionPopup.show();
+      NORD.game.screenGame.toMainMenu();
+
+     // MainMenuLocation.multiplayerSelectionPopup.show();
     }
   }, this);
 };
