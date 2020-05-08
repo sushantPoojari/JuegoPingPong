@@ -478,10 +478,10 @@ NORD.GameEventHandler.prototype.onReciveEvent = function(eventType, data) {
         NORD.mainMenu.loadingPopup.hide();
         NORD.events.emit(NORD.EVENT_CODE.GAME_INITIATED, "Success");
 
-        var seObj1 = new PP.ServerObject();
-        seObj1.eventType = NORD.PP_EVENT.EVENT_GAME_EVENT_CLIENT_HANDSHAKE;
-        seObj1.currentPing = 0;
-        NORD.gameEventHandler.sendEvent(seObj1);
+        // var seObj1 = new PP.ServerObject();
+        // seObj1.eventType = NORD.PP_EVENT.EVENT_GAME_EVENT_CLIENT_HANDSHAKE;
+        // seObj1.currentPing = 0;
+        // NORD.gameEventHandler.sendEvent(seObj1);
 
         NORD.gameState = NORD.GAME_STATE.IN_GAME;
         IsHost = false;

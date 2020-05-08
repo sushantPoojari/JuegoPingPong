@@ -153,25 +153,25 @@ NORD.ScreenGame = function(config) {
     NORD.game.screenGame.ActualServerpingText.text = "- " + data + "ms";
   });
 
-  this.pingText = new PIXI.Text("My T.Diff - 0ms", {
-    font: '35px Snippet',
-    fontSize: 15,
-    fill: 'black',
-    align: 'center'
-  });
-  this.pingText.anchor.set(1);
-  this.pingText.position.set(this.field.config.FIELD_WIDTH / 2.2, -this.field.config.FIELD_HEIGHT / 2);
-  this.addChild(this.pingText);
-
-  this.pingOppText = new PIXI.Text("Opp T.Diff - 0ms", {
-    font: '35px Snippet',
-    fontSize: 15,
-    fill: 'black',
-    align: 'center'
-  });
-  this.pingOppText.anchor.set(1);
-  this.pingOppText.position.set(this.field.config.FIELD_WIDTH / 4, -this.field.config.FIELD_HEIGHT / 2);
-  this.addChild(this.pingOppText);
+  // this.pingText = new PIXI.Text("My T.Diff - 0ms", {
+  //   font: '35px Snippet',
+  //   fontSize: 15,
+  //   fill: 'black',
+  //   align: 'center'
+  // });
+  // this.pingText.anchor.set(1);
+  // this.pingText.position.set(this.field.config.FIELD_WIDTH / 2.2, -this.field.config.FIELD_HEIGHT / 2);
+  // this.addChild(this.pingText);
+  //
+  // this.pingOppText = new PIXI.Text("Opp T.Diff - 0ms", {
+  //   font: '35px Snippet',
+  //   fontSize: 15,
+  //   fill: 'black',
+  //   align: 'center'
+  // });
+  // this.pingOppText.anchor.set(1);
+  // this.pingOppText.position.set(this.field.config.FIELD_WIDTH / 4, -this.field.config.FIELD_HEIGHT / 2);
+  // this.addChild(this.pingOppText);
 
   this.leftPlayerText = new PIXI.Text("", {
     font: '35px Snippet',
@@ -328,8 +328,8 @@ NORD.ScreenGame.prototype.tween = function(data, callback) {
     }
     this.rightPlayerText.text = "";
     this.leftPlayerText.text = "";
-    this.pingOppText.text = "";
-    this.pingText.text = "";
+    // this.pingOppText.text = "";
+    // this.pingText.text = "";
     this.ActualServerpingText.text = "";
     this.serverText.text = "";
 
@@ -749,7 +749,7 @@ NORD.PanelPause.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelPause.prototype.constructor = NORD.PanelPause;
 
 NORD.PanelPause.prototype.show = function(data) {
-   this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
+  this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
 
   if (!MultiplayerStarted) {
     NORD.game.field.setPause(true);
