@@ -1461,93 +1461,99 @@ NORD.randomNamePopup = function(config) {
   this.interactiveChildren = false; // this.alpha = 0;
   // let Plane9 = new PIXI.NineSlicePlane(PIXI.Texture.from('BoxWithRoundedCorners.png'), 15, 15, 15, 15);
 
-  this.backBG = new PIXI.NineSlicePlane(NORD.assetsManager.getTexture('PopupSmall'), 15, 15, 15, 15);
-  this.backBG.width = 640 + 15;
-  this.backBG.height = 480 + 15;
-  this.backBG.position.x = -(640 + 15) * 0.5;
-  this.backBG.position.y = -(480 + 15) * 0.5;
+  this.backBG = Util.createSprite({
+    parent: this,
+    texture: 'BG',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.55
+  });
+
   this.addChild(this.backBG);
 
-  // this.bg = new PIXI.Sprite(NORD.assetsManager.getTexture('PopupSmall'));
-  this.bg = new PIXI.NineSlicePlane(NORD.assetsManager.getTexture('PopupSmall'), 15, 15, 15, 15);
+  this.bg =  Util.createSprite({
+    parent: this,
+    texture: 'PauseBg',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.45
+  });
 
-  this.bg.width = 300;
-  this.bg.height = 244;
-  this.bg.position.x = -150;
-  this.bg.position.y = -122;
-  // this.bg.anchor.set(0.5);
   this.addChild(this.bg);
 
-  var textTitle = new PIXI.Text('CHOOSE A NICKNAME', {
+  var textTitle = new PIXI.Text('TYPE YOUR NAME :', {
+    parent: this.bg,
     font: '35px Snippet',
-    fontSize: 17,
+    fontSize: 64,
     fill: 'white',
     align: 'center'
   });
   textTitle.anchor.set(0.5);
-  textTitle.position.set(this.bg.width * 0.5, this.bg.height * 0.25);
+  textTitle.position.set(0, -this.bg.height * 0.35);
   this.bg.addChild(textTitle);
 
-  // this.s_namePanel = new PIXI.Sprite(NORD.assetsManager.getTexture('SubPanel01'));
-  // this.s_namePanel.width = 150;
-  // this.s_namePanel.height = 40;
-  // this.s_namePanel.anchor.set(0.5);
-  // this.s_namePanel.position.set(-24, -12);
-  // this.addChild(this.s_namePanel);
-
-
+  this.s_namePanel = Util.createSprite({
+    parent: this.bg,
+    texture: 'TextBox',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.75
+  });
+  this.s_namePanel.anchor.set(0.5);
+  this.s_namePanel.position.set(0, this.bg.height * 0.25);
+  this.bg.addChild(this.s_namePanel);
 
   this.l_playerName = new PIXI.TextInput({
     input: {
       fontFamily: 'Arial',
-      fontSize: '16px',
+      fontSize: '64px',
       padding: '14px 24px',
-      width: '150px',
+      width: '300px',
       height: '40px',
-      color: 'black'
-    },
-    box: {
-      default: {
-        fill: 0xE8E9F3,
-        rounded: 10,
-        stroke: {
-          color: 0xCBCEE0,
-          width: 2
-        }
-      },
-      focused: {
-        fill: 0xE1E3EE,
-        rounded: 10,
-        stroke: {
-          color: 0xABAFC6,
-          width: 2
-        }
-      },
-      disabled: {
-        fill: 0xDBDBDB,
-        rounded: 10
-      }
+      color: 'white'
     }
+    // ,
+    // box: {
+    //   default: {
+    //     fill: 0xE8E9F3,
+    //     rounded: 10,
+    //     stroke: {
+    //       color: 0xCBCEE0,
+    //       width: 2
+    //     }
+    //   },
+    //   focused: {
+    //     fill: 0xE1E3EE,
+    //     rounded: 10,
+    //     stroke: {
+    //       color: 0xABAFC6,
+    //       width: 2
+    //     }
+    //   },
+    //   disabled: {
+    //     fill: 0xDBDBDB,
+    //     rounded: 10
+    //   }
+    // }
   })
   this.l_playerName.maxLength = 12;
 
   this.l_playerName.placeholder = 'Enter your Text...'
   if (NORD.App.playerController.getName() != null)
     this.l_playerName.text = NORD.App.playerController.getName();
-  this.l_playerName.x = this.bg.width / 2;
-  this.l_playerName.y = this.bg.height / 2;
+  this.l_playerName.x = 0;
+  this.l_playerName.y = 0;
   this.l_playerName.pivot.x = this.l_playerName.width / 2
   this.l_playerName.pivot.y = this.l_playerName.height / 2
-  this.bg.addChild(this.l_playerName);
+  this.s_namePanel.addChild(this.l_playerName);
 
 
 
-  this.closeButton = Util.createButton('btn', this, null, '', 169, -141, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseBtn'), {
-    texture: 'CloseBtn',
+  this.closeButton = Util.createButton('btn', this, null, '', 169, -150, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseBtn'), {
+    texture: 'CloseButton',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 1,
-    scaleY: 1
+    scaleXY: 0.45
   });
   this.closeButton.soundClick = NORD.assetsManager.getAsset('play_button')
   this.closeButton.addListener('button_click', function(data) {
@@ -1562,12 +1568,12 @@ NORD.randomNamePopup = function(config) {
 
   }, this);
 
-  this.okButton = Util.createButton('btn', this, null, '', 0, 60, 100, 40, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CommonBtn'), {
-    texture: 'CommonBtn',
+  this.okButton = Util.createButton('btn', this, null, '', 0, this.bg.height * 0.45 , 100, 40, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CommonBtn'), {
+    parent:this.bg,
+    texture: 'EnterButton',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 1,
-    scaleY: 1
+    scaleXY: 0.45
   });
   this.okButton.soundClick = NORD.assetsManager.getAsset('play_button')
   this.okButton.addListener('button_click', function(data) {
@@ -1588,16 +1594,6 @@ NORD.randomNamePopup = function(config) {
     });
     // DemoLoadFunction.createRoom(name, k);
   }, this);
-
-  var textSample = new PIXI.Text('OK', {
-    font: '35px Snippet',
-    fontSize: 17,
-    fill: 'white',
-    align: 'center'
-  });
-  textSample.anchor.set(0.5);
-  textSample.position.set(-0, -0);
-  this.okButton.addChild(textSample);
 };
 
 NORD.randomNamePopup.prototype = Object.create(NORD.GUI.BasePanel.prototype);
