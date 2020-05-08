@@ -1882,7 +1882,7 @@ var RoundGenerator = function RoundGenerator(field) {
   this.containerScores.addChild(this.scoreRight);
 
   this.roundModeLabelBg = new PIXI.Graphics();
-  this.roundModeLabels = (_this$roundModeLabels = {}, _defineProperty(_this$roundModeLabels, 'KITTY', 'KITTY'), _defineProperty(_this$roundModeLabels, 'INVISIBLE_WALL', 'INVISIBLE WALL'), _defineProperty(_this$roundModeLabels, 'INVISIBLE_AREA', 'INVISIBLE AREA'), _defineProperty(_this$roundModeLabels, 'GRAVITY_WELL', 'GRAVITY WELL'), _defineProperty(_this$roundModeLabels, 'DOUBLE_BALL', 'DOUBLE BALL'), _defineProperty(_this$roundModeLabels, 'BIG_BALL_LITTLE_PADDLES', 'BIG BALL LITTLE PADDLES'), _defineProperty(_this$roundModeLabels, 'SMALL_GRAVITY_WELL', 'SMALL GRAVITY WELL'), _defineProperty(_this$roundModeLabels, 'FIRE_ZONE', 'FIRE ZONE'), _defineProperty(_this$roundModeLabels, 'BUMPER', 'BUMPER'), _defineProperty(_this$roundModeLabels, 'STUN_GUN', 'STUN GUN'), _defineProperty(_this$roundModeLabels, 'STUN_PLAYER', 'STUN PLAYER'), _defineProperty(_this$roundModeLabels, 'KITTY_SHRINK_PADDLE', 'KITTY SHRINK PADDLE'), _this$roundModeLabels);
+  this.roundModeLabels = (_this$roundModeLabels = {}, _defineProperty(_this$roundModeLabels, 'STUN_PLAYER', 'STUN PLAYER'), _defineProperty(_this$roundModeLabels, 'KITTY_SHRINK_PADDLE', 'KITTY SHRINK PADDLE'), _defineProperty(_this$roundModeLabels, 'SHADOW_MODE', 'SHADOW MODE'), _defineProperty(_this$roundModeLabels, 'INVERSE_MODE', 'REVERSE MODE'), _defineProperty(_this$roundModeLabels, 'TELEPORT_MODE', 'THROUGH THE PORTAL'), _defineProperty(_this$roundModeLabels, 'BLACK_HOLE_MODE', 'BLACK HOLE'), _this$roundModeLabels);
   this.containerScores.addChild(this.roundModeLabelBg);
   this.roundModeLabelBg.y = -100;
 
