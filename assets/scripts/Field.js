@@ -2389,8 +2389,6 @@ RoundGenerator.prototype.initRoundMode = function() {
   // this.roundModeLabelBg.alpha = 1;
   this.roundModeLabelBg.drawRect(-this.roundModeLabel.width / 2 - widthPadding, -this.roundModeLabel.height / 2 - padding, this.roundModeLabel.width + widthPadding * 2, this.roundModeLabel.height + padding * 2);
 
-  debugger;
-
   if(this.modeName == undefined)
   {
   this.modeName = new PIXI.Text(this.roundModeLabels[this.roundMode], {

@@ -867,7 +867,10 @@ NORD.Field.FireZone.prototype.destroy = function() {
 var GameStartText = function GameStartText() {
   PIXI.Container.call(this);
 
-  this.textReady = Util.createSprite({
+  this.textReady =  new PIXI.Graphics();
+  this.addChild(this.textReady)
+  
+  var bg1 = Util.createSprite({
     texture: 'GreenRibbon',
     parent: this,
     aX: 0.5,
@@ -875,18 +878,14 @@ var GameStartText = function GameStartText() {
     scaleXY: 0.375
   });
 
-
-  var bg1 = new PIXI.Graphics();
-  this.textReady.addChild(bg1);
-  var padding = 50;
+  var padding = 10;
   var widthPadding = 600;
 
-  bg1.clear();
-  bg1.beginFill(0x29292b, 0.4);
-  // this.roundModeLabelBg.alpha = 1;
-  bg1.drawRect(-this.textReady.width / 2 - widthPadding, -this.textReady.height / 2 - padding, this.textReady.width + widthPadding * 2, this.textReady.height + padding * 2);
+  this.textReady.clear();
+  this.textReady.beginFill(0x29292b, 0.4);
+  this.textReady.drawRect(-bg1.width / 2 - widthPadding / 2, -bg1.height / 2 - padding / 2,  bg1.width + widthPadding, bg1.height + padding);
 
-
+  this.textReady.addChild(bg1);
 
   var readyText = new PIXI.Text('READY', {
     font: '35px Snippet',
@@ -896,9 +895,12 @@ var GameStartText = function GameStartText() {
   });
   readyText.anchor.set(0.5);
   readyText.position.set(0, 0);
-  this.textReady.addChild(readyText);
+  bg1.addChild(readyText);
 
-  this.textGo = Util.createSprite({
+  this.textGo = new PIXI.Graphics();
+  this.addChild(this.textGo)
+
+  var bg2 =  Util.createSprite({
     texture: 'GreenRibbon',
     parent: this,
     aX: 0.5,
@@ -906,16 +908,14 @@ var GameStartText = function GameStartText() {
     scaleXY: 0.375
   });
 
-  var bg2 = new PIXI.Graphics();
-  this.textGo.addChild(bg2);
-  var padding = 50;
+  var padding = 10;
   var widthPadding = 600;
 
-  bg2.clear();
-  bg2.beginFill(0x29292b, 0.4);
-  // this.roundModeLabelBg.alpha = 1;
-  bg2.drawRect(-this.textReady.width / 2 - widthPadding, -this.textReady.height / 2 - padding, this.textReady.width + widthPadding * 2, this.textReady.height + padding * 2);
+  this.textGo.clear();
+  this.textGo.beginFill(0x29292b, 0.4);
+  this.textGo.drawRect(-bg2.width / 2 - widthPadding / 2, -bg2.height / 2 - padding / 2,  bg2.width + widthPadding, bg2.height + padding);
 
+  this.textGo.addChild(bg2);
 
   var goText = new PIXI.Text('GO', {
     font: '35px Snippet',
@@ -925,7 +925,7 @@ var GameStartText = function GameStartText() {
   });
   goText.anchor.set(0.5);
   goText.position.set(0, 0);
-  this.textGo.addChild(goText);
+  bg2.addChild(goText);
 
   this.visible = false;
   this.tween1 = null;
