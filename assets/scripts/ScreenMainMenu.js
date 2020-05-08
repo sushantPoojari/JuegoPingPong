@@ -275,7 +275,7 @@ NORD.ScreenMainMenu.prototype.disableAllButtons = function() {
   this.switcherMode.interactiveChildren = false;
 
   this.audioButton.interactive = false;
-  this.playButton.interactive =false;
+  this.playButton.interactive = false;
 
   this.switcherPlayers.switchingState = 'none1';
 };
@@ -292,7 +292,7 @@ NORD.ScreenMainMenu.prototype.enableAllButtons = function() {
   this.switcherMode.interactiveChildren = true;
 
   this.audioButton.interactive = true;
-  this.playButton.interactive =true;
+  this.playButton.interactive = true;
 
   this.switcherPlayers.switchingState = 'none';
 };
@@ -1698,7 +1698,7 @@ NORD.subModeSelectionPopup = function(config) {
   this.interactiveChildren = false; // this.alpha = 0;
   this.board = "board_1";
 
- 
+
   this.bg = Util.createSprite({
     parent: this,
     texture: 'BG',
@@ -1868,23 +1868,36 @@ NORD.subModeSelectionPopup = function(config) {
     scaleX: 100,
     scaleY: 100,
   });
-
   this.transparentLayer.alpha = 0.85;
 
-  this.loadingIndicator  = Util.createSprite({
+  this.loadingIndicator = Util.createSprite({
     parent: this,
     texture: 'loadIcon',
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.5
   });
+  this.loadingIndicator.position.y = -50;
   this.currentAngle = 0;
+
+  this.loaderTextData = new PIXI.Text('GETTING OPTIMAL SERVER', {
+    fontFamily: 'Russo One',
+    fontSize: 35,
+    fill: 'white',
+    align: 'center',
+  });
+  this.loaderTextData.anchor.set(0.5);
+  this.loaderTextData.position.x = 0;
+  this.loaderTextData.position.y = 100;
+  this.loaderTextData.alpha = 0.85;
+  this.addChild(this.loaderTextData);
+
 
   rotateAction();
 
   function rotateAction() {
     requestAnimationFrame(rotateAction);
-   self.loadingIndicator.rotation += 0.01;
+    self.loadingIndicator.rotation += 0.01;
   }
 
 };
@@ -1892,29 +1905,28 @@ NORD.subModeSelectionPopup = function(config) {
 NORD.subModeSelectionPopup.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.subModeSelectionPopup.prototype.constructor = NORD.subModeSelectionPopup;
 
-NORD.subModeSelectionPopup.prototype.stopLoading = function()
-{
+NORD.subModeSelectionPopup.prototype.stopLoading = function() {
   this.transparentLayer.visible = false;
   this.loadingIndicator.visible = false;
+  this.loaderTextData.visible = false;
   this.enableAllButtons();
 
 };
 
-NORD.subModeSelectionPopup.prototype.enableAllButtons= function()
-{
+NORD.subModeSelectionPopup.prototype.enableAllButtons = function() {
   //disable Switch Board
   this.switchNormalMode.interactive = true;
   this.switchNormalMode.interactiveChildren = true;
 
   //disable Switch Mode
-    this.switchThrillerMode.interactive = true;
-    this.switchThrillerMode.interactiveChildren = true;
+  this.switchThrillerMode.interactive = true;
+  this.switchThrillerMode.interactiveChildren = true;
 
   //disable switch Dificulty
   this.switchDificulty.interactive = true;
   this.switchDificulty.interactiveChildren = true;
 
-    //disable switch Region
+  //disable switch Region
   this.switchRegion.interactive = true;
   this.switchRegion.interactiveChildren = true;
 
@@ -1922,26 +1934,25 @@ NORD.subModeSelectionPopup.prototype.enableAllButtons= function()
   this.playButton.interactive = true;
 };
 
-NORD.subModeSelectionPopup.prototype.disableAllButtons= function()
-{
-    //disable Switch Board
-    this.switchNormalMode.interactive = false;
-    this.switchNormalMode.interactiveChildren = false;
-  
-    //disable Switch Mode
-      this.switchThrillerMode.interactive = false;
-      this.switchThrillerMode.interactiveChildren = false;
-  
-    //disable switch Dificulty
-    this.switchDificulty.interactive = false;
-    this.switchDificulty.interactiveChildren = false;
-  
-      //disable switch Region
-      this.switchRegion.interactive = false;
-      this.switchRegion.interactiveChildren = false;
-  
-      this.backButton.interactive = false;
-      this.playButton.interactive = false;
+NORD.subModeSelectionPopup.prototype.disableAllButtons = function() {
+  //disable Switch Board
+  this.switchNormalMode.interactive = false;
+  this.switchNormalMode.interactiveChildren = false;
+
+  //disable Switch Mode
+  this.switchThrillerMode.interactive = false;
+  this.switchThrillerMode.interactiveChildren = false;
+
+  //disable switch Dificulty
+  this.switchDificulty.interactive = false;
+  this.switchDificulty.interactiveChildren = false;
+
+  //disable switch Region
+  this.switchRegion.interactive = false;
+  this.switchRegion.interactiveChildren = false;
+
+  this.backButton.interactive = false;
+  this.playButton.interactive = false;
 
 
 };
@@ -1954,7 +1965,8 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
   this.switchRegion.visible = false;
   this.difficultyHeader.text = 'CHOOSE DIFFICULTY';
   this.loadingIndicator.visible = false;
-    this.transparentLayer.visible = false;
+  this.transparentLayer.visible = false;
+  this.loaderTextData.visible = false;
 
   if (config.players == 'three') {
     this.difficultyHeader.text = 'SELECT REGION';
@@ -1962,6 +1974,7 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
     this.switchRegion.visible = true;
     this.loadingIndicator.visible = true;
     this.transparentLayer.visible = true;
+    this.loaderTextData.visible = true;
 
     this.disableAllButtons();
   } else
