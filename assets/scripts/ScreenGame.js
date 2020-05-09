@@ -332,6 +332,10 @@ NORD.ScreenGame.prototype.tween = function(data, callback) {
     // this.pingText.text = "";
     this.ActualServerpingText.text = "";
     this.serverText.text = "";
+    if (NORD.game.config.players == "two") {
+      this.rightPlayerText.text = "PLAYER 2";
+      this.leftPlayerText.text = "PLAYER 1";
+    }
 
 
     if (MultiplayerStarted) {
