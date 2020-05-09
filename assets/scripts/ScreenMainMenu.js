@@ -1474,7 +1474,7 @@ NORD.randomNamePopup = function(config) {
 
   this.addChild(this.bg);
 
-  var textTitle = new PIXI.Text('TYPE YOUR NAME :', {
+  var textTitle = new PIXI.Text('TYPE YOUR NAME', {
     parent: this.bg,
     fontFamily: 'Russo One',
     fontSize: 64,
@@ -1482,7 +1482,7 @@ NORD.randomNamePopup = function(config) {
     align: 'center'
   });
   textTitle.anchor.set(0.5);
-  textTitle.position.set(0, -this.bg.height * 0.35);
+  textTitle.position.set(0, -this.bg.height * 0.365);
   this.bg.addChild(textTitle);
 
   this.s_namePanel = Util.createSprite({
@@ -1493,7 +1493,7 @@ NORD.randomNamePopup = function(config) {
     scaleXY: 0.75
   });
   this.s_namePanel.anchor.set(0.5);
-  this.s_namePanel.position.set(0, this.bg.height * 0.25);
+  this.s_namePanel.position.set(0, this.bg.height * 0.265);
   this.bg.addChild(this.s_namePanel);
 
   this.l_playerName = new PIXI.TextInput({
@@ -1532,7 +1532,7 @@ NORD.randomNamePopup = function(config) {
   })
   this.l_playerName.maxLength = 12;
 
-  this.l_playerName.placeholder = 'Enter your Text...'
+  this.l_playerName.placeholder = 'Nickname'
   if (NORD.App.playerController.getName() != null)
     this.l_playerName.text = NORD.App.playerController.getName();
   this.l_playerName.x = 0;
