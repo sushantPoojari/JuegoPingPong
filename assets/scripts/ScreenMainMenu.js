@@ -1490,7 +1490,7 @@ NORD.randomNamePopup = function(config) {
     parent: this.bg,
     fontFamily: 'Russo One',
     fontSize: 30,
-    fill: 'yellow',
+    fill: 'red',
     align: 'center'
   });
   this.errorText.anchor.set(0.5);
