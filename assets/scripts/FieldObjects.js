@@ -665,7 +665,10 @@ NORD.Field.Ball.prototype.checkMultiplayerBoundaryGoal = function() {
     if (this.body.position.x > this.field.config.FIELD_WIDTH / 2) {
       this.stopped = true;
       var seObj = new PP.ServerObject();
-      seObj.eventType = NORD.PP_EVENT.EVENT_GAME_BALL_POSITION;
+      if (this == Ball)
+        seObj.eventType = NORD.PP_EVENT.EVENT_GAME_BALL_POSITION;
+      else
+        seObj.eventType = NORD.PP_EVENT.EVENT_GAME_BALL_POSITION_ONE;
       seObj.ballPositionX = this.body.velocity.x;
       seObj.ballPositionY = this.body.velocity.y;
       NORD.gameEventHandler.sendEvent(seObj);
