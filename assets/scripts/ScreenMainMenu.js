@@ -1740,8 +1740,8 @@ NORD.subModeSelectionPopup = function(config) {
   this.switchThrillerMode = this.createSwitcher(0, -150, 'label_Thriller', 'Thriller', 'left', function(side) {
     var dataMap = {
       left: 'STUN_PLAYER',
-      right: 'KITTY_SHRINK_PADDLE',
-      center: 'TELEPORT_MODE',
+      right: 'TELEPORT_MODE',
+      center: 'KITTY_SHRINK_PADDLE',
       bottomLeft: 'SHADOW_MODE',
       bottomRight: 'BLACK_HOLE_MODE',
       bottomCenter: 'INVERSE_MODE',
