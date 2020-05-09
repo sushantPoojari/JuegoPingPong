@@ -1486,7 +1486,7 @@ NORD.randomNamePopup = function(config) {
   this.bg.addChild(textTitle);
 
 
-  this.errorText = new PIXI.Text('bhai bhai', {
+  this.errorText = new PIXI.Text('Entered name contains\n profanity/special characters', {
     parent: this.bg,
     fontFamily: 'Russo One',
     fontSize: 30,
@@ -1553,8 +1553,6 @@ NORD.randomNamePopup = function(config) {
   this.l_playerName.pivot.x = this.l_playerName.width / 2
   this.l_playerName.pivot.y = this.l_playerName.height / 2
   this.s_namePanel.addChild(this.l_playerName);
-
-
 
   this.closeButton = Util.createButton('btn', this, null, '', 169, -150, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseBtn'), {
     texture: 'CloseButton',
