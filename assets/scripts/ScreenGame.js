@@ -780,6 +780,7 @@ NORD.PanelPause.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelPause.prototype.constructor = NORD.PanelPause;
 
 NORD.PanelPause.prototype.show = function(data) {
+  NORD.game.config.players = NORD.game.currentPlayer;
   this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
   this.scoreHeader.text = "YOUR SCORE :";
 

@@ -663,6 +663,7 @@ NORD.Game = function () {
   EventEmitter.call(this);
   var self = this;
   this.screenPreloader = null;
+  this.currentPlayer = 'one';
   this.config = {
     players: 'one',
     dificulty: 'easy',

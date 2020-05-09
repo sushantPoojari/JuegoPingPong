@@ -81,6 +81,7 @@ NORD.ScreenMainMenu = function(config) {
 
     var config = NORD.game.config;
     config.players = dataMap[side];
+    NORD.game.currentPlayer = dataMap[side];
     NORD.game.setConfig(config); // console.log('SSS:', config)
   });
 
