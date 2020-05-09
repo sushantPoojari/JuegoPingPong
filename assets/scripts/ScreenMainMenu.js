@@ -1506,7 +1506,7 @@ NORD.randomNamePopup = function(config) {
     scaleXY: 0.75
   });
   this.s_namePanel.anchor.set(0.5);
-  this.s_namePanel.position.set(0, this.bg.height * 0.265);
+  this.s_namePanel.position.set(0, this.bg.height * 0.2);
   this.bg.addChild(this.s_namePanel);
 
   this.l_playerName = new PIXI.TextInput({
