@@ -1474,7 +1474,7 @@ NORD.randomNamePopup = function(config) {
 
   this.addChild(this.bg);
 
-  var textTitle = new PIXI.Text('TYPE YOUR NAME :', {
+  var textTitle = new PIXI.Text('TYPE YOUR NAME', {
     parent: this.bg,
     fontFamily: 'Russo One',
     fontSize: 64,
@@ -1532,7 +1532,7 @@ NORD.randomNamePopup = function(config) {
   })
   this.l_playerName.maxLength = 12;
 
-  this.l_playerName.placeholder = 'Enter your Text...'
+  this.l_playerName.placeholder = 'YOUR NICKNAME...'
   if (NORD.App.playerController.getName() != null)
     this.l_playerName.text = NORD.App.playerController.getName();
   this.l_playerName.x = 0;
