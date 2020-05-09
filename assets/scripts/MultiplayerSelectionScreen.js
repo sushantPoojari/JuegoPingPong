@@ -658,12 +658,20 @@ NORD.RandomSearchInstance.prototype.getRandomWaitTime = function() {
 NORD.RandomSearchInstance.prototype.getRandomRoomOption = function(mode) {
   var modType;
   var boardType;
+  var gameModeList = [];
   if (NORD.game.config.mode == "classic") {
     modType = NORD.game.panelSettings.actionMode;
     boardType = NORD.game.config.board;
   } else {
     modType = NORD.game.panelSettings.actionMode;
     boardType = NORD.game.config.board;
+  }
+
+  for (var i = 0; i < 14; i++) {
+    var avaiableModes = NORD.game.field.roundGenerator.getAvaiablesModes();
+    var roundMode = Util.randomElement(avaiableModes);
+    avaiableModes.splice(avaiableModes.indexOf(roundMode), 1);
+    gameModeList.push(roundMode);
   }
 
   console.log("%%%%%%%%%%%", NORD.game.panelSettings.actionMode, "%%%%%%%%%%%", NORD.game.config.board);
@@ -677,6 +685,7 @@ NORD.RandomSearchInstance.prototype.getRandomRoomOption = function(mode) {
       gameType: NORD.MULTIPLAYER_GAME_TYPE.RANDOM,
       modeType: modType,
       board: boardType,
+      gameModeList: gameModeList,
       difficulty: NORD.App.playerController.config.playerDifficultyLevel //NORD.MULTIPLAYER_GAME_DIFFICULTY.EASY
     }
   }

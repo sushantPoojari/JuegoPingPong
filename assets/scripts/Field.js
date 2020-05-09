@@ -2339,6 +2339,10 @@ RoundGenerator.prototype.initRound = function() {
 
   if (MultiplayerStarted) {
     this.roundMode = DemoLoadFunction.myRoom()._customProperties.modeType;
+    if (NORD.game.panelSettings.actionMode === 'ALL') {
+      this.roundMode = DemoLoadFunction.myRoom()._customProperties.gameModeList[DemoLoadFunction.myRoom()._customProperties.gameModeList.length - 1];
+      DemoLoadFunction.myRoom()._customProperties.gameModeList.pop();
+    }
   } else {
     if (NORD.game.panelSettings.actionMode === 'ALL') {
       // console.log('CCCC:', this.roundMode, this.prevRoundMode);
