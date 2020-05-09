@@ -1485,6 +1485,19 @@ NORD.randomNamePopup = function(config) {
   textTitle.position.set(0, -this.bg.height * 0.35);
   this.bg.addChild(textTitle);
 
+
+  this.errorText = new PIXI.Text('bhai bhai', {
+    parent: this.bg,
+    fontFamily: 'Russo One',
+    fontSize: 30,
+    fill: 'yellow',
+    align: 'center'
+  });
+  this.errorText.anchor.set(0.5);
+  this.errorText.position.set(0, this.bg.height * 0.5);
+  this.bg.addChild(this.errorText);
+  this.errorText.alpha = 0;
+
   this.s_namePanel = Util.createSprite({
     parent: this.bg,
     texture: 'TextBox',
@@ -1501,7 +1514,7 @@ NORD.randomNamePopup = function(config) {
       fontFamily: 'Russo One',
       fontSize: '50px',
       padding: '18px 24px',
-      width: '400px',
+      width: '450px',
       height: '40px',
       color: 'white',
       align: 'center'
@@ -1584,6 +1597,29 @@ NORD.randomNamePopup = function(config) {
         NORD.mainMenu.multiplayerSelectionPopup.startPhotonSerer();
         NORD.game.screenMainMenu.subModeSelectionPopup.show();
         NORD.mainMenu.randomNamePopup.hide();
+      } else {
+        if (NORD.mainMenu.randomNamePopup.errorText.tweenBodyAlpha != null)
+          NORD.mainMenu.randomNamePopup.errorText.tweenBodyAlpha.kill();
+        NORD.mainMenu.randomNamePopup.errorText.tweenBodyAlpha = TweenMax.to(NORD.mainMenu.randomNamePopup.errorText, 1, {
+          alpha: 1,
+          onComplete: function onComplete() {
+            NORD.mainMenu.randomNamePopup.errorText.tweenBodyAlpha = null;
+            setTimeout(function() {
+              decreaseerrorTextAlpha();
+            }, 2000);
+          }
+        });
+
+        function decreaseerrorTextAlpha() {
+          if (NORD.mainMenu.randomNamePopup.errorText.tweenBodyAlpha != null)
+            NORD.mainMenu.randomNamePopup.errorText.tweenBodyAlpha.kill();
+          NORD.mainMenu.randomNamePopup.errorText.tweenBodyAlpha = TweenMax.to(NORD.mainMenu.randomNamePopup.errorText, 1, {
+            alpha: 0,
+            onComplete: function onComplete() {
+              NORD.mainMenu.randomNamePopup.errorText.tweenBodyAlpha = null;
+            }
+          });
+        }
       }
     });
     // DemoLoadFunction.createRoom(name, k);
