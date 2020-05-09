@@ -1545,7 +1545,7 @@ NORD.randomNamePopup = function(config) {
   })
   this.l_playerName.maxLength = 12;
 
-  this.l_playerName.placeholder = 'YOUR NICKNAME...'
+  this.l_playerName.placeholder = 'eg. creedCrimson'
   if (NORD.App.playerController.getName() != null)
     this.l_playerName.text = NORD.App.playerController.getName();
   this.l_playerName.x = 0;
