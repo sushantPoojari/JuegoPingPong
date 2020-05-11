@@ -33,12 +33,13 @@ NORD.LoadingPopup = function(config) {
     texture: 'Separator',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.5
+    scaleX: 0.25,
+    scaleY: 0.5
   });
 
   dividerLine.angle = 90;
 
-  var ball = Util.createSprite({
+  this.ball = Util.createSprite({
     parent: this,
     x: 0,
     y: 0,
@@ -116,7 +117,6 @@ NORD.LoadingPopup = function(config) {
   this.addChild(this.loadingIndicator);
   this.currentAngle = 0;
 
-
   this.timerTextValue = 15;
   this.timerText = new PIXI.Text('', {
     fontFamily: 'Russo One',
@@ -128,7 +128,7 @@ NORD.LoadingPopup = function(config) {
   this.timerText.position.set(0, 435);
   this.bg.addChild(this.timerText);
 
-  this.Button = Util.createButton('btn', this, null, '', 0, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CommonBtn'), {
+  this.Button = Util.createButton('btn', this, null, '', 0, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CancelButton'), {
     texture: 'CancelButton',
     aX: 0.5,
     aY: 0.5,
@@ -213,6 +213,36 @@ NORD.LoadingPopup.prototype.tween = function(data, callback) {
     this.visible = true;
     this.interactiveChildren = true;
     this.alpha = 1.0;
+
+    moveUp();
+
+    function moveUp() {
+      if (NORD.mainMenu.loadingPopup.ball.tweenSpeed != null)
+        NORD.mainMenu.loadingPopup.ball.tweenSpeed.kill();
+      NORD.mainMenu.loadingPopup.ball.tweenSpeed = TweenMax.to(NORD.mainMenu.loadingPopup.ball.position, 2, {
+        x: NORD.mainMenu.loadingPopup.ball.position.x,
+        y: -100,
+        onComplete: function onComplete() {
+          NORD.mainMenu.loadingPopup.ball.tweenSpeed = null;
+          moveDown();
+        }
+      });
+    }
+
+    function moveDown() {
+      if (NORD.mainMenu.loadingPopup.ball.tweenSpeed != null)
+        NORD.mainMenu.loadingPopup.ball.tweenSpeed.kill();
+      NORD.mainMenu.loadingPopup.ball.tweenSpeed = TweenMax.to(NORD.mainMenu.loadingPopup.ball.position, 2, {
+        x: NORD.mainMenu.loadingPopup.ball.position.x,
+        y: 100,
+        onComplete: function onComplete() {
+          NORD.mainMenu.loadingPopup.ball.tweenSpeed = null;
+          moveUp();
+        }
+      });
+    }
+
+
     if (callback) callback();
   }
 
@@ -220,6 +250,8 @@ NORD.LoadingPopup.prototype.tween = function(data, callback) {
     this.state = 'hide';
     this.visible = false;
     this.interactiveChildren = false;
+    if (NORD.mainMenu.loadingPopup.ball.tweenSpeed != null)
+      NORD.mainMenu.loadingPopup.ball.tweenSpeed.kill();
     if (callback) callback();
   }
 };
