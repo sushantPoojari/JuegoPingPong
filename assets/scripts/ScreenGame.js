@@ -89,10 +89,10 @@ NORD.ScreenGame = function(config) {
     if (this.state !== 'show' || this.panelEndGame.state !== 'hide') return;
     TweenMax.delayedCall(0.07 * 2, function() {
       debugger;
-      if(NORD.game.currentPlayer == 'three')
+      if (NORD.game.currentPlayer == 'three')
         _this2.panelQuit.show()
-      else if(NORD.game.currentPlayer == 'two')
-      _this2.panelPause2.show()
+      else if (NORD.game.currentPlayer == 'two')
+        _this2.panelPause2.show()
       else
         _this2.panelPause.show();
     }); // this.toMainMenu();
@@ -447,7 +447,7 @@ NORD.PanelEndGame = function(config) {
     aY: 0.5,
     scaleXY: 0.4
   });
-  this.bg.position.set(0 , 25);
+  this.bg.position.set(0, 25);
 
   this.rays = Util.createSprite({
     parent: this.bg,
@@ -457,7 +457,7 @@ NORD.PanelEndGame = function(config) {
     scaleXY: 1,
   });
   this.rays.anchor.set(0.5);
-  this.rays.position.set(0 , (-this.bg.height / 2 + 50) - this.rays.height / 2);
+  this.rays.position.set(0, (-this.bg.height / 2 + 50) - this.rays.height / 2);
 
   this.HeaderPanel = Util.createSprite({
     parent: this.bg,
@@ -467,7 +467,7 @@ NORD.PanelEndGame = function(config) {
     scaleXY: 1,
   });
   this.HeaderPanel.anchor.set(0.5);
-  this.HeaderPanel.position.set(0 , (-this.bg.height / 2 * 0.4) - this.HeaderPanel.height / 2);
+  this.HeaderPanel.position.set(0, (-this.bg.height / 2 * 0.4) - this.HeaderPanel.height / 2);
 
   this.stars = Util.createSprite({
     parent: this.HeaderPanel,
@@ -581,7 +581,7 @@ NORD.PanelEndGame = function(config) {
   });
   this.shareButton.on('button_click', function(data) {
 
-      //share code here
+    //share code here
   }, this);
 
   // this.scoreLeft = new NORD.ScreenGame.ScoreText();
@@ -625,8 +625,7 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
   this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
   this.scoreLabel2.text = NORD.game.field.players.LEFT.roundScore;
 
-  if (winner === 'AI')
-  { 
+  if (winner === 'AI') {
     this.HeaderText.text = "YOU LOST";
     this.scoreHeader2.text = "YOUR SCORE";
     this.scoreHeader.text = "COMPUTER SCORE"
@@ -644,14 +643,12 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
     this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
     this.scoreLabel.text = NORD.game.field.players.LEFT.roundScore;
   }
-  if (winner === 'PLAYER')
-  {    
+  if (winner === 'PLAYER') {
     this.HeaderText.text = "YOU WON";
     this.scoreHeader.text = "YOUR SCORE";
     this.scoreHeader2.text = "COMPUTER SCORE"
   }
-  if (winner === 'PLAYER_LEFT') 
-  {
+  if (winner === 'PLAYER_LEFT') {
     this.HeaderText.text = "PLAYER-1 WON";
     this.scoreHeader.text = "PLAYER-1 SCORE";
     this.scoreHeader2.text = "PLAYER-2 SCORE"
@@ -659,33 +656,31 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
     this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
     this.scoreLabel.text = NORD.game.field.players.LEFT.roundScore;
 
-    if(NORD.game.currentPlayer == 'three')
-    {
+    if (NORD.game.currentPlayer == 'three') {
       this.HeaderText.text = "YOU LOST";
 
       this.Highlights.visible = false;
       this.shareButton.visible = false;
       this.rays.visible = false;
-  
+
       this.buttonHome.position.x = 0;
-  
+
       this.bg.texture = redPanel;
       this.stars.texture = redDots
       this.HeaderPanel.texture = upperRedPanel;
     }
 
   }
-  if (winner === 'PLAYER_RIGHT')
-  {
-      this.HeaderText.text = "PLAYER-2 WON";
-      this.scoreHeader.text = "PLAYER-1 SCORE";
-      this.scoreHeader2.text = "PLAYER-2 SCORE"
+  if (winner === 'PLAYER_RIGHT') {
+    this.HeaderText.text = "PLAYER-2 WON";
+    this.scoreHeader.text = "PLAYER-1 SCORE";
+    this.scoreHeader2.text = "PLAYER-2 SCORE"
 
-      this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
+    this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
     this.scoreLabel.text = NORD.game.field.players.LEFT.roundScore;
-    
-    if(NORD.game.currentPlayer == 'three'){
-      this.HeaderText.text = "YOU WON";  
+
+    if (NORD.game.currentPlayer == 'three') {
+      this.HeaderText.text = "YOU WON";
     }
   }
 };
@@ -697,21 +692,21 @@ NORD.PanelEndGame.prototype.show = function(data) {
   var playerRightScore = data.playerRightScore; // this.scoreLeft.setScore(playerLeftScore);
   // this.scoreRight.setScore(playerRightScore);
 
-  //sushant
-  if (MultiplayerStarted) {
-    this.removeChild(this.textWin);
-
-    this.textWin = new PIXI.Text(winner + " \nwins", {
-      fontFamily: 'Russo One',
-      fontSize: 26,
-      fill: 'white',
-      align: 'center'
-    });
-    this.textWin.anchor.set(0.5);
-    this.textWin.position.set(0, -40);
-    this.addChild(this.textWin);
-  } else
-    this.setText(winner);
+  // //sushant
+  // if (MultiplayerStarted) {
+  //   this.removeChild(this.textWin);
+  //
+  //   this.textWin = new PIXI.Text(winner + " \nwins", {
+  //     fontFamily: 'Russo One',
+  //     fontSize: 26,
+  //     fill: 'white',
+  //     align: 'center'
+  //   });
+  //   this.textWin.anchor.set(0.5);
+  //   this.textWin.position.set(0, -40);
+  //   this.addChild(this.textWin);
+  // } else
+  this.setText(winner);
 
 
   this.tween({
@@ -1420,7 +1415,7 @@ NORD.PanelQuit.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelQuit.prototype.constructor = NORD.PanelPause;
 
 NORD.PanelQuit.prototype.show = function(data) {
- 
+
   if (!MultiplayerStarted) {
     NORD.game.field.setPause(true);
     TweenMax.pauseAll();
