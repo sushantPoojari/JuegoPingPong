@@ -799,7 +799,7 @@ NORD.MenuSwitcher.prototype.constructor = NORD.MenuSwitcher;
 NORD.MenuSwitcher.prototype.setSelected = function(side) {
   var _this3 = this;
 
-  if (this.selected == side || this.switchingState !== 'none') return;
+  if (/*this.selected == side ||*/ this.switchingState !== 'none') return;   //Button tap effect
   this.tween({
     name: 'switch',
     side: side
@@ -1519,29 +1519,6 @@ NORD.randomNamePopup = function(config) {
       color: 'white',
       align: 'center'
     }
-    // ,
-    // box: {
-    //   default: {
-    //     fill: 0xE8E9F3,
-    //     rounded: 10,
-    //     stroke: {
-    //       color: 0xCBCEE0,
-    //       width: 2
-    //     }
-    //   },
-    //   focused: {
-    //     fill: 0xE1E3EE,
-    //     rounded: 10,
-    //     stroke: {
-    //       color: 0xABAFC6,
-    //       width: 2
-    //     }
-    //   },
-    //   disabled: {
-    //     fill: 0xDBDBDB,
-    //     rounded: 10
-    //   }
-    // }
   })
   this.l_playerName.maxLength = 12;
 
@@ -1583,7 +1560,6 @@ NORD.randomNamePopup = function(config) {
   this.okButton.soundClick = NORD.assetsManager.getAsset('play_button')
   this.okButton.addListener('button_click', function(data) {
     var _this5 = this;
-    MainMenuLocation.enableAllButtons();
     if (this.state !== 'show') return;
     TweenMax.delayedCall(0.07 * 2, function() {
       if (!Util.compareProfanityWords(NORD.mainMenu.randomNamePopup.l_playerName.text)) {
