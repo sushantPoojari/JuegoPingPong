@@ -945,10 +945,10 @@ NORD.Field.prototype.gameComplete = function(playerWin) {
   /**Shun--> */
   if (MultiplayerStarted) {
     if (playerRightScore > playerLeftScore) {
-      winner = NORD.playersName.playerName;
+      winner = 'PLAYER_RIGHT';
       NORD.App.playerController.increasePlayerRank();
     } else
-      winner = NORD.playersName.opponentName;
+      winner = 'PLAYER_LEFT';
   }
 
   TweenMax.delayedCall(this.config.endGamePanelDelay.value, function() {

@@ -662,6 +662,8 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
     if(NORD.game.currentPlayer == 'three')
     {
       this.HeaderText.text = "YOU LOST";
+      this.scoreHeader.text = NORD.game.opponentName;
+      this.scoreHeader2.text = NORD.game.playerName;
 
       this.Highlights.visible = false;
       this.shareButton.visible = false;
@@ -686,6 +688,8 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
     
     if(NORD.game.currentPlayer == 'three'){
       this.HeaderText.text = "YOU WON";  
+      this.scoreHeader.text = NORD.game.playerName;
+      this.scoreHeader2.text = NORD.game.opponentName;
     }
   }
 };
@@ -697,20 +701,20 @@ NORD.PanelEndGame.prototype.show = function(data) {
   var playerRightScore = data.playerRightScore; // this.scoreLeft.setScore(playerLeftScore);
   // this.scoreRight.setScore(playerRightScore);
 
-  //sushant
-  if (MultiplayerStarted) {
-    this.removeChild(this.textWin);
+  // //sushant
+  // if (MultiplayerStarted) {
+  //   this.removeChild(this.textWin);
 
-    this.textWin = new PIXI.Text(winner + " \nwins", {
-      fontFamily: 'Russo One',
-      fontSize: 26,
-      fill: 'white',
-      align: 'center'
-    });
-    this.textWin.anchor.set(0.5);
-    this.textWin.position.set(0, -40);
-    this.addChild(this.textWin);
-  } else
+  //   this.textWin = new PIXI.Text(winner + " \nwins", {
+  //     fontFamily: 'Russo One',
+  //     fontSize: 26,
+  //     fill: 'white',
+  //     align: 'center'
+  //   });
+  //   this.textWin.anchor.set(0.5);
+  //   this.textWin.position.set(0, -40);
+  //   this.addChild(this.textWin);
+  // } else
     this.setText(winner);
 
 
