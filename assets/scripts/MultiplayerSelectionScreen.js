@@ -59,8 +59,8 @@ NORD.MultiplayerSelectionPopup = function(config) {
   this.addChild(this.transparentBg);
 
 
-  this.closeButton = Util.createButton('btn', this, null, '', 275, -205, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseButton'), {
-    texture: 'CloseButton',
+  this.closeButton = Util.createButton('btn', this, null, '', 275, -205, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseBtn'), {
+    texture: 'CloseBtn',
     aX: 0.5,
     aY: 0.5,
     scaleX: 1,

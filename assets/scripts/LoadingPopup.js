@@ -33,7 +33,7 @@ NORD.LoadingPopup = function(config) {
     texture: 'Separator',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 1.5
+    scaleXY: 0.5
   });
 
   dividerLine.angle = 90;

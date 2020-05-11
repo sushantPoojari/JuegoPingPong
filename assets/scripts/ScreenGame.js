@@ -845,7 +845,7 @@ NORD.PanelPause = function(config) {
     texture: 'Separator',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 1.25
+    scaleXY: 0.25
   });
 
   this.scoreHeader = new PIXI.Text('YOUR SCORE : ', {
@@ -1090,7 +1090,7 @@ NORD.PanelPause2 = function(config) {
     texture: 'Separator',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 1.25
+    scaleXY: 0.25
   });
 
   this.scoreHeader = new PIXI.Text('PLAYER-1 SCORE : ', {
@@ -1346,7 +1346,7 @@ NORD.PanelQuit = function(config) {
     texture: 'Separator',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 1.25
+    scaleXY: 0.25
   });
 
   this.warningTExt = new PIXI.Text('YOU WILL FORFEIT \n THE MATCH', {

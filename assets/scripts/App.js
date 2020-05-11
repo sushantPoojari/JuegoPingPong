@@ -227,9 +227,30 @@ NORD.initGameDefinitions = function() {
     name: 'ball_fire_ring',
     url: 'assets/audio/ball_fire_ring',
     formats: audioFormats
-  },{
+  }, {
+    name: 'DividerLine',
+    url: 'assets/multiplayerImages/Devdr.png'
+  }, {
+    name: 'OnlineMultiPlayerBtn',
+    url: 'assets/multiplayerImages/OnlineMultiPlayerBtn.png'
+  }, {
+    name: 'PopupLong',
+    url: 'assets/multiplayerImages/PopupLong.png'
+  }, {
+    name: 'CommonBtnMedium',
+    url: 'assets/multiplayerImages/CommonBtnMedium.png'
+  }, {
+    name: 'CommonBtn',
+    url: 'assets/multiplayerImages/CommonBtn.png'
+  }, {
+    name: 'CommonBtnBig',
+    url: 'assets/multiplayerImages/CommonBtnBig.png'
+  }, {
     name: 'PopupSub',
     url: 'assets/images/popup/PopupSub.png'
+  }, {
+    name: 'CloseBtn',
+    url: 'assets/multiplayerImages/CloseBtn.png'
   }, {
     name: 'PopupSmall',
     url: 'assets/images/popup/PopupSmall.png'
