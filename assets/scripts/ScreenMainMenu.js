@@ -799,7 +799,7 @@ NORD.MenuSwitcher.prototype.constructor = NORD.MenuSwitcher;
 NORD.MenuSwitcher.prototype.setSelected = function(side) {
   var _this3 = this;
 
-  if (this.selected == side || this.switchingState !== 'none') return;
+  if (/*this.selected == side ||*/ this.switchingState !== 'none') return;
   this.tween({
     name: 'switch',
     side: side
@@ -1519,29 +1519,7 @@ NORD.randomNamePopup = function(config) {
       color: 'white',
       align: 'center'
     }
-    // ,
-    // box: {
-    //   default: {
-    //     fill: 0xE8E9F3,
-    //     rounded: 10,
-    //     stroke: {
-    //       color: 0xCBCEE0,
-    //       width: 2
-    //     }
-    //   },
-    //   focused: {
-    //     fill: 0xE1E3EE,
-    //     rounded: 10,
-    //     stroke: {
-    //       color: 0xABAFC6,
-    //       width: 2
-    //     }
-    //   },
-    //   disabled: {
-    //     fill: 0xDBDBDB,
-    //     rounded: 10
-    //   }
-    // }
+  
   })
   this.l_playerName.maxLength = 12;
 
@@ -1554,7 +1532,7 @@ NORD.randomNamePopup = function(config) {
   this.l_playerName.pivot.y = this.l_playerName.height / 2
   this.s_namePanel.addChild(this.l_playerName);
 
-  this.closeButton = Util.createButton('btn', this, null, '', 169, -150, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseButton'), {
+  this.closeButton = Util.createButton('btn', this, null, '', 169, -150, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseBtn'), {
     texture: 'CloseButton',
     aX: 0.5,
     aY: 0.5,
@@ -1582,11 +1560,11 @@ NORD.randomNamePopup = function(config) {
   });
   this.okButton.soundClick = NORD.assetsManager.getAsset('play_button')
   this.okButton.addListener('button_click', function(data) {
-    var _this5 = this;
-    MainMenuLocation.enableAllButtons();
+    var _this5 = this;     
     if (this.state !== 'show') return;
     TweenMax.delayedCall(0.07 * 2, function() {
       if (!Util.compareProfanityWords(NORD.mainMenu.randomNamePopup.l_playerName.text)) {
+        MainMenuLocation.enableAllButtons();
         NORD.App.playerController.setName(NORD.mainMenu.randomNamePopup.l_playerName.text);
 
         if (DemoLoadFunction != null)
@@ -1813,7 +1791,7 @@ NORD.subModeSelectionPopup = function(config) {
     texture: 'Separator',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 1.5
+    scaleXY: 0.5
   });
 
   this.difficultyHeader = new PIXI.Text('CHOOSE DIFFICULTY', {

@@ -231,6 +231,9 @@ NORD.initGameDefinitions = function() {
     name: 'PopupSub',
     url: 'assets/images/popup/PopupSub.png'
   }, {
+    name: 'CloseBtn',
+    url: 'assets/multiplayerImages/CloseBtn.png'
+  }, {
     name: 'PopupSmall',
     url: 'assets/images/popup/PopupSmall.png'
   }, {
