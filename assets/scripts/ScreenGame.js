@@ -14,13 +14,7 @@ NORD.ScreenGame = function(config) {
   NORD.game.screenGame = this;
 
   this.field = NORD.game.field;
-  this.addChild(this.field);
-  this.panelEndGame = new NORD.PanelEndGame({
-    name: 'panel_end_game',
-    parentPanel: NORD.GUIManager.stage,
-    container: this
-  });
-  this.panelEndGame.visible = false;
+  this.addChild(this.field);+
 
   this.field.on('init_game', function() { // self.updateScore();
   });
@@ -222,6 +216,13 @@ NORD.ScreenGame = function(config) {
     container: this
   });
   this.panelQuit.visible = false;
+
+  this.panelEndGame = new NORD.PanelEndGame({
+    name: 'panel_end_game',
+    parentPanel: NORD.GUIManager.stage,
+    container: this
+  });
+  this.panelEndGame.visible = false;
 };
 
 NORD.ScreenGame.prototype = Object.create(NORD.GUI.BasePanel.prototype);
