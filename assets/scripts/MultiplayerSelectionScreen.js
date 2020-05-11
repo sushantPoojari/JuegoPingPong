@@ -481,7 +481,7 @@ NORD.RandomSearchInstance.prototype.getRandomRoomOption = function(mode) {
       modeType: modType,
       board: boardType,
       gameModeList: gameModeList,
-      difficulty: NORD.App.playerController.config.playerDifficultyLevel //NORD.MULTIPLAYER_GAME_DIFFICULTY.EASY
+      difficulty: NORD.MULTIPLAYER_GAME_DIFFICULTY.EASY //NORD.App.playerController.config.playerDifficultyLevel
     }
   }
   return option;

@@ -658,8 +658,8 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
 
     if (NORD.game.currentPlayer == 'three') {
       this.HeaderText.text = "YOU LOST";
-      this.scoreHeader.text = NORD.game.opponentName;
-      this.scoreHeader2.text = NORD.game.playerName;
+      this.scoreHeader.text = NORD.playersName.opponentName;
+      this.scoreHeader2.text = NORD.playersName.playerName;
 
       this.Highlights.visible = false;
       this.shareButton.visible = false;
@@ -683,8 +683,8 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
     
     if(NORD.game.currentPlayer == 'three'){
       this.HeaderText.text = "YOU WON";  
-      this.scoreHeader.text = NORD.game.playerName;
-      this.scoreHeader2.text = NORD.game.opponentName;
+      this.scoreHeader.text = NORD.playersName.opponentName;
+      this.scoreHeader2.text = NORD.playersName.playerName;
     }
   }
 };
