@@ -1882,7 +1882,7 @@ var RoundGenerator = function RoundGenerator(field) {
   this.containerScores.addChild(this.scoreRight);
 
   this.roundModeLabelBg = new PIXI.Graphics();
-  this.roundModeLabels = (_this$roundModeLabels = {}, _defineProperty(_this$roundModeLabels, 'STUN_PLAYER', 'STUN PLAYER'), _defineProperty(_this$roundModeLabels, 'KITTY_SHRINK_PADDLE', 'KITTY SHRINK PADDLE'), _defineProperty(_this$roundModeLabels, 'SHADOW_MODE', 'SHADOW MODE'), _defineProperty(_this$roundModeLabels, 'INVERSE_MODE', 'REVERSE MODE'), _defineProperty(_this$roundModeLabels, 'TELEPORT_MODE', 'THROUGH THE PORTAL'), _defineProperty(_this$roundModeLabels, 'BLACK_HOLE_MODE', 'BLACK HOLE'), _this$roundModeLabels);
+  this.roundModeLabels = (_this$roundModeLabels = {}, _defineProperty(_this$roundModeLabels, 'STUN_PLAYER', 'STUN PLAYER'), _defineProperty(_this$roundModeLabels, 'KITTY_SHRINK_PADDLE', 'SHRINK PADDLE'), _defineProperty(_this$roundModeLabels, 'SHADOW_MODE', 'SHADOW MODE'), _defineProperty(_this$roundModeLabels, 'INVERSE_MODE', 'REVERSE MODE'), _defineProperty(_this$roundModeLabels, 'TELEPORT_MODE', 'THROUGH THE PORTAL'), _defineProperty(_this$roundModeLabels, 'BLACK_HOLE_MODE', 'BLACK HOLE'), _this$roundModeLabels);
   this.containerScores.addChild(this.roundModeLabelBg);
   this.roundModeLabelBg.y = -100;
 
