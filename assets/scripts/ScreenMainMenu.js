@@ -1560,11 +1560,11 @@ NORD.randomNamePopup = function(config) {
   });
   this.okButton.soundClick = NORD.assetsManager.getAsset('play_button')
   this.okButton.addListener('button_click', function(data) {
-    var _this5 = this;
-    MainMenuLocation.enableAllButtons();
+    var _this5 = this;     
     if (this.state !== 'show') return;
     TweenMax.delayedCall(0.07 * 2, function() {
       if (!Util.compareProfanityWords(NORD.mainMenu.randomNamePopup.l_playerName.text)) {
+        MainMenuLocation.enableAllButtons();
         NORD.App.playerController.setName(NORD.mainMenu.randomNamePopup.l_playerName.text);
 
         if (DemoLoadFunction != null)
