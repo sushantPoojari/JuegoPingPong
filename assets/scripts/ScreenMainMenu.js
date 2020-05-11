@@ -1554,7 +1554,7 @@ NORD.randomNamePopup = function(config) {
   this.l_playerName.pivot.y = this.l_playerName.height / 2
   this.s_namePanel.addChild(this.l_playerName);
 
-  this.closeButton = Util.createButton('btn', this, null, '', 169, -150, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseBtn'), {
+  this.closeButton = Util.createButton('btn', this, null, '', 169, -150, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseButton'), {
     texture: 'CloseButton',
     aX: 0.5,
     aY: 0.5,
