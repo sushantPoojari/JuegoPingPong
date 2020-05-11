@@ -459,7 +459,34 @@ NORD.initGameDefinitions = function() {
   {
     name:'YesButton',
     url: 'assets/images/common/YesButton.png'
-  }]);
+  },{
+    name:'BluePanel',
+    url: 'assets/images/result/BluePanel.png'
+},{
+  name:'RedPanel',
+  url: 'assets/images/result/RedPanel.png'
+},{
+  name:'UpperBluePanel',
+  url: 'assets/images/result/UpperBluePanel.png'
+},{
+  name:'UpperRedPanel',
+  url: 'assets/images/result/UpperRedPanel.png'
+},{
+  name:'Stars',
+  url: 'assets/images/result/Stars.png'
+},{
+  name:'RedDots',
+  url: 'assets/images/result/RedDots.png'
+},{
+  name:'Rays',
+  url: 'assets/images/result/Rays.png'
+},{
+  name:'ContinueButton',
+  url: 'assets/images/result/ContinueButton.png'
+},{
+  name:'ShareButton',
+  url: 'assets/images/result/ShareButton.png'
+}]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//

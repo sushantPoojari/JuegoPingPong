@@ -430,14 +430,117 @@ NORD.PanelEndGame = function(config) {
   this.visible = false;
   this.interactiveChildren = false; // this.alpha = 0;
 
+  var TransparentLayer = Util.createSprite({
+    parent: this,
+    texture: 'TransparentLayer',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 100,
+    scaleY: 100,
+  });
+  TransparentLayer.alpha = 0.85;
+
   this.bg = Util.createSprite({
     parent: this,
-    atlas: 'texture_atlas',
-    texture: 'panel_end_game_bg.png',
+    texture: 'BluePanel',
     aX: 0.5,
-    aY: 0.5
+    aY: 0.5,
+    scaleXY: 0.4
   });
-  this.bg.scale.x = this.bg.scale.y = 0.7;
+  this.bg.position.set(0 , 25);
+
+  this.rays = Util.createSprite({
+    parent: this.bg,
+    texture: 'Rays',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 1,
+  });
+  this.rays.anchor.set(0.5);
+  this.rays.position.set(0 , (-this.bg.height / 2 + 50) - this.rays.height / 2);
+
+  this.HeaderPanel = Util.createSprite({
+    parent: this.bg,
+    texture: 'UpperBluePanel',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 1,
+  });
+  this.HeaderPanel.anchor.set(0.5);
+  this.HeaderPanel.position.set(0 , (-this.bg.height / 2 * 0.4) - this.HeaderPanel.height / 2);
+
+  this.stars = Util.createSprite({
+    parent: this.HeaderPanel,
+    texture: 'Stars',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 1,
+  });
+
+  this.HeaderText = new PIXI.Text('YOU WON', {
+    parent: this.bg,
+    fontFamily: 'Russo One',
+    fontSize: 64,
+    fill: 'white',
+    align: 'center'
+  });
+  this.HeaderText.anchor.set(0.5);
+  this.HeaderText.position.set(0, 0);
+  this.HeaderPanel.addChild(this.HeaderText);
+
+
+  this.scoreHeader = new PIXI.Text('PLAYER-1 SCORE', {
+    fontFamily: 'Russo One',
+    fontSize: 24,
+    fill: 'white',
+    align: 'center'
+  });
+  this.scoreHeader.anchor.set(0.5);
+  this.scoreHeader.position.set(0, -70);
+  this.addChild(this.scoreHeader);
+
+  this.Highlights = Util.createSprite({
+    parent: this.bg,
+    x: 0,
+    y: -125,
+    texture: 'Highlights',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 1.15,
+    scaleY: 0.85
+  });
+
+  this.scoreLabel = new PIXI.Text('0', {
+    fontFamily: 'Russo One',
+    fontSize: 64,
+    fill: 'white',
+    align: 'center'
+  });
+  this.scoreLabel.anchor.set(0.5);
+  this.scoreLabel.position.set(0, -125);
+  this.bg.addChild(this.scoreLabel);
+
+  this.scoreHeader2 = new PIXI.Text('PLAYER-2 SCORE', {
+    fontFamily: 'Russo One',
+    fontSize: 24,
+    fill: 'white',
+    align: 'center'
+  });
+  this.scoreHeader2.anchor.set(0.5);
+  this.scoreHeader2.position.set(0, 25);
+  this.addChild(this.scoreHeader2);
+
+  this.scoreLabel2 = new PIXI.Text('0', {
+    fontFamily: 'Russo One',
+    fontSize: 64,
+    fill: 'white',
+    align: 'center'
+  });
+  this.scoreLabel2.anchor.set(0.5);
+  this.scoreLabel2.position.set(0, 100);
+  this.bg.addChild(this.scoreLabel2);
+
+
   this.textWin = Util.createSprite({
     parent: this,
     y: -48,
@@ -447,13 +550,15 @@ NORD.PanelEndGame = function(config) {
     aY: 0.5
   });
   this.textWin.scale.x = this.textWin.scale.y = 0.66;
-  this.buttonHome = Util.createButton('btn', this, null, '', -52, 48, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
-    atlas: 'texture_atlas',
-    texture: 'button_home.png',
+  this.textWin.visible = false
+
+  this.buttonHome = Util.createButton('btn', this, null, '', -75, 125, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+    texture: 'ContinueButton',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.5
+    scaleXY: 0.35
   });
+
   this.buttonHome.on('button_click', function(data) {
     var _this3 = this;
 
@@ -468,26 +573,15 @@ NORD.PanelEndGame = function(config) {
     });
   }, this);
 
-  this.buttonRestart = Util.createButton('btn', this, null, '', 52, 48, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
-    atlas: 'texture_atlas',
-    texture: 'button_restart.png',
+  this.shareButton = Util.createButton('btn', this, null, '', 75, 125, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+    texture: 'ShareButton',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.5
+    scaleXY: 0.35
   });
-  this.buttonRestart.on('button_click', function(data) {
+  this.shareButton.on('button_click', function(data) {
 
-    var _this4 = this;
-
-    if (this.state !== 'show') return;
-    TweenMax.delayedCall(0.07 * 2, function() {
-      _this4.tween({
-        name: 'hide_anim'
-      }, function() {
-        NORD.game.screenGame.restart();
-        NORD.app.apiCallback('replay');
-      });
-    });
+      //share code here
   }, this);
 
   // this.scoreLeft = new NORD.ScreenGame.ScoreText();
@@ -514,12 +608,86 @@ NORD.PanelEndGame.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelEndGame.prototype.constructor = NORD.PanelEndGame;
 
 NORD.PanelEndGame.prototype.setText = function(winner) {
-  var texture = null;
-  if (winner === 'AI') texture = NORD.assetsManager.getTexture('texture_atlas', 'text_computer_win.png');
-  if (winner === 'PLAYER') texture = NORD.assetsManager.getTexture('texture_atlas', 'text_player_win.png');
-  if (winner === 'PLAYER_LEFT') texture = NORD.assetsManager.getTexture('texture_atlas', 'text_player_1_win.png');
-  if (winner === 'PLAYER_RIGHT') texture = NORD.assetsManager.getTexture('texture_atlas', 'text_player_2_win.png');
-  this.textWin.texture = texture;
+  var bluePanel = PIXI.Texture.fromFrame('BluePanel');
+  var redPanel = PIXI.Texture.fromFrame('RedPanel');
+  var stars = PIXI.Texture.fromFrame('Stars');
+  var redDots = PIXI.Texture.fromFrame('RedDots');
+  var upperBluePanel = PIXI.Texture.fromFrame('UpperBluePanel');
+  var upperRedPanel = PIXI.Texture.fromFrame('UpperRedPanel');
+  var redDots = PIXI.Texture.fromFrame('RedDots');
+
+  this.buttonHome.position.x = -75;
+  this.shareButton.visible = true;
+  this.bg.texture = bluePanel;
+  this.stars.texture = stars
+  this.HeaderPanel.texture = upperBluePanel;
+  this.rays.visible = true;
+  this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
+  this.scoreLabel2.text = NORD.game.field.players.LEFT.roundScore;
+
+  if (winner === 'AI')
+  { 
+    this.HeaderText.text = "YOU LOST";
+    this.scoreHeader2.text = "YOUR SCORE";
+    this.scoreHeader.text = "COMPUTER SCORE"
+
+    this.Highlights.visible = false;
+    this.shareButton.visible = false;
+    this.rays.visible = false;
+
+    this.buttonHome.position.x = 0;
+
+    this.bg.texture = redPanel;
+    this.stars.texture = redDots
+    this.HeaderPanel.texture = upperRedPanel;
+
+    this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
+    this.scoreLabel.text = NORD.game.field.players.LEFT.roundScore;
+  }
+  if (winner === 'PLAYER')
+  {    
+    this.HeaderText.text = "YOU WON";
+    this.scoreHeader.text = "YOUR SCORE";
+    this.scoreHeader2.text = "COMPUTER SCORE"
+  }
+  if (winner === 'PLAYER_LEFT') 
+  {
+    this.HeaderText.text = "PLAYER-1 WON";
+    this.scoreHeader.text = "PLAYER-1 SCORE";
+    this.scoreHeader2.text = "PLAYER-2 SCORE"
+
+    this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
+    this.scoreLabel.text = NORD.game.field.players.LEFT.roundScore;
+
+    if(NORD.game.currentPlayer == 'three')
+    {
+      this.HeaderText.text = "YOU LOST";
+
+      this.Highlights.visible = false;
+      this.shareButton.visible = false;
+      this.rays.visible = false;
+  
+      this.buttonHome.position.x = 0;
+  
+      this.bg.texture = redPanel;
+      this.stars.texture = redDots
+      this.HeaderPanel.texture = upperRedPanel;
+    }
+
+  }
+  if (winner === 'PLAYER_RIGHT')
+  {
+      this.HeaderText.text = "PLAYER-2 WON";
+      this.scoreHeader.text = "PLAYER-1 SCORE";
+      this.scoreHeader2.text = "PLAYER-2 SCORE"
+
+      this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
+    this.scoreLabel.text = NORD.game.field.players.LEFT.roundScore;
+    
+    if(NORD.game.currentPlayer == 'three'){
+      this.HeaderText.text = "YOU WON";  
+    }
+  }
 };
 
 NORD.PanelEndGame.prototype.show = function(data) {
@@ -855,7 +1023,6 @@ NORD.PanelPause.prototype.tween = function(data, callback) {
     if (callback) callback();
   }
 };
-
 
 /***************************************************************************************Pause Popup Local Multi*************************************************************************************/
 
