@@ -71,6 +71,7 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
 
   DemoLoadBalancing.prototype.onGetRegionsResult = function(errorCode, errorMsg, regions) {
     console.log("onGetRegionsResult:", errorCode, errorMsg, regions);
+    ServerRegionListArray = [];
     ServerRegionList = regions;
 
     for (key in regions) {
