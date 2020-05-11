@@ -799,7 +799,7 @@ NORD.MenuSwitcher.prototype.constructor = NORD.MenuSwitcher;
 NORD.MenuSwitcher.prototype.setSelected = function(side) {
   var _this3 = this;
 
-  if (/*this.selected == side ||*/ this.switchingState !== 'none') return;
+  if ( /*this.selected == side ||*/ this.switchingState !== 'none') return;
   this.tween({
     name: 'switch',
     side: side
@@ -1519,7 +1519,7 @@ NORD.randomNamePopup = function(config) {
       color: 'white',
       align: 'center'
     }
-  
+
   })
   this.l_playerName.maxLength = 12;
 
@@ -1551,7 +1551,7 @@ NORD.randomNamePopup = function(config) {
 
   }, this);
 
-  this.okButton = Util.createButton('btn', this, null, '', 0, this.bg.height * 0.45, 100, 40, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CommonBtn'), {
+  this.okButton = Util.createButton('btn', this, null, '', 0, this.bg.height * 0.45, 100, 40, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('EnterButton'), {
     parent: this.bg,
     texture: 'EnterButton',
     aX: 0.5,
@@ -1560,7 +1560,7 @@ NORD.randomNamePopup = function(config) {
   });
   this.okButton.soundClick = NORD.assetsManager.getAsset('play_button')
   this.okButton.addListener('button_click', function(data) {
-    var _this5 = this;     
+    var _this5 = this;
     if (this.state !== 'show') return;
     TweenMax.delayedCall(0.07 * 2, function() {
       if (!Util.compareProfanityWords(NORD.mainMenu.randomNamePopup.l_playerName.text)) {

@@ -1449,6 +1449,11 @@ NORD.Field.Paddle.prototype.init = function(player) {
   this.visible = true;
   this.paddleViewImage.scale.y = 0.5;
   this.shootViewPaddleTexture.visible = false;
+  if (this.side == 'LEFT')
+    this.paddleViewImage.texture = NORD.assetsManager.getTexture('leftPaddle');
+  else
+    this.paddleViewImage.texture = NORD.assetsManager.getTexture('rightPaddle');
+
 };
 
 NORD.Field.Paddle.prototype.clear = function() {
