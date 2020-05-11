@@ -227,7 +227,7 @@ NORD.initGameDefinitions = function() {
     name: 'ball_fire_ring',
     url: 'assets/audio/ball_fire_ring',
     formats: audioFormats
-  },{
+  }, {
     name: 'PopupSub',
     url: 'assets/images/popup/PopupSub.png'
   }, {
@@ -263,6 +263,12 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'leftPaddle',
     url: 'assets/images/popup/gameplayPopup/Paddle-1.png'
+  }, {
+    name: 'rightPaddleShort',
+    url: 'assets/images/popup/gameplayPopup/Paddle-2Short.png'
+  }, {
+    name: 'leftPaddleShort',
+    url: 'assets/images/popup/gameplayPopup/Paddle-1Short.png'
   }, {
     name: 'Ball',
     url: 'assets/images/popup/gameplayPopup/Ball.png'
@@ -434,38 +440,37 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'RandomPlayButton',
     url: 'assets/images/submode/RandomPlayButton.png'
-  },
-  {
-    name:'YesButton',
+  }, {
+    name: 'YesButton',
     url: 'assets/images/common/YesButton.png'
-  },{
-    name:'BluePanel',
+  }, {
+    name: 'BluePanel',
     url: 'assets/images/result/BluePanel.png'
-},{
-  name:'RedPanel',
-  url: 'assets/images/result/RedPanel.png'
-},{
-  name:'UpperBluePanel',
-  url: 'assets/images/result/UpperBluePanel.png'
-},{
-  name:'UpperRedPanel',
-  url: 'assets/images/result/UpperRedPanel.png'
-},{
-  name:'Stars',
-  url: 'assets/images/result/Stars.png'
-},{
-  name:'RedDots',
-  url: 'assets/images/result/RedDots.png'
-},{
-  name:'Rays',
-  url: 'assets/images/result/Rays.png'
-},{
-  name:'ContinueButton',
-  url: 'assets/images/result/ContinueButton.png'
-},{
-  name:'ShareButton',
-  url: 'assets/images/result/ShareButton.png'
-}]);
+  }, {
+    name: 'RedPanel',
+    url: 'assets/images/result/RedPanel.png'
+  }, {
+    name: 'UpperBluePanel',
+    url: 'assets/images/result/UpperBluePanel.png'
+  }, {
+    name: 'UpperRedPanel',
+    url: 'assets/images/result/UpperRedPanel.png'
+  }, {
+    name: 'Stars',
+    url: 'assets/images/result/Stars.png'
+  }, {
+    name: 'RedDots',
+    url: 'assets/images/result/RedDots.png'
+  }, {
+    name: 'Rays',
+    url: 'assets/images/result/Rays.png'
+  }, {
+    name: 'ContinueButton',
+    url: 'assets/images/result/ContinueButton.png'
+  }, {
+    name: 'ShareButton',
+    url: 'assets/images/result/ShareButton.png'
+  }]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
