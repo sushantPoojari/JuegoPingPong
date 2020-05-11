@@ -799,7 +799,7 @@ NORD.MenuSwitcher.prototype.constructor = NORD.MenuSwitcher;
 NORD.MenuSwitcher.prototype.setSelected = function(side) {
   var _this3 = this;
 
-  if (this.selected == side || this.switchingState !== 'none') return;
+  if (/*this.selected == side ||*/ this.switchingState !== 'none') return;
   this.tween({
     name: 'switch',
     side: side
@@ -1519,29 +1519,7 @@ NORD.randomNamePopup = function(config) {
       color: 'white',
       align: 'center'
     }
-    // ,
-    // box: {
-    //   default: {
-    //     fill: 0xE8E9F3,
-    //     rounded: 10,
-    //     stroke: {
-    //       color: 0xCBCEE0,
-    //       width: 2
-    //     }
-    //   },
-    //   focused: {
-    //     fill: 0xE1E3EE,
-    //     rounded: 10,
-    //     stroke: {
-    //       color: 0xABAFC6,
-    //       width: 2
-    //     }
-    //   },
-    //   disabled: {
-    //     fill: 0xDBDBDB,
-    //     rounded: 10
-    //   }
-    // }
+  
   })
   this.l_playerName.maxLength = 12;
 
