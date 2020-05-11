@@ -1995,6 +1995,10 @@ NORD.subModeSelectionPopup.prototype.disableAllButtons = function() {
 NORD.subModeSelectionPopup.prototype.show = function(data) {
   var config = NORD.game.config;
 
+  var NormalPlay = PIXI.Texture.fromFrame('PlayButton');
+  var RandomPlay = PIXI.Texture.fromFrame('RandomPlayButton');
+  this.playButton.regularSkin.texture = NormalPlay;
+
   this.switchNormalMode.visible = true;
   this.switchThrillerMode.visible = true;
   this.switchRegion.visible = false;
@@ -2010,6 +2014,8 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
     this.loadingIndicator.visible = true;
     this.transparentLayer.visible = true;
     this.loaderTextData.visible = true;
+    this.playButton.regularSkin.texture = RandomPlay;
+
 
     this.disableAllButtons();
   } else
@@ -2106,6 +2112,7 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
           aX: 0.5,
           aY: 0.5
         },
+        spriteOnText: 'EASY',
         spriteOffText: 'EASY'
       },
       center: {
@@ -2119,6 +2126,7 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
           aX: 0.5,
           aY: 0.5
         },
+        spriteOnText: 'MEDIUM',
         spriteOffText: 'MEDIUM'
       },
       right: {
@@ -2132,6 +2140,7 @@ NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, 
           aX: 0.5,
           aY: 0.5
         },
+        spriteOnText: 'HARD',
         spriteOffText: 'HARD'
       }
     };

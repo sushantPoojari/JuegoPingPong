@@ -459,6 +459,10 @@ NORD.initGameDefinitions = function () {
   {
     name: 'PlayerRight',
     url: 'assets/images/popup/PlayerRight.png'
+  },
+  {
+    name: 'RandomPlayButton',
+    url: 'assets/images/submode/RandomPlayButton.png'
   }
   ]);
 }; //=========================================================================================================================================================================//
