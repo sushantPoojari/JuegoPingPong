@@ -2016,7 +2016,6 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
     this.loaderTextData.visible = true;
     this.playButton.regularSkin.texture = RandomPlay;
 
-
     this.disableAllButtons();
   } else
     this.switchDificulty.visible = true;
@@ -2031,7 +2030,6 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
     this.separatorText.visible = false;
     this.popupHeader.text = "SELECT A GAME BOARD";
   }
-
 
   if (!MultiplayerStarted) {
     NORD.game.field.setPause(true);

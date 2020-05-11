@@ -463,6 +463,11 @@ NORD.initGameDefinitions = function () {
   {
     name: 'RandomPlayButton',
     url: 'assets/images/submode/RandomPlayButton.png'
+  },
+  {
+    name:'YesButton',
+    url: 'assets/images/common/YesButton.png'
+
   }
   ]);
 }; //=========================================================================================================================================================================//

@@ -88,7 +88,11 @@ NORD.ScreenGame = function(config) {
 
     if (this.state !== 'show' || this.panelEndGame.state !== 'hide') return;
     TweenMax.delayedCall(0.07 * 2, function() {
-      _this2.panelPause.show();
+      debugger;
+      if(NORD.game.currentPlayer == 'three')
+        _this2.panelQuit.show()
+        else
+        _this2.panelPause.show();
     }); // this.toMainMenu();
   }, this); // this.logo = Util.createSprite({ atlas: 'texture_atlas', texture: 'logo.png', parent: this, aX: 0.5, aY: 0.5 });
 
@@ -202,6 +206,13 @@ NORD.ScreenGame = function(config) {
     container: this
   });
   this.panelPause.visible = false;
+
+  this.panelQuit = new NORD.PanelQuit({
+    name: 'panel_quit',
+    parentPanel: NORD.GUIManager.stage,
+    container: this
+  });
+  this.panelQuit.visible = false;
 };
 
 NORD.ScreenGame.prototype = Object.create(NORD.GUI.BasePanel.prototype);
@@ -372,8 +383,6 @@ NORD.ScreenGame.prototype.showIndicator = function(duration) {
   });
 
 };
-
-
 
 NORD.ScreenGame.ScoreText = function() {
   PIXI.Container.call(this);
@@ -828,6 +837,208 @@ NORD.PanelPause.prototype.hide = function(data, callback) {
 };
 
 NORD.PanelPause.prototype.tween = function(data, callback) {
+  var self = this;
+
+  if (data.name == 'show_anim' && this.state == 'hide') {
+    this.state = 'show_anim';
+    this.visible = true;
+    this.alpha = 0;
+    this.y = -30;
+    var time = 6 / 30;
+    TweenMax.to(this, time, {
+      alpha: 1,
+      x: 0,
+      y: 0,
+      ease: Power2.easeOut,
+      onComplete: function onComplete() {
+        self.tween({
+          name: 'show'
+        }, callback);
+      }
+    }); // this.tween({ name: 'show' }, callback);
+  }
+
+  if (data.name == 'hide_anim' && this.state == 'show') {
+    this.state = 'hide_anim';
+    this.interactiveChildren = false;
+    TweenMax.to(NORD.game.screenGame.buttonPause.regularSkin, 6 / 30, {
+      alpha: 1,
+      ease: Power2.easeOut
+    });
+    var time = 6 / 30;
+    TweenMax.to(this, time, {
+      alpha: 0,
+      x: 0,
+      y: -30,
+      ease: Power2.easeOut,
+      onComplete: function onComplete() {
+        self.tween({
+          name: 'hide'
+        }, callback);
+      }
+    }); // this.tween({ name: 'hide' }, callback);
+  }
+
+  if (data.name == 'show' && this.state != 'show') {
+    this.state = 'show';
+    this.visible = true;
+    this.interactiveChildren = true;
+    this.alpha = 1.0;
+    if (callback) callback();
+  }
+
+  if (data.name == 'hide') {
+    this.state = 'hide';
+    this.visible = false;
+    this.interactiveChildren = false;
+    if (callback) callback();
+  }
+};
+/***************************************************************************************Quit Popup*************************************************************************************/
+NORD.PanelQuit = function(config) {
+  config.sizeType = 'relative';
+  config.width = 300;
+  config.height = 300;
+  NORD.GUI.BasePanel.call(this, config);
+  var self = this;
+  this.state = 'hide';
+  this.visible = false;
+  this.interactiveChildren = false; // this.alpha = 0;
+
+  var TransparentLayer = Util.createSprite({
+    parent: this,
+    texture: 'TransparentLayer',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 100,
+    scaleY: 100,
+  });
+
+  TransparentLayer.alpha = 0.85;
+
+  this.bg = Util.createSprite({
+    parent: this,
+    texture: 'PauseBg',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.45
+  });
+
+  this.popupHeader = new PIXI.Text('QUIT ?', {
+    parent: this.bg,
+    fontFamily: 'Russo One',
+    fontSize: 34,
+    fill: 'white',
+    align: 'center'
+  });
+  this.popupHeader.anchor.set(0.5);
+  this.popupHeader.position.set(0, -this.bg.height * this.bg.scale.y * 0.65);
+  this.addChild(this.popupHeader);
+
+  this.dividerLine = Util.createSprite({
+    parent: this,
+    x: 0,
+    y: -75,
+    texture: 'Separator',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 1.25
+  });
+
+  this.warningTExt = new PIXI.Text('YOU WILL FORFEIT \n THE MATCH', {
+    fontFamily: 'Russo One',
+    fontSize: 24,
+    fill: 'white',
+    align: 'center'
+  });
+  this.warningTExt.anchor.set(0.5);
+  this.warningTExt.position.set(0, 0);
+  this.addChild(this.warningTExt);
+
+  this.buttonNo = Util.createButton('btn', this, null, '', -this.bg.width * this.bg.scale.x / 2, this.bg.height * 0.45, 234, 84, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+    parent: this.bg,
+    texture: 'CloseButton',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.57
+  });
+  this.buttonNo.on('button_click', function(data) {
+    var _this5 = this;
+
+    if (this.state !== 'show') return;
+    TweenMax.delayedCall(0.07 * 2, function() {
+      _this5.hide();
+    });
+  }, this);
+
+  this.buttonYes = Util.createButton('btn', this, null, '', this.bg.width * this.bg.scale.x / 2, this.bg.height * 0.45, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+    parent: this.bg,
+    texture: 'YesButton',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.4
+  });
+  this.buttonYes.on('button_click', function(data) {
+    var _this6 = this;
+
+    if (this.state !== 'show') return;
+    TweenMax.delayedCall(0.07 * 2, function() {
+      // this.hide({}, () =>
+      // {
+      //   NORD.game.screenGame.toMainMenu();
+      // });
+      _this6.tween({
+        name: 'hide'
+      }, function() {
+
+        //sushant
+        if (MultiplayerStarted) {
+          var seObj = new PP.ServerObject();
+          seObj.eventType = NORD.PP_EVENT.EVENT_GAME_EXIT_BETWEEN;
+
+          NORD.gameEventHandler.sendEvent(seObj);
+
+          NORD.mainMenu.loadingPopup.hide();
+        }
+        //sushant
+
+        NORD.app.apiCallback('statistics', 'exit');
+        NORD.game.screenGame.buttonPause.regularSkin.alpha = 1.0;
+        NORD.game.field.setPause(false);
+        NORD.game.screenGame.toMainMenu();
+      });
+    });
+  }, this);
+
+};
+
+NORD.PanelQuit.prototype = Object.create(NORD.GUI.BasePanel.prototype);
+NORD.PanelQuit.prototype.constructor = NORD.PanelPause;
+
+NORD.PanelQuit.prototype.show = function(data) {
+ 
+  if (!MultiplayerStarted) {
+    NORD.game.field.setPause(true);
+    TweenMax.pauseAll();
+  }
+  this.tween({
+    name: 'show_anim'
+  });
+};
+
+NORD.PanelQuit.prototype.hide = function(data, callback) {
+  this.tween({
+    name: 'hide_anim'
+  }, function() {
+    if (!MultiplayerStarted) {
+      NORD.game.field.setPause(false);
+      TweenMax.resumeAll();
+    }
+    if (callback) callback();
+  });
+};
+
+NORD.PanelQuit.prototype.tween = function(data, callback) {
   var self = this;
 
   if (data.name == 'show_anim' && this.state == 'hide') {
