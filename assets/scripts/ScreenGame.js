@@ -1,7 +1,7 @@
 "use strict";
 // require("core-js/modules/es6.function.name");
 
-NORD.ScreenGame = function(config) {
+NORD.ScreenGame = function (config) {
   config.sizeType = 'relative';
   config.widthRelative = 1;
   config.heightRelative = 1;
@@ -14,27 +14,27 @@ NORD.ScreenGame = function(config) {
   NORD.game.screenGame = this;
 
   this.field = NORD.game.field;
-  this.addChild(this.field);+
+  this.addChild(this.field); +
 
-  this.field.on('init_game', function() { // self.updateScore();
+    this.field.on('init_game', function () { // self.updateScore();
+    });
+  this.field.on('goal', function () { // self.updateScore();
   });
-  this.field.on('goal', function() { // self.updateScore();
-  });
-  this.field.on('round_complete', function() {
-    setTimeout(function() {
+  this.field.on('round_complete', function () {
+    setTimeout(function () {
       self.field.initRound();
     }, 1000);
   }, this);
-  this.field.on('round_ready', function() {
+  this.field.on('round_ready', function () {
     var _this = this;
 
     if (this.field.roundN !== 0) {
-      TweenMax.delayedCall(1.0, function() {
+      TweenMax.delayedCall(1.0, function () {
         _this.field.startRound();
       });
     }
   }, this);
-  this.field.on('game_complete', function(data) {
+  this.field.on('game_complete', function (data) {
     // const { winner, playerLeftScore, playerRightScore } = data;
     var winner = data.winner;
     var playerLeftScore = data.playerLeftScore;
@@ -63,7 +63,7 @@ NORD.ScreenGame = function(config) {
       aX: 0.5,
       aY: 0.5
     });
-    this.buttonSettings.on('button_click', function(data) {
+    this.buttonSettings.on('button_click', function (data) {
       NORD.game.panelSettings.tween({
         name: 'show_anim'
       });
@@ -77,11 +77,11 @@ NORD.ScreenGame = function(config) {
     aY: 0.5,
     scaleXY: 0.4
   });
-  this.buttonPause.on('button_click', function(data) {
+  this.buttonPause.on('button_click', function (data) {
     var _this2 = this;
 
     if (this.state !== 'show' || this.panelEndGame.state !== 'hide') return;
-    TweenMax.delayedCall(0.07 * 2, function() {
+    TweenMax.delayedCall(0.07 * 2, function () {
       if (NORD.game.currentPlayer == 'three')
         _this2.panelQuit.show()
       else if (NORD.game.currentPlayer == 'two')
@@ -147,7 +147,7 @@ NORD.ScreenGame = function(config) {
 
   NORD.game.screenGame.ServerPing = 0;
   NORD.game.screenGame.OpponentServerPing = 0;
-  NORD.events.on(NORD.EVENT_CODE.PING_RECIEVED, function(data) {
+  NORD.events.on(NORD.EVENT_CODE.PING_RECIEVED, function (data) {
     NORD.game.screenGame.ServerPing = data;
     NORD.game.screenGame.ActualServerpingText.text = "- " + data + "ms";
   });
@@ -227,7 +227,7 @@ NORD.ScreenGame = function(config) {
 NORD.ScreenGame.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.ScreenGame.prototype.constructor = NORD.ScreenGame;
 
-NORD.ScreenGame.prototype.update = function() {
+NORD.ScreenGame.prototype.update = function () {
   var paddle = this.field.paddleLeft;
   if (!paddle) return; // console.log(paddle.y);
 
@@ -240,15 +240,15 @@ NORD.ScreenGame.prototype.update = function() {
 // }
 
 
-NORD.ScreenGame.prototype.toGame = function(board) {
+NORD.ScreenGame.prototype.toGame = function (board) {
   var self = this;
   this.boardName = board;
   this.field.initGame(this.createBoard(this.boardName));
 
   this.tween({
     name: 'show_anim'
-  }, function() {
-    TweenMax.delayedCall(0.2, function() {
+  }, function () {
+    TweenMax.delayedCall(0.2, function () {
       self.field.startGame();
     });
   });
@@ -257,12 +257,12 @@ NORD.ScreenGame.prototype.toGame = function(board) {
   });
 };
 
-NORD.ScreenGame.prototype.toMainMenu = function() {
+NORD.ScreenGame.prototype.toMainMenu = function () {
   var self = this;
   TweenMax.killAll(false, false, true);
   this.tween({
     name: 'hide_anim'
-  }, function() {
+  }, function () {
     self.field.clear();
     if (MultiplayerStarted)
       DemoLoadFunction.leaveRoom();
@@ -270,16 +270,16 @@ NORD.ScreenGame.prototype.toMainMenu = function() {
   });
 };
 
-NORD.ScreenGame.prototype.restart = function() {
+NORD.ScreenGame.prototype.restart = function () {
   var self = this;
   this.field.initGame(self.createBoard(self.boardName));
-  TweenMax.delayedCall(0.2, function() {
+  TweenMax.delayedCall(0.2, function () {
     self.field.startGame();
   });
 };
 
-NORD.ScreenGame.prototype.createBoard = function(boardName) {
-  return function() {
+NORD.ScreenGame.prototype.createBoard = function (boardName) {
+  return function () {
     // console.log('CreateBoard:', boardName);
     var board = null;
     if (boardName === 'board_1') board = new NORD.Field.BoardPlanks({
@@ -295,7 +295,7 @@ NORD.ScreenGame.prototype.createBoard = function(boardName) {
   };
 };
 
-NORD.ScreenGame.prototype.tween = function(data, callback) {
+NORD.ScreenGame.prototype.tween = function (data, callback) {
   var self = this;
 
   if (data.name == 'show_anim' && this.state == 'hide') {
@@ -382,18 +382,18 @@ NORD.ScreenGame.prototype.tween = function(data, callback) {
   }
 };
 
-NORD.ScreenGame.prototype.showIndicator = function(duration) {
+NORD.ScreenGame.prototype.showIndicator = function (duration) {
   this.loadingIndicator.alpha = 1;
   if (this.loadingDelayCall) {
     this.loadingDelayCall.kill();
   }
-  this.loadingDelayCall = TweenMax.delayedCall(duration, function() {
+  this.loadingDelayCall = TweenMax.delayedCall(duration, function () {
     NORD.game.screenGame.loadingIndicator.alpha = 0;
   });
 
 };
 
-NORD.ScreenGame.ScoreText = function() {
+NORD.ScreenGame.ScoreText = function () {
   PIXI.Container.call(this);
   this.scoreText = new PIXI.Text("0", {
     fontFamily: 'Russo One',
@@ -408,19 +408,19 @@ NORD.ScreenGame.ScoreText = function() {
 NORD.ScreenGame.ScoreText.prototype = Object.create(PIXI.Container.prototype);
 NORD.ScreenGame.ScoreText.prototype.constructor = NORD.ScreenGame.ScoreText;
 
-NORD.ScreenGame.ScoreText.prototype.setScore = function(score) {
+NORD.ScreenGame.ScoreText.prototype.setScore = function (score) {
   this.scoreText.text = score;
   // this.score = score;
   // var texture = NORD.assetsManager.getTexture('texture_atlas', 'score_number_000' + String(this.score + 1) + '.png');
   // this.sprite.texture = texture;
 };
 
-NORD.ScreenGame.ScoreText.prototype.getScore = function() {
+NORD.ScreenGame.ScoreText.prototype.getScore = function () {
   return this.scoreText.text;
 
 };
 
-NORD.PanelEndGame = function(config) {
+NORD.PanelEndGame = function (config) {
   config.sizeType = 'relative';
   config.width = 300;
   config.height = 300;
@@ -457,13 +457,13 @@ NORD.PanelEndGame = function(config) {
     scaleXY: 0.85,
   });
   this.rays.anchor.set(0.5);
-  this.rays.position.set(0, (-this.bg.height / 2 + 50) - this.rays.height / 2);
+  this.rays.position.set(0, (-this.bg.height / 2 - 50) - (this.rays.height * 0.425));
 
   rotateAction();
 
   function rotateAction() {
     requestAnimationFrame(rotateAction);
-    if(self.rays != undefined)
+    if (self.rays != undefined)
       self.rays.rotation += 0.01;
   }
 
@@ -485,29 +485,60 @@ NORD.PanelEndGame = function(config) {
     scaleXY: 1,
   });
 
-  decreaseAlpha();
-
-  function decreaseAlpha() {
-   TweenMax.to(self.stars, 2, {
-    alpha: 0,
-    onComplete: function onComplete() {
-      setTimeout(function() {
-        increaseAlpha();
-      }, 1000);
-    }
+  this.stars2 = Util.createSprite({
+    parent: this.HeaderPanel,
+    texture: 'Stars2',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 1,
   });
-}
 
-  function increaseAlpha() {
- TweenMax.to(self.stars, 2, {
-      alpha: 1,
+  decreaseStar1Alpha();
+  increaseStar2Alpha();
+
+  function decreaseStar1Alpha() {
+    TweenMax.to(self.stars, 2, {
+      alpha: 0,
       onComplete: function onComplete() {
-        setTimeout(function() {
-          decreaseAlpha();
+        setTimeout(function () {
+          increaseStar1Alpha();
         }, 1000);
       }
     });
-  }
+  };
+
+  function increaseStar1Alpha() {
+    TweenMax.to(self.stars, 2, {
+      alpha: 1,
+      onComplete: function onComplete() {
+        setTimeout(function () {
+          decreaseStar1Alpha();
+        }, 1000);
+      }
+    });
+  };
+
+  function decreaseStar2Alpha() {
+    TweenMax.to(self.stars2, 2, {
+      alpha: 0,
+      onComplete: function onComplete() {
+        setTimeout(function () {
+          increaseStar2Alpha();
+        }, 1000);
+      }
+    });
+  };
+
+  function increaseStar2Alpha() {
+    TweenMax.to(self.stars2, 2, {
+      alpha: 1,
+      onComplete: function onComplete() {
+        setTimeout(function () {
+          decreaseStar2Alpha();
+        }, 1000);
+      }
+    });
+  };
 
   this.HeaderText = new PIXI.Text('YOU WON', {
     parent: this.bg,
@@ -590,14 +621,14 @@ NORD.PanelEndGame = function(config) {
     scaleXY: 0.35
   });
 
-  this.buttonHome.on('button_click', function(data) {
+  this.buttonHome.on('button_click', function (data) {
     var _this3 = this;
 
     if (this.state !== 'show') return;
-    TweenMax.delayedCall(0.07 * 2, function() {
+    TweenMax.delayedCall(0.07 * 2, function () {
       _this3.tween({
         name: 'hide'
-      }, function() {
+      }, function () {
         NORD.game.screenGame.buttonPause.regularSkin.alpha = 1.0;
         NORD.game.screenGame.toMainMenu();
       });
@@ -610,7 +641,7 @@ NORD.PanelEndGame = function(config) {
     aY: 0.5,
     scaleXY: 0.35
   });
-  this.shareButton.on('button_click', function(data) {
+  this.shareButton.on('button_click', function (data) {
 
     //share code here
   }, this);
@@ -638,19 +669,22 @@ NORD.PanelEndGame = function(config) {
 NORD.PanelEndGame.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelEndGame.prototype.constructor = NORD.PanelEndGame;
 
-NORD.PanelEndGame.prototype.setText = function(winner) {
+NORD.PanelEndGame.prototype.setText = function (winner) {
   var bluePanel = PIXI.Texture.fromFrame('BluePanel');
   var redPanel = PIXI.Texture.fromFrame('RedPanel');
   var stars = PIXI.Texture.fromFrame('Stars');
-  var redDots = PIXI.Texture.fromFrame('RedDots');
+  var stars2 = PIXI.Texture.fromFrame('Stars2');
   var upperBluePanel = PIXI.Texture.fromFrame('UpperBluePanel');
   var upperRedPanel = PIXI.Texture.fromFrame('UpperRedPanel');
   var redDots = PIXI.Texture.fromFrame('RedDots');
+  var redDots2 = PIXI.Texture.fromFrame('RedDots2');
+
 
   this.buttonHome.position.x = -75;
   this.shareButton.visible = true;
   this.bg.texture = bluePanel;
   this.stars.texture = stars
+  this.stars2.texture = stars2
   this.HeaderPanel.texture = upperBluePanel;
   this.rays.visible = true;
   this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
@@ -668,7 +702,8 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
     this.buttonHome.position.x = 0;
 
     this.bg.texture = redPanel;
-    this.stars.texture = redDots
+    this.stars.texture = redDots;
+    this.stars2.texture = redDots2;
     this.HeaderPanel.texture = upperRedPanel;
 
     this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
@@ -699,7 +734,8 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
       this.buttonHome.position.x = 0;
 
       this.bg.texture = redPanel;
-      this.stars.texture = redDots
+      this.stars.texture = redDots;
+      this.stars2.texture = redDots2;
       this.HeaderPanel.texture = upperRedPanel;
     }
 
@@ -711,16 +747,16 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
 
     this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
     this.scoreLabel.text = NORD.game.field.players.LEFT.roundScore;
-    
-    if(NORD.game.currentPlayer == 'three'){
-      this.HeaderText.text = "YOU WON";  
+
+    if (NORD.game.currentPlayer == 'three') {
+      this.HeaderText.text = "YOU WON";
       this.scoreHeader.text = NORD.playersName.opponentName;
       this.scoreHeader2.text = NORD.playersName.playerName;
     }
   }
 };
 
-NORD.PanelEndGame.prototype.show = function(data) {
+NORD.PanelEndGame.prototype.show = function (data) {
   //const { winner, playerLeftScore, playerRightScore } = data;
   var winner = data.winner;
   var playerLeftScore = data.playerLeftScore;
@@ -740,7 +776,7 @@ NORD.PanelEndGame.prototype.show = function(data) {
   //   this.textWin.position.set(0, -40);
   //   this.addChild(this.textWin);
   // } else
-    this.setText(winner);
+  this.setText(winner);
 
 
   this.tween({
@@ -748,7 +784,7 @@ NORD.PanelEndGame.prototype.show = function(data) {
   }); // console.log(this.visible, this.alpha, this.state);
 };
 
-NORD.PanelEndGame.prototype.tween = function(data, callback) {
+NORD.PanelEndGame.prototype.tween = function (data, callback) {
   var self = this;
 
   if (data.name == 'show_anim' && this.state == 'hide') {
@@ -811,7 +847,7 @@ NORD.PanelEndGame.prototype.tween = function(data, callback) {
   }
 };
 
-NORD.PanelPause = function(config) {
+NORD.PanelPause = function (config) {
   config.sizeType = 'relative';
   config.width = 300;
   config.height = 300;
@@ -847,11 +883,11 @@ NORD.PanelPause = function(config) {
     aY: 0.5,
     scaleXY: 0.4
   });
-  this.buttonClose.on('button_click', function(data) {
+  this.buttonClose.on('button_click', function (data) {
     var _this5 = this;
 
     if (this.state !== 'show') return;
-    TweenMax.delayedCall(0.07 * 2, function() {
+    TweenMax.delayedCall(0.07 * 2, function () {
       _this5.hide();
     });
   }, this);
@@ -914,18 +950,18 @@ NORD.PanelPause = function(config) {
     aY: 0.5,
     scaleXY: 0.4
   });
-  this.buttonHome.on('button_click', function(data) {
+  this.buttonHome.on('button_click', function (data) {
     var _this6 = this;
 
     if (this.state !== 'show') return;
-    TweenMax.delayedCall(0.07 * 2, function() {
+    TweenMax.delayedCall(0.07 * 2, function () {
       // this.hide({}, () =>
       // {
       //   NORD.game.screenGame.toMainMenu();
       // });
       _this6.tween({
         name: 'hide'
-      }, function() {
+      }, function () {
 
         //sushant
         if (MultiplayerStarted) {
@@ -968,7 +1004,7 @@ NORD.PanelPause = function(config) {
 NORD.PanelPause.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelPause.prototype.constructor = NORD.PanelPause;
 
-NORD.PanelPause.prototype.show = function(data) {
+NORD.PanelPause.prototype.show = function (data) {
   NORD.game.config.players = NORD.game.currentPlayer;
   this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
   this.scoreHeader.text = "YOUR SCORE :";
@@ -982,10 +1018,10 @@ NORD.PanelPause.prototype.show = function(data) {
   });
 };
 
-NORD.PanelPause.prototype.hide = function(data, callback) {
+NORD.PanelPause.prototype.hide = function (data, callback) {
   this.tween({
     name: 'hide_anim'
-  }, function() {
+  }, function () {
     if (!MultiplayerStarted) {
       NORD.game.field.setPause(false);
       TweenMax.resumeAll();
@@ -994,7 +1030,7 @@ NORD.PanelPause.prototype.hide = function(data, callback) {
   });
 };
 
-NORD.PanelPause.prototype.tween = function(data, callback) {
+NORD.PanelPause.prototype.tween = function (data, callback) {
   var self = this;
 
   if (data.name == 'show_anim' && this.state == 'hide') {
@@ -1055,7 +1091,7 @@ NORD.PanelPause.prototype.tween = function(data, callback) {
 
 /***************************************************************************************Pause Popup Local Multi*************************************************************************************/
 
-NORD.PanelPause2 = function(config) {
+NORD.PanelPause2 = function (config) {
   config.sizeType = 'relative';
   config.width = 300;
   config.height = 300;
@@ -1092,11 +1128,11 @@ NORD.PanelPause2 = function(config) {
     aY: 0.5,
     scaleXY: 0.4
   });
-  this.buttonClose.on('button_click', function(data) {
+  this.buttonClose.on('button_click', function (data) {
     var _this5 = this;
 
     if (this.state !== 'show') return;
-    TweenMax.delayedCall(0.07 * 2, function() {
+    TweenMax.delayedCall(0.07 * 2, function () {
       _this5.hide();
     });
   }, this);
@@ -1189,18 +1225,18 @@ NORD.PanelPause2 = function(config) {
     aY: 0.5,
     scaleXY: 0.4
   });
-  this.buttonHome.on('button_click', function(data) {
+  this.buttonHome.on('button_click', function (data) {
     var _this6 = this;
 
     if (this.state !== 'show') return;
-    TweenMax.delayedCall(0.07 * 2, function() {
+    TweenMax.delayedCall(0.07 * 2, function () {
       // this.hide({}, () =>
       // {
       //   NORD.game.screenGame.toMainMenu();
       // });
       _this6.tween({
         name: 'hide'
-      }, function() {
+      }, function () {
 
         //sushant
         if (MultiplayerStarted) {
@@ -1243,7 +1279,7 @@ NORD.PanelPause2 = function(config) {
 NORD.PanelPause2.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelPause2.prototype.constructor = NORD.PanelPause;
 
-NORD.PanelPause2.prototype.show = function(data) {
+NORD.PanelPause2.prototype.show = function (data) {
   NORD.game.config.players = NORD.game.currentPlayer;
   this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
   this.scoreLabel2.text = NORD.game.field.players.LEFT.roundScore;
@@ -1257,10 +1293,10 @@ NORD.PanelPause2.prototype.show = function(data) {
   });
 };
 
-NORD.PanelPause2.prototype.hide = function(data, callback) {
+NORD.PanelPause2.prototype.hide = function (data, callback) {
   this.tween({
     name: 'hide_anim'
-  }, function() {
+  }, function () {
     if (!MultiplayerStarted) {
       NORD.game.field.setPause(false);
       TweenMax.resumeAll();
@@ -1269,7 +1305,7 @@ NORD.PanelPause2.prototype.hide = function(data, callback) {
   });
 };
 
-NORD.PanelPause2.prototype.tween = function(data, callback) {
+NORD.PanelPause2.prototype.tween = function (data, callback) {
   var self = this;
 
   if (data.name == 'show_anim' && this.state == 'hide') {
@@ -1328,7 +1364,7 @@ NORD.PanelPause2.prototype.tween = function(data, callback) {
   }
 };
 /***************************************************************************************Quit Popup*************************************************************************************/
-NORD.PanelQuit = function(config) {
+NORD.PanelQuit = function (config) {
   config.sizeType = 'relative';
   config.width = 300;
   config.height = 300;
@@ -1395,11 +1431,11 @@ NORD.PanelQuit = function(config) {
     aY: 0.5,
     scaleXY: 0.57
   });
-  this.buttonNo.on('button_click', function(data) {
+  this.buttonNo.on('button_click', function (data) {
     var _this5 = this;
 
     if (this.state !== 'show') return;
-    TweenMax.delayedCall(0.07 * 2, function() {
+    TweenMax.delayedCall(0.07 * 2, function () {
       _this5.hide();
     });
   }, this);
@@ -1411,18 +1447,18 @@ NORD.PanelQuit = function(config) {
     aY: 0.5,
     scaleXY: 0.4
   });
-  this.buttonYes.on('button_click', function(data) {
+  this.buttonYes.on('button_click', function (data) {
     var _this6 = this;
 
     if (this.state !== 'show') return;
-    TweenMax.delayedCall(0.07 * 2, function() {
+    TweenMax.delayedCall(0.07 * 2, function () {
       // this.hide({}, () =>
       // {
       //   NORD.game.screenGame.toMainMenu();
       // });
       _this6.tween({
         name: 'hide'
-      }, function() {
+      }, function () {
 
         //sushant
         if (MultiplayerStarted) {
@@ -1448,7 +1484,7 @@ NORD.PanelQuit = function(config) {
 NORD.PanelQuit.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelQuit.prototype.constructor = NORD.PanelPause;
 
-NORD.PanelQuit.prototype.show = function(data) {
+NORD.PanelQuit.prototype.show = function (data) {
 
   if (!MultiplayerStarted) {
     NORD.game.field.setPause(true);
@@ -1459,10 +1495,10 @@ NORD.PanelQuit.prototype.show = function(data) {
   });
 };
 
-NORD.PanelQuit.prototype.hide = function(data, callback) {
+NORD.PanelQuit.prototype.hide = function (data, callback) {
   this.tween({
     name: 'hide_anim'
-  }, function() {
+  }, function () {
     if (!MultiplayerStarted) {
       NORD.game.field.setPause(false);
       TweenMax.resumeAll();
@@ -1471,7 +1507,7 @@ NORD.PanelQuit.prototype.hide = function(data, callback) {
   });
 };
 
-NORD.PanelQuit.prototype.tween = function(data, callback) {
+NORD.PanelQuit.prototype.tween = function (data, callback) {
   var self = this;
 
   if (data.name == 'show_anim' && this.state == 'hide') {
