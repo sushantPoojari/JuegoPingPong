@@ -82,7 +82,6 @@ NORD.ScreenGame = function(config) {
 
     if (this.state !== 'show' || this.panelEndGame.state !== 'hide') return;
     TweenMax.delayedCall(0.07 * 2, function() {
-      debugger;
       if (NORD.game.currentPlayer == 'three')
         _this2.panelQuit.show()
       else if (NORD.game.currentPlayer == 'two')

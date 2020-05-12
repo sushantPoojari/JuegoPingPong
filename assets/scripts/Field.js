@@ -3136,6 +3136,7 @@ var createTeleport1 = function createTeleport1(field, config, data) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
           NORD.audioManager.playAudio('BlackHole');
           var player = field.players[ball.playerPaddle.side];
+          bonusContainer.bg.texture = null;
           field.emit('black_hole_mode_hit', ball);
         } else {
           if (ball.body.velocity.x < 0) {
@@ -3167,6 +3168,7 @@ var createTeleport1 = function createTeleport1(field, config, data) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
           NORD.audioManager.playAudio('BlackHole');
           var player = field.players[ball.playerPaddle.side];
+          bonusContainer.bg.texture = null;
           field.emit('black_hole_mode_hit', ball);
         } else {
           if (ball.body.velocity.x > 0) {
@@ -3180,6 +3182,13 @@ var createTeleport1 = function createTeleport1(field, config, data) {
   }
   if (NORD.game.field.roundMode === 'BLACK_HOLE_MODE') {
     bonusContainer.bg.texture = NORD.assetsManager.getTexture('Blackhole');
+
+    rotateAction();
+    function rotateAction() {
+      requestAnimationFrame(rotateAction);
+      if(bonusContainer.bg.texture != null)
+      bonusContainer.bg.rotation += 0.01;
+    }
   }
 
   return bonusContainer;
@@ -3200,6 +3209,7 @@ var createTeleport2 = function createTeleport2(field, config, data) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
           NORD.audioManager.playAudio('BlackHole');
           var player = field.players[ball.playerPaddle.side];
+          bonusContainer.bg.texture = null;
           field.emit('black_hole_mode_hit', ball);
         } else {
           if (ball.body.velocity.x > 0) {
@@ -3222,7 +3232,9 @@ var createTeleport2 = function createTeleport2(field, config, data) {
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
           NORD.audioManager.playAudio('BlackHole');
+          bonusContainer.bg.texture = null;
           var player = field.players[ball.playerPaddle.side];
+          bonusContainer.bg.texture = null;
           field.emit('black_hole_mode_hit', ball);
         } else {
           if (ball.body.velocity.x < 0) {
@@ -3243,6 +3255,13 @@ var createTeleport2 = function createTeleport2(field, config, data) {
   }
   if (NORD.game.field.roundMode === 'BLACK_HOLE_MODE') {
     bonusContainer.bg.texture = NORD.assetsManager.getTexture('Blackhole');
+
+    rotateAction();
+    function rotateAction() {
+      requestAnimationFrame(rotateAction);
+      if(bonusContainer.bg.texture != null)
+      bonusContainer.bg.rotation += 0.01;
+    }
   }
 
   return bonusContainer;
