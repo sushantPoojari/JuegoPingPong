@@ -119,17 +119,17 @@ NORD.initGameDefinitions = function() {
   }, {
     type: 'AUDIO',
     name: 'sound_click',
-    url: 'assets/audio/sound_click',
+    url: 'assets/sound/ButtonTap',
     formats: audioFormats
   }, {
     type: 'AUDIO',
     name: 'wall_hit_big_ball',
-    url: 'assets/audio/wall_hit_big_ball',
+    url: 'assets/sound/BallHit1',
     formats: audioFormats
   }, {
     type: 'AUDIO',
     name: 'wall_hit_ball',
-    url: 'assets/audio/wall_hit_ball',
+    url: 'assets/sound/BallHit2',
     formats: audioFormats,
     volume: 0.6
   }, {
@@ -150,17 +150,17 @@ NORD.initGameDefinitions = function() {
   }, {
     type: 'AUDIO',
     name: 'player2_hit_ball',
-    url: 'assets/audio/player2_hit_ball',
+    url: 'assets/sound/BallHitPaddle',
     formats: audioFormats
   }, {
     type: 'AUDIO',
     name: 'player1_hit_ball',
-    url: 'assets/audio/player1_hit_ball',
+    url: 'assets/sound/BallHitPaddle',
     formats: audioFormats
   }, {
     type: 'AUDIO',
     name: 'player_win',
-    url: 'assets/audio/player_win',
+    url: 'assets/sound/MatchWon',
     formats: audioFormats
   }, {
     type: 'AUDIO',
@@ -170,7 +170,7 @@ NORD.initGameDefinitions = function() {
   }, {
     type: 'AUDIO',
     name: 'play_button',
-    url: 'assets/audio/play_button',
+    url: 'assets/sound/ButtonTap',
     formats: audioFormats
   }, {
     type: 'AUDIO',
@@ -190,7 +190,7 @@ NORD.initGameDefinitions = function() {
   }, {
     type: 'AUDIO',
     name: 'computer_win',
-    url: 'assets/audio/computer_win',
+    url: 'assets/sound/MatchLost',
     formats: audioFormats
   }, {
     type: 'AUDIO',
@@ -215,12 +215,12 @@ NORD.initGameDefinitions = function() {
   }, {
     type: 'AUDIO',
     name: 'shoot_hit',
-    url: 'assets/audio/shoot_hit',
+    url: 'assets/sound/StunShot',
     formats: audioFormats
   }, {
     type: 'AUDIO',
     name: 'gravity_well',
-    url: 'assets/audio/gravity_well',
+    url: 'assets/sound/BlackHole',
     formats: audioFormats
   }, {
     type: 'AUDIO',
