@@ -2122,8 +2122,8 @@ var RoundGenerator = function RoundGenerator(field) {
         });
       });
     } else {
-      if (data.player.type === 'HUMAN') NORD.audioManager.playAudio('player_goal');
-      else if (data.player.type === 'AI') NORD.audioManager.playAudio('computer_goal');
+     // if (data.player.type === 'HUMAN') NORD.audioManager.playAudio('player_goal');
+      //else if (data.player.type === 'AI') NORD.audioManager.playAudio('computer_goal');
 
       if (!this.field.getActiveBalls().length) {
         this.field.placeNewBall('LEFT', 0, 0);
@@ -2135,7 +2135,7 @@ var RoundGenerator = function RoundGenerator(field) {
   this.field.on('shadow_hit_disappear', function(ball) {
     if (ball.body.velocity.x > 0) {
       if (LeftPaddle.tweenBodyAlpha != null)
-        LeftPaddle.tweenBodyAlpha.kill();
+      LeftPaddle.tweenBodyAlpha.kill();
       LeftPaddle.tweenBodyAlpha = TweenMax.to(LeftPaddle, 2, {
         alpha: 0,
         onComplete: function onComplete() {
@@ -3317,10 +3317,10 @@ var createKitty = function createKitty(field) {
             playersHit[player.side]++; // console.log('Kitty hit:', playersHit);
 
             if (playersHit[player.side] === 1) {
-              NORD.audioManager.playAudio('kitty_hit_1');
+            //  NORD.audioManager.playAudio('kitty_hit_1');
               field.emit('kitty_hit', player);
             } else if (playersHit[player.side] > 1) {
-              NORD.audioManager.playAudio('kitty_hit_2');
+            //  NORD.audioManager.playAudio('kitty_hit_2');
 
               field.emit('kitty_hit', player); // bonusContainer.destroy();
 
@@ -3341,10 +3341,10 @@ var createKitty = function createKitty(field) {
           playersHit[player.side]++; // console.log('Kitty hit:', playersHit);
 
           if (playersHit[player.side] === 1) {
-            NORD.audioManager.playAudio('kitty_hit_1');
+            // NORD.audioManager.playAudio('kitty_hit_1');
             field.emit('kitty_hit', player);
           } else if (playersHit[player.side] > 1) {
-            NORD.audioManager.playAudio('kitty_hit_2');
+            // NORD.audioManager.playAudio('kitty_hit_2');
 
             field.emit('kitty_hit', player); // bonusContainer.destroy();
 

@@ -459,6 +459,15 @@ NORD.PanelEndGame = function(config) {
   this.rays.anchor.set(0.5);
   this.rays.position.set(0, (-this.bg.height / 2 + 50) - this.rays.height / 2);
 
+  
+  rotateAction();
+
+  function rotateAction() {
+    requestAnimationFrame(rotateAction);
+    if(self.rays != undefined)
+      self.rays.rotation += 0.01;
+  }
+
   this.HeaderPanel = Util.createSprite({
     parent: this.bg,
     texture: 'UpperBluePanel',
@@ -476,6 +485,30 @@ NORD.PanelEndGame = function(config) {
     aY: 0.5,
     scaleXY: 1,
   });
+
+  decreaseAlpha();
+
+  function decreaseAlpha() {
+   TweenMax.to(self.stars, 2, {
+    alpha: 0,
+    onComplete: function onComplete() {
+      setTimeout(function() {
+        increaseAlpha();
+      }, 1000);
+    }
+  });
+}
+
+  function increaseAlpha() {
+ TweenMax.to(self.stars, 2, {
+      alpha: 1,
+      onComplete: function onComplete() {
+        setTimeout(function() {
+          decreaseAlpha();
+        }, 1000);
+      }
+    });
+  }
 
   this.HeaderText = new PIXI.Text('YOU WON', {
     parent: this.bg,
