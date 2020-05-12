@@ -80,24 +80,6 @@ NORD.Field.BonusContainer = function(field, config) {
     scaleXY: 0.5,
   });
 
-
-  if (this.bonusType === 'TELEPORT21') this.bg = Util.createSprite({
-    parent: this,
-    texture: 'portal1',
-    aX: 0.5,
-    aY: 0.5,
-    scaleXY: 0.5,
-  });
-
-  if (this.bonusType === 'TELEPORT22') this.bg = Util.createSprite({
-    parent: this,
-    texture: 'portal1',
-    aX: 0.5,
-    aY: 0.5,
-    scaleXY: 0.5,
-    rotation: Math.PI
-  });
-
   if (this.bonusType === 'KITTY') {
     this.bg = Util.createSprite({
       parent: this,

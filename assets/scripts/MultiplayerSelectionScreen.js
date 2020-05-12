@@ -335,30 +335,34 @@ NORD.RandomSearchInstance.prototype.randomJoinToRoom = function() {
 
     for (var i = 0; i < DemoLoadFunction.roomInfos.length; i++) {
       if (DemoLoadFunction.roomInfos[i]._customProperties.gameType == NORD.MULTIPLAYER_GAME_TYPE.RANDOM && DemoLoadFunction.roomInfos[i]._customProperties.modeType == NORD.game.panelSettings.actionMode && DemoLoadFunction.roomInfos[i]._customProperties.board == NORD.game.config.board) {
-        if (DemoLoadFunction.roomInfos[i]._customProperties.difficulty == NORD.App.playerController.config.playerDifficultyLevel) {
-          console.log("joining room for " + DemoLoadFunction.roomInfos[i]._customProperties.difficulty)
-          DemoLoadFunction.joinRoom(DemoLoadFunction.roomInfos[i].name);
-          return;
-        }
-        if (NORD.mainMenu.loadingPopup.timerText.timerTextValue < 10) {
-          if (DemoLoadFunction.roomInfos[i]._customProperties.difficulty == NORD.App.playerController.getSecondRank()) {
-            console.log("joining room for " + DemoLoadFunction.roomInfos[i]._customProperties.difficulty)
-            DemoLoadFunction.joinRoom(DemoLoadFunction.roomInfos[i].name);
-            return;
-          }
-        }
-        if (NORD.mainMenu.loadingPopup.timerText.timerTextValue < 5) {
-          if (DemoLoadFunction.roomInfos[i]._customProperties.difficulty == NORD.App.playerController.getThirdRank()) {
-            console.log("joining room for " + DemoLoadFunction.roomInfos[i]._customProperties.difficulty)
-            DemoLoadFunction.joinRoom(DemoLoadFunction.roomInfos[i].name);
-            return;
-          }
-        }
+
+        console.log("joining room for " + DemoLoadFunction.roomInfos[i]._customProperties.difficulty)
+        DemoLoadFunction.joinRoom(DemoLoadFunction.roomInfos[i].name);
+        return;
+        // if (DemoLoadFunction.roomInfos[i]._customProperties.difficulty == NORD.App.playerController.config.playerDifficultyLevel) {
+        //   console.log("joining room for " + DemoLoadFunction.roomInfos[i]._customProperties.difficulty)
+        //   DemoLoadFunction.joinRoom(DemoLoadFunction.roomInfos[i].name);
+        //   return;
+        // }
+        // if (NORD.mainMenu.loadingPopup.timerText.timerTextValue < 10) {
+        //   if (DemoLoadFunction.roomInfos[i]._customProperties.difficulty == NORD.App.playerController.getSecondRank()) {
+        //     console.log("joining room for " + DemoLoadFunction.roomInfos[i]._customProperties.difficulty)
+        //     DemoLoadFunction.joinRoom(DemoLoadFunction.roomInfos[i].name);
+        //     return;
+        //   }
+        // }
+        // if (NORD.mainMenu.loadingPopup.timerText.timerTextValue < 5) {
+        //   if (DemoLoadFunction.roomInfos[i]._customProperties.difficulty == NORD.App.playerController.getThirdRank()) {
+        //     console.log("joining room for " + DemoLoadFunction.roomInfos[i]._customProperties.difficulty)
+        //     DemoLoadFunction.joinRoom(DemoLoadFunction.roomInfos[i].name);
+        //     return;
+        //   }
+        // }
       }
     }
     // if (DemoLoadFunction.roomInfos.length == 0)
     //   DemoLoadFunction.joinRandomRoom(option);
-    if (NORD.randomSearchInstance) {
+    if (NORD.randomSearchInstance && NORD.randomSearchInstance != undefined) {
       TweenMax.delayedCall(Math.random() * 1.0, function() {
         NORD.randomSearchInstance.randomJoinCount++;
         if (NORD.randomSearchInstance.randomJoinCount > NORD.randomSearchInstance.getRandomWaitTime()) {
@@ -454,6 +458,7 @@ NORD.RandomSearchInstance.prototype.getRandomRoomOption = function(mode) {
   var modType;
   var boardType;
   var gameModeList = [];
+  var positionList = [];
   if (NORD.game.config.mode == "classic") {
     modType = NORD.game.panelSettings.actionMode;
     boardType = NORD.game.config.board;
@@ -467,6 +472,13 @@ NORD.RandomSearchInstance.prototype.getRandomRoomOption = function(mode) {
     var roundMode = Util.randomElement(avaiableModes);
     avaiableModes.splice(avaiableModes.indexOf(roundMode), 1);
     gameModeList.push(roundMode);
+    if (NORD.game.config.mode != "classic" && NORD.game.panelSettings.actionMode == "TELEPORT_MODE" || NORD.game.panelSettings.actionMode == "BLACK_HOLE_MODE")
+      positionList.push(Math.floor(Math.random() * 2));
+  }
+
+  for (var i = 0; i < gameModeList.length; i++) {
+    if (gameModeList[i] == "TELEPORT_MODE" || gameModeList[i] == "BLACK_HOLE_MODE")
+      positionList.push(Math.floor(Math.random() * 2));
   }
 
   console.log("%%%%%%%%%%%", NORD.game.panelSettings.actionMode, "%%%%%%%%%%%", NORD.game.config.board);
@@ -481,6 +493,7 @@ NORD.RandomSearchInstance.prototype.getRandomRoomOption = function(mode) {
       modeType: modType,
       board: boardType,
       gameModeList: gameModeList,
+      positionList: positionList,
       difficulty: NORD.MULTIPLAYER_GAME_DIFFICULTY.EASY //NORD.App.playerController.config.playerDifficultyLevel
     }
   }

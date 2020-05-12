@@ -46,6 +46,7 @@ NORD.PP_EVENT = {
 
   EVENT_GAME_GRAVITY_WELL_OBSTACLE: "24",
   EVENT_GAME_INVISIBLE_WALL_POSITION: "25",
+  EVENT_GAME_BALL_POSITION_CHANGE: "26",
 }
 
 PP.VARIABLE = {
@@ -106,6 +107,13 @@ PP.ServerObject.prototype.getData = function(eventType, array) {
         break;
       }
     case NORD.PP_EVENT.EVENT_GAME_INITIAL_BALL_MOVEMENT:
+      {
+        this.eventType = eventType;
+        this.ballPositionX = convertToFloat(array[1]);
+        this.ballPositionY = convertToFloat(array[2]);
+        break;
+      }
+    case NORD.PP_EVENT.EVENT_GAME_BALL_POSITION_CHANGE:
       {
         this.eventType = eventType;
         this.ballPositionX = convertToFloat(array[1]);
@@ -256,6 +264,13 @@ NORD.GameEventHandler.prototype.sendEvent = function(serverObject, data) {
         data = [eveentInt, serverObject.ballPositionX, serverObject.ballPositionY];
         break;
       }
+    case NORD.PP_EVENT.EVENT_GAME_BALL_POSITION_CHANGE:
+      {
+        serverObject.ballPositionX = convertToInt(serverObject.ballPositionX);
+        serverObject.ballPositionY = convertToInt(serverObject.ballPositionY);
+        data = [eveentInt, serverObject.ballPositionX, serverObject.ballPositionY];
+        break;
+      }
     case NORD.PP_EVENT.EVENT_GAME_INITIAL_BALLONE_MOVEMENT:
       {
         serverObject.ballPositionX = convertToInt(serverObject.ballPositionX);
@@ -389,6 +404,13 @@ NORD.GameEventHandler.prototype.sendEvent = function(serverObject, data) {
       case NORD.PP_EVENT.EVENT_GAME_INITIAL_BALLONE_MOVEMENT:
       case NORD.PP_EVENT.EVENT_GAME_INITIAL_BALLTWO_MOVEMENT:
       case NORD.PP_EVENT.EVENT_GAME_BALL_POSITION:
+        {
+          var sfso = new SFS2X.SFSObject();
+          sfso.putLongArray(PP.VARIABLE.VALUES, data);
+          roomVars.push(new SFS2X.SFSRoomVariable(PP.VARIABLE.VALUES, sfso));
+          break;
+        }
+      case NORD.PP_EVENT.EVENT_GAME_BALL_POSITION_CHANGE:
         {
           var sfso = new SFS2X.SFSObject();
           sfso.putLongArray(PP.VARIABLE.VALUES, data);
@@ -741,6 +763,11 @@ NORD.GameEventHandler.prototype.onReciveEvent = function(eventType, data) {
           x: NORD.game.ballImpulse.x,
           y: NORD.game.ballImpulse.y
         });
+        break;
+      }
+    case NORD.PP_EVENT.EVENT_GAME_BALL_POSITION_CHANGE:
+      {
+        Ball.setTo(serverObj.ballPositionX, serverObj.ballPositionY);
         break;
       }
     case NORD.PP_EVENT.EVENT_GAME_INVISIBLE_WALL_POSITION:

@@ -9,6 +9,7 @@ var RoundVariable;
 var ScoreHolder;
 var LeftPlayer;
 var RightPlayer;
+var PositionType;
 
 
 // require("core-js/modules/es6.object.assign");
@@ -2345,7 +2346,14 @@ RoundGenerator.prototype.initRound = function() {
     this.roundMode = DemoLoadFunction.myRoom()._customProperties.modeType;
     if (NORD.game.panelSettings.actionMode === 'ALL') {
       this.roundMode = DemoLoadFunction.myRoom()._customProperties.gameModeList[DemoLoadFunction.myRoom()._customProperties.gameModeList.length - 1];
+      if (this.roundMode == "TELEPORT_MODE" || this.roundMode == "BLACK_HOLE_MODE") {
+        PositionType = DemoLoadFunction.myRoom()._customProperties.positionList[DemoLoadFunction.myRoom()._customProperties.positionList.length - 1];
+        DemoLoadFunction.myRoom()._customProperties.positionList.pop();
+      }
       DemoLoadFunction.myRoom()._customProperties.gameModeList.pop();
+    } else {
+      PositionType = DemoLoadFunction.myRoom()._customProperties.positionList[DemoLoadFunction.myRoom()._customProperties.positionList.length - 1];
+      DemoLoadFunction.myRoom()._customProperties.positionList.pop();
     }
   } else {
     if (NORD.game.panelSettings.actionMode === 'ALL') {
@@ -2354,6 +2362,7 @@ RoundGenerator.prototype.initRound = function() {
       this.roundMode = Util.randomElement(avaiableModes);
       this.avaiableModes.splice(this.avaiableModes.indexOf(this.roundMode), 1);
     } else this.roundMode = NORD.game.panelSettings.actionMode;
+    PositionType = Math.floor(Math.random() * 2);
   }
   this.field.roundMode = this.roundMode;
   console.log("mode selected", this.roundMode);
@@ -2948,10 +2957,17 @@ var createBonus = function createBonus(field, data) {
     config.speed = field.config.bonusKittySpeed.value;
     config.time = config.time != undefined ? config.time : field.config.bonusKittyDuration.value;
     config.warningTime = -1;
-    if (data.setup == "normal" || data.setup == "host")
-      return createTeleport1(field, config, data);
-    else
-      return createTeleport2(field, config, data);
+    if (data.setup == "normal" || data.setup == "host") {
+      if (PositionType == 1)
+        return createTeleport1(field, config, data);
+      else
+        return createTeleport2(field, config, data);
+    } else {
+      if (PositionType == 1)
+        return createTeleport2(field, config, data);
+      else
+        return createTeleport1(field, config, data);
+    }
   } else if (data.type === 'KITTY' || data.type === 'KITTY_SHRINK_PADDLE') {
     config.x = config.y = 0;
     config.speed = field.config.bonusKittySpeed.value;
@@ -3115,7 +3131,7 @@ var createTeleport1 = function createTeleport1(field, config, data) {
     };
     bonusContainer = new NORD.Field.BonusContainer(field, Object.assign({}, containerConfig, {
       bonusType: 'TELEPORT1',
-      contactType: 'aaaq',
+      contactType: 'aaa',
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
           var player = field.players[ball.playerPaddle.side];
@@ -3123,6 +3139,14 @@ var createTeleport1 = function createTeleport1(field, config, data) {
         } else {
           if (ball.body.velocity.x < 0) {
             ball.setTo(-80, -100);
+
+            if (MultiplayerStarted) {
+              var seObj = new PP.ServerObject();
+              seObj.eventType = NORD.PP_EVENT.EVENT_GAME_BALL_POSITION_CHANGE;
+              seObj.ballPositionX = 80;
+              seObj.ballPositionY = -100;
+              NORD.gameEventHandler.sendEvent(seObj);
+            }
           }
         }
       }
@@ -3137,7 +3161,7 @@ var createTeleport1 = function createTeleport1(field, config, data) {
     };
     bonusContainer = new NORD.Field.BonusContainer(field, Object.assign({}, containerConfig, {
       bonusType: 'TELEPORT2',
-      contactType: 'aaaq',
+      contactType: 'aaa',
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
           var player = field.players[ball.playerPaddle.side];
@@ -3168,8 +3192,8 @@ var createTeleport2 = function createTeleport2(field, config, data) {
       y: 100
     };
     bonusContainer = new NORD.Field.BonusContainer(field, Object.assign({}, containerConfig, {
-      bonusType: 'TELEPORT21',
-      contactType: 'aaaq',
+      bonusType: 'TELEPORT2',
+      contactType: 'aaa',
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
           var player = field.players[ball.playerPaddle.side];
@@ -3190,8 +3214,8 @@ var createTeleport2 = function createTeleport2(field, config, data) {
       y: -100
     };
     bonusContainer = new NORD.Field.BonusContainer(field, Object.assign({}, containerConfig, {
-      bonusType: 'TELEPORT22',
-      contactType: 'aaaq',
+      bonusType: 'TELEPORT1',
+      contactType: 'aaa',
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
           var player = field.players[ball.playerPaddle.side];
@@ -3199,6 +3223,13 @@ var createTeleport2 = function createTeleport2(field, config, data) {
         } else {
           if (ball.body.velocity.x < 0) {
             ball.setTo(-80, 100);
+            if (MultiplayerStarted) {
+              var seObj = new PP.ServerObject();
+              seObj.eventType = NORD.PP_EVENT.EVENT_GAME_BALL_POSITION_CHANGE;
+              seObj.ballPositionX = 80;
+              seObj.ballPositionY = 100;
+              NORD.gameEventHandler.sendEvent(seObj);
+            }
           }
         }
       }
