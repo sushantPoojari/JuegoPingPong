@@ -682,8 +682,8 @@ NORD.Field.prototype.goal = function(player) {
 
 
   if (!config.muteGoal) {
-    if (player.type === 'HUMAN') NORD.audioManager.playAudio('player_goal');
-    else if (player.type === 'AI') NORD.audioManager.playAudio('computer_goal');
+   // if (player.type === 'HUMAN') NORD.audioManager.playAudio('player_goal');
+    //else if (player.type === 'AI') NORD.audioManager.playAudio('computer_goal');
   }
 
   player.roundScore++;
@@ -854,7 +854,7 @@ NORD.Field.prototype.startRound = function() {
 
       _this6.ball.startImpulse(ballDir);
 
-      NORD.audioManager.playAudio('ball_start');
+     // NORD.audioManager.playAudio('ball_start');
 
       _this6.roundGenerator.startRound();
 
@@ -870,7 +870,7 @@ NORD.Field.prototype.startRound = function() {
   this.board.startRound();
   var ballDir = Util.randomElement(['LEFT', 'RIGHT']);
   this.ball.startImpulse(ballDir);
-  NORD.audioManager.playAudio('ball_start');
+  // NORD.audioManager.playAudio('ball_start');
 
   if (this.roundGenerator) {
     this.roundGenerator.startRound();

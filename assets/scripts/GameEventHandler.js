@@ -859,7 +859,7 @@ NORD.GameEventHandler.prototype.onReciveEvent = function(eventType, data) {
       {
 
         LeftPaddle.stun();
-        NORD.audioManager.playAudio('shoot_hit');
+       // NORD.audioManager.playAudio('shoot_hit');
         NORD.game.field.emit('bullet_hit_paddle', LeftPaddle);
         RightPaddle.currentBullet.destroy();
         RightPaddle.currentBullet = null;

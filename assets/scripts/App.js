@@ -230,7 +230,7 @@ NORD.initGameDefinitions = function() {
   }, {
     type: 'AUDIO',
     name: 'gravity_well',
-    url: 'assets/sound/BlackHole',
+    url: 'assets/audio/gravity_well',
     formats: audioFormats
   }, {
     type: 'AUDIO',

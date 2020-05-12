@@ -897,7 +897,7 @@ NORD.Field.Ball.prototype.hitWall = function(wall) {
   if (wall.wallType === 'BUMPER') {
     wall.tweenBumperHit();
     this.bumperSpeedUp(this.field.getBallSpeedUpK('BUMPER'));
-    NORD.audioManager.playAudio('ball_hit_bumper');
+    //NORD.audioManager.playAudio('ball_hit_bumper');
     this.correctVelocity();
   } else if (this.invisibleState !== 'INVISIBLE') {
     if (this.isBig) NORD.audioManager.playAudio('wall_hit_big_ball');
@@ -982,8 +982,8 @@ NORD.Field.Ball.prototype.hitPaddle = function(paddle) {
 
   this.playerPaddle = paddle;
   var p = paddle.side === 'LEFT' ? 'player1' : 'player2';
-  if (this.isBig) NORD.audioManager.playAudio(p + '_hit_big_ball');
-  else NORD.audioManager.playAudio(p + '_hit_ball');
+  // if (this.isBig) NORD.audioManager.playAudio(p + '_hit_big_ball');
+  // else NORD.audioManager.playAudio(p + '_hit_ball');
   this.isFirstHit = true;
 
   // this.getTotalDuration();
@@ -1400,7 +1400,7 @@ NORD.Field.Paddle.prototype.shoot = function() {
   //sushant
   this.currentBullet = bullet;
 
-  NORD.audioManager.playAudio('blaster_shoot');
+ // NORD.audioManager.playAudio('blaster_shoot');
 
   if (this.shootsCount === 0) {
     this.shootReload = TweenMax.delayedCall(this.field.config.gunModeReload.value, function() {
@@ -1845,7 +1845,7 @@ NORD.Field.PaddleBullet.prototype.hitPaddle = function(paddle) {
   if (MultiplayerStarted) {
     if (paddle.side == "RIGHT") {
       paddle.stun();
-      NORD.audioManager.playAudio('shoot_hit');
+    //  NORD.audioManager.playAudio('shoot_hit');
       this.field.emit('bullet_hit_paddle', paddle);
       this.destroy();
 
@@ -1859,7 +1859,7 @@ NORD.Field.PaddleBullet.prototype.hitPaddle = function(paddle) {
   } else {
     if (paddle.side !== this.paddle.side) {
       paddle.stun();
-      NORD.audioManager.playAudio('shoot_hit');
+     // NORD.audioManager.playAudio('shoot_hit');
       this.field.emit('bullet_hit_paddle', paddle);
       this.destroy();
     }
