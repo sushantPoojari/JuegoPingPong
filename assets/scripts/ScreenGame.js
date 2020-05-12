@@ -454,12 +454,11 @@ NORD.PanelEndGame = function(config) {
     texture: 'Rays',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 1,
+    scaleXY: 0.85,
   });
   this.rays.anchor.set(0.5);
   this.rays.position.set(0, (-this.bg.height / 2 + 50) - this.rays.height / 2);
 
-  
   rotateAction();
 
   function rotateAction() {
@@ -521,10 +520,9 @@ NORD.PanelEndGame = function(config) {
   this.HeaderText.position.set(0, 0);
   this.HeaderPanel.addChild(this.HeaderText);
 
-
-  this.scoreHeader = new PIXI.Text('PLAYER-1 SCORE', {
+  this.scoreHeader = new PIXI.Text('PLAYER 1 SCORE', {
     fontFamily: 'Russo One',
-    fontSize: 24,
+    fontSize: 20,
     fill: 'white',
     align: 'center'
   });
@@ -553,9 +551,9 @@ NORD.PanelEndGame = function(config) {
   this.scoreLabel.position.set(0, -125);
   this.bg.addChild(this.scoreLabel);
 
-  this.scoreHeader2 = new PIXI.Text('PLAYER-2 SCORE', {
+  this.scoreHeader2 = new PIXI.Text('PLAYER 2 SCORE', {
     fontFamily: 'Russo One',
-    fontSize: 24,
+    fontSize: 20,
     fill: 'white',
     align: 'center'
   });
@@ -682,9 +680,9 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
     this.scoreHeader2.text = "COMPUTER SCORE"
   }
   if (winner === 'PLAYER_LEFT') {
-    this.HeaderText.text = "PLAYER-1 WON";
-    this.scoreHeader.text = "PLAYER-1 SCORE";
-    this.scoreHeader2.text = "PLAYER-2 SCORE"
+    this.HeaderText.text = "PLAYER 1 WON";
+    this.scoreHeader.text = "PLAYER 1 SCORE";
+    this.scoreHeader2.text = "PLAYER 2 SCORE"
 
     this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
     this.scoreLabel.text = NORD.game.field.players.LEFT.roundScore;
@@ -707,9 +705,9 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
 
   }
   if (winner === 'PLAYER_RIGHT') {
-    this.HeaderText.text = "PLAYER-2 WON";
-    this.scoreHeader.text = "PLAYER-1 SCORE";
-    this.scoreHeader2.text = "PLAYER-2 SCORE"
+    this.HeaderText.text = "PLAYER 2 WON";
+    this.scoreHeader.text = "PLAYER 1 SCORE";
+    this.scoreHeader2.text = "PLAYER 2 SCORE"
 
     this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
     this.scoreLabel.text = NORD.game.field.players.LEFT.roundScore;
