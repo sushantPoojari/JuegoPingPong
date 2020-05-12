@@ -27,6 +27,17 @@ function _arrayWithoutHoles(arr) {
 }
 
 NORD.ScreenMainMenu = function(config) {
+
+  var d = document.getElementById('imgDiv');
+  var olddiv = document.getElementById("backGroundImage");
+  var progress = document.getElementById("myProgress");
+  var grad1 = document.getElementById("grad1");
+  var title = document.getElementById("title");
+  d.removeChild(title);
+  d.removeChild(grad1);
+  d.removeChild(progress);
+  d.removeChild(olddiv);
+
   var _this = this;
   NORD.mainMenu = this;
   var isAllButtonEnabled;

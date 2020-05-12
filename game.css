@@ -1,0 +1,133 @@
+html {
+  -ms-touch-action: none;
+}
+
+body, canvas, div {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -khtml-user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  margin: 0;
+
+  cursor: default;
+  color: #888;
+  background-color: #333;
+
+  text-align: center;
+  font-family: Helvetica, Verdana, Arial, sans-serif;
+
+  display: flex;
+  flex-direction: column;
+}
+
+canvas {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+
+/* shell loading */
+#myProgress {
+  width: 77%;
+background-color: black;
+border:2px solid white;
+border-radius:20px;
+bottom:15%;
+position: fixed;
+left:11.5%;
+z-index:100;
+height: 16px;
+}
+
+
+.animated-gradient {
+  background: repeating-linear-gradient(to right, red 0%, blue 50%, red 100%);
+  width: 100%;
+  background-size: 200% auto;
+  background-position: 0 100%;
+  animation: gradient 2s infinite;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+@keyframes gradient {
+  0%   { background-position: 0 0; }
+  100% { background-position: -200% 0; }
+}
+
+#myBar {
+  width: 50%;
+bottom:80%;
+height: 15px;
+/* border:1px solid white; */
+border-radius:10px;
+/* transform: translate(2px, 2px);
+box-shadow: inset 0 1px 1px 0 rgba(255,178,0, 0.5);
+background-size: 16px 14px, 100% 100%, 100% 100%;
+background-image: linear-gradient(0deg, #FCC13C 0%, #F8D61C 100%);
+box-shadow: inset 0 1px 1px 0 rgba(255,255,255,0.50), inset 0 -1px 1px 0 #FFB200;
+background-image: -webkit-linear-gradient(30deg, transparent, transparent 33%, rgba(252,193,60,1) 33%, rgba(252,193,60,1) 66%, transparent 0%), -webkit-linear-gradient(bottom, #F8DD4F, #FBCE6C);
+background-size: 20px 14px, 100% 100%, 100% 100%; */
+
+}
+
+#myProgresslabel {
+  width: 70%;
+  bottom:5%;
+  position: fixed;
+  left:15%;
+  z-index:100;
+  color:white;
+  font-family: NunitoBold;
+  font-size:14dp;
+}
+
+#grad1 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  font-size:5vw;
+  z-index:2;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0,0,0,1) 0%,
+      rgba(0,0,0,0) 30%,
+      rgba(0,0,0,0) 70%,
+      rgba(0,0,0,1) 100%
+    ) /* Standard syntax (must be last) */
+}
+
+#backGroundImage {
+
+  height: auto;
+  background-size: cover;
+  position: absolute;
+  background-size: cover;
+
+  left: 0;
+  /* top: 0; */
+
+  width:100%;
+  z-index:1;
+}
+
+#title {
+ text-align:center;
+  position: absolute;
+  left:29%;
+  top:20%;
+  z-index:1;
+}
