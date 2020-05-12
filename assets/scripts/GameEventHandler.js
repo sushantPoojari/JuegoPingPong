@@ -767,6 +767,7 @@ NORD.GameEventHandler.prototype.onReciveEvent = function(eventType, data) {
       }
     case NORD.PP_EVENT.EVENT_GAME_BALL_POSITION_CHANGE:
       {
+        //sound
         Ball.setTo(serverObj.ballPositionX, serverObj.ballPositionY);
         break;
       }

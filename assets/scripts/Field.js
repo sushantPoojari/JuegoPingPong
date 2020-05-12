@@ -3134,6 +3134,7 @@ var createTeleport1 = function createTeleport1(field, config, data) {
       contactType: 'aaa',
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
+          NORD.audioManager.playAudio('BlackHole');
           var player = field.players[ball.playerPaddle.side];
           field.emit('black_hole_mode_hit', ball);
         } else {
@@ -3164,6 +3165,7 @@ var createTeleport1 = function createTeleport1(field, config, data) {
       contactType: 'aaa',
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
+          NORD.audioManager.playAudio('BlackHole');
           var player = field.players[ball.playerPaddle.side];
           field.emit('black_hole_mode_hit', ball);
         } else {
@@ -3196,6 +3198,7 @@ var createTeleport2 = function createTeleport2(field, config, data) {
       contactType: 'aaa',
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
+          NORD.audioManager.playAudio('BlackHole');
           var player = field.players[ball.playerPaddle.side];
           field.emit('black_hole_mode_hit', ball);
         } else {
@@ -3218,6 +3221,7 @@ var createTeleport2 = function createTeleport2(field, config, data) {
       contactType: 'aaa',
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
+          NORD.audioManager.playAudio('BlackHole');
           var player = field.players[ball.playerPaddle.side];
           field.emit('black_hole_mode_hit', ball);
         } else {
@@ -3333,7 +3337,9 @@ var createKitty = function createKitty(field) {
           } // field.goal(player, ball, true);
         }
       } else {
+        NORD.audioManager.playAudio('Shrinking');
         field.emit('kitty_hit_shrink', ball);
+        
       }
     }
   }));

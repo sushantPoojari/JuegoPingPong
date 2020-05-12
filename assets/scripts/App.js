@@ -209,8 +209,18 @@ NORD.initGameDefinitions = function() {
     formats: audioFormats
   }, {
     type: 'AUDIO',
-    name: 'blaster_shoot',
-    url: 'assets/audio/blaster_shoot',
+    name: 'BlackHole',
+    url: 'assets/sound/BlackHole',
+    formats: audioFormats
+  },{
+    type: 'AUDIO',
+    name: 'BlackHole',
+    url: 'assets/sound/BlackHole',
+    formats: audioFormats
+  },{
+    type: 'AUDIO',
+    name: 'Shrinking',
+    url: 'assets/sound/Shrinking',
     formats: audioFormats
   }, {
     type: 'AUDIO',
