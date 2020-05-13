@@ -118,6 +118,13 @@ NORD.initGameDefinitions = function() {
     url: 'assets/fonts/AndroidAssassin.ttf'
   }, {
     type: 'AUDIO',
+    name: 'BGM',
+    url: 'assets/sound/BGM',
+    formats: audioFormats,
+    autoplay: true,
+    loop : true,
+  },{
+    type: 'AUDIO',
     name: 'sound_click',
     url: 'assets/sound/ButtonTap',
     formats: audioFormats
@@ -492,6 +499,9 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'ShareButton',
     url: 'assets/images/result/ShareButton.png'
+  },{
+    name: 'DarkLayer',
+    url: 'assets/images/result/DarkLayer.png'
   }]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
@@ -708,6 +718,8 @@ NORD.Game = function() {
     region: 'asia'
   };
 
+
+
   //sushant
   this.ballImpulse = {
     msg: "",
@@ -753,6 +765,7 @@ NORD.Game.prototype.init = function() {
   NORD.sfsController = new NORD.SFSController();
   NORD.gameEventHandler = new NORD.GameEventHandler();
 
+
   this.field = new NORD.Field();
   this.screenMainMenu = new NORD.ScreenMainMenu({
     name: 'screen_main_menu',
@@ -778,6 +791,7 @@ NORD.Game.prototype.init = function() {
   NORD.GUIManager.autoresize();
   NORD.app.on('update', this.update, this);
   NORD.app.on('update_after', this.updateAfter, this);
+
 };
 
 NORD.Game.prototype.setConfig = function(config) {

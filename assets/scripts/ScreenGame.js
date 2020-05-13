@@ -259,6 +259,8 @@ NORD.ScreenGame.prototype.toGame = function(board) {
 
 NORD.ScreenGame.prototype.toMainMenu = function() {
   var self = this;
+  NORD.audioManager.stopAudio('BGM');
+  NORD.audioManager.playAudio('BGM');
   TweenMax.killAll(false, false, true);
   this.tween({
     name: 'hide_anim'
@@ -432,13 +434,11 @@ NORD.PanelEndGame = function(config) {
 
   var TransparentLayer = Util.createSprite({
     parent: this,
-    texture: 'TransparentLayer',
+    texture: 'DarkLayer',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 100,
-    scaleY: 100,
+    scaleXY: 0.5,
   });
-  TransparentLayer.alpha = 0.85;
 
   this.bg = Util.createSprite({
     parent: this,
