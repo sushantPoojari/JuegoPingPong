@@ -682,7 +682,7 @@ NORD.Field.prototype.goal = function(player) {
 
 
   if (!config.muteGoal) {
-   // if (player.type === 'HUMAN') NORD.audioManager.playAudio('player_goal');
+    // if (player.type === 'HUMAN') NORD.audioManager.playAudio('player_goal');
     //else if (player.type === 'AI') NORD.audioManager.playAudio('computer_goal');
   }
 
@@ -854,7 +854,7 @@ NORD.Field.prototype.startRound = function() {
 
       _this6.ball.startImpulse(ballDir);
 
-     // NORD.audioManager.playAudio('ball_start');
+      // NORD.audioManager.playAudio('ball_start');
 
       _this6.roundGenerator.startRound();
 
@@ -2122,7 +2122,7 @@ var RoundGenerator = function RoundGenerator(field) {
         });
       });
     } else {
-     // if (data.player.type === 'HUMAN') NORD.audioManager.playAudio('player_goal');
+      // if (data.player.type === 'HUMAN') NORD.audioManager.playAudio('player_goal');
       //else if (data.player.type === 'AI') NORD.audioManager.playAudio('computer_goal');
 
       if (!this.field.getActiveBalls().length) {
@@ -2135,7 +2135,7 @@ var RoundGenerator = function RoundGenerator(field) {
   this.field.on('shadow_hit_disappear', function(ball) {
     if (ball.body.velocity.x > 0) {
       if (LeftPaddle.tweenBodyAlpha != null)
-      LeftPaddle.tweenBodyAlpha.kill();
+        LeftPaddle.tweenBodyAlpha.kill();
       LeftPaddle.tweenBodyAlpha = TweenMax.to(LeftPaddle, 2, {
         alpha: 0,
         onComplete: function onComplete() {
@@ -3134,9 +3134,9 @@ var createTeleport1 = function createTeleport1(field, config, data) {
       contactType: 'aaa',
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
+          bonusContainer.bg.texture = null;
           NORD.audioManager.playAudio('BlackHole');
           var player = field.players[ball.playerPaddle.side];
-          bonusContainer.bg.texture = null;
           field.emit('black_hole_mode_hit', ball);
         } else {
           if (ball.body.velocity.x < 0) {
@@ -3166,9 +3166,9 @@ var createTeleport1 = function createTeleport1(field, config, data) {
       contactType: 'aaa',
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
+          bonusContainer.bg.texture = null;
           NORD.audioManager.playAudio('BlackHole');
           var player = field.players[ball.playerPaddle.side];
-          bonusContainer.bg.texture = null;
           field.emit('black_hole_mode_hit', ball);
         } else {
           if (ball.body.velocity.x > 0) {
@@ -3184,10 +3184,44 @@ var createTeleport1 = function createTeleport1(field, config, data) {
     bonusContainer.bg.texture = NORD.assetsManager.getTexture('Blackhole');
 
     rotateAction();
+
     function rotateAction() {
       requestAnimationFrame(rotateAction);
-      if(bonusContainer.bg.texture != null)
-      bonusContainer.bg.rotation += 0.01;
+      if (bonusContainer.bg.texture != null)
+        bonusContainer.bg.rotation += 0.01;
+    }
+  } else {
+    var teleport1 = Util.createSprite({
+      parent: bonusContainer,
+      texture: 'portalDotImage',
+      aY: 0.5,
+      x: -15,
+    });
+    if (data.data == "teleport2") {
+      teleport1.anchor.x = 0.8;
+      teleport1.x = 15
+    } else {
+      teleport1.anchor.x = 0.2;
+      teleport1.x = -15
+    }
+
+    bonusContainer.addChild(teleport1);
+    decreasetTeleport2Alpha();
+
+    function decreasetTeleport2Alpha() {
+      if (bonusContainer.children[2] == undefined)
+        return;
+      if (bonusContainer.children[2].tweenBodyAlpha != null)
+        bonusContainer.children[2].tweenBodyAlpha.kill();
+      bonusContainer.children[2].scale.x = 0.25;
+      bonusContainer.children[2].scale.y = 0.35;
+      bonusContainer.children[2].tweenBodyAlpha = TweenMax.to(bonusContainer.children[2].scale, 2, {
+        x: 0.05,
+        y: 0.1,
+        onComplete: function onComplete() {
+          decreasetTeleport2Alpha();
+        }
+      });
     }
   }
 
@@ -3207,9 +3241,9 @@ var createTeleport2 = function createTeleport2(field, config, data) {
       contactType: 'aaa',
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
+          bonusContainer.bg.texture = null;
           NORD.audioManager.playAudio('BlackHole');
           var player = field.players[ball.playerPaddle.side];
-          bonusContainer.bg.texture = null;
           field.emit('black_hole_mode_hit', ball);
         } else {
           if (ball.body.velocity.x > 0) {
@@ -3231,10 +3265,9 @@ var createTeleport2 = function createTeleport2(field, config, data) {
       contactType: 'aaa',
       activateCallback: function activateCallback(ball) {
         if (this.field.roundGenerator.roundMode === 'BLACK_HOLE_MODE') {
+          bonusContainer.bg.texture = null;
           NORD.audioManager.playAudio('BlackHole');
-          bonusContainer.bg.texture = null;
           var player = field.players[ball.playerPaddle.side];
-          bonusContainer.bg.texture = null;
           field.emit('black_hole_mode_hit', ball);
         } else {
           if (ball.body.velocity.x < 0) {
@@ -3257,10 +3290,44 @@ var createTeleport2 = function createTeleport2(field, config, data) {
     bonusContainer.bg.texture = NORD.assetsManager.getTexture('Blackhole');
 
     rotateAction();
+
     function rotateAction() {
       requestAnimationFrame(rotateAction);
-      if(bonusContainer.bg.texture != null)
-      bonusContainer.bg.rotation += 0.01;
+      if (bonusContainer.bg.texture != null)
+        bonusContainer.bg.rotation += 0.01;
+    }
+  } else {
+    var teleport1 = Util.createSprite({
+      parent: bonusContainer,
+      texture: 'portalDotImage',
+      aY: 0.5,
+      x: -15,
+    });
+    if (data.data == "teleport2") {
+      teleport1.anchor.x = 0.2;
+      teleport1.x = -15
+    } else {
+      teleport1.anchor.x = 0.8;
+      teleport1.x = 15
+    }
+
+    bonusContainer.addChild(teleport1);
+    decreasetTeleport2Alpha();
+
+    function decreasetTeleport2Alpha() {
+      if (bonusContainer.children[2] == undefined)
+        return;
+      if (bonusContainer.children[2].tweenBodyAlpha != null)
+        bonusContainer.children[2].tweenBodyAlpha.kill();
+      bonusContainer.children[2].scale.x = 0.25;
+      bonusContainer.children[2].scale.y = 0.35;
+      bonusContainer.children[2].tweenBodyAlpha = TweenMax.to(bonusContainer.children[2].scale, 2, {
+        x: 0.05,
+        y: 0.1,
+        onComplete: function onComplete() {
+          decreasetTeleport2Alpha();
+        }
+      });
     }
   }
 
@@ -3317,10 +3384,10 @@ var createKitty = function createKitty(field) {
             playersHit[player.side]++; // console.log('Kitty hit:', playersHit);
 
             if (playersHit[player.side] === 1) {
-            //  NORD.audioManager.playAudio('kitty_hit_1');
+              //  NORD.audioManager.playAudio('kitty_hit_1');
               field.emit('kitty_hit', player);
             } else if (playersHit[player.side] > 1) {
-            //  NORD.audioManager.playAudio('kitty_hit_2');
+              //  NORD.audioManager.playAudio('kitty_hit_2');
 
               field.emit('kitty_hit', player); // bonusContainer.destroy();
 
@@ -3358,7 +3425,7 @@ var createKitty = function createKitty(field) {
       } else {
         NORD.audioManager.playAudio('Shrinking');
         field.emit('kitty_hit_shrink', ball);
-        
+
       }
     }
   }));
