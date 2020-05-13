@@ -212,12 +212,12 @@ NORD.initGameDefinitions = function() {
     name: 'BlackHole',
     url: 'assets/sound/BlackHole',
     formats: audioFormats
-  },{
+  }, {
     type: 'AUDIO',
     name: 'BlackHole',
     url: 'assets/sound/BlackHole',
     formats: audioFormats
-  },{
+  }, {
     type: 'AUDIO',
     name: 'Shrinking',
     url: 'assets/sound/Shrinking',
@@ -261,6 +261,9 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'teleport1',
     url: 'assets/images/popup/load.png'
+  }, {
+    name: 'portalDotImage',
+    url: 'assets/images/popup/gameplayPopup/Mode/Dot-Image.png'
   }, {
     name: 'portal1',
     url: 'assets/images/popup/gameplayPopup/Mode/Through-the-portal.png'
@@ -471,17 +474,16 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'Stars',
     url: 'assets/images/result/Stars.png'
-  },
-  {
+  }, {
     name: 'Stars2',
     url: 'assets/images/result/Stars2.png'
   }, {
     name: 'RedDots',
     url: 'assets/images/result/RedDots.png'
-  },  {
+  }, {
     name: 'RedDots2',
     url: 'assets/images/result/RedDots2.png'
-  },{
+  }, {
     name: 'Rays',
     url: 'assets/images/result/Rays.png'
   }, {
