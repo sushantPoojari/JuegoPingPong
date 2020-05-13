@@ -56,6 +56,7 @@ NORD.ScreenMainMenu = function(config) {
   this.state = 'hide';
   this.visible = false;
   this.interactiveChildren = false;
+
   /*********************************************************************************BG**************************************************************************************************/
   var bg = Util.createSprite({
     parent: this,
@@ -166,6 +167,9 @@ NORD.ScreenMainMenu = function(config) {
     });
   }, this);
   alignItems([logo, this.containerSwitchers, this.playButton], 460);
+
+    NORD.audioManager.playAudio('BGM');
+
 
   /***************************************************************************************Popup Sub Mode Selection*************************************************************************************/
   this.subModeSelectionPopup = new NORD.subModeSelectionPopup({
@@ -1850,6 +1854,8 @@ NORD.subModeSelectionPopup = function(config) {
   this.playButton.addListener('button_click', function(data) {
     MultiplayerStarted = false;
     this.hide();
+
+    NORD.audioManager.stopAudio('BGM');
 
     var config = NORD.game.config;
     if (config.players == 'three') {
