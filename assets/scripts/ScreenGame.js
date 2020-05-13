@@ -259,6 +259,8 @@ NORD.ScreenGame.prototype.toGame = function(board) {
 
 NORD.ScreenGame.prototype.toMainMenu = function() {
   var self = this;
+  NORD.audioManager.stopAudio('BGM');
+  NORD.audioManager.playAudio('BGM');
   TweenMax.killAll(false, false, true);
   this.tween({
     name: 'hide_anim'

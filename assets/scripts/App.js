@@ -120,7 +120,9 @@ NORD.initGameDefinitions = function() {
     type: 'AUDIO',
     name: 'BGM',
     url: 'assets/sound/BGM',
-    formats: audioFormats
+    formats: audioFormats,
+    autoplay: true,
+    loop : true,
   },{
     type: 'AUDIO',
     name: 'sound_click',
