@@ -432,13 +432,11 @@ NORD.PanelEndGame = function(config) {
 
   var TransparentLayer = Util.createSprite({
     parent: this,
-    texture: 'TransparentLayer',
+    texture: 'DarkLayer',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 100,
-    scaleY: 100,
+    scaleXY: 0.5,
   });
-  TransparentLayer.alpha = 0.85;
 
   this.bg = Util.createSprite({
     parent: this,
