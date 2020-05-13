@@ -156,7 +156,6 @@ AssetsManager.prototype.loadAudioAssets = function(audioAssets, progressCallback
       src.push(assetInfo.url + assetInfo.formats[j]);
     }
 
-    debugger;
     var audio = new Howl({
       src: src,
       autoplay: assetInfo.autoplay == undefined ? false : assetInfo.autoplay,
@@ -321,6 +320,7 @@ NORD.AudioManager.prototype.switchMute = function() {
 
 NORD.AudioManager.prototype.playAudio = function(name) {
   var audio = this.assetsManager.getAsset(name);
+  //if(!audio.isPlaying())
   var id = audio.play();
 };
 

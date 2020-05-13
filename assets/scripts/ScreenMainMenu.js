@@ -168,7 +168,7 @@ NORD.ScreenMainMenu = function(config) {
   }, this);
   alignItems([logo, this.containerSwitchers, this.playButton], 460);
 
-    NORD.audioManager.playAudio('BGM');
+  NORD.audioManager.playAudio('BGM');
 
 
   /***************************************************************************************Popup Sub Mode Selection*************************************************************************************/
