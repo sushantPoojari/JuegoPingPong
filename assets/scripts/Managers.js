@@ -156,7 +156,6 @@ AssetsManager.prototype.loadAudioAssets = function(audioAssets, progressCallback
       src.push(assetInfo.url + assetInfo.formats[j]);
     }
 
-    debugger;
     var audio = new Howl({
       src: src,
       autoplay: assetInfo.autoplay == undefined ? false : assetInfo.autoplay,
