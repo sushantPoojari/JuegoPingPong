@@ -990,7 +990,6 @@ NORD.Field.prototype.ballHitWall = function(ball, wall) {
 };
 
 NORD.Field.prototype.ballHitPaddle = function(ball, paddle) {
-  debugger;
   // console.log('Ball hit paddle', ball, paddle);
   //sushant
   if (MultiplayerStarted) {
