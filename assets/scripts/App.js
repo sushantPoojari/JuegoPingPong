@@ -107,14 +107,14 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'profanityNames',
     url: 'assets/ProfanityNames.json'
-  },  {
+  }, {
     type: 'AUDIO',
     name: 'BGM',
     url: 'assets/sound/BGM',
     formats: audioFormats,
-    autoplay: true,
-    loop : true,
-  },{
+    autoplay: false,
+    loop: true,
+  }, {
     type: 'AUDIO',
     name: 'sound_click',
     url: 'assets/sound/ButtonTap',
@@ -155,7 +155,7 @@ NORD.initGameDefinitions = function() {
     name: 'player1_hit_ball',
     url: 'assets/sound/BallHitPaddle',
     formats: audioFormats
-  },{
+  }, {
     type: 'AUDIO',
     name: 'BallHitPaddle',
     url: 'assets/sound/BallHitPaddle',
@@ -243,7 +243,7 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'PopupSub',
     url: 'assets/images/popup/PopupSub.png'
-  },{
+  }, {
     name: 'PopupSmall',
     url: 'assets/images/popup/PopupSmall.png'
   }, {
@@ -264,6 +264,12 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'portalDotImage',
     url: 'assets/images/popup/gameplayPopup/Mode/Dot-Image.png'
+  }, {
+    name: 'Through-the-portal copy',
+    url: 'assets/images/popup/gameplayPopup/Mode/Through-the-portal copy.png'
+  }, {
+    name: 'spiral',
+    url: 'assets/images/popup/gameplayPopup/Mode/spiral.png'
   }, {
     name: 'portal1',
     url: 'assets/images/popup/gameplayPopup/Mode/Through-the-portal.png'
@@ -492,7 +498,7 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'ShareButton',
     url: 'assets/images/result/ShareButton.png'
-  },{
+  }, {
     name: 'DarkLayer',
     url: 'assets/images/result/DarkLayer.png'
   }]);

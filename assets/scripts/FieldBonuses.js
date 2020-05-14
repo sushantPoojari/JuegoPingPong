@@ -544,7 +544,7 @@ NORD.Field.GravityWell.prototype.update = function() {
 
     if (distance < maxDistance * 1.1) {
       if (_this10.balls.indexOf(ball) == -1) {
-      //  NORD.audioManager.playAudio('gravity_well');
+        //  NORD.audioManager.playAudio('gravity_well');
 
         _this10.balls.push(ball);
       }
@@ -947,7 +947,7 @@ GameStartText.prototype.play = function(callback) {
       // this.textGo.alpha = 1.0;
       // this.textGo.y = 0;
       // this.textReady.y = 0;
-     // NORD.audioManager.playAudio('ready');
+      // NORD.audioManager.playAudio('ready');
       _this19.tween1 = TweenMax.to(_this19.textReady, 6 / 30, {
         y: 30,
         alpha: 0.0,
@@ -965,7 +965,7 @@ GameStartText.prototype.play = function(callback) {
         delay: 1.0 + 3 / 30,
         ease: Power4.easeInOut,
         onComplete: function onComplete() {
-         // NORD.audioManager.playAudio('go');
+          // NORD.audioManager.playAudio('go');
           _this19.tween1 = TweenMax.to(_this19.textGo, 6 / 30, {
             y: 30,
             alpha: 0.0,
