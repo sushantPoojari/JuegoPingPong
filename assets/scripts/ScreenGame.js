@@ -77,6 +77,8 @@ NORD.ScreenGame = function(config) {
     aY: 0.5,
     scaleXY: 0.4
   });
+
+
   this.buttonPause.on('button_click', function(data) {
     var _this2 = this;
 
@@ -243,6 +245,18 @@ NORD.ScreenGame.prototype.update = function() {
 NORD.ScreenGame.prototype.toGame = function(board) {
   var self = this;
   this.boardName = board;
+
+  var pauseButton = PIXI.Texture.fromFrame('PauseButton');
+  var closeButton = PIXI.Texture.fromFrame('CloseButton');
+  this.buttonPause.regularSkin.texture = pauseButton;
+  this.buttonPause.scale.set(0.90);
+
+  if(NORD.game.currentPlayer == 'three')
+  {
+    this.buttonPause.regularSkin.texture = closeButton;
+    this.buttonPause.scale.set(0.75);
+  }
+
   this.field.initGame(this.createBoard(this.boardName));
 
   this.tween({
