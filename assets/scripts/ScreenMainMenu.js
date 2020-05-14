@@ -543,7 +543,7 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
 
   var setText = function setText(text) {
     var text = new PIXI.Text(text, {
-      fontFamily: 'Russo One',
+      fontFamily: 'Squada One',
       fontSize: 28,
       fill: 'white',
       align: 'center'
@@ -1490,7 +1490,7 @@ NORD.randomNamePopup = function(config) {
 
   var textTitle = new PIXI.Text('TYPE YOUR NAME', {
     parent: this.bg,
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 64,
     fill: 'white',
     align: 'center'
@@ -1502,7 +1502,7 @@ NORD.randomNamePopup = function(config) {
 
   this.errorText = new PIXI.Text('Entered name contains\n profanity/special characters', {
     parent: this.bg,
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 30,
     fill: 'red',
     align: 'center'
@@ -1525,7 +1525,7 @@ NORD.randomNamePopup = function(config) {
 
   this.l_playerName = new PIXI.TextInput({
     input: {
-      fontFamily: 'Russo One',
+      fontFamily: 'Squada One',
       fontSize: '50px',
       padding: '18px 24px',
       width: '450px',
@@ -1735,7 +1735,7 @@ NORD.subModeSelectionPopup = function(config) {
   });
 
   this.popupHeader = new PIXI.Text('SELECT A GAME BOARD', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 17,
     fill: 'white',
     align: 'center'
@@ -1778,7 +1778,7 @@ NORD.subModeSelectionPopup = function(config) {
   });
 
   this.separatorText = new PIXI.Text('OR', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 20,
     fill: 'green',
     align: 'center',
@@ -1809,7 +1809,7 @@ NORD.subModeSelectionPopup = function(config) {
   });
 
   this.difficultyHeader = new PIXI.Text('CHOOSE DIFFICULTY', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 17,
     fill: 'white',
     align: 'center'
@@ -1910,7 +1910,7 @@ NORD.subModeSelectionPopup = function(config) {
   this.currentAngle = 0;
 
   this.loaderTextData = new PIXI.Text('GETTING OPTIMAL SERVER', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 35,
     fill: 'white',
     align: 'center',

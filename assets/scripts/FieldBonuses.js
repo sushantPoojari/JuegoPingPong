@@ -870,7 +870,7 @@ var GameStartText = function GameStartText() {
   this.textReady.addChild(bg1);
 
   var readyText = new PIXI.Text('READY', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 64,
     fill: 'white',
     align: 'center'
@@ -900,7 +900,7 @@ var GameStartText = function GameStartText() {
   this.textGo.addChild(bg2);
 
   var goText = new PIXI.Text('GO', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 64,
     fill: 'white',
     align: 'center'
