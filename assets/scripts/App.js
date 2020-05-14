@@ -23,8 +23,8 @@ NORD.events = new EventEmitter()
 NORD.demo = null;
 
 NORD.SHARE_URL = {
-  FB : "https://www.facebook.com/sharer/sharer.php?u=hai;src=sdkpreparse",
-  TWITTER : "https://twitter.com/intent/tweet?ui_metrics=",
+  FB: "https://www.facebook.com/sharer/sharer.php?u=hai;src=sdkpreparse",
+  TWITTER: "https://twitter.com/intent/tweet?ui_metrics=",
 }
 
 NORD.MULTIPLAYER_GAME_MODE = {
@@ -284,6 +284,9 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'Game-Board',
     url: 'assets/images/popup/gameplayPopup/Game-Board.png'
+  }, {
+    name: 'Paddle-Light',
+    url: 'assets/images/popup/gameplayPopup/Paddle-Light.png'
   }, {
     name: 'rightPaddle',
     url: 'assets/images/popup/gameplayPopup/Paddle-2.png'
