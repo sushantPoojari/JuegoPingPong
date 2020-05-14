@@ -114,9 +114,6 @@ NORD.initGameDefinitions = function() {
     name: 'PH_46',
     url: 'assets/fonts/PH_46.fnt'
   }, {
-    name: 'AndroidAssassin',
-    url: 'assets/fonts/AndroidAssassin.ttf'
-  }, {
     type: 'AUDIO',
     name: 'BGM',
     url: 'assets/sound/BGM',
@@ -247,10 +244,7 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'PopupSub',
     url: 'assets/images/popup/PopupSub.png'
-  }, {
-    name: 'CloseBtn',
-    url: 'assets/multiplayerImages/CloseBtn.png'
-  }, {
+  },{
     name: 'PopupSmall',
     url: 'assets/images/popup/PopupSmall.png'
   }, {
