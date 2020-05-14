@@ -3195,35 +3195,46 @@ var createTeleport1 = function createTeleport1(field, config, data) {
   } else {
     var teleport1 = Util.createSprite({
       parent: bonusContainer,
-      texture: 'portalDotImage',
+      texture: 'Through-the-portal copy',
+      aX: 0.5,
       aY: 0.5,
-      x: -15,
+      scaleXY: 0.5,
+    });
+    var teleport2 = Util.createSprite({
+      parent: bonusContainer,
+      texture: 'spiral',
+      aX: 0.5,
+      aY: 0.5,
+      scaleXY: 0.4,
     });
     if (data.data == "teleport2") {
-      teleport1.anchor.x = 0.8;
-      teleport1.x = 15
+      teleport1.rotation = Math.PI;
+      teleport2.rotation = Math.PI;
+      teleport2.x = -5;
     } else {
-      teleport1.anchor.x = 0.2;
-      teleport1.x = -15
+      teleport2.y = 5;
+      teleport2.scale.y *= -1;
     }
 
     bonusContainer.addChild(teleport1);
-    decreasetTeleport2Alpha();
+    bonusContainer.addChild(teleport2);
+    teleport1.mask = teleport2;
+    if (data.data == "teleport2") {
+      rotateAction();
 
-    function decreasetTeleport2Alpha() {
-      if (bonusContainer.children[2] == undefined)
-        return;
-      if (bonusContainer.children[2].tweenBodyAlpha != null)
-        bonusContainer.children[2].tweenBodyAlpha.kill();
-      bonusContainer.children[2].scale.x = 0.25;
-      bonusContainer.children[2].scale.y = 0.35;
-      bonusContainer.children[2].tweenBodyAlpha = TweenMax.to(bonusContainer.children[2].scale, 2, {
-        x: 0.05,
-        y: 0.1,
-        onComplete: function onComplete() {
-          decreasetTeleport2Alpha();
-        }
-      });
+      function rotateAction() {
+        requestAnimationFrame(rotateAction);
+        if (bonusContainer.bg.texture != null)
+          bonusContainer.children[3].rotation += 0.01;
+      }
+    } else {
+      rotateAction();
+
+      function rotateAction() {
+        requestAnimationFrame(rotateAction);
+        if (bonusContainer.bg.texture != null)
+          bonusContainer.children[3].rotation -= 0.01;
+      }
     }
   }
 
@@ -3301,35 +3312,46 @@ var createTeleport2 = function createTeleport2(field, config, data) {
   } else {
     var teleport1 = Util.createSprite({
       parent: bonusContainer,
-      texture: 'portalDotImage',
+      texture: 'Through-the-portal copy',
+      aX: 0.5,
       aY: 0.5,
-      x: -15,
+      scaleXY: 0.5,
     });
-    if (data.data == "teleport2") {
-      teleport1.anchor.x = 0.2;
-      teleport1.x = -15
+    var teleport2 = Util.createSprite({
+      parent: bonusContainer,
+      texture: 'spiral',
+      aX: 0.5,
+      aY: 0.5,
+      scaleXY: 0.4,
+    });
+    if (data.data == "teleport1") {
+      teleport1.rotation = Math.PI;
+      teleport2.rotation = Math.PI;
+      teleport2.x = -5;
     } else {
-      teleport1.anchor.x = 0.8;
-      teleport1.x = 15
+      teleport2.y = 5;
+      teleport2.scale.y *= -1;
     }
 
     bonusContainer.addChild(teleport1);
-    decreasetTeleport2Alpha();
+    bonusContainer.addChild(teleport2);
+    teleport1.mask = teleport2;
+    if (data.data == "teleport1") {
+      rotateAction();
 
-    function decreasetTeleport2Alpha() {
-      if (bonusContainer.children[2] == undefined)
-        return;
-      if (bonusContainer.children[2].tweenBodyAlpha != null)
-        bonusContainer.children[2].tweenBodyAlpha.kill();
-      bonusContainer.children[2].scale.x = 0.25;
-      bonusContainer.children[2].scale.y = 0.35;
-      bonusContainer.children[2].tweenBodyAlpha = TweenMax.to(bonusContainer.children[2].scale, 2, {
-        x: 0.05,
-        y: 0.1,
-        onComplete: function onComplete() {
-          decreasetTeleport2Alpha();
-        }
-      });
+      function rotateAction() {
+        requestAnimationFrame(rotateAction);
+        if (bonusContainer.bg.texture != null)
+          bonusContainer.children[3].rotation += 0.01;
+      }
+    } else {
+      rotateAction();
+
+      function rotateAction() {
+        requestAnimationFrame(rotateAction);
+        if (bonusContainer.bg.texture != null)
+          bonusContainer.children[3].rotation -= 0.01;
+      }
     }
   }
 
