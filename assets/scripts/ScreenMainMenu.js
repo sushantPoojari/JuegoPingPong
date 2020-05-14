@@ -282,8 +282,6 @@ NORD.ScreenMainMenu.prototype.disableAllButtons = function() {
 
   this.isAllButtonEnabled = false;
 
-  NORD.game.screenGame.panelEndGame.shareButton.interactive = false;
-
   //disable switcherPlayers
   this.switcherPlayers.interactive = false;
   this.switcherPlayers.interactiveChildren = false;
@@ -299,7 +297,6 @@ NORD.ScreenMainMenu.prototype.disableAllButtons = function() {
 };
 NORD.ScreenMainMenu.prototype.enableAllButtons = function() {
   this.isAllButtonEnabled = true;
-  NORD.game.screenGame.panelEndGame.shareButton.interactive = true;
 
   //disable switcherPlayers
   this.switcherPlayers.interactive = true;

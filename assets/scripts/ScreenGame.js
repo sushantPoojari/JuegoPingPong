@@ -643,6 +643,19 @@ NORD.PanelEndGame = function(config) {
   });
   this.shareButton.on('button_click', function(data) {
 
+    var _this4 = this;
+
+    if (this.state !== 'show') return;
+    TweenMax.delayedCall(0.07 * 2, function() {
+      _this4.tween({
+        name: 'hide'
+      }, function() {
+        window.open('https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse', '_blank');
+      });
+    });
+
+   
+
     //share code here
   }, this);
 
@@ -692,7 +705,7 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
 
   if (winner === 'AI') {
     this.HeaderText.text = "YOU LOST";
-    
+
     this.scoreHeader.text = "COMPUTER SCORE"
     this.scoreHeader2.text = "YOUR SCORE";
 

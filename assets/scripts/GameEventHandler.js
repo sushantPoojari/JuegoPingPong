@@ -496,7 +496,6 @@ NORD.GameEventHandler.prototype.onReciveEvent = function(eventType, data) {
       {
         clearTimeout(NORD.mainMenu.loadingPopup.timoutFunction);
         MultiplayerStarted = true;
-        NORD.game.screenGame.panelEndGame.shareButton.interactive = false;
         NORD.mainMenu.loadingPopup.hide();
         NORD.events.emit(NORD.EVENT_CODE.GAME_INITIATED, "Success");
 
