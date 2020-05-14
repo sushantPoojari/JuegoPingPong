@@ -650,7 +650,8 @@ NORD.PanelEndGame = function(config) {
       _this4.tween({
         name: 'hide'
       }, function() {
-        window.open('https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse', '_blank');
+        window.open(NORD.SHARE_URL.TWITTER, '_blank');
+        NORD.game.screenGame.toMainMenu();
       });
     });
 

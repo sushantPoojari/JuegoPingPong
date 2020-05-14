@@ -22,6 +22,11 @@ function _defineProperty(obj, key, value) {
 NORD.events = new EventEmitter()
 NORD.demo = null;
 
+NORD.SHARE_URL = {
+  FB : "https://www.facebook.com/sharer/sharer.php?u=hai;src=sdkpreparse",
+  TWITTER : "https://twitter.com/intent/tweet?ui_metrics=",
+}
+
 NORD.MULTIPLAYER_GAME_MODE = {
   CLASSIC: "classic",
   ACTION: "action",
