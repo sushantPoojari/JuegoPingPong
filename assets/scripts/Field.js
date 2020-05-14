@@ -1874,14 +1874,14 @@ var RoundGenerator = function RoundGenerator(field) {
 
   //Score Left
   this.scoreLeft = new NORD.ScreenGame.ScoreText();
-  this.scoreLeft.x = -300;
-  this.scoreLeft.y = -180;
+  this.scoreLeft.x = -280;
+  this.scoreLeft.y = -170;
   this.containerScores.addChild(this.scoreLeft);
 
   //Score Right
   this.scoreRight = new NORD.ScreenGame.ScoreText();
-  this.scoreRight.x = 300;
-  this.scoreRight.y = -180;
+  this.scoreRight.x = 280;
+  this.scoreRight.y = -170;
   this.containerScores.addChild(this.scoreRight);
 
   this.roundModeLabelBg = new PIXI.Graphics();

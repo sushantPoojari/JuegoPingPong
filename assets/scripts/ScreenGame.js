@@ -174,23 +174,23 @@ NORD.ScreenGame = function(config) {
 
   this.leftPlayerText = new PIXI.Text("", {
     fontFamily: 'Squada One',
-    fontSize: 20,
-    fill: 'white',
+    fontSize: 26,
+    fill: '#5e7591',
     align: 'center'
   });
-  this.leftPlayerText.anchor.set(0.5);
-  this.leftPlayerText.position.set(-this.field.config.FIELD_WIDTH / 4, -this.field.config.FIELD_HEIGHT / 2.3);
+  this.leftPlayerText.anchor.set(0, 0.5 );
+  this.leftPlayerText.position.set(-this.field.config.FIELD_WIDTH / 2.5, -this.field.config.FIELD_HEIGHT / 2.45);
   this.addChild(this.leftPlayerText);
 
 
   this.rightPlayerText = new PIXI.Text("", {
     fontFamily: 'Squada One',
-    fontSize: 20,
-    fill: 'white',
+    fontSize: 26,
+    fill: '#5e7591',
     align: 'center'
   });
-  this.rightPlayerText.anchor.set(0.5);
-  this.rightPlayerText.position.set(this.field.config.FIELD_WIDTH / 4, -this.field.config.FIELD_HEIGHT / 2.3);
+  this.rightPlayerText.anchor.set(1, 0.5);
+  this.rightPlayerText.position.set(this.field.config.FIELD_WIDTH / 2.5, -this.field.config.FIELD_HEIGHT / 2.45);
   this.addChild(this.rightPlayerText);
   // }
   // //sushant
@@ -354,7 +354,12 @@ NORD.ScreenGame.prototype.tween = function(data, callback) {
     // this.pingText.text = "";
     this.ActualServerpingText.text = "";
     this.serverText.text = "";
-    if (NORD.game.config.players == "two") {
+    if (NORD.game.config.players == "one")
+    {
+      this.rightPlayerText.text = "YOU";
+      this.leftPlayerText.text = "BOT";
+    }
+    else if (NORD.game.config.players == "two") {
       this.rightPlayerText.text = "PLAYER 2";
       this.leftPlayerText.text = "PLAYER 1";
     }
@@ -399,8 +404,8 @@ NORD.ScreenGame.ScoreText = function() {
   PIXI.Container.call(this);
   this.scoreText = new PIXI.Text("0", {
     fontFamily: 'Squada One',
-    fontSize: 26,
-    fill: 'white',
+    fontSize: 60,
+    fill: '#5e7591',
     align: 'center'
   });
   this.scoreText.anchor.set(0.5);

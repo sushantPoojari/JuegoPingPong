@@ -3,6 +3,7 @@
 var MainMenuLocation;
 var MultiplayerStarted = false;
 var IsHost = false;
+var scaleFactor = 0.45;
 NORD.mainMenu = null;
 
 function _toConsumableArray(arr) {
@@ -133,9 +134,9 @@ NORD.ScreenMainMenu = function(config) {
   this.audioButton = new NORD.GUI.ButtonAudio({
     parentPanel: this,
     x: -325,
-    y: -185,
-    width: 42,
-    height: 42,
+    y: -190,
+    width: 50,
+    height: 50,
     soundClick: NORD.assetsManager.getAsset('sound_click'),
     skin: {
       on: {
@@ -537,11 +538,13 @@ NORD.ScreenMainMenu.prototype.tween = function(data, callback) {
 NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
   var _this2 = this;
 
+  scaleFactor = 0.45;
+
   NORD.GUI.BasePanel.call(this, config);
   this.selected = switcherConfig.selected;
   this.isCenter = !!switcherConfig.center;
 
-  var setText = function setText(text) {
+  var setText = function setText(text, switcher) {
     var text = new PIXI.Text(text, {
       fontFamily: 'Squada One',
       fontSize: 28,
@@ -549,6 +552,7 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
       align: 'center'
     });
     text.anchor.set(0.5);
+    if(switcher == "Difficulty" || switcher == "Thriller") text.style.fontSize = 34;
     return text;
   };
 
@@ -578,9 +582,16 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
       spriteOn: Util.createSprite(switcherConfig.center.spriteOn),
       spriteOff: Util.createSprite(switcherConfig.center.spriteOff)
     };
-    if (switcherConfig.center.spriteOnText != undefined) this.sideCenter.spriteOn.addChild(setText(switcherConfig.center.spriteOnText));
-    if (switcherConfig.center.spriteOffText != undefined) this.sideCenter.spriteOff.addChild(setText(switcherConfig.center.spriteOffText));
+    if (switcherConfig.center.spriteOnText != undefined) this.sideCenter.spriteOn.addChild(setText(switcherConfig.center.spriteOnText, switcher));
+    if (switcherConfig.center.spriteOffText != undefined) this.sideCenter.spriteOff.addChild(setText(switcherConfig.center.spriteOffText, switcher));
   } else this.sideCenter = null;
+
+  if(switcher == "Difficulty")
+  {
+    this.sideLeft.x = -150;
+    this.sideRight.x = 150;
+    scaleFactor = 0.50;
+  }
 
 
   if (switcher == "Thriller" || switcher == "Region") {
@@ -629,11 +640,11 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
     playAll: this.playAll
   };
 
-  if (switcherConfig.left.spriteOnText != undefined) this.sideLeft.spriteOn.addChild(setText(switcherConfig.left.spriteOnText));
-  if (switcherConfig.left.spriteOffText != undefined) this.sideLeft.spriteOff.addChild(setText(switcherConfig.left.spriteOffText));
+  if (switcherConfig.left.spriteOnText != undefined) this.sideLeft.spriteOn.addChild(setText(switcherConfig.left.spriteOnText, switcher));
+  if (switcherConfig.left.spriteOffText != undefined) this.sideLeft.spriteOff.addChild(setText(switcherConfig.left.spriteOffText, switcher));
 
-  if (switcherConfig.right.spriteOnText != undefined) this.sideRight.spriteOn.addChild(setText(switcherConfig.right.spriteOnText));
-  if (switcherConfig.right.spriteOffText != undefined) this.sideRight.spriteOff.addChild(setText(switcherConfig.right.spriteOffText));
+  if (switcherConfig.right.spriteOnText != undefined) this.sideRight.spriteOn.addChild(setText(switcherConfig.right.spriteOnText, switcher));
+  if (switcherConfig.right.spriteOffText != undefined) this.sideRight.spriteOff.addChild(setText(switcherConfig.right.spriteOffText, switcher));
 
 
 
@@ -673,24 +684,24 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
       this.playAll.spriteOn.visible = false;
       this.playAll.spriteOff.visible = false;
 
-      if (switcherConfig.playAll.spriteOnText != undefined) this.playAll.spriteOn.addChild(setText(switcherConfig.playAll.spriteOnText));
-      if (switcherConfig.playAll.spriteOffText != undefined) this.playAll.spriteOff.addChild(setText(switcherConfig.playAll.spriteOffText));
+      if (switcherConfig.playAll.spriteOnText != undefined) this.playAll.spriteOn.addChild(setText(switcherConfig.playAll.spriteOnText, switcher));
+      if (switcherConfig.playAll.spriteOffText != undefined) this.playAll.spriteOff.addChild(setText(switcherConfig.playAll.spriteOffText, switcher));
     }
 
-    this.bottomLeft.spriteOn.scale.x = this.bottomLeft.spriteOff.scale.x = this.bottomRight.spriteOn.scale.x = this.bottomRight.spriteOff.scale.x = this.bottomCenter.spriteOn.scale.x = this.bottomCenter.spriteOff.scale.x = 0.45;
-    this.bottomLeft.spriteOn.scale.y = this.bottomLeft.spriteOff.scale.y = this.bottomRight.spriteOn.scale.y = this.bottomRight.spriteOff.scale.y = this.bottomCenter.spriteOn.scale.y = this.bottomCenter.spriteOff.scale.y = 0.45;
+    this.bottomLeft.spriteOn.scale.x = this.bottomLeft.spriteOff.scale.x = this.bottomRight.spriteOn.scale.x = this.bottomRight.spriteOff.scale.x = this.bottomCenter.spriteOn.scale.x = this.bottomCenter.spriteOff.scale.x = scaleFactor;
+    this.bottomLeft.spriteOn.scale.y = this.bottomLeft.spriteOff.scale.y = this.bottomRight.spriteOn.scale.y = this.bottomRight.spriteOff.scale.y = this.bottomCenter.spriteOn.scale.y = this.bottomCenter.spriteOff.scale.y = scaleFactor;
 
     this.bottomLeft.spriteOn.visible = this.bottomRight.spriteOn.visible = this.bottomCenter.spriteOn.visible = false;
     this.bottomLeft.spriteOff.visible = this.bottomRight.spriteOff.visible = this.bottomCenter.spriteOff.visible = false;
 
-    if (switcherConfig.bottomLeft.spriteOnText != undefined) this.bottomLeft.spriteOn.addChild(setText(switcherConfig.bottomLeft.spriteOnText));
-    if (switcherConfig.bottomLeft.spriteOffText != undefined) this.bottomLeft.spriteOff.addChild(setText(switcherConfig.bottomLeft.spriteOffText));
+    if (switcherConfig.bottomLeft.spriteOnText != undefined) this.bottomLeft.spriteOn.addChild(setText(switcherConfig.bottomLeft.spriteOnText, switcher));
+    if (switcherConfig.bottomLeft.spriteOffText != undefined) this.bottomLeft.spriteOff.addChild(setText(switcherConfig.bottomLeft.spriteOffText, switcher));
 
-    if (switcherConfig.bottomRight.spriteOnText != undefined) this.bottomRight.spriteOn.addChild(setText(switcherConfig.bottomRight.spriteOnText));
-    if (switcherConfig.bottomRight.spriteOffText != undefined) this.bottomRight.spriteOff.addChild(setText(switcherConfig.bottomRight.spriteOffText));
+    if (switcherConfig.bottomRight.spriteOnText != undefined) this.bottomRight.spriteOn.addChild(setText(switcherConfig.bottomRight.spriteOnText, switcher));
+    if (switcherConfig.bottomRight.spriteOffText != undefined) this.bottomRight.spriteOff.addChild(setText(switcherConfig.bottomRight.spriteOffText, switcher));
 
-    if (switcherConfig.bottomCenter.spriteOnText != undefined) this.bottomCenter.spriteOn.addChild(setText(switcherConfig.bottomCenter.spriteOnText));
-    if (switcherConfig.bottomCenter.spriteOffText != undefined) this.bottomCenter.spriteOff.addChild(setText(switcherConfig.bottomCenter.spriteOffText));
+    if (switcherConfig.bottomCenter.spriteOnText != undefined) this.bottomCenter.spriteOn.addChild(setText(switcherConfig.bottomCenter.spriteOnText, switcher));
+    if (switcherConfig.bottomCenter.spriteOffText != undefined) this.bottomCenter.spriteOff.addChild(setText(switcherConfig.bottomCenter.spriteOffText, switcher));
 
 
   }
@@ -731,13 +742,13 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
     // this.sideLeft.spriteOn.width = this.sideLeft.spriteOff.width = this.sideRight.spriteOn.width = this.sideRight.spriteOff.width = this.sideCenter.spriteOn.width = this.sideCenter.spriteOff.width = 110 * 0.79;
     // this.sideLeft.spriteOn.height = this.sideLeft.spriteOff.height = this.sideRight.spriteOn.height = this.sideRight.spriteOff.height = this.sideCenter.spriteOn.height = this.sideCenter.spriteOff.height = 50 * 0.79;
 
-    this.sideLeft.spriteOn.scale.x = this.sideLeft.spriteOff.scale.x = this.sideRight.spriteOn.scale.x = this.sideRight.spriteOff.scale.x = this.sideCenter.spriteOn.scale.x = this.sideCenter.spriteOff.scale.x = 0.45;
-    this.sideLeft.spriteOn.scale.y = this.sideLeft.spriteOff.scale.y = this.sideRight.spriteOn.scale.y = this.sideRight.spriteOff.scale.y = this.sideCenter.spriteOn.scale.y = this.sideCenter.spriteOff.scale.y = 0.45;
+    this.sideLeft.spriteOn.scale.x = this.sideLeft.spriteOff.scale.x = this.sideRight.spriteOn.scale.x = this.sideRight.spriteOff.scale.x = this.sideCenter.spriteOn.scale.x = this.sideCenter.spriteOff.scale.x = scaleFactor;
+    this.sideLeft.spriteOn.scale.y = this.sideLeft.spriteOff.scale.y = this.sideRight.spriteOn.scale.y = this.sideRight.spriteOff.scale.y = this.sideCenter.spriteOn.scale.y = this.sideCenter.spriteOff.scale.y =scaleFactor;
   } else {
     // this.sideLeft.spriteOn.width = this.sideLeft.spriteOff.width = this.sideRight.spriteOn.width = this.sideRight.spriteOff.width = 168 * 0.79;
     // this.sideLeft.spriteOn.height = this.sideLeft.spriteOff.height = this.sideRight.spriteOn.height = this.sideRight.spriteOff.height = 50 * 0.79;
-    this.sideLeft.spriteOn.scale.x = this.sideLeft.spriteOff.scale.x = this.sideRight.spriteOn.scale.x = this.sideRight.spriteOff.scale.x = 0.45;
-    this.sideLeft.spriteOn.scale.y = this.sideLeft.spriteOff.scale.y = this.sideRight.spriteOn.scale.y = this.sideRight.spriteOff.scale.y = 0.45;
+    this.sideLeft.spriteOn.scale.x = this.sideLeft.spriteOff.scale.x = this.sideRight.spriteOn.scale.x = this.sideRight.spriteOff.scale.x =scaleFactor;
+    this.sideLeft.spriteOn.scale.y = this.sideLeft.spriteOff.scale.y = this.sideRight.spriteOn.scale.y = this.sideRight.spriteOff.scale.y = scaleFactor;
   }
 
   this.switchingState = 'none';
@@ -897,13 +908,13 @@ NORD.MenuSwitcher.prototype.tween = function(data, callback) {
     function ttt(target) {
       target.scale.x = target.scale.y = 0.35;
       TweenMax.to(target.scale, 0.07, {
-        x: 0.45 * 0.95,
-        y: 0.45 * 0.95,
+        x: scaleFactor * 0.95,
+        y: scaleFactor * 0.95,
         ease: Power2.easeOut,
         onComplete: function onComplete() {
           TweenMax.to(target.scale, 0.07, {
-            x: 0.45,
-            y: 0.45,
+            x: scaleFactor,
+            y: scaleFactor,
             ease: Power2.easeOut,
             onComplete: function onComplete() {}
           });
@@ -1483,7 +1494,8 @@ NORD.randomNamePopup = function(config) {
     texture: 'PauseBg',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.45
+    scaleX: 0.50,
+    scaleY: 0.35
   });
 
   this.addChild(this.bg);
@@ -1491,12 +1503,12 @@ NORD.randomNamePopup = function(config) {
   var textTitle = new PIXI.Text('TYPE YOUR NAME', {
     parent: this.bg,
     fontFamily: 'Squada One',
-    fontSize: 64,
+    fontSize: 84,
     fill: 'white',
     align: 'center'
   });
   textTitle.anchor.set(0.5);
-  textTitle.position.set(0, -this.bg.height * 0.365);
+  textTitle.position.set(0, -this.bg.height * 0.7);
   this.bg.addChild(textTitle);
 
 
@@ -1517,10 +1529,11 @@ NORD.randomNamePopup = function(config) {
     texture: 'TextBox',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.75
+    scaleX: 0.85,
+    scaleY: 1.25
   });
   this.s_namePanel.anchor.set(0.5);
-  this.s_namePanel.position.set(0, this.bg.height * 0.2);
+  this.s_namePanel.position.set(0, 0);
   this.bg.addChild(this.s_namePanel);
 
   this.l_playerName = new PIXI.TextInput({
@@ -1546,7 +1559,8 @@ NORD.randomNamePopup = function(config) {
   this.l_playerName.pivot.y = this.l_playerName.height / 2
   this.s_namePanel.addChild(this.l_playerName);
 
-  this.closeButton = Util.createButton('btn', this, null, '', 169, -150, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseButton'), {
+  this.closeButton = Util.createButton('btn', this, null, '', this.bg.width * 0.425, -this.bg.height * 0.425, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('CloseButton'), {
+    parent: this.bg,
     texture: 'CloseButton',
     aX: 0.5,
     aY: 0.5,
@@ -1736,7 +1750,7 @@ NORD.subModeSelectionPopup = function(config) {
 
   this.popupHeader = new PIXI.Text('SELECT A GAME BOARD', {
     fontFamily: 'Squada One',
-    fontSize: 17,
+    fontSize: 36,
     fill: 'white',
     align: 'center'
   });
@@ -1744,7 +1758,7 @@ NORD.subModeSelectionPopup = function(config) {
   this.popupHeader.position.set(0, -195);
   this.addChild(this.popupHeader);
 
-  this.backButton = Util.createButton('btn', this, null, '', -320, -185, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
+  this.backButton = Util.createButton('btn', this, null, '', -320, -190, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
     texture: 'BackButton',
     aX: 0.5,
     aY: 0.5,
@@ -1764,7 +1778,7 @@ NORD.subModeSelectionPopup = function(config) {
 
   }, this);
 
-  this.switchThrillerMode = this.createSwitcher(0, -150, 'label_Thriller', 'Thriller', 'left', function(side) {
+  this.switchThrillerMode = this.createSwitcher(0, -140, 'label_Thriller', 'Thriller', 'left', function(side) {
     var dataMap = {
       left: 'STUN_PLAYER',
       right: 'TELEPORT_MODE',
@@ -1779,12 +1793,12 @@ NORD.subModeSelectionPopup = function(config) {
 
   this.separatorText = new PIXI.Text('OR', {
     fontFamily: 'Squada One',
-    fontSize: 20,
-    fill: 'green',
+    fontSize: 22,
+    fill: '#00ff1e',
     align: 'center',
   });
   this.separatorText.anchor.set(0.5);
-  this.separatorText.position.set(0, -65);
+  this.separatorText.position.set(0, -55);
   this.addChild(this.separatorText);
 
   this.switchNormalMode = this.createSwitcher(0, -75, 'label_Normal', 'Normal', 'left', function(side) {
@@ -1810,15 +1824,15 @@ NORD.subModeSelectionPopup = function(config) {
 
   this.difficultyHeader = new PIXI.Text('CHOOSE DIFFICULTY', {
     fontFamily: 'Squada One',
-    fontSize: 17,
+    fontSize: 36,
     fill: 'white',
     align: 'center'
   });
   this.difficultyHeader.anchor.set(0.5);
-  this.difficultyHeader.position.set(0, 50);
+  this.difficultyHeader.position.set(0, 60);
   this.addChild(this.difficultyHeader);
 
-  this.switchDificulty = this.createSwitcher(0, 100, 'label_difficulty', 'Difficulty', 'left', function(side) {
+  this.switchDificulty = this.createSwitcher(0, 120, 'label_difficulty', 'Difficulty', 'left', function(side) {
     var dataMap = {
       left: 'easy',
       right: 'hard',
