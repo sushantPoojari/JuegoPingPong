@@ -150,6 +150,7 @@ NORD.ScreenGame = function(config) {
   NORD.game.screenGame.ServerPing = 0;
   NORD.game.screenGame.OpponentServerPing = 0;
   NORD.events.on(NORD.EVENT_CODE.PING_RECIEVED, function(data) {
+    NORD.game.screenMainMenu.subModeSelectionPopup.regionPanelServerName.text = " " + data + "ms";
     NORD.game.screenGame.ServerPing = data;
     NORD.game.screenGame.ActualServerpingText.text = " " + data + "ms";
   });
@@ -180,7 +181,7 @@ NORD.ScreenGame = function(config) {
     fill: '#5e7591',
     align: 'center'
   });
-  this.leftPlayerText.anchor.set(0, 0.5 );
+  this.leftPlayerText.anchor.set(0, 0.5);
   this.leftPlayerText.position.set(-this.field.config.FIELD_WIDTH / 2.5, -this.field.config.FIELD_HEIGHT / 2.45);
   this.addChild(this.leftPlayerText);
 
@@ -368,12 +369,10 @@ NORD.ScreenGame.prototype.tween = function(data, callback) {
     // this.pingText.text = "";
     this.ActualServerpingText.text = "";
     this.serverText.text = "";
-    if (NORD.game.config.players == "one")
-    {
+    if (NORD.game.config.players == "one") {
       this.rightPlayerText.text = "YOU";
       this.leftPlayerText.text = "BOT";
-    }
-    else if (NORD.game.config.players == "two") {
+    } else if (NORD.game.config.players == "two") {
       this.rightPlayerText.text = "PLAYER 2";
       this.leftPlayerText.text = "PLAYER 1";
     }

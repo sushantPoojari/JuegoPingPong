@@ -552,7 +552,7 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
       align: 'center'
     });
     text.anchor.set(0.5);
-    if(switcher == "Difficulty" || switcher == "Thriller") text.style.fontSize = 34;
+    if (switcher == "Difficulty" || switcher == "Thriller") text.style.fontSize = 34;
     return text;
   };
 
@@ -586,8 +586,7 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
     if (switcherConfig.center.spriteOffText != undefined) this.sideCenter.spriteOff.addChild(setText(switcherConfig.center.spriteOffText, switcher));
   } else this.sideCenter = null;
 
-  if(switcher == "Difficulty")
-  {
+  if (switcher == "Difficulty") {
     this.sideLeft.x = -150;
     this.sideRight.x = 150;
     scaleFactor = 0.50;
@@ -743,11 +742,11 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
     // this.sideLeft.spriteOn.height = this.sideLeft.spriteOff.height = this.sideRight.spriteOn.height = this.sideRight.spriteOff.height = this.sideCenter.spriteOn.height = this.sideCenter.spriteOff.height = 50 * 0.79;
 
     this.sideLeft.spriteOn.scale.x = this.sideLeft.spriteOff.scale.x = this.sideRight.spriteOn.scale.x = this.sideRight.spriteOff.scale.x = this.sideCenter.spriteOn.scale.x = this.sideCenter.spriteOff.scale.x = scaleFactor;
-    this.sideLeft.spriteOn.scale.y = this.sideLeft.spriteOff.scale.y = this.sideRight.spriteOn.scale.y = this.sideRight.spriteOff.scale.y = this.sideCenter.spriteOn.scale.y = this.sideCenter.spriteOff.scale.y =scaleFactor;
+    this.sideLeft.spriteOn.scale.y = this.sideLeft.spriteOff.scale.y = this.sideRight.spriteOn.scale.y = this.sideRight.spriteOff.scale.y = this.sideCenter.spriteOn.scale.y = this.sideCenter.spriteOff.scale.y = scaleFactor;
   } else {
     // this.sideLeft.spriteOn.width = this.sideLeft.spriteOff.width = this.sideRight.spriteOn.width = this.sideRight.spriteOff.width = 168 * 0.79;
     // this.sideLeft.spriteOn.height = this.sideLeft.spriteOff.height = this.sideRight.spriteOn.height = this.sideRight.spriteOff.height = 50 * 0.79;
-    this.sideLeft.spriteOn.scale.x = this.sideLeft.spriteOff.scale.x = this.sideRight.spriteOn.scale.x = this.sideRight.spriteOff.scale.x =scaleFactor;
+    this.sideLeft.spriteOn.scale.x = this.sideLeft.spriteOff.scale.x = this.sideRight.spriteOn.scale.x = this.sideRight.spriteOff.scale.x = scaleFactor;
     this.sideLeft.spriteOn.scale.y = this.sideLeft.spriteOff.scale.y = this.sideRight.spriteOn.scale.y = this.sideRight.spriteOff.scale.y = scaleFactor;
   }
 
@@ -1867,15 +1866,26 @@ NORD.subModeSelectionPopup = function(config) {
     scaleXY: 0.5
   });
 
-  this.regionName = new PIXI.Text('Asia', {
+
+  var pingImage = Util.createSprite({
+    parent: this.regionPanel,
+    texture: 'Wifi-Icon',
+    aX: 0.5,
+    aY: 0.5,
+    x: -65,
+  });
+  this.regionPanel.addChild(pingImage);
+
+
+  this.regionPanelServerName = new PIXI.Text('0', {
     fontFamily: 'Squada One',
     fontSize: 36,
     fill: 'white',
     align: 'center'
   });
-  this.regionName.anchor.set(0.5);
-  this.regionName.position.set(0, 0);
-  this.regionPanel.addChild(this.regionName);
+  this.regionPanelServerName.anchor.set(0, 0.5);
+  this.regionPanelServerName.position.set(-this.regionPanel.width / 4.5, 0);
+  this.regionPanel.addChild(this.regionPanelServerName);
 
   this.playButton = Util.createButton('btn', this, null, '', 0, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
     texture: 'PlayButton',

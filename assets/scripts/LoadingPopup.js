@@ -214,6 +214,14 @@ NORD.LoadingPopup.prototype.tween = function(data, callback) {
     this.interactiveChildren = true;
     this.alpha = 1.0;
 
+    rotateAction();
+
+    function rotateAction() {
+      requestAnimationFrame(rotateAction);
+      if (NORD.mainMenu.loadingPopup.ball != undefined)
+        NORD.mainMenu.loadingPopup.ball.rotation += 0.01;
+    }
+
     moveUp();
 
     function moveUp() {
@@ -234,7 +242,7 @@ NORD.LoadingPopup.prototype.tween = function(data, callback) {
         NORD.mainMenu.loadingPopup.ball.tweenSpeed.kill();
       NORD.mainMenu.loadingPopup.ball.tweenSpeed = TweenMax.to(NORD.mainMenu.loadingPopup.ball.position, 2, {
         x: NORD.mainMenu.loadingPopup.ball.position.x,
-        y: 100,
+        y: 120,
         onComplete: function onComplete() {
           NORD.mainMenu.loadingPopup.ball.tweenSpeed = null;
           moveUp();

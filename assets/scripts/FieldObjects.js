@@ -1261,6 +1261,18 @@ NORD.Field.Paddle = function(field, side) {
 
   var shootShift = 10;
 
+  this.paddleViewGlow = Util.createSprite({
+    texture: 'Paddle-Light',
+    parent: this,
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.5
+  });
+  if (this.side === 'LEFT')
+    this.paddleViewGlow.tint = 0x28f432;
+  else
+    this.paddleViewGlow.tint = 0xf42828;
+
   if (this.side === 'LEFT') {
     this.paddleViewImage = Util.createSprite({
       texture: 'leftPaddle',
@@ -1400,7 +1412,7 @@ NORD.Field.Paddle.prototype.shoot = function() {
   //sushant
   this.currentBullet = bullet;
 
- // NORD.audioManager.playAudio('blaster_shoot');
+  // NORD.audioManager.playAudio('blaster_shoot');
 
   if (this.shootsCount === 0) {
     this.shootReload = TweenMax.delayedCall(this.field.config.gunModeReload.value, function() {
@@ -1845,7 +1857,7 @@ NORD.Field.PaddleBullet.prototype.hitPaddle = function(paddle) {
   if (MultiplayerStarted) {
     if (paddle.side == "RIGHT") {
       paddle.stun();
-    //  NORD.audioManager.playAudio('shoot_hit');
+      //  NORD.audioManager.playAudio('shoot_hit');
       this.field.emit('bullet_hit_paddle', paddle);
       this.destroy();
 
@@ -1859,7 +1871,7 @@ NORD.Field.PaddleBullet.prototype.hitPaddle = function(paddle) {
   } else {
     if (paddle.side !== this.paddle.side) {
       paddle.stun();
-     // NORD.audioManager.playAudio('shoot_hit');
+      // NORD.audioManager.playAudio('shoot_hit');
       this.field.emit('bullet_hit_paddle', paddle);
       this.destroy();
     }
