@@ -1485,6 +1485,7 @@ NORD.PanelQuit.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelQuit.prototype.constructor = NORD.PanelPause;
 
 NORD.PanelQuit.prototype.show = function(data) {
+  NORD.game.config.players = NORD.game.currentPlayer;
 
   if (!MultiplayerStarted) {
     NORD.game.field.setPause(true);
