@@ -134,7 +134,7 @@ NORD.ScreenGame = function(config) {
   this.addChild(this.serverText);
 
 
-  this.ActualServerpingText = new PIXI.Text("- 23ms", {
+  this.ActualServerpingText = new PIXI.Text(" 23ms", {
     fontFamily: 'Squada One',
     fontSize: 12,
     fill: 'white',
@@ -149,7 +149,7 @@ NORD.ScreenGame = function(config) {
   NORD.game.screenGame.OpponentServerPing = 0;
   NORD.events.on(NORD.EVENT_CODE.PING_RECIEVED, function(data) {
     NORD.game.screenGame.ServerPing = data;
-    NORD.game.screenGame.ActualServerpingText.text = "- " + data + "ms";
+    NORD.game.screenGame.ActualServerpingText.text = " " + data + "ms";
   });
 
   // this.pingText = new PIXI.Text("My T.Diff - 0ms", {
@@ -366,8 +366,8 @@ NORD.ScreenGame.prototype.tween = function(data, callback) {
 
 
     if (MultiplayerStarted) {
-      this.ActualServerpingText.text = "- 60ms";
-      this.serverText.text = "- " + localStorage.getItem('savedServerRegion');
+      this.ActualServerpingText.text = " 60ms";
+      this.serverText.text = " " + localStorage.getItem('savedServerRegion');
       NORD.game.field.sideImage.children[0].visible = true;
       NORD.game.field.sideImage.children[1].visible = true;
       if (NORD.playersName.playerName)
