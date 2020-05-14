@@ -1857,6 +1857,26 @@ NORD.subModeSelectionPopup = function(config) {
     NORD.game.setConfig(config); // console.log('SSS:', config)
   });
 
+  this.regionPanel = Util.createSprite({
+    parent: this,
+    x: 250,
+    y: -195,
+    texture: 'RegionPanel',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.5
+  });
+
+  this.regionName = new PIXI.Text('Asia', {
+    fontFamily: 'Squada One',
+    fontSize: 36,
+    fill: 'white',
+    align: 'center'
+  });
+  this.regionName.anchor.set(0.5);
+  this.regionName.position.set(0, 0);
+  this.regionPanel.addChild(this.regionName);
+
   this.playButton = Util.createButton('btn', this, null, '', 0, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
     texture: 'PlayButton',
     aX: 0.5,
@@ -2014,8 +2034,10 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
   this.loadingIndicator.visible = false;
   this.transparentLayer.visible = false;
   this.loaderTextData.visible = false;
+  this.regionPanel.visible = false;
 
   if (config.players == 'three') {
+    this.regionPanel.visible = true;
     this.difficultyHeader.text = 'SELECT REGION';
     this.switchDificulty.visible = false;
     this.switchRegion.visible = true;

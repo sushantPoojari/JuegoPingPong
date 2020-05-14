@@ -338,7 +338,12 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'SoundOffButton',
     url: 'assets/images/common/SoundOffButton.png'
-  }, {
+  }, 
+  {
+    name: 'RegionPanel',
+    url: 'assets/images/common/RegionPanel.png'
+  },
+  {
     name: 'NormalMode',
     url: 'assets/images/main/NormalMode.png'
   }, {
