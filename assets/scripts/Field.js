@@ -990,16 +990,19 @@ NORD.Field.prototype.ballHitWall = function(ball, wall) {
 };
 
 NORD.Field.prototype.ballHitPaddle = function(ball, paddle) {
+  debugger;
   // console.log('Ball hit paddle', ball, paddle);
   //sushant
   if (MultiplayerStarted) {
     if (paddle.side == "RIGHT") {
       ball.hitPaddle(paddle);
+      NORD.audioManager.playAudio('BallHitPaddle');
     } else {
       console.log("---------------------------------------------------");
     }
   } else {
     ball.hitPaddle(paddle);
+    NORD.audioManager.playAudio('BallHitPaddle');
   }
   //sushant
 };

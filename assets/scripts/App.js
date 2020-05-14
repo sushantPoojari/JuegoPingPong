@@ -155,6 +155,11 @@ NORD.initGameDefinitions = function() {
     name: 'player1_hit_ball',
     url: 'assets/sound/BallHitPaddle',
     formats: audioFormats
+  },{
+    type: 'AUDIO',
+    name: 'BallHitPaddle',
+    url: 'assets/sound/BallHitPaddle',
+    formats: audioFormats
   }, {
     type: 'AUDIO',
     name: 'player_win',
