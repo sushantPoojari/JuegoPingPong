@@ -109,6 +109,20 @@ background-size: 20px 14px, 100% 100%, 100% 100%; */
       rgba(0,0,0,1) 100%
     ) /* Standard syntax (must be last) */
 }
+#grad2 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  font-size:5vw;
+  z-index:1;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0,0,0,1) 0%,
+      rgba(0,0,0,1) 30%,
+      rgba(0,0,0,1) 70%,
+      rgba(0,0,0,1) 100%
+    ) /* Standard syntax (must be last) */
+}
 
 #backGroundImage {
 
