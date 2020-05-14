@@ -584,7 +584,7 @@ NORD.PanelEndGame = function(config) {
 
   this.scoreHeader2 = new PIXI.Text('PLAYER 2 SCORE', {
     fontFamily: 'Russo One',
-    fontSize: 20,
+    fontSize: 16,
     fill: 'white',
     align: 'center'
   });
@@ -594,7 +594,7 @@ NORD.PanelEndGame = function(config) {
 
   this.scoreLabel2 = new PIXI.Text('0', {
     fontFamily: 'Russo One',
-    fontSize: 64,
+    fontSize: 48,
     fill: 'white',
     align: 'center'
   });
@@ -679,7 +679,6 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
   var redDots = PIXI.Texture.fromFrame('RedDots');
   var redDots2 = PIXI.Texture.fromFrame('RedDots2');
 
-
   this.buttonHome.position.x = -75;
   this.shareButton.visible = true;
   this.bg.texture = bluePanel;
@@ -687,13 +686,16 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
   this.stars2.texture = stars2
   this.HeaderPanel.texture = upperBluePanel;
   this.rays.visible = true;
+
   this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
   this.scoreLabel2.text = NORD.game.field.players.LEFT.roundScore;
 
   if (winner === 'AI') {
     this.HeaderText.text = "YOU LOST";
-    this.scoreHeader2.text = "YOUR SCORE";
+    
     this.scoreHeader.text = "COMPUTER SCORE"
+    this.scoreHeader2.text = "YOUR SCORE";
+
 
     this.Highlights.visible = false;
     this.shareButton.visible = false;
@@ -706,8 +708,8 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
     this.stars2.texture = redDots2;
     this.HeaderPanel.texture = upperRedPanel;
 
-    this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
     this.scoreLabel.text = NORD.game.field.players.LEFT.roundScore;
+    this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
   }
   if (winner === 'PLAYER') {
     this.HeaderText.text = "YOU WON";
@@ -717,10 +719,10 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
   if (winner === 'PLAYER_LEFT') {
     this.HeaderText.text = "PLAYER 1 WON";
     this.scoreHeader.text = "PLAYER 1 SCORE";
-    this.scoreHeader2.text = "PLAYER 2 SCORE"
+    this.scoreHeader2.text = "PLAYER 2 SCORE";
 
-    this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
     this.scoreLabel.text = NORD.game.field.players.LEFT.roundScore;
+    this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
 
     if (NORD.game.currentPlayer == 'three') {
       this.HeaderText.text = "YOU LOST";
@@ -742,16 +744,17 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
   }
   if (winner === 'PLAYER_RIGHT') {
     this.HeaderText.text = "PLAYER 2 WON";
-    this.scoreHeader.text = "PLAYER 1 SCORE";
-    this.scoreHeader2.text = "PLAYER 2 SCORE"
+    this.scoreHeader.text = "PLAYER 2 SCORE";
+    this.scoreHeader2.text = "PLAYER 1 SCORE"
 
-    this.scoreLabel2.text = NORD.game.field.players.RIGHT.roundScore;
-    this.scoreLabel.text = NORD.game.field.players.LEFT.roundScore;
+    this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
+    this.scoreLabel2.text = NORD.game.field.players.LEFT.roundScore;
+
 
     if (NORD.game.currentPlayer == 'three') {
       this.HeaderText.text = "YOU WON";
-      this.scoreHeader.text = NORD.playersName.opponentName;
-      this.scoreHeader2.text = NORD.playersName.playerName;
+      this.scoreHeader.text = NORD.playersName.playerName;
+      this.scoreHeader2.text = NORD.playersName.opponentName;
     }
   }
 };

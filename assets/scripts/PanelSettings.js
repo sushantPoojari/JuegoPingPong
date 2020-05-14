@@ -131,7 +131,7 @@ NORD.PanelSettings = function(config) {
   //  console.log('Click!');
   // });
 
- if (window.localStorage.enable_settings) {
+ //if (window.localStorage.enable_settings) {
     var keyUp = Util.keyboard({
       code: 'Q'.charCodeAt(0),
       keyDownHandler: function keyDownHandler() {
@@ -145,7 +145,7 @@ NORD.PanelSettings = function(config) {
       },
       keyUpHandler: function keyUpHandler() {}
     });
-  }
+  // }
 };
 
 NORD.PanelSettings.prototype = Object.create(NORD.GUI.BasePanel.prototype);
