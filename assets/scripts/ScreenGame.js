@@ -123,7 +123,7 @@ NORD.ScreenGame = function(config) {
   // if (MultiplayerStarted) {
 
   this.serverText = new PIXI.Text("- IN", {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 12,
     fill: 'white',
     align: 'center',
@@ -135,7 +135,7 @@ NORD.ScreenGame = function(config) {
 
 
   this.ActualServerpingText = new PIXI.Text("- 23ms", {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 12,
     fill: 'white',
     align: 'center',
@@ -173,7 +173,7 @@ NORD.ScreenGame = function(config) {
   // this.addChild(this.pingOppText);
 
   this.leftPlayerText = new PIXI.Text("", {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 20,
     fill: 'white',
     align: 'center'
@@ -184,7 +184,7 @@ NORD.ScreenGame = function(config) {
 
 
   this.rightPlayerText = new PIXI.Text("", {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 20,
     fill: 'white',
     align: 'center'
@@ -398,7 +398,7 @@ NORD.ScreenGame.prototype.showIndicator = function(duration) {
 NORD.ScreenGame.ScoreText = function() {
   PIXI.Container.call(this);
   this.scoreText = new PIXI.Text("0", {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 26,
     fill: 'white',
     align: 'center'
@@ -542,7 +542,7 @@ NORD.PanelEndGame = function(config) {
 
   this.HeaderText = new PIXI.Text('YOU WON', {
     parent: this.bg,
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 64,
     fill: 'white',
     align: 'center'
@@ -552,7 +552,7 @@ NORD.PanelEndGame = function(config) {
   this.HeaderPanel.addChild(this.HeaderText);
 
   this.scoreHeader = new PIXI.Text('PLAYER 1 SCORE', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 20,
     fill: 'white',
     align: 'center'
@@ -573,7 +573,7 @@ NORD.PanelEndGame = function(config) {
   });
 
   this.scoreLabel = new PIXI.Text('0', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 64,
     fill: 'white',
     align: 'center'
@@ -583,7 +583,7 @@ NORD.PanelEndGame = function(config) {
   this.bg.addChild(this.scoreLabel);
 
   this.scoreHeader2 = new PIXI.Text('PLAYER 2 SCORE', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 16,
     fill: 'white',
     align: 'center'
@@ -593,7 +593,7 @@ NORD.PanelEndGame = function(config) {
   this.addChild(this.scoreHeader2);
 
   this.scoreLabel2 = new PIXI.Text('0', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 48,
     fill: 'white',
     align: 'center'
@@ -654,7 +654,7 @@ NORD.PanelEndGame = function(config) {
       });
     });
 
-   
+
 
     //share code here
   }, this);
@@ -783,7 +783,7 @@ NORD.PanelEndGame.prototype.show = function(data) {
   // if (MultiplayerStarted) {
   //   this.removeChild(this.textWin);
   //   this.textWin = new PIXI.Text(winner + " \nwins", {
-  //     fontFamily: 'Russo One',
+  //     fontFamily: 'Squada One',
   //     fontSize: 26,
   //     fill: 'white',
   //     align: 'center'
@@ -910,7 +910,7 @@ NORD.PanelPause = function(config) {
 
   this.popupHeader = new PIXI.Text('PAUSED', {
     parent: this.bg,
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 34,
     fill: 'white',
     align: 'center'
@@ -930,7 +930,7 @@ NORD.PanelPause = function(config) {
   });
 
   this.scoreHeader = new PIXI.Text('YOUR SCORE : ', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 24,
     fill: 'white',
     align: 'center'
@@ -950,7 +950,7 @@ NORD.PanelPause = function(config) {
   });
 
   this.scoreLabel = new PIXI.Text('0', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 64,
     fill: 'white',
     align: 'center'
@@ -1155,7 +1155,7 @@ NORD.PanelPause2 = function(config) {
 
   this.popupHeader = new PIXI.Text('PAUSED', {
     parent: this.bg,
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 34,
     fill: 'white',
     align: 'center'
@@ -1175,7 +1175,7 @@ NORD.PanelPause2 = function(config) {
   });
 
   this.scoreHeader = new PIXI.Text('PLAYER-1 SCORE : ', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 24,
     fill: 'white',
     align: 'center'
@@ -1195,7 +1195,7 @@ NORD.PanelPause2 = function(config) {
   });
 
   this.scoreLabel = new PIXI.Text('0', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 64,
     fill: 'white',
     align: 'center'
@@ -1205,7 +1205,7 @@ NORD.PanelPause2 = function(config) {
   this.Highlights.addChild(this.scoreLabel);
 
   this.scoreHeader2 = new PIXI.Text('PLAYER-2 SCORE : ', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 24,
     fill: 'white',
     align: 'center'
@@ -1225,7 +1225,7 @@ NORD.PanelPause2 = function(config) {
   });
 
   this.scoreLabel2 = new PIXI.Text('0', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 64,
     fill: 'white',
     align: 'center'
@@ -1411,7 +1411,7 @@ NORD.PanelQuit = function(config) {
 
   this.popupHeader = new PIXI.Text('QUIT ?', {
     parent: this.bg,
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 34,
     fill: 'white',
     align: 'center'
@@ -1431,7 +1431,7 @@ NORD.PanelQuit = function(config) {
   });
 
   this.warningTExt = new PIXI.Text('YOU WILL FORFEIT \n THE MATCH', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 24,
     fill: 'white',
     align: 'center'

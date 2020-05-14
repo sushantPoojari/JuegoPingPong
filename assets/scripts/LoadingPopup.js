@@ -60,7 +60,7 @@ NORD.LoadingPopup = function(config) {
   });
 
   this.playerName = new PIXI.Text('YOU', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 64,
     fill: 'white',
     align: 'center',
@@ -85,7 +85,7 @@ NORD.LoadingPopup = function(config) {
   PlayerLeft.alpha = 0.5;
 
   this.playerName = new PIXI.Text('OPPONENT', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 64,
     fill: 'white',
     align: 'center',
@@ -98,7 +98,7 @@ NORD.LoadingPopup = function(config) {
   this.bg.addChild(this.playerName);
 
   this.loaderText = new PIXI.Text('Waiting For Opponent...', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 64,
     fill: 'white',
     align: 'center',
@@ -119,7 +119,7 @@ NORD.LoadingPopup = function(config) {
 
   this.timerTextValue = 15;
   this.timerText = new PIXI.Text('', {
-    fontFamily: 'Russo One',
+    fontFamily: 'Squada One',
     fontSize: 64,
     fill: 'white',
     align: 'center'
