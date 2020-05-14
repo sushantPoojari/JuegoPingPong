@@ -107,13 +107,7 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'profanityNames',
     url: 'assets/ProfanityNames.json'
-  }, {
-    name: 'PH_92',
-    url: 'assets/fonts/PH_92.fnt'
-  }, {
-    name: 'PH_46',
-    url: 'assets/fonts/PH_46.fnt'
-  }, {
+  },  {
     type: 'AUDIO',
     name: 'BGM',
     url: 'assets/sound/BGM',
