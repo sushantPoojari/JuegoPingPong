@@ -133,17 +133,17 @@ NORD.initGameDefinitions = function() {
   }, {
     type: 'AUDIO',
     name: 'ready',
-    url: 'assets/audio/ready',
+    url: 'assets/sound/ButtonTap',
     formats: audioFormats
   }, {
     type: 'AUDIO',
     name: 'player2_hit_big_ball',
-    url: 'assets/audio/player2_hit_big_ball',
+    url: 'assets/sound/ButtonTap',
     formats: audioFormats
   }, {
     type: 'AUDIO',
     name: 'player1_hit_big_ball',
-    url: 'assets/audio/player1_hit_big_ball',
+    url: 'assets/sound/ButtonTap',
     formats: audioFormats
   }, {
     type: 'AUDIO',
@@ -168,7 +168,7 @@ NORD.initGameDefinitions = function() {
   }, {
     type: 'AUDIO',
     name: 'player_goal',
-    url: 'assets/audio/player_goal',
+    url: 'assets/sound/ButtonTap',
     formats: audioFormats
   }, {
     type: 'AUDIO',
@@ -178,17 +178,17 @@ NORD.initGameDefinitions = function() {
   }, {
     type: 'AUDIO',
     name: 'kitty_hit_1',
-    url: 'assets/audio/kitty_hit_1',
+    url: 'assets/sound/ButtonTap',
     formats: audioFormats
   }, {
     type: 'AUDIO',
     name: 'kitty_hit_2',
-    url: 'assets/audio/kitty_hit_2',
+    url: 'assets/sound/ButtonTap',
     formats: audioFormats
   }, {
     type: 'AUDIO',
     name: 'go',
-    url: 'assets/audio/go',
+    url: 'assets/sound/ButtonTap',
     formats: audioFormats
   }, {
     type: 'AUDIO',
@@ -198,17 +198,17 @@ NORD.initGameDefinitions = function() {
   }, {
     type: 'AUDIO',
     name: 'computer_goal',
-    url: 'assets/audio/computer_goal',
+    url: 'assets/sound/ButtonTap',
     formats: audioFormats
   }, {
     type: 'AUDIO',
     name: 'ball_start',
-    url: 'assets/audio/ball_start',
+    url: 'assets/sound/ButtonTap',
     formats: audioFormats
   }, {
     type: 'AUDIO',
     name: 'ball_hit_bumper',
-    url: 'assets/audio/ball_hit_bumper',
+    url: 'assets/sound/ButtonTap',
     formats: audioFormats
   }, {
     type: 'AUDIO',
@@ -233,12 +233,12 @@ NORD.initGameDefinitions = function() {
   }, {
     type: 'AUDIO',
     name: 'gravity_well',
-    url: 'assets/audio/gravity_well',
+    url: 'assets/sound/ButtonTap',
     formats: audioFormats
   }, {
     type: 'AUDIO',
     name: 'ball_fire_ring',
-    url: 'assets/audio/ball_fire_ring',
+    url: 'assets/sound/ButtonTap',
     formats: audioFormats
   }, {
     name: 'PopupSub',
