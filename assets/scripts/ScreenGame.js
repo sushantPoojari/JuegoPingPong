@@ -653,17 +653,7 @@ NORD.PanelEndGame = function(config) {
     });
   }, this);
 
-  this.separatorText = new PIXI.Text('OR', {
-    fontFamily: 'Squada One',
-    fontSize: 24,
-    fill: 'white',
-    align: 'center'
-  });
-  this.separatorText.anchor.set(0.5);
-  this.separatorText.position.set(0, 120);
-  this.addChild(this.separatorText);
-
-  this.fb_ShareButton = Util.createButton('btn', this, null, '', -75, 145, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+  this.fb_ShareButton = Util.createButton('btn', this, null, '', -75, 135, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
     texture: 'FB_ShareButton',
     aX: 0.5,
     aY: 0.5,
@@ -683,7 +673,7 @@ NORD.PanelEndGame = function(config) {
     });
   }, this);
 
-    this.twitter_ShareButton = Util.createButton('btn', this, null, '', 75, 145, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+    this.twitter_ShareButton = Util.createButton('btn', this, null, '', 75, 135, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
       texture: 'Twitter_ShareButton',
       aX: 0.5,
       aY: 0.5,
@@ -737,7 +727,7 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
   var redDots = PIXI.Texture.fromFrame('RedDots');
   var redDots2 = PIXI.Texture.fromFrame('RedDots2');
 
-  this.buttonHome.position.y = 85;
+  this.buttonHome.position.y = 90;
   this.fb_ShareButton.visible = true;
   this.twitter_ShareButton.visible = true;
   this.bg.texture = bluePanel;
@@ -745,7 +735,6 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
   this.stars2.texture = stars2
   this.HeaderPanel.texture = upperBluePanel;
   this.rays.visible = true;
-  this.separatorText.visible = true;
 
   this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
   this.scoreLabel2.text = NORD.game.field.players.LEFT.roundScore;
@@ -764,7 +753,6 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
     this.fb_ShareButton.visible = false;
     this.twitter_ShareButton.visible = false;
     this.rays.visible = false;
-    this.separatorText.visible = false;
 
     this.buttonHome.position.y = 125;
 
@@ -800,7 +788,6 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
       this.fb_ShareButton.visible = false;
       this.twitter_ShareButton.visible = false;
       this.rays.visible = false;
-      this.separatorText.visible = false;
 
       this.buttonHome.position.y = 125;
 
