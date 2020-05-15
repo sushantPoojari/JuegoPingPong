@@ -2198,17 +2198,17 @@ var RoundGenerator = function RoundGenerator(field) {
   this.field.on('kitty_hit_shrink', function(ball) {
     if (ball.body.velocity.x < 0) {
       LeftPaddle.setSize(NORD.game.field.roundGenerator.field.smallPaddleData.size, NORD.game.field.roundGenerator.field.smallPaddleData.shape);
-      LeftPaddle.paddleViewImage.scale.y = 0.3;
+      // LeftPaddle.paddleViewImage.scale.y = 0.3;
       LeftPaddle.paddleViewImage.texture = NORD.assetsManager.getTexture('leftPaddleShort');
       RightPaddle.setSize(NORD.game.field.config.paddleSize.value, NORD.game.field.config.paddleShape.value);
-      RightPaddle.paddleViewImage.scale.y = 0.5;
+      // RightPaddle.paddleViewImage.scale.y = 0.5;
       RightPaddle.paddleViewImage.texture = NORD.assetsManager.getTexture('rightPaddle');
     } else {
       RightPaddle.setSize(NORD.game.field.roundGenerator.field.smallPaddleData.size, NORD.game.field.roundGenerator.field.smallPaddleData.shape);
-      RightPaddle.paddleViewImage.scale.y = 0.3;
+      // RightPaddle.paddleViewImage.scale.y = 0.3;
       RightPaddle.paddleViewImage.texture = NORD.assetsManager.getTexture('rightPaddleShort');
       LeftPaddle.setSize(NORD.game.field.config.paddleSize.value, NORD.game.field.config.paddleShape.value);
-      LeftPaddle.paddleViewImage.scale.y = 0.5;
+      // LeftPaddle.paddleViewImage.scale.y = 0.5;
       LeftPaddle.paddleViewImage.texture = NORD.assetsManager.getTexture('leftPaddle');
     }
   });
