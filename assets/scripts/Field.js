@@ -3207,33 +3207,47 @@ var createTeleport1 = function createTeleport1(field, config, data) {
       aY: 0.5,
       scaleXY: 0.4,
     });
+    var dottedCluster = Util.createSprite({
+      parent: bonusContainer,
+      texture: 'Cluster-Dots',
+      aX: 0.5,
+      aY: 0.5,
+      scaleXY: 0.2,
+    });
     if (data.data == "teleport2") {
       teleport1.rotation = Math.PI;
       teleport2.rotation = Math.PI;
       teleport2.x = -5;
     } else {
-      teleport2.y = 5;
+      teleport2.x = 5;
       teleport2.scale.y *= -1;
+      dottedCluster.scale.y *= -1;
     }
 
     bonusContainer.addChild(teleport1);
     bonusContainer.addChild(teleport2);
+    bonusContainer.addChild(dottedCluster);
     teleport1.mask = teleport2;
+    // teleport1.mask = dottedCluster;
     if (data.data == "teleport2") {
       rotateAction();
 
       function rotateAction() {
         requestAnimationFrame(rotateAction);
-        if (bonusContainer.bg.texture != null)
-          bonusContainer.children[3].rotation += 0.01;
+        if (bonusContainer.bg.texture != null) {
+          bonusContainer.children[3].rotation += 0.02;
+          bonusContainer.children[4].rotation += 0.01;
+        }
       }
     } else {
       rotateAction();
 
       function rotateAction() {
         requestAnimationFrame(rotateAction);
-        if (bonusContainer.bg.texture != null)
-          bonusContainer.children[3].rotation -= 0.01;
+        if (bonusContainer.bg.texture != null) {
+          bonusContainer.children[3].rotation -= 0.02;
+          bonusContainer.children[4].rotation -= 0.01;
+        }
       }
     }
   }
@@ -3324,33 +3338,46 @@ var createTeleport2 = function createTeleport2(field, config, data) {
       aY: 0.5,
       scaleXY: 0.4,
     });
+    var dottedCluster = Util.createSprite({
+      parent: bonusContainer,
+      texture: 'Cluster-Dots',
+      aX: 0.5,
+      aY: 0.5,
+      scaleXY: 0.2,
+    });
     if (data.data == "teleport1") {
       teleport1.rotation = Math.PI;
       teleport2.rotation = Math.PI;
       teleport2.x = -5;
     } else {
-      teleport2.y = 5;
+      teleport2.x = 5;
       teleport2.scale.y *= -1;
+      dottedCluster.scale.y *= -1;
     }
 
     bonusContainer.addChild(teleport1);
     bonusContainer.addChild(teleport2);
+    bonusContainer.addChild(dottedCluster);
     teleport1.mask = teleport2;
     if (data.data == "teleport1") {
       rotateAction();
 
       function rotateAction() {
         requestAnimationFrame(rotateAction);
-        if (bonusContainer.bg.texture != null)
-          bonusContainer.children[3].rotation += 0.01;
+        if (bonusContainer.bg.texture != null) {
+          bonusContainer.children[3].rotation += 0.02;
+          bonusContainer.children[4].rotation -= 0.01;
+        }
       }
     } else {
       rotateAction();
 
       function rotateAction() {
         requestAnimationFrame(rotateAction);
-        if (bonusContainer.bg.texture != null)
-          bonusContainer.children[3].rotation -= 0.01;
+        if (bonusContainer.bg.texture != null) {
+          bonusContainer.children[3].rotation -= 0.02;
+          bonusContainer.children[4].rotation -= 0.01;
+        }
       }
     }
   }
