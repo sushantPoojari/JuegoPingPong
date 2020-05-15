@@ -2,49 +2,49 @@
     "action": [
         {
             "title": "STUN GUN",
-            "description": "description1",
+            "description": "In this gameplay mode,\n each player’s paddle is equipped\n with a stun gun.\n\nPlayer would have to try and\n stun the opponent player by shooting a\n blaster at the opponent.\n\nIf either of the players collides with the\n stun blaster shot from the opponent’s paddle,\n the player will not be able to move their paddle for\n 1 seconds",
             "image":"TstunGun"
         },
         {
             "title": "SHRINK THE PADDLE",
-            "description": "description2",
+            "description": "In this gameplay mode,\n an shrink obsacle would be moving\n up and down the center of the play area.\n\nIf the player hits the ball and the\n ball collides the shrink obsacle at the\n center of the play area, the\n opponent player’s paddle will shrink obsacle\n and vice versa",
             "image":"TshrinkThePaddle"
         },
         {
             "title": "THROUGH THE PORTAL",
-            "description": "description3",
+            "description": "In this gameplay mode,\n 2 portals randomly appear at the \nboth side of the screen.\n\nIf the ball passes through one portal\n it shoots out through another portal.",
             "image":"TthroughThePortal"
         },
         {
             "title": "SHADOW MODE",
-            "description": "description4",
+            "description": "In this gameplay mode,\n a shadow obsacle will be seen moving\n up and down at the center of the play area.\n\nIf the player hits the ball and the\n ball collides with the shadow obsacle,\n player paddle becomes invisible for 2 second",
             "image":"TshadowMode"
         },
         {
             "title": "BLACK HOLE",
-            "description": "description5",
+            "description": "In this gameplay mode,\n 1 blackhole will spawn on each of the\n player’s play area randomly\n at the start of the game.\n\nIf the ball collides with the\n blackhole obsacle, then the player that\n last hit the ball loses the round and\n the opponent gains a point.",
             "image":"TblackHole"
         },
         {
             "title": "REVERSE MODE",
-            "description": "description6",
+            "description": "In this gameplay mode,\n all the controls are reversed.\n\nIf the player wants to move the paddle up,\n they should press down arrow key on the PC\n or swipe down on the phone and\n vice-versa for moving the paddle down.",
             "image":"TreverseMode"
         }
     ],
     "classic": [
         {
             "title": "NORMAL MODE",
-            "description": "description1",
+            "description": "This will be simply a blank\n game board with no obstacle\n in-between the paddle",
             "image":"TNormal"
         },
         {
             "title": "DIAMOND MODE",
-            "description": "description2",
+            "description": "In this Board, there will be a\n diamond-shaped obstacle at the\n center of the play area.\n\n If the ball collides with the\n diamond-shaped obstacle, the ball gets\n deflected off from the\n diamond-shaped obstacle.",
             "image":"TDiamond"
         },
         {
             "title": "PARALLEL MODE",
-            "description": "description3",
+            "description": "In this board, there will be\n 2 lines placed horizontally facing\n each other at the center of the screen.\n\nIf the ball collides with\n the parallel horizontal obstacle,\n the ball gets deflected off \nfrom the Horizontal obstacles.",
             "image":"TParralel"
         }
     ]

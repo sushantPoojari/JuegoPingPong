@@ -1771,7 +1771,7 @@ NORD.subModeSelectionPopup = function(config) {
     parent: this,
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.35
+    scaleXY: 0.25
   });
 
   this.tutorialButton.soundClick = NORD.assetsManager.getAsset('play_button')
@@ -2084,7 +2084,7 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
   this.loaderTextData.visible = false;
   this.regionPanel.visible = false;
 
-  this.tutorialButton.position.x = 160;
+  this.tutorialButton.position.x = 180;
 
   if (config.players == 'three') {
     this.regionPanel.visible = true;
@@ -2101,7 +2101,7 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
     this.switchDificulty.visible = true;
 
   if (config.mode == 'action') {
-    this.tutorialButton.position.x = 120;
+    this.tutorialButton.position.x = 140;
 
     this.switchNormalMode.visible = false;
     this.separatorText.visible = true;
@@ -2532,38 +2532,25 @@ NORD.PanelTutorial = function(config) {
     scaleXY: 0.45
   });
 
-  this.description = new PIXI.Text('kjugshkfvhjs vjfskhavkhsvf fsavkhf\n vsfasa saffas fasaf fsa fasfafs fsa', {
+  this.description = new PIXI.Text('', {
     fontFamily: 'Squada One',
-    fontSize: 24,
+    fontSize: 20,
     fill: 'white',
     align: 'center'
   });
   this.description.anchor.set(0.5);
-  this.description.position.set(-150, -50);
+  this.description.position.set(-120, 40);
   this.addChild(this.description);
 
-  this.gameScreenShotBg = Util.createSprite({
+  this.gameScreenShot = Util.createSprite({
     parent: this,
     x: 175,
     y: 35,
-    texture: 'PauseBg',
-    aX: 0.5,
-    aY: 0.5,
-    scaleXY: 0.30,
-  });
-  this.gameScreenShotBg.angle = 90;
-
-  this.gameScreenShot = Util.createSprite({
-    parent: this.gameScreenShotBg,
-    x: 0,
-    y: 0,
     texture: 'LocalMultiplayer',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 1,
+    scaleXY: 0.5,
   });
-  this.gameScreenShot.angle = -90;
-
 
   this.nextButton = Util.createButton('btn', this, null, '', 320, 25, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
     texture: 'Arrow',
@@ -2648,10 +2635,6 @@ NORD.PanelTutorial.prototype.navigate = function(data) {
   this.popupHeader.text = words[MainMenuLocation.panelTutorial.counterValue].title; // mode name
   this.description.text = words[MainMenuLocation.panelTutorial.counterValue].description; // game details
   this.gameScreenShot.texture = PIXI.Texture.fromFrame(words[MainMenuLocation.panelTutorial.counterValue].image); //image
-
-  {
-    // this.gameScreenShotBg.texture = ""; //image
-  }
 };
 
 NORD.PanelTutorial.prototype.show = function(data) {
