@@ -273,6 +273,9 @@ NORD.initGameDefinitions = function() {
     name: 'Through-the-portal copy',
     url: 'assets/images/popup/gameplayPopup/Mode/Through-the-portal copy.png'
   }, {
+    name: 'Cluster-Dots',
+    url: 'assets/images/popup/gameplayPopup/Mode/Cluster-Dots.png'
+  }, {
     name: 'spiral',
     url: 'assets/images/popup/gameplayPopup/Mode/spiral.png'
   }, {
@@ -341,12 +344,10 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'SoundOffButton',
     url: 'assets/images/common/SoundOffButton.png'
-  }, 
-  {
+  }, {
     name: 'RegionPanel',
     url: 'assets/images/common/RegionPanel.png'
-  },
-  {
+  }, {
     name: 'NormalMode',
     url: 'assets/images/main/NormalMode.png'
   }, {
@@ -454,9 +455,8 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'TransparentLayer',
     url: 'assets/images/common/TransparentLayer.png'
-  },
-  {
-    name:'SemiTansLayer',
+  }, {
+    name: 'SemiTansLayer',
     url: 'assets/images/common/SemiTansLayer.png'
   }, {
     name: 'GreenRibbon',
