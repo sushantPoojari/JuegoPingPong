@@ -1,51 +1,51 @@
 {
-    "ThrillerMode": [
+    "action": [
         {
-            "title": "title1",
+            "title": "STUN GUN",
             "description": "description1",
-            "image":"image1"
+            "image":"TstunGun"
         },
         {
-            "title": "title2",
+            "title": "SHRINK THE PADDLE",
             "description": "description2",
-            "image":"image2"
+            "image":"TshrinkThePaddle"
         },
         {
-            "title": "title3",
+            "title": "THROUGH THE PORTAL",
             "description": "description3",
-            "image":"image3"
+            "image":"TthroughThePortal"
         },
         {
-            "title": "title4",
+            "title": "SHADOW MODE",
             "description": "description4",
-            "image":"image4"
+            "image":"TshadowMode"
         },
         {
-            "title": "title5",
+            "title": "BLACK HOLE",
             "description": "description5",
-            "image":"image5"
+            "image":"TblackHole"
         },
         {
-            "title": "title6",
+            "title": "REVERSE MODE",
             "description": "description6",
-            "image":"image6"
+            "image":"TreverseMode"
         }
     ],
-    "NormalMode": [
+    "classic": [
         {
-            "title": "title1",
+            "title": "Normal Mode",
             "description": "description1",
-            "image":"image1"
+            "image":"TNormal"
         },
         {
-            "title": "title2",
+            "title": "Diamond Mode",
             "description": "description2",
-            "image":"image2"
+            "image":"TDiamond"
         },
         {
-            "title": "title3",
+            "title": "Parallel Mode",
             "description": "description3",
-            "image":"image3"
+            "image":"TParralel"
         }
     ]
 }

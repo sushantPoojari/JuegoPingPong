@@ -1780,6 +1780,17 @@ NORD.subModeSelectionPopup = function(config) {
     if (this.state !== 'show') return;
     TweenMax.delayedCall(0.07 * 2, function() {
       _this5.hide("", function() {
+        MainMenuLocation.panelTutorial.counterValue = 0;
+        MainMenuLocation.panelTutorial.nextButton.visible = true;
+        MainMenuLocation.panelTutorial.previousButton.visible = false;
+
+        var t_dAllNamesData = NORD.assetsManager.getJson('tutorialList');
+        var words = t_dAllNamesData[NORD.game.config.mode];
+
+        MainMenuLocation.panelTutorial.popupHeader.text = words[0].title; // mode name
+        MainMenuLocation.panelTutorial.description.text = words[0].description; // game details
+        MainMenuLocation.panelTutorial.gameScreenShot.texture = PIXI.Texture.fromFrame(words[0].image); //image
+
         MainMenuLocation.panelTutorial.show()
       });
     });
@@ -2490,6 +2501,7 @@ NORD.PanelTutorial = function(config) {
   this.state = 'hide';
   this.visible = false;
   this.interactiveChildren = false; // this.alpha = 0;
+  this.counterValue = 0;
 
   this.backBG = Util.createSprite({
     parent: this,
@@ -2518,7 +2530,7 @@ NORD.PanelTutorial = function(config) {
     align: 'center'
   });
   this.popupHeader.anchor.set(0.5);
-  this.popupHeader.position.set(0,  -this.bg.height * 0.60);
+  this.popupHeader.position.set(0, -this.bg.height * 0.60);
   this.bg.addChild(this.popupHeader);
 
   this.dividerLine = Util.createSprite({
@@ -2559,14 +2571,14 @@ NORD.PanelTutorial = function(config) {
     texture: 'LocalMultiplayer',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.95,
+    scaleXY: 1,
   });
   this.gameScreenShot.angle = -90;
 
 
   this.nextButton = Util.createButton('btn', this, null, '', this.bg.width * 0.40, 25, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
     texture: 'Arrow',
-    parent:this.bg,
+    parent: this.bg,
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.5
@@ -2576,25 +2588,25 @@ NORD.PanelTutorial = function(config) {
   this.nextButton.soundClick = NORD.assetsManager.getAsset('play_button')
   this.nextButton.addListener('button_click', function(data) {
     var _this5 = this;
-   
+
     if (this.state !== 'show') return;
     TweenMax.delayedCall(0.07 * 2, function() {
       _this5.navigate("next")
     });
   }, this);
 
-  this.previousButton = Util.createButton('btn', this, null, '',  -this.bg.width * 0.40, 25, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
+  this.previousButton = Util.createButton('btn', this, null, '', -this.bg.width * 0.40, 25, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
     texture: 'Arrow',
-    parent:this.bg,
+    parent: this.bg,
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.5,
   });
- 
+
   this.previousButton.soundClick = NORD.assetsManager.getAsset('play_button')
   this.previousButton.addListener('button_click', function(data) {
     var _this5 = this;
-   
+
     if (this.state !== 'show') return;
     TweenMax.delayedCall(0.07 * 2, function() {
       _this5.navigate("previous")
@@ -2603,7 +2615,7 @@ NORD.PanelTutorial = function(config) {
 
   this.okButton = Util.createButton('btn', this, null, '', 0, this.bg.height * 0.45, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
     texture: 'ContinueButton',
-    parent:this.bg,
+    parent: this.bg,
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.4
@@ -2612,7 +2624,7 @@ NORD.PanelTutorial = function(config) {
   this.okButton.soundClick = NORD.assetsManager.getAsset('play_button')
   this.okButton.addListener('button_click', function(data) {
     var _this5 = this;
-   
+
     if (this.state !== 'show') return;
     TweenMax.delayedCall(0.07 * 2, function() {
       _this5.hide("", function() {
@@ -2626,20 +2638,31 @@ NORD.PanelTutorial.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelTutorial.prototype.constructor = NORD.PanelPause;
 
 NORD.PanelTutorial.prototype.navigate = function(data) {
-    console.log(data);
-    this.nextButton.visible = true;
-    this.nextButton.visible = true;
+  this.nextButton.visible = true;
+  this.previousButton.visible = true;
+
+  var t_dAllNamesData = NORD.assetsManager.getJson('tutorialList');
+  var words = t_dAllNamesData[NORD.game.config.mode];
+
+  if (data == "next") {
+    MainMenuLocation.panelTutorial.counterValue++;
+  } else {
+    MainMenuLocation.panelTutorial.counterValue--;
+  }
+
+  if (MainMenuLocation.panelTutorial.counterValue == words.length - 1) {
+    this.nextButton.visible = false;
+  }
+  if (MainMenuLocation.panelTutorial.counterValue == 0) {
+    this.previousButton.visible = false;
+  }
+
+  this.popupHeader.text = words[MainMenuLocation.panelTutorial.counterValue].title; // mode name
+  this.description.text = words[MainMenuLocation.panelTutorial.counterValue].description; // game details
+  this.gameScreenShot.texture = PIXI.Texture.fromFrame(words[MainMenuLocation.panelTutorial.counterValue].image); //image
 
   {
-    this.gameScreenShotBg.texture = ""; //image
-    this.description = ""; // game details
-    this.popupHeader = ""; // mode name
-
-    if(true)
-      this.nextButton.visible = false;
-    else
-      this.nextButton.visible = false;
-
+    // this.gameScreenShotBg.texture = ""; //image
   }
 };
 

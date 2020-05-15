@@ -530,6 +530,33 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'Arrow',
     url: 'assets/images/common/Arrow.png'
+  }, {
+    name: 'TblackHole',
+    url: 'assets/images/tutorial/blackHole.png'
+  }, {
+    name: 'TreverseMode',
+    url: 'assets/images/tutorial/reverseMode.png'
+  }, {
+    name: 'TshadowMode',
+    url: 'assets/images/tutorial/shadowMode.png'
+  }, {
+    name: 'TshrinkThePaddle',
+    url: 'assets/images/tutorial/shrinkThePaddle.png'
+  }, {
+    name: 'TstunGun',
+    url: 'assets/images/tutorial/stunGun.png'
+  }, {
+    name: 'TthroughThePortal',
+    url: 'assets/images/tutorial/throughThePortal.png'
+  }, {
+    name: 'TNormal',
+    url: 'assets/images/tutorial/normalBoard.png'
+  }, {
+    name: 'TDiamond',
+    url: 'assets/images/tutorial/diamondBoard.png'
+  }, {
+    name: 'TParralel',
+    url: 'assets/images/tutorial/parallelBoard.png'
   }]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
