@@ -849,25 +849,21 @@ NORD.Field.FireZone.prototype.destroy = function() {
 var GameStartText = function GameStartText() {
   PIXI.Container.call(this);
 
-  this.textReady = new PIXI.Graphics();
-  this.addChild(this.textReady)
+  this.bg = Util.createSprite({
+    texture: 'SemiTansLayer',
+    parent: this,
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 1
+  });
 
-  var bg1 = Util.createSprite({
+  this.textReady = Util.createSprite({
     texture: 'GreenRibbon',
     parent: this,
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.375
   });
-
-  var padding = 10;
-  var widthPadding = 600;
-
-  this.textReady.clear();
-  this.textReady.beginFill(0x29292b, 0.4);
-  this.textReady.drawRect(-bg1.width / 2 - widthPadding / 2, -bg1.height / 2 - padding / 2, bg1.width + widthPadding, bg1.height + padding);
-
-  this.textReady.addChild(bg1);
 
   var readyText = new PIXI.Text('READY', {
     fontFamily: 'Squada One',
@@ -877,27 +873,15 @@ var GameStartText = function GameStartText() {
   });
   readyText.anchor.set(0.5);
   readyText.position.set(0, 0);
-  bg1.addChild(readyText);
+  this.textReady.addChild(readyText);
 
-  this.textGo = new PIXI.Graphics();
-  this.addChild(this.textGo)
-
-  var bg2 = Util.createSprite({
+  this.textGo =  Util.createSprite({
     texture: 'GreenRibbon',
     parent: this,
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.375
   });
-
-  var padding = 10;
-  var widthPadding = 600;
-
-  this.textGo.clear();
-  this.textGo.beginFill(0x29292b, 0.4);
-  this.textGo.drawRect(-bg2.width / 2 - widthPadding / 2, -bg2.height / 2 - padding / 2, bg2.width + widthPadding, bg2.height + padding);
-
-  this.textGo.addChild(bg2);
 
   var goText = new PIXI.Text('GO', {
     fontFamily: 'Squada One',
@@ -907,7 +891,7 @@ var GameStartText = function GameStartText() {
   });
   goText.anchor.set(0.5);
   goText.position.set(0, 0);
-  bg2.addChild(goText);
+  this.textGo.addChild(goText);
 
   this.visible = false;
   this.tween1 = null;

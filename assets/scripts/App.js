@@ -454,6 +454,10 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'TransparentLayer',
     url: 'assets/images/common/TransparentLayer.png'
+  },
+  {
+    name:'SemiTansLayer',
+    url: 'assets/images/common/SemiTansLayer.png'
   }, {
     name: 'GreenRibbon',
     url: 'assets/images/common/GreenRibbon.png'
