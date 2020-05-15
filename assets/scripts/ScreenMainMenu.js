@@ -2579,9 +2579,7 @@ NORD.PanelTutorial = function(config) {
    
     if (this.state !== 'show') return;
     TweenMax.delayedCall(0.07 * 2, function() {
-      _this5.hide("", function() {
-       
-      });
+      _this5.navigate("next")
     });
   }, this);
 
@@ -2599,9 +2597,7 @@ NORD.PanelTutorial = function(config) {
    
     if (this.state !== 'show') return;
     TweenMax.delayedCall(0.07 * 2, function() {
-      _this5.hide("", function() {
-        
-      });
+      _this5.navigate("previous")
     });
   }, this);
 
@@ -2620,7 +2616,7 @@ NORD.PanelTutorial = function(config) {
     if (this.state !== 'show') return;
     TweenMax.delayedCall(0.07 * 2, function() {
       _this5.hide("", function() {
-        MainMenuLocation.panelTutorial.hide();
+        MainMenuLocation.subModeSelectionPopup.show();
       });
     });
   }, this);
@@ -2628,6 +2624,24 @@ NORD.PanelTutorial = function(config) {
 
 NORD.PanelTutorial.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelTutorial.prototype.constructor = NORD.PanelPause;
+
+NORD.PanelTutorial.prototype.navigate = function(data) {
+    console.log(data);
+    this.nextButton.visible = true;
+    this.nextButton.visible = true;
+
+  {
+    this.gameScreenShotBg.texture = ""; //image
+    this.description = ""; // game details
+    this.popupHeader = ""; // mode name
+
+    if(true)
+      this.nextButton.visible = false;
+    else
+      this.nextButton.visible = false;
+
+  }
+};
 
 NORD.PanelTutorial.prototype.show = function(data) {
 
