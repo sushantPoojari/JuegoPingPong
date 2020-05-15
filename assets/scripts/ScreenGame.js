@@ -617,7 +617,7 @@ NORD.PanelEndGame = function(config) {
     align: 'center'
   });
   this.scoreLabel2.anchor.set(0.5);
-  this.scoreLabel2.position.set(0, 100);
+  this.scoreLabel2.position.set(0, 70);
   this.bg.addChild(this.scoreLabel2);
 
 
@@ -632,7 +632,7 @@ NORD.PanelEndGame = function(config) {
   this.textWin.scale.x = this.textWin.scale.y = 0.66;
   this.textWin.visible = false
 
-  this.buttonHome = Util.createButton('btn', this, null, '', -75, 125, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+  this.buttonHome = Util.createButton('btn', this, null, '', 0, 75, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
     texture: 'ContinueButton',
     aX: 0.5,
     aY: 0.5,
@@ -653,12 +653,21 @@ NORD.PanelEndGame = function(config) {
     });
   }, this);
 
-  this.fb_ShareButton = Util.createButton('btn', this, null, '', 75, 125, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
-    texture: 'ShareButton',
+  this.separatorText = new PIXI.Text('OR', {
+    fontFamily: 'Squada One',
+    fontSize: 24,
+    fill: 'white',
+    align: 'center'
+  });
+  this.separatorText.anchor.set(0.5);
+  this.separatorText.position.set(0, 120);
+  this.addChild(this.separatorText);
+
+  this.fb_ShareButton = Util.createButton('btn', this, null, '', -75, 145, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+    texture: 'FB_ShareButton',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 0.10,
-    scaleY: 0.35
+    scaleXY: 0.40
   });
   this.fb_ShareButton.on('button_click', function(data) {
     var _this4 = this;
@@ -674,12 +683,11 @@ NORD.PanelEndGame = function(config) {
     });
   }, this);
 
-    this.twitter_ShareButton = Util.createButton('btn', this, null, '', 125, 125, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
-      texture: 'ShareButton',
+    this.twitter_ShareButton = Util.createButton('btn', this, null, '', 75, 145, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+      texture: 'Twitter_ShareButton',
       aX: 0.5,
       aY: 0.5,
-      scaleX: 0.10,
-      scaleY: 0.35
+      scaleXY: 0.40
     });
     this.twitter_ShareButton.on('button_click', function(data) {
   
@@ -729,7 +737,7 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
   var redDots = PIXI.Texture.fromFrame('RedDots');
   var redDots2 = PIXI.Texture.fromFrame('RedDots2');
 
-  this.buttonHome.position.x = -75;
+  this.buttonHome.position.y = 85;
   this.fb_ShareButton.visible = true;
   this.twitter_ShareButton.visible = true;
   this.bg.texture = bluePanel;
@@ -737,9 +745,12 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
   this.stars2.texture = stars2
   this.HeaderPanel.texture = upperBluePanel;
   this.rays.visible = true;
+  this.separatorText.visible = true;
 
   this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
   this.scoreLabel2.text = NORD.game.field.players.LEFT.roundScore;
+
+  this.scoreLabel.style.fill = this.scoreLabel2.style.fill ='#23ccfd'
 
   if (winner === 'AI') {
     this.HeaderText.text = "YOU LOST";
@@ -747,13 +758,15 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
     this.scoreHeader.text = "COMPUTER SCORE"
     this.scoreHeader2.text = "YOUR SCORE";
 
+    this.scoreLabel.style.fill = this.scoreLabel2.style.fill ='#fc0d1b'
 
     this.Highlights.visible = false;
     this.fb_ShareButton.visible = false;
     this.twitter_ShareButton.visible = false;
     this.rays.visible = false;
+    this.separatorText.visible = false;
 
-    this.buttonHome.position.x = 0;
+    this.buttonHome.position.y = 125;
 
     this.bg.texture = redPanel;
     this.stars.texture = redDots;
@@ -781,12 +794,15 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
       this.scoreHeader.text = NORD.playersName.opponentName;
       this.scoreHeader2.text = NORD.playersName.playerName;
 
+      this.scoreLabel.style.fill = this.scoreLabel2.style.fill ='#fc0d1b'
+
       this.Highlights.visible = false;
       this.fb_ShareButton.visible = false;
       this.twitter_ShareButton.visible = false;
       this.rays.visible = false;
+      this.separatorText.visible = false;
 
-      this.buttonHome.position.x = 0;
+      this.buttonHome.position.y = 125;
 
       this.bg.texture = redPanel;
       this.stars.texture = redDots;

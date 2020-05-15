@@ -513,9 +513,12 @@ NORD.initGameDefinitions = function() {
     name: 'ContinueButton',
     url: 'assets/images/result/ContinueButton.png'
   }, {
-    name: 'ShareButton',
-    url: 'assets/images/result/ShareButton.png'
+    name: 'FB_ShareButton',
+    url: 'assets/images/result/FB_ShareButton.png'
   }, {
+    name: 'Twitter_ShareButton',
+    url: 'assets/images/result/Twitter_ShareButton.png'
+  },{
     name: 'DarkLayer',
     url: 'assets/images/result/DarkLayer.png'
   }]);
