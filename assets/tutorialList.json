@@ -1,0 +1,51 @@
+{
+    "ThrillerMode": [
+        {
+            "title": "title1",
+            "description": "description1",
+            "image":"image1"
+        },
+        {
+            "title": "title2",
+            "description": "description2",
+            "image":"image2"
+        },
+        {
+            "title": "title3",
+            "description": "description3",
+            "image":"image3"
+        },
+        {
+            "title": "title4",
+            "description": "description4",
+            "image":"image4"
+        },
+        {
+            "title": "title5",
+            "description": "description5",
+            "image":"image5"
+        },
+        {
+            "title": "title6",
+            "description": "description6",
+            "image":"image6"
+        }
+    ],
+    "NormalMode": [
+        {
+            "title": "title1",
+            "description": "description1",
+            "image":"image1"
+        },
+        {
+            "title": "title2",
+            "description": "description2",
+            "image":"image2"
+        },
+        {
+            "title": "title3",
+            "description": "description3",
+            "image":"image3"
+        }
+    ]
+}

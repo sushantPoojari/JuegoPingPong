@@ -113,6 +113,9 @@ NORD.initGameDefinitions = function() {
     name: 'profanityNames',
     url: 'assets/ProfanityNames.json'
   }, {
+    name: 'tutorialList',
+    url: 'assets/tutorialList.json'
+  }, {
     type: 'AUDIO',
     name: 'BGM',
     url: 'assets/sound/BGM',
@@ -518,13 +521,13 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'Twitter_ShareButton',
     url: 'assets/images/result/Twitter_ShareButton.png'
-  },{
+  }, {
     name: 'DarkLayer',
     url: 'assets/images/result/DarkLayer.png'
-  },{
+  }, {
     name: 'Info',
     url: 'assets/images/common/Info.png'
-  },{
+  }, {
     name: 'Arrow',
     url: 'assets/images/common/Arrow.png'
   }]);
