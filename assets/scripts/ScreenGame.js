@@ -653,7 +653,7 @@ NORD.PanelEndGame = function(config) {
     });
   }, this);
 
-  this.fb_ShareButton = Util.createButton('btn', this, null, '', -75, 135, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+  this.fb_ShareButton = Util.createButton('btn', this, null, '', -65, 135, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
     texture: 'FB_ShareButton',
     aX: 0.5,
     aY: 0.5,
@@ -673,7 +673,7 @@ NORD.PanelEndGame = function(config) {
     });
   }, this);
 
-    this.twitter_ShareButton = Util.createButton('btn', this, null, '', 75, 135, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+    this.twitter_ShareButton = Util.createButton('btn', this, null, '', 65, 135, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
       texture: 'Twitter_ShareButton',
       aX: 0.5,
       aY: 0.5,
