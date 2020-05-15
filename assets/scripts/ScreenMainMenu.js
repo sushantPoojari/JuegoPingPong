@@ -2503,44 +2503,33 @@ NORD.PanelTutorial = function(config) {
   this.interactiveChildren = false; // this.alpha = 0;
   this.counterValue = 0;
 
-  this.backBG = Util.createSprite({
+  this.bg = Util.createSprite({
     parent: this,
     texture: 'BG',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 0.55,
-    scaleY: 0.5
-  });
-  this.addChild(this.backBG);
-
-  this.bg = Util.createSprite({
-    parent: this,
-    texture: 'PauseBg',
-    aX: 0.5,
-    aY: 0.5,
-    scaleX: 0.65,
-    scaleY: 0.55
+    scaleXY: 0.465
   });
 
   this.popupHeader = new PIXI.Text('MODE NAME', {
-    parent: this.bg,
+    parent: this,
     fontFamily: 'Squada One',
-    fontSize: 68,
+    fontSize: 36,
     fill: 'white',
     align: 'center'
   });
   this.popupHeader.anchor.set(0.5);
-  this.popupHeader.position.set(0, -this.bg.height * 0.60);
-  this.bg.addChild(this.popupHeader);
+  this.popupHeader.position.set(0, -195);
+  this.addChild(this.popupHeader);
 
   this.dividerLine = Util.createSprite({
     parent: this,
     x: 0,
-    y: -100,
+    y: -150,
     texture: 'Separator',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.25
+    scaleXY: 0.45
   });
 
   this.description = new PIXI.Text('kjugshkfvhjs vjfskhavkhsvf fsavkhf\n vsfasa saffas fasaf fsa fasfafs fsa', {
@@ -2549,18 +2538,18 @@ NORD.PanelTutorial = function(config) {
     fill: 'white',
     align: 'center'
   });
-  this.description.anchor.set(0, 0.5);
-  this.description.position.set(-this.bg.width * 0.525, -50);
-  this.bg.addChild(this.description);
+  this.description.anchor.set(0.5);
+  this.description.position.set(-150, -50);
+  this.addChild(this.description);
 
   this.gameScreenShotBg = Util.createSprite({
-    parent: this.bg,
+    parent: this,
     x: 175,
-    y: 50,
+    y: 35,
     texture: 'PauseBg',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.35,
+    scaleXY: 0.30,
   });
   this.gameScreenShotBg.angle = 90;
 
@@ -2576,9 +2565,9 @@ NORD.PanelTutorial = function(config) {
   this.gameScreenShot.angle = -90;
 
 
-  this.nextButton = Util.createButton('btn', this, null, '', this.bg.width * 0.40, 25, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
+  this.nextButton = Util.createButton('btn', this, null, '', 320, 25, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
     texture: 'Arrow',
-    parent: this.bg,
+    parent: this,
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.5
@@ -2595,9 +2584,9 @@ NORD.PanelTutorial = function(config) {
     });
   }, this);
 
-  this.previousButton = Util.createButton('btn', this, null, '', -this.bg.width * 0.40, 25, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
+  this.previousButton = Util.createButton('btn', this, null, '', -320, 25, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
     texture: 'Arrow',
-    parent: this.bg,
+    parent: this,
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.5,
@@ -2613,16 +2602,15 @@ NORD.PanelTutorial = function(config) {
     });
   }, this);
 
-  this.okButton = Util.createButton('btn', this, null, '', 0, this.bg.height * 0.45, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
-    texture: 'ContinueButton',
-    parent: this.bg,
+  this.backButton = Util.createButton('btn', this, null, '', -320, -190, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
+    texture: 'BackButton',
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.4
   });
 
-  this.okButton.soundClick = NORD.assetsManager.getAsset('play_button')
-  this.okButton.addListener('button_click', function(data) {
+  this.backButton.soundClick = NORD.assetsManager.getAsset('play_button')
+  this.backButton.addListener('button_click', function(data) {
     var _this5 = this;
 
     if (this.state !== 'show') return;
