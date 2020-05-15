@@ -653,14 +653,14 @@ NORD.PanelEndGame = function(config) {
     });
   }, this);
 
-  this.shareButton = Util.createButton('btn', this, null, '', 75, 125, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+  this.fb_ShareButton = Util.createButton('btn', this, null, '', 75, 125, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
     texture: 'ShareButton',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.35
+    scaleX: 0.10,
+    scaleY: 0.35
   });
-  this.shareButton.on('button_click', function(data) {
-
+  this.fb_ShareButton.on('button_click', function(data) {
     var _this4 = this;
 
     if (this.state !== 'show') return;
@@ -668,14 +668,32 @@ NORD.PanelEndGame = function(config) {
       _this4.tween({
         name: 'hide'
       }, function() {
-        window.open(NORD.SHARE_URL.TWITTER, '_blank');
+        window.open(NORD.SHARE_URL.FB, '_blank');
         NORD.game.screenGame.toMainMenu();
       });
     });
+  }, this);
 
-
-
-    //share code here
+    this.twitter_ShareButton = Util.createButton('btn', this, null, '', 125, 125, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+      texture: 'ShareButton',
+      aX: 0.5,
+      aY: 0.5,
+      scaleX: 0.10,
+      scaleY: 0.35
+    });
+    this.twitter_ShareButton.on('button_click', function(data) {
+  
+      var _this4 = this;
+  
+      if (this.state !== 'show') return;
+      TweenMax.delayedCall(0.07 * 2, function() {
+        _this4.tween({
+          name: 'hide'
+        }, function() {
+          window.open(NORD.SHARE_URL.TWITTER, '_blank');
+          NORD.game.screenGame.toMainMenu();
+        });
+      });
   }, this);
 
   // this.scoreLeft = new NORD.ScreenGame.ScoreText();
@@ -712,7 +730,8 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
   var redDots2 = PIXI.Texture.fromFrame('RedDots2');
 
   this.buttonHome.position.x = -75;
-  this.shareButton.visible = true;
+  this.fb_ShareButton.visible = true;
+  this.twitter_ShareButton.visible = true;
   this.bg.texture = bluePanel;
   this.stars.texture = stars
   this.stars2.texture = stars2
@@ -730,7 +749,8 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
 
 
     this.Highlights.visible = false;
-    this.shareButton.visible = false;
+    this.fb_ShareButton.visible = false;
+    this.twitter_ShareButton.visible = false;
     this.rays.visible = false;
 
     this.buttonHome.position.x = 0;
@@ -762,7 +782,8 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
       this.scoreHeader2.text = NORD.playersName.playerName;
 
       this.Highlights.visible = false;
-      this.shareButton.visible = false;
+      this.fb_ShareButton.visible = false;
+      this.twitter_ShareButton.visible = false;
       this.rays.visible = false;
 
       this.buttonHome.position.x = 0;

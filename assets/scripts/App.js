@@ -23,8 +23,8 @@ NORD.events = new EventEmitter()
 NORD.demo = null;
 
 NORD.SHARE_URL = {
-  FB: "https://www.facebook.com/sharer/sharer.php?u=hai;src=sdkpreparse",
-  TWITTER: "https://twitter.com/intent/tweet?ui_metrics=",
+  FB: "https://www.facebook.com/sharer/sharer.php?u=google.com",
+  TWITTER: "https://twitter.com/intent/tweet?text=hey check it out Pong Wars",
 }
 
 NORD.MULTIPLAYER_GAME_MODE = {
