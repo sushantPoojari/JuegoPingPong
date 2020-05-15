@@ -33,17 +33,17 @@
     ],
     "classic": [
         {
-            "title": "Normal Mode",
+            "title": "NORMAL MODE",
             "description": "description1",
             "image":"TNormal"
         },
         {
-            "title": "Diamond Mode",
+            "title": "DIAMOND MODE",
             "description": "description2",
             "image":"TDiamond"
         },
         {
-            "title": "Parallel Mode",
+            "title": "PARALLEL MODE",
             "description": "description3",
             "image":"TParralel"
         }
