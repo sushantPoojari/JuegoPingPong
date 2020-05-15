@@ -182,7 +182,16 @@ NORD.ScreenMainMenu = function(config) {
   });
   this.subModeSelectionPopup.visible = false;
 
+  /***************************************************************************************Tutorial Popup*********************************************************************************************/
+  this.panelTutorial = new NORD.PanelTutorial({
+    name: 'panel_tutorial',
+    parentPanel: NORD.GUIManager.stage,
+    container: this
+  });
+  this.panelTutorial.visible = false;
   /************************************************************************************************************************************************************************************/
+
+
 
   this.boardSelected = 'board_2';
   this.ballDiamondGeneratedPos = 0;
@@ -1757,6 +1766,25 @@ NORD.subModeSelectionPopup = function(config) {
   this.popupHeader.position.set(0, -195);
   this.addChild(this.popupHeader);
 
+  this.tutorialButton = Util.createButton('btn', this, null, '', 160, -195, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
+    texture: 'Info',
+    parent: this,
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.35
+  });
+
+  this.tutorialButton.soundClick = NORD.assetsManager.getAsset('play_button')
+  this.tutorialButton.addListener('button_click', function(data) {
+    var _this5 = this;
+    if (this.state !== 'show') return;
+    TweenMax.delayedCall(0.07 * 2, function() {
+      _this5.hide("", function() {
+        MainMenuLocation.panelTutorial.show()
+      });
+    });
+  }, this);
+
   this.backButton = Util.createButton('btn', this, null, '', -320, -190, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
     texture: 'BackButton',
     aX: 0.5,
@@ -1774,7 +1802,6 @@ NORD.subModeSelectionPopup = function(config) {
         NORD.mainMenu.randomNamePopup.hide();
       });
     });
-
   }, this);
 
   this.switchThrillerMode = this.createSwitcher(0, -140, 'label_Thriller', 'Thriller', 'left', function(side) {
@@ -2046,6 +2073,8 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
   this.loaderTextData.visible = false;
   this.regionPanel.visible = false;
 
+  this.tutorialButton.position.x = 160;
+
   if (config.players == 'three') {
     this.regionPanel.visible = true;
     this.difficultyHeader.text = 'SELECT REGION';
@@ -2061,6 +2090,8 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
     this.switchDificulty.visible = true;
 
   if (config.mode == 'action') {
+    this.tutorialButton.position.x = 120;
+
     this.switchNormalMode.visible = false;
     this.separatorText.visible = true;
 
@@ -2432,6 +2463,230 @@ NORD.subModeSelectionPopup.prototype.tween = function(data, callback) {
       }
     }); // this.tween({ name: 'hide' }, callback);
   }
+  if (data.name == 'show' && this.state != 'show') {
+    this.state = 'show';
+    this.visible = true;
+    this.interactiveChildren = true;
+    this.alpha = 1.0;
+    if (callback) callback();
+  }
+
+  if (data.name == 'hide') {
+    this.state = 'hide';
+    this.visible = false;
+    this.interactiveChildren = false;
+    if (callback) callback();
+  }
+};
+
+/***************************************************************************************Tutorial Popup*************************************************************************************/
+
+NORD.PanelTutorial = function(config) {
+  config.sizeType = 'relative';
+  config.width = 300;
+  config.height = 300;
+  NORD.GUI.BasePanel.call(this, config);
+  var self = this;
+  this.state = 'hide';
+  this.visible = false;
+  this.interactiveChildren = false; // this.alpha = 0;
+
+  this.backBG = Util.createSprite({
+    parent: this,
+    texture: 'BG',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.55,
+    scaleY: 0.5
+  });
+  this.addChild(this.backBG);
+
+  this.bg = Util.createSprite({
+    parent: this,
+    texture: 'PauseBg',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 0.65,
+    scaleY: 0.55
+  });
+
+  this.popupHeader = new PIXI.Text('MODE NAME', {
+    parent: this.bg,
+    fontFamily: 'Squada One',
+    fontSize: 68,
+    fill: 'white',
+    align: 'center'
+  });
+  this.popupHeader.anchor.set(0.5);
+  this.popupHeader.position.set(0,  -this.bg.height * 0.60);
+  this.bg.addChild(this.popupHeader);
+
+  this.dividerLine = Util.createSprite({
+    parent: this,
+    x: 0,
+    y: -100,
+    texture: 'Separator',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.25
+  });
+
+  this.description = new PIXI.Text('kjugshkfvhjs vjfskhavkhsvf fsavkhf\n vsfasa saffas fasaf fsa fasfafs fsa', {
+    fontFamily: 'Squada One',
+    fontSize: 24,
+    fill: 'white',
+    align: 'center'
+  });
+  this.description.anchor.set(0, 0.5);
+  this.description.position.set(-this.bg.width * 0.525, -50);
+  this.bg.addChild(this.description);
+
+  this.gameScreenShotBg = Util.createSprite({
+    parent: this.bg,
+    x: 175,
+    y: 50,
+    texture: 'PauseBg',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.35,
+  });
+  this.gameScreenShotBg.angle = 90;
+
+  this.gameScreenShot = Util.createSprite({
+    parent: this.gameScreenShotBg,
+    x: 0,
+    y: 0,
+    texture: 'LocalMultiplayer',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.95,
+  });
+  this.gameScreenShot.angle = -90;
+
+
+  this.nextButton = Util.createButton('btn', this, null, '', this.bg.width * 0.40, 25, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
+    texture: 'Arrow',
+    parent:this.bg,
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.5
+  });
+  this.nextButton.angle = 180;
+
+  this.nextButton.soundClick = NORD.assetsManager.getAsset('play_button')
+  this.nextButton.addListener('button_click', function(data) {
+    var _this5 = this;
+   
+    if (this.state !== 'show') return;
+    TweenMax.delayedCall(0.07 * 2, function() {
+      _this5.hide("", function() {
+       
+      });
+    });
+  }, this);
+
+  this.previousButton = Util.createButton('btn', this, null, '',  -this.bg.width * 0.40, 25, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
+    texture: 'Arrow',
+    parent:this.bg,
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.5,
+  });
+ 
+  this.previousButton.soundClick = NORD.assetsManager.getAsset('play_button')
+  this.previousButton.addListener('button_click', function(data) {
+    var _this5 = this;
+   
+    if (this.state !== 'show') return;
+    TweenMax.delayedCall(0.07 * 2, function() {
+      _this5.hide("", function() {
+        
+      });
+    });
+  }, this);
+
+  this.okButton = Util.createButton('btn', this, null, '', 0, this.bg.height * 0.45, 50, 50, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('BackButton'), {
+    texture: 'ContinueButton',
+    parent:this.bg,
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.4
+  });
+
+  this.okButton.soundClick = NORD.assetsManager.getAsset('play_button')
+  this.okButton.addListener('button_click', function(data) {
+    var _this5 = this;
+   
+    if (this.state !== 'show') return;
+    TweenMax.delayedCall(0.07 * 2, function() {
+      _this5.hide("", function() {
+        MainMenuLocation.panelTutorial.hide();
+      });
+    });
+  }, this);
+};
+
+NORD.PanelTutorial.prototype = Object.create(NORD.GUI.BasePanel.prototype);
+NORD.PanelTutorial.prototype.constructor = NORD.PanelPause;
+
+NORD.PanelTutorial.prototype.show = function(data) {
+
+  this.tween({
+    name: 'show_anim'
+  });
+};
+
+NORD.PanelTutorial.prototype.hide = function(data, callback) {
+  this.tween({
+    name: 'hide_anim'
+  }, function() {
+    if (callback) callback();
+  });
+};
+
+NORD.PanelTutorial.prototype.tween = function(data, callback) {
+  var self = this;
+
+  if (data.name == 'show_anim' && this.state == 'hide') {
+    this.state = 'show_anim';
+    this.visible = true;
+    this.alpha = 0;
+    this.y = -30;
+    var time = 6 / 30;
+    TweenMax.to(this, time, {
+      alpha: 1,
+      x: 0,
+      y: 0,
+      ease: Power2.easeOut,
+      onComplete: function onComplete() {
+        self.tween({
+          name: 'show'
+        }, callback);
+      }
+    }); // this.tween({ name: 'show' }, callback);
+  }
+
+  if (data.name == 'hide_anim' && this.state == 'show') {
+    this.state = 'hide_anim';
+    this.interactiveChildren = false;
+    TweenMax.to(NORD.game.screenGame.buttonPause.regularSkin, 6 / 30, {
+      alpha: 1,
+      ease: Power2.easeOut
+    });
+    var time = 6 / 30;
+    TweenMax.to(this, time, {
+      alpha: 0,
+      x: 0,
+      y: -30,
+      ease: Power2.easeOut,
+      onComplete: function onComplete() {
+        self.tween({
+          name: 'hide'
+        }, callback);
+      }
+    }); // this.tween({ name: 'hide' }, callback);
+  }
+
   if (data.name == 'show' && this.state != 'show') {
     this.state = 'show';
     this.visible = true;
