@@ -252,8 +252,7 @@ NORD.ScreenGame.prototype.toGame = function(board) {
   this.buttonPause.regularSkin.texture = pauseButton;
   this.buttonPause.scale.set(0.90);
 
-  if(NORD.game.currentPlayer == 'three')
-  {
+  if (NORD.game.currentPlayer == 'three') {
     this.buttonPause.regularSkin.texture = closeButton;
     this.buttonPause.scale.set(0.75);
   }
@@ -361,6 +360,15 @@ NORD.ScreenGame.prototype.tween = function(data, callback) {
           } else {
             NORD.playersName.opponentName = DemoLoadFunction.actors[i].name;
           }
+      }
+      if (NORD.playersName.playerName == NORD.playersName.opponentName) {
+        if (IsHost) {
+          NORD.playersName.playerName = NORD.playersName.playerName + "@1";
+          NORD.playersName.opponentName = NORD.playersName.opponentName + "@2";
+        } else {
+          NORD.playersName.opponentName = NORD.playersName.opponentName + "@1";
+          NORD.playersName.playerName = NORD.playersName.playerName + "@2";
+        }
       }
     }
     this.rightPlayerText.text = "";
@@ -673,25 +681,25 @@ NORD.PanelEndGame = function(config) {
     });
   }, this);
 
-    this.twitter_ShareButton = Util.createButton('btn', this, null, '', 65, 135, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
-      texture: 'Twitter_ShareButton',
-      aX: 0.5,
-      aY: 0.5,
-      scaleXY: 0.40
-    });
-    this.twitter_ShareButton.on('button_click', function(data) {
-  
-      var _this4 = this;
-  
-      if (this.state !== 'show') return;
-      TweenMax.delayedCall(0.07 * 2, function() {
-        _this4.tween({
-          name: 'hide'
-        }, function() {
-          window.open(NORD.SHARE_URL.TWITTER, '_blank');
-          NORD.game.screenGame.toMainMenu();
-        });
+  this.twitter_ShareButton = Util.createButton('btn', this, null, '', 65, 135, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
+    texture: 'Twitter_ShareButton',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 0.40
+  });
+  this.twitter_ShareButton.on('button_click', function(data) {
+
+    var _this4 = this;
+
+    if (this.state !== 'show') return;
+    TweenMax.delayedCall(0.07 * 2, function() {
+      _this4.tween({
+        name: 'hide'
+      }, function() {
+        window.open(NORD.SHARE_URL.TWITTER, '_blank');
+        NORD.game.screenGame.toMainMenu();
       });
+    });
   }, this);
 
   // this.scoreLeft = new NORD.ScreenGame.ScoreText();
@@ -739,7 +747,7 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
   this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
   this.scoreLabel2.text = NORD.game.field.players.LEFT.roundScore;
 
-  this.scoreLabel.style.fill = this.scoreLabel2.style.fill ='#23ccfd'
+  this.scoreLabel.style.fill = this.scoreLabel2.style.fill = '#23ccfd'
 
   if (winner === 'AI') {
     this.HeaderText.text = "YOU LOST";
@@ -747,7 +755,7 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
     this.scoreHeader.text = "COMPUTER SCORE"
     this.scoreHeader2.text = "YOUR SCORE";
 
-    this.scoreLabel.style.fill = this.scoreLabel2.style.fill ='#fc0d1b'
+    this.scoreLabel.style.fill = this.scoreLabel2.style.fill = '#fc0d1b'
 
     this.Highlights.visible = false;
     this.fb_ShareButton.visible = false;
@@ -782,7 +790,7 @@ NORD.PanelEndGame.prototype.setText = function(winner) {
       this.scoreHeader.text = NORD.playersName.opponentName;
       this.scoreHeader2.text = NORD.playersName.playerName;
 
-      this.scoreLabel.style.fill = this.scoreLabel2.style.fill ='#fc0d1b'
+      this.scoreLabel.style.fill = this.scoreLabel2.style.fill = '#fc0d1b'
 
       this.Highlights.visible = false;
       this.fb_ShareButton.visible = false;

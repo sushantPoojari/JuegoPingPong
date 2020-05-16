@@ -2084,7 +2084,7 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
   this.loaderTextData.visible = false;
   this.regionPanel.visible = false;
 
-  this.tutorialButton.position.x = 180;
+  this.tutorialButton.position.x = 160;
 
   if (config.players == 'three') {
     this.regionPanel.visible = true;
