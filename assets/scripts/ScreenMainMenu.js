@@ -166,7 +166,7 @@ NORD.ScreenMainMenu = function(config) {
       if (NORD.game.config.players == "three")
         _this2.randomNamePopup.show();
       else
-        _this2.subModeSelectionPopup.show();
+        _this2.subModeSelectionPopup.show("initial");
     });
   }, this);
   alignItems([logo, this.containerSwitchers, this.playButton], 460);
@@ -1607,7 +1607,7 @@ NORD.randomNamePopup = function(config) {
           DemoLoadFunction.disconnect();
         DemoLoadFunction = undefined;
         NORD.mainMenu.multiplayerSelectionPopup.startPhotonSerer();
-        NORD.game.screenMainMenu.subModeSelectionPopup.show();
+        NORD.game.screenMainMenu.subModeSelectionPopup.show("initial");
         NORD.mainMenu.randomNamePopup.hide();
       } else {
         if (NORD.mainMenu.randomNamePopup.errorText.tweenBodyAlpha != null)
@@ -2093,20 +2093,18 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
     this.difficultyHeader.text = 'SELECT REGION';
     this.switchDificulty.visible = false;
     this.switchRegion.visible = true;
-    if(!this.isFromTutorial)
-    {
+    if (data == "initial") {
       this.loadingIndicator.visible = true;
       this.transparentLayer.visible = true;
       this.loaderTextData.visible = true;
       this.disableAllButtons();
-    }
-    else
+    } else
       this.enableAllButtons();
 
     this.playButton.regularSkin.texture = RandomPlay;
     this.isFromTutorial = false;
 
-    
+
   } else
     this.switchDificulty.visible = true;
 
@@ -2613,7 +2611,7 @@ NORD.PanelTutorial = function(config) {
     if (this.state !== 'show') return;
     TweenMax.delayedCall(0.07 * 2, function() {
       _this5.hide("", function() {
-        MainMenuLocation.subModeSelectionPopup.show();
+        MainMenuLocation.subModeSelectionPopup.show("");
       });
     });
   }, this);
