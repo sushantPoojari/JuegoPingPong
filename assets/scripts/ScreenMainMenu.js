@@ -1600,7 +1600,6 @@ NORD.randomNamePopup = function(config) {
     if (this.state !== 'show') return;
     TweenMax.delayedCall(0.07 * 2, function() {
       if (!Util.compareProfanityWords(NORD.mainMenu.randomNamePopup.l_playerName.text)) {
-        MainMenuLocation.enableAllButtons();
         NORD.App.playerController.setName(NORD.mainMenu.randomNamePopup.l_playerName.text);
 
         if (DemoLoadFunction != null)
