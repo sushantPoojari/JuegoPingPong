@@ -2415,6 +2415,7 @@ RoundGenerator.prototype.initRoundMode = function() {
       fill: 'white',
       align: 'center'
     });
+    this.modeName.resolution = 2;
     this.modeName.anchor.set(0.5);
     this.modeName.position.set(0, 0);
     this.roundModeLabel.addChild(this.modeName);

@@ -67,6 +67,7 @@ NORD.LoadingPopup = function(config) {
     width: 250,
     height: 150
   });
+  this.playerName.resolution = 2;
   this.playerName.anchor.set(0.5);
   this.playerName.position.x = 500;
   this.playerName.position.y = 250;
@@ -92,6 +93,7 @@ NORD.LoadingPopup = function(config) {
     width: 250,
     height: 150
   });
+  this.playerName.resolution = 2;
   this.playerName.anchor.set(0.5);
   this.playerName.position.x = -500;
   this.playerName.position.y = 250;
@@ -103,6 +105,7 @@ NORD.LoadingPopup = function(config) {
     fill: 'white',
     align: 'center',
   });
+  this.loaderText.resolution = 2;
   this.loaderText.anchor.set(0.5);
   this.loaderText.position.x = 0;
   this.loaderText.position.y = -400;
@@ -124,6 +127,7 @@ NORD.LoadingPopup = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.timerText.resolution = 2;
   this.timerText.anchor.set(0.5);
   this.timerText.position.set(0, 435);
   this.bg.addChild(this.timerText);

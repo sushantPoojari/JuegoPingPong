@@ -225,11 +225,6 @@ NORD.initGameDefinitions = function() {
     formats: audioFormats
   }, {
     type: 'AUDIO',
-    name: 'BlackHole',
-    url: 'assets/sound/BlackHole',
-    formats: audioFormats
-  }, {
-    type: 'AUDIO',
     name: 'Shrinking',
     url: 'assets/sound/Shrinking',
     formats: audioFormats
@@ -382,7 +377,7 @@ NORD.initGameDefinitions = function() {
     url: 'assets/images/popup/gameplayPopup/Mode/Shadow-bubble.png'
   }, {
     name: 'Blackhole',
-    url: 'assets/images/popup/gameplayPopup/Mode/Blackhole.png'
+    url: 'assets/images/popup/gameplayPopup/Mode/BlackholePower.png'
   }, {
     name: 'BackButton',
     url: 'assets/images/common/BackButton.png'

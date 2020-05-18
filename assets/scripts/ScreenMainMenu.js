@@ -560,6 +560,7 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
       fill: 'white',
       align: 'center'
     });
+    text.resolution = 2;
     text.anchor.set(0.5);
     if (switcher == "Difficulty" || switcher == "Thriller") text.style.fontSize = 34;
     return text;
@@ -1515,6 +1516,7 @@ NORD.randomNamePopup = function(config) {
     fill: 'white',
     align: 'center'
   });
+  textTitle.resolution = 2;
   textTitle.anchor.set(0.5);
   textTitle.position.set(0, -this.bg.height * 0.7);
   this.bg.addChild(textTitle);
@@ -1527,6 +1529,7 @@ NORD.randomNamePopup = function(config) {
     fill: 'red',
     align: 'center'
   });
+  this.errorText.resolution = 2;
   this.errorText.anchor.set(0.5);
   this.errorText.position.set(0, this.bg.height * 0.5);
   this.bg.addChild(this.errorText);
@@ -1556,6 +1559,7 @@ NORD.randomNamePopup = function(config) {
     }
 
   })
+  this.l_playerName.resolution = 2;
   this.l_playerName.maxLength = 12;
 
   this.l_playerName.placeholder = 'eg. creedCrimson'
@@ -1762,6 +1766,7 @@ NORD.subModeSelectionPopup = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.popupHeader.resolution = 2;
   this.popupHeader.anchor.set(0.5);
   this.popupHeader.position.set(0, -195);
   this.addChild(this.popupHeader);
@@ -1835,6 +1840,7 @@ NORD.subModeSelectionPopup = function(config) {
     fill: '#00ff1e',
     align: 'center',
   });
+  this.separatorText.resolution = 2;
   this.separatorText.anchor.set(0.5);
   this.separatorText.position.set(0, -55);
   this.addChild(this.separatorText);
@@ -1866,6 +1872,7 @@ NORD.subModeSelectionPopup = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.difficultyHeader.resolution = 2;
   this.difficultyHeader.anchor.set(0.5);
   this.difficultyHeader.position.set(0, 60);
   this.addChild(this.difficultyHeader);
@@ -1922,6 +1929,7 @@ NORD.subModeSelectionPopup = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.regionPanelServerName.resolution = 2;
   this.regionPanelServerName.anchor.set(0, 0.5);
   this.regionPanelServerName.position.set(-this.regionPanel.width / 4.5, 0);
   this.regionPanel.addChild(this.regionPanelServerName);
@@ -1940,26 +1948,27 @@ NORD.subModeSelectionPopup = function(config) {
     NORD.audioManager.stopAudio('BGM');
 
     var config = NORD.game.config;
+
     if (config.players == 'three') {
-      if (NORD.mainMenu.isAllButtonEnabled == true) {
+      // if (NORD.mainMenu.isAllButtonEnabled == true) {
 
-        NORD.MultiplayerPopupSowed = true;
-        var _this2 = MainMenuLocation;
+      NORD.MultiplayerPopupSowed = true;
+      var _this2 = MainMenuLocation;
 
-        NORD.gameState = NORD.GAME_STATE.SERARCHING;
+      NORD.gameState = NORD.GAME_STATE.SERARCHING;
 
-        MainMenuLocation.disableAllButtons();
-        TweenMax.delayedCall(0.07 * 2, function() {
+      MainMenuLocation.disableAllButtons();
+      TweenMax.delayedCall(0.07 * 2, function() {
 
-          var currentTime = Date.now();
+        var currentTime = Date.now();
 
-          var connectedReg = NORD.game.config.region;
-          localStorage.setItem('savedServerRegion', connectedReg);
-          console.log("connected region " + connectedReg);
-          DemoLoadFunction.connectToRegionMaster(connectedReg);
-          // _this2.multilayerPanel.show();
-        });
-      }
+        var connectedReg = NORD.game.config.region;
+        localStorage.setItem('savedServerRegion', connectedReg);
+        console.log("connected region " + connectedReg);
+        DemoLoadFunction.connectToRegionMaster(connectedReg);
+        // _this2.multilayerPanel.show();
+      });
+      // }
     } else {
       MainMenuLocation.boardSelected = config.board;
 
@@ -1998,6 +2007,7 @@ NORD.subModeSelectionPopup = function(config) {
     fill: 'white',
     align: 'center',
   });
+  this.loaderTextData.resolution = 2;
   this.loaderTextData.anchor.set(0.5);
   this.loaderTextData.position.x = 0;
   this.loaderTextData.position.y = 100;
@@ -2525,6 +2535,7 @@ NORD.PanelTutorial = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.popupHeader.resolution = 2;
   this.popupHeader.anchor.set(0.5);
   this.popupHeader.position.set(0, -195);
   this.addChild(this.popupHeader);
@@ -2545,6 +2556,7 @@ NORD.PanelTutorial = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.description.resolution = 2;
   this.description.anchor.set(0.5);
   this.description.position.set(-120, 40);
   this.addChild(this.description);

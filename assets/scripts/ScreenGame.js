@@ -132,6 +132,7 @@ NORD.ScreenGame = function(config) {
     aX: 0,
     aY: 0.5,
   });
+  this.serverText.resolution = 2;
   this.serverText.position.set(this.field.config.FIELD_WIDTH / 2.45, this.field.config.FIELD_HEIGHT / 1.93);
   this.addChild(this.serverText);
 
@@ -144,6 +145,7 @@ NORD.ScreenGame = function(config) {
     aX: 0,
     aY: 0.5,
   });
+  this.ActualServerpingText.resolution = 2;
   this.ActualServerpingText.position.set(-this.field.config.FIELD_WIDTH / 2.4, this.field.config.FIELD_HEIGHT / 1.93);
   this.addChild(this.ActualServerpingText);
 
@@ -181,6 +183,7 @@ NORD.ScreenGame = function(config) {
     fill: '#5e7591',
     align: 'center'
   });
+  this.leftPlayerText.resolution = 2;
   this.leftPlayerText.anchor.set(0, 0.5);
   this.leftPlayerText.position.set(-this.field.config.FIELD_WIDTH / 2.5, -this.field.config.FIELD_HEIGHT / 2.45);
   this.addChild(this.leftPlayerText);
@@ -192,6 +195,7 @@ NORD.ScreenGame = function(config) {
     fill: '#5e7591',
     align: 'center'
   });
+  this.rightPlayerText.resolution = 2;
   this.rightPlayerText.anchor.set(1, 0.5);
   this.rightPlayerText.position.set(this.field.config.FIELD_WIDTH / 2.5, -this.field.config.FIELD_HEIGHT / 2.45);
   this.addChild(this.rightPlayerText);
@@ -429,6 +433,7 @@ NORD.ScreenGame.ScoreText = function() {
     fill: '#5e7591',
     align: 'center'
   });
+  this.scoreText.resolution = 2;
   this.scoreText.anchor.set(0.5);
   this.addChild(this.scoreText);
 };
@@ -573,6 +578,7 @@ NORD.PanelEndGame = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.HeaderText.resolution = 2;
   this.HeaderText.anchor.set(0.5);
   this.HeaderText.position.set(0, 0);
   this.HeaderPanel.addChild(this.HeaderText);
@@ -583,6 +589,7 @@ NORD.PanelEndGame = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.scoreHeader.resolution = 2;
   this.scoreHeader.anchor.set(0.5);
   this.scoreHeader.position.set(0, -70);
   this.addChild(this.scoreHeader);
@@ -604,6 +611,7 @@ NORD.PanelEndGame = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.scoreLabel.resolution = 2;
   this.scoreLabel.anchor.set(0.5);
   this.scoreLabel.position.set(0, -125);
   this.bg.addChild(this.scoreLabel);
@@ -614,6 +622,7 @@ NORD.PanelEndGame = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.scoreHeader2.resolution = 2;
   this.scoreHeader2.anchor.set(0.5);
   this.scoreHeader2.position.set(0, 25);
   this.addChild(this.scoreHeader2);
@@ -624,6 +633,7 @@ NORD.PanelEndGame = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.scoreLabel2.resolution = 2;
   this.scoreLabel2.anchor.set(0.5);
   this.scoreLabel2.position.set(0, 70);
   this.bg.addChild(this.scoreLabel2);
@@ -966,6 +976,7 @@ NORD.PanelPause = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.popupHeader.resolution = 2;
   this.popupHeader.anchor.set(0.5);
   this.popupHeader.position.set(0, -this.bg.height * this.bg.scale.y * 0.65);
   this.addChild(this.popupHeader);
@@ -986,6 +997,7 @@ NORD.PanelPause = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.scoreHeader.resolution = 2;
   this.scoreHeader.anchor.set(0.5);
   this.scoreHeader.position.set(0, -25);
   this.addChild(this.scoreHeader);
@@ -1006,6 +1018,7 @@ NORD.PanelPause = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.scoreLabel.resolution = 2;
   this.scoreLabel.anchor.set(0.5);
   this.scoreLabel.position.set(0, 0);
   this.Highlights.addChild(this.scoreLabel);
@@ -1211,6 +1224,7 @@ NORD.PanelPause2 = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.popupHeader.resolution = 2;
   this.popupHeader.anchor.set(0.5);
   this.popupHeader.position.set(0, -this.bg.height * this.bg.scale.y * 0.65);
   this.addChild(this.popupHeader);
@@ -1231,6 +1245,7 @@ NORD.PanelPause2 = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.scoreHeader.resolution = 2;
   this.scoreHeader.anchor.set(0.5);
   this.scoreHeader.position.set(0, -55);
   this.addChild(this.scoreHeader);
@@ -1251,6 +1266,7 @@ NORD.PanelPause2 = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.scoreLabel.resolution = 2;
   this.scoreLabel.anchor.set(0.5);
   this.scoreLabel.position.set(0, 0);
   this.Highlights.addChild(this.scoreLabel);
@@ -1261,6 +1277,7 @@ NORD.PanelPause2 = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.scoreHeader2.resolution = 2;
   this.scoreHeader2.anchor.set(0.5);
   this.scoreHeader2.position.set(0, 50);
   this.addChild(this.scoreHeader2);
@@ -1281,6 +1298,7 @@ NORD.PanelPause2 = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.scoreLabel2.resolution = 2;
   this.scoreLabel2.anchor.set(0.5);
   this.scoreLabel2.position.set(0, 0);
   this.Highlights2.addChild(this.scoreLabel2);
@@ -1467,6 +1485,7 @@ NORD.PanelQuit = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.popupHeader.resolution = 2;
   this.popupHeader.anchor.set(0.5);
   this.popupHeader.position.set(0, -this.bg.height * this.bg.scale.y * 0.65);
   this.addChild(this.popupHeader);
@@ -1487,6 +1506,7 @@ NORD.PanelQuit = function(config) {
     fill: 'white',
     align: 'center'
   });
+  this.warningTExt.resolution = 2;
   this.warningTExt.anchor.set(0.5);
   this.warningTExt.position.set(0, 25);
   this.addChild(this.warningTExt);

@@ -871,11 +871,12 @@ var GameStartText = function GameStartText() {
     fill: 'white',
     align: 'center'
   });
+  readyText.resolution = 2;
   readyText.anchor.set(0.5);
   readyText.position.set(0, 0);
   this.textReady.addChild(readyText);
 
-  this.textGo =  Util.createSprite({
+  this.textGo = Util.createSprite({
     texture: 'GreenRibbon',
     parent: this,
     aX: 0.5,
@@ -889,6 +890,7 @@ var GameStartText = function GameStartText() {
     fill: 'white',
     align: 'center'
   });
+  goText.resolution = 2;
   goText.anchor.set(0.5);
   goText.position.set(0, 0);
   this.textGo.addChild(goText);
