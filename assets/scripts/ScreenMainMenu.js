@@ -1746,6 +1746,7 @@ NORD.subModeSelectionPopup = function(config) {
   this.visible = false;
   this.interactiveChildren = false; // this.alpha = 0;
   this.board = "board_1";
+  this.isFromTutorial = false;
 
 
   this.bg = Util.createSprite({
@@ -1780,6 +1781,7 @@ NORD.subModeSelectionPopup = function(config) {
     if (this.state !== 'show') return;
     TweenMax.delayedCall(0.07 * 2, function() {
       _this5.hide("", function() {
+        _this5.isFromTutorial = true;
         MainMenuLocation.panelTutorial.counterValue = 0;
         MainMenuLocation.panelTutorial.nextButton.visible = true;
         MainMenuLocation.panelTutorial.previousButton.visible = false;
@@ -2091,12 +2093,20 @@ NORD.subModeSelectionPopup.prototype.show = function(data) {
     this.difficultyHeader.text = 'SELECT REGION';
     this.switchDificulty.visible = false;
     this.switchRegion.visible = true;
-    this.loadingIndicator.visible = true;
-    this.transparentLayer.visible = true;
-    this.loaderTextData.visible = true;
-    this.playButton.regularSkin.texture = RandomPlay;
+    if(!this.isFromTutorial)
+    {
+      this.loadingIndicator.visible = true;
+      this.transparentLayer.visible = true;
+      this.loaderTextData.visible = true;
+      this.disableAllButtons();
+    }
+    else
+      this.enableAllButtons();
 
-    this.disableAllButtons();
+    this.playButton.regularSkin.texture = RandomPlay;
+    this.isFromTutorial = false;
+
+    
   } else
     this.switchDificulty.visible = true;
 
