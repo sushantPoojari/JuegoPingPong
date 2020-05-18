@@ -83,6 +83,7 @@ NORD.ScreenMainMenu = function(config) {
     scaleX: 0.4,
     scaleY: 0.4
   });
+  logo.alpha = 0;
   this.containerSwitchers = new PIXI.Container();
   this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
 
