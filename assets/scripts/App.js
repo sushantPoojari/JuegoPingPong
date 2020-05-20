@@ -565,6 +565,9 @@ NORD.initGameDefinitions = function() {
     name: 'pongDim',
     url: 'assets/images/title/pongDim.png'
   }, {
+    name: 'warDim',
+    url: 'assets/images/title/warsDim.png'
+  }, {
     name: 'Pong',
     url: 'assets/images/title/Pong.png'
   }, {

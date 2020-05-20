@@ -111,7 +111,9 @@ NORD.ScreenMainMenu = function(config) {
     texture: 'pongDim',
     aX: 0.5,
     aY: 0.5,
+    y: -10,
     scaleXY: 1,
+    alpha: 0.6,
   });
 
   this.imageMask = Util.createSprite({
@@ -119,7 +121,7 @@ NORD.ScreenMainMenu = function(config) {
     texture: 'mask',
     aX: 0.5,
     aY: 0.5,
-    x: 200,
+    x: 300,
     scaleXY: 1,
   });
   this.ponglogoDim.mask = this.imageMask;
@@ -143,6 +145,51 @@ NORD.ScreenMainMenu = function(config) {
       onComplete: function onComplete() {
         setTimeout(function() {
           moveMaskLayerFront();
+        }, 1000);
+      }
+    });
+  };
+
+
+  this.ponglogoDim1 = Util.createSprite({
+    parent: logo1,
+    texture: 'warDim',
+    aX: 0.5,
+    aY: 0.5,
+    y: -10,
+    scaleXY: 1,
+    alpha: 0.6,
+  });
+
+  this.imageMask1 = Util.createSprite({
+    parent: logo1,
+    texture: 'mask',
+    aX: 0.5,
+    aY: 0.5,
+    x: -300,
+    scaleXY: 1,
+  });
+  this.ponglogoDim1.mask = this.imageMask1;
+
+  moveMaskLayerBack1();
+
+  function moveMaskLayerFront1() {
+    TweenMax.to(self.imageMask1, 2, {
+      x: -300,
+      onComplete: function onComplete() {
+        setTimeout(function() {
+          moveMaskLayerBack1();
+        }, 1000);
+      }
+    });
+  };
+
+  function moveMaskLayerBack1() {
+    TweenMax.to(self.imageMask1, 2, {
+      x: 300,
+      onComplete: function onComplete() {
+        setTimeout(function() {
+          moveMaskLayerFront1();
         }, 1000);
       }
     });
