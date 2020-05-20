@@ -88,8 +88,8 @@ NORD.MultiplayerSelectionPopup.prototype.onInitializingPhoton = function(event) 
   NORD.MultiplayerPopupSowed = false;
 
   //loading popup
-  NORD.mainMenu.loadingPopup.timerText.timerTextValue = 26;
-  NORD.mainMenu.loadingPopup.timerText.text = "26s";
+  NORD.mainMenu.loadingPopup.timerText.timerTextValue = 31;
+  NORD.mainMenu.loadingPopup.timerText.text = "31s";
   NORD.mainMenu.loadingPopup.Button.alpha = 0;
 
   decreaseTimer();
