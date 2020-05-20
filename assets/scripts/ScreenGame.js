@@ -666,6 +666,7 @@ NORD.PanelEndGame = function(config) {
         name: 'hide'
       }, function() {
         NORD.game.screenGame.buttonPause.regularSkin.alpha = 1.0;
+        NORD.game.config.players = NORD.game.currentPlayer;
         NORD.game.screenGame.toMainMenu();
       });
     });
