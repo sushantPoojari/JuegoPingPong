@@ -979,7 +979,7 @@ NORD.PanelPause = function(config) {
     scaleXY: 0.25
   });
 
-  this.scoreHeader = new PIXI.Text('YOUR SCORE : ', {
+  this.scoreHeader = new PIXI.Text('YOUR SCORE', {
     fontFamily: 'Squada One',
     fontSize: 24,
     fill: 'white',
@@ -1075,7 +1075,7 @@ NORD.PanelPause.prototype.constructor = NORD.PanelPause;
 NORD.PanelPause.prototype.show = function(data) {
   NORD.game.config.players = NORD.game.currentPlayer;
   this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
-  this.scoreHeader.text = "YOUR SCORE :";
+  this.scoreHeader.text = "YOUR SCORE";
 
   if (!MultiplayerStarted) {
     NORD.game.field.setPause(true);

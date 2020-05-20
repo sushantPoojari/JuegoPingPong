@@ -1904,8 +1904,9 @@ var RoundGenerator = function RoundGenerator(field) {
     fontFamily: 'Squada One',
     fontSize: 30,
     fill: 'white',
-    align: 'center'
+    align: 'center',
   });
+  this.pressSpace.alpha = 0.5;
   this.pressSpace.resolution = 2;
   this.pressSpace.anchor.set(0.5);
 

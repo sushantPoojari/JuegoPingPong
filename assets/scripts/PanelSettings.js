@@ -28,7 +28,7 @@ NORD.PanelSettings = function(config) {
 
   this.actionModes = ['STUN_PLAYER', 'KITTY_SHRINK_PADDLE', 'SHADOW_MODE', 'BLACK_HOLE_MODE', 'INVERSE_MODE', 'TELEPORT_MODE', 'DIAMOND_MODE', 'PARALLEL_MODE']; // this.actionModesMap =
 
-  this.actionMode = 'ALL';
+  this.actionMode = NORD.MULTIPLAYER_GAME_MODE_TYPE.STUNPLAYER;
   this.field = NORD.game.field;
   this.config = this.field.config;
   Object.keys(this.config).forEach(function(key) {
@@ -131,7 +131,7 @@ NORD.PanelSettings = function(config) {
   //  console.log('Click!');
   // });
 
- if (window.localStorage.enable_settings) {
+  if (window.localStorage.enable_settings) {
     var keyUp = Util.keyboard({
       code: 'Q'.charCodeAt(0),
       keyDownHandler: function keyDownHandler() {
@@ -178,12 +178,11 @@ NORD.PanelSettings.prototype.updateConfig = function(data) {
   if (this.ballView) this.ballView.setSize(this.config.ballSize.value);
   this.blockUpdatePaddleView = false;
   var n = Math.floor(this.field.config.actionMode.value);
-  this.actionMode = n === 0 ? 'ALL' : this.actionModes[n - 1];
+  this.actionMode = NORD.MULTIPLAYER_GAME_MODE_TYPE.STUNPLAYER;
 
   if (this.labelActionMode) {
     this.labelActionMode.text = this.actionMode;
   } // console.log(actionMode);
-
 };
 
 NORD.PanelSettings.prototype.createPanelAi = function() {
