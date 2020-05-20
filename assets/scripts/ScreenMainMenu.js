@@ -41,6 +41,8 @@ NORD.ScreenMainMenu = function(config) {
   d.removeChild(progress);
   d.removeChild(olddiv);
 
+  localStorage.setItem('savedServerRegion', "asia");
+
   var _this = this;
   NORD.mainMenu = this;
   var isAllButtonEnabled;

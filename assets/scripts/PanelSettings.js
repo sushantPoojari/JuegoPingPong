@@ -289,7 +289,7 @@ NORD.PanelSettings.prototype.createPanelCore = function() {
     label: 'Scores to win:',
     parametr: this.field.config.scoresForWin,
     min: 1,
-    max: 9,
+    max: 11,
     step: 1,
     intOnly: true
   });

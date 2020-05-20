@@ -467,7 +467,7 @@ NORD.RandomSearchInstance.prototype.getRandomRoomOption = function(mode) {
     boardType = NORD.game.config.board;
   }
 
-  for (var i = 0; i < 14; i++) {
+  for (var i = 0; i < 24; i++) {
     var avaiableModes = NORD.game.field.roundGenerator.getAvaiablesModes();
     var roundMode = Util.randomElement(avaiableModes);
     avaiableModes.splice(avaiableModes.indexOf(roundMode), 1);
