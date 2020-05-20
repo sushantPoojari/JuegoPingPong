@@ -238,8 +238,8 @@ NORD.ScreenGame.prototype.update = function() {
   var paddle = this.field.paddleLeft;
   if (!paddle) return; // console.log(paddle.y);
 
-  if (paddle.y < -125) this.buttonPause.alpha = 0.2;
-  else this.buttonPause.alpha = 1.0;
+  // if (paddle.y < -125) this.buttonPause.alpha = 0.2;
+  // else this.buttonPause.alpha = 1.0;
 }; // NORD.ScreenGame.prototype.updateScore = function()
 // {
 //   this.scoreLeft.setScore(this.field.playerLeft.roundScore);
