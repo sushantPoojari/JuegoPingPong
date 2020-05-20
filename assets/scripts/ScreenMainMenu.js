@@ -63,7 +63,7 @@ NORD.ScreenMainMenu = function(config) {
   /*********************************************************************************BG**************************************************************************************************/
   var bg = Util.createSprite({
     parent: this,
-    texture: 'BG',
+    texture: 'mainmenubg',
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.465
@@ -86,6 +86,133 @@ NORD.ScreenMainMenu = function(config) {
   logo.alpha = 0;
   this.containerSwitchers = new PIXI.Container();
   this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
+
+  var logo1 = Util.createSprite({
+    parent: this,
+    texture: 'titelBase',
+    aX: 0.5,
+    aY: 0.5,
+    x: 0,
+    y: -180,
+    scaleX: 0.4,
+    scaleY: 0.4
+  });
+
+  this.ponglogo = Util.createSprite({
+    parent: logo1,
+    texture: 'Pong',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 1,
+  });
+
+  this.ponglogoDim = Util.createSprite({
+    parent: logo1,
+    texture: 'pongDim',
+    aX: 0.5,
+    aY: 0.5,
+    scaleXY: 1,
+  });
+
+  this.imageMask = Util.createSprite({
+    parent: logo1,
+    texture: 'mask',
+    aX: 0.5,
+    aY: 0.5,
+    x: 200,
+    scaleXY: 1,
+  });
+  this.ponglogoDim.mask = this.imageMask;
+
+  moveMaskLayerFront();
+
+  function moveMaskLayerFront() {
+    TweenMax.to(self.imageMask, 2, {
+      x: -300,
+      onComplete: function onComplete() {
+        setTimeout(function() {
+          moveMaskLayerBack();
+        }, 1000);
+      }
+    });
+  };
+
+  function moveMaskLayerBack() {
+    TweenMax.to(self.imageMask, 2, {
+      x: 300,
+      onComplete: function onComplete() {
+        setTimeout(function() {
+          moveMaskLayerFront();
+        }, 1000);
+      }
+    });
+  };
+
+
+  this.stars = Util.createSprite({
+    parent: logo1,
+    texture: 'bluedots1',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 1,
+    scaleY: 0.7,
+  });
+
+  this.stars2 = Util.createSprite({
+    parent: logo1,
+    texture: 'bluedots2',
+    aX: 0.5,
+    aY: 0.5,
+    scaleX: 1,
+    scaleY: 0.7,
+  });
+
+  decreaseStar1Alpha();
+  increaseStar2Alpha();
+
+  function decreaseStar1Alpha() {
+    TweenMax.to(self.stars, 2, {
+      alpha: 0.3,
+      onComplete: function onComplete() {
+        setTimeout(function() {
+          increaseStar1Alpha();
+        }, 1000);
+      }
+    });
+  };
+
+  function increaseStar1Alpha() {
+    TweenMax.to(self.stars, 1, {
+      alpha: 1,
+      onComplete: function onComplete() {
+        setTimeout(function() {
+          decreaseStar1Alpha();
+        }, 1000);
+      }
+    });
+  };
+
+  function decreaseStar2Alpha() {
+    TweenMax.to(self.stars2, 1, {
+      alpha: 0.3,
+      onComplete: function onComplete() {
+        setTimeout(function() {
+          increaseStar2Alpha();
+        }, 1000);
+      }
+    });
+  };
+
+  function increaseStar2Alpha() {
+    TweenMax.to(self.stars2, 2, {
+      alpha: 1,
+      onComplete: function onComplete() {
+        setTimeout(function() {
+          decreaseStar2Alpha();
+        }, 1000);
+      }
+    });
+  };
 
   /*********************************************************************************Game Type**************************************************************************************************/
   this.switcherPlayers = this.createSwitcher(0, startY + 0, 'label_players', 'players', 'left', function(side) {

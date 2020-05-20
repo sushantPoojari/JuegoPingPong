@@ -552,6 +552,27 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'TParralel',
     url: 'assets/images/tutorial/parallelBoard.png'
+  }, {
+    name: 'titelBase',
+    url: 'assets/images/title/title-base.png'
+  }, {
+    name: 'bluedots1',
+    url: 'assets/images/title/blue-dots-1.png'
+  }, {
+    name: 'bluedots2',
+    url: 'assets/images/title/blue-dots-2.png'
+  }, {
+    name: 'pongDim',
+    url: 'assets/images/title/pongDim.png'
+  }, {
+    name: 'Pong',
+    url: 'assets/images/title/Pong.png'
+  }, {
+    name: 'mask',
+    url: 'assets/images/title/mask.png'
+  }, {
+    name: 'mainmenubg',
+    url: 'assets/images/title/mainmenubg.png'
   }]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//

@@ -681,14 +681,8 @@ NORD.PanelEndGame = function(config) {
     var _this4 = this;
 
     if (this.state !== 'show') return;
-    TweenMax.delayedCall(0.07 * 2, function() {
-      _this4.tween({
-        name: 'hide'
-      }, function() {
-        window.open(NORD.SHARE_URL.FB, '_blank');
-        NORD.game.screenGame.toMainMenu();
-      });
-    });
+
+    window.open(NORD.SHARE_URL.FB, '_blank');
   }, this);
 
   this.twitter_ShareButton = Util.createButton('btn', this, null, '', 65, 135, 100, 100, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
@@ -702,14 +696,8 @@ NORD.PanelEndGame = function(config) {
     var _this4 = this;
 
     if (this.state !== 'show') return;
-    TweenMax.delayedCall(0.07 * 2, function() {
-      _this4.tween({
-        name: 'hide'
-      }, function() {
-        window.open(NORD.SHARE_URL.TWITTER, '_blank');
-        NORD.game.screenGame.toMainMenu();
-      });
-    });
+
+    window.open(NORD.SHARE_URL.TWITTER, '_blank');
   }, this);
 
   // this.scoreLeft = new NORD.ScreenGame.ScoreText();
