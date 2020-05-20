@@ -1899,16 +1899,31 @@ var RoundGenerator = function RoundGenerator(field) {
   this.containerScores.addChild(this.roundModeLabel);
   this.roundModeLabel.x = 0;
   this.roundModeLabel.y = -100;
-  this.pressSpace = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: NORD.app.platform === 'mobile' ? 'tap_to_shoot.png' : NORD.game.config.players == 'one' ? 'press_space.png' : 'press_both.png',
-    aX: 0.5,
-    aY: 0.5
+
+  this.pressSpace = new PIXI.Text("", {
+    fontFamily: 'Squada One',
+    fontSize: 30,
+    fill: 'white',
+    align: 'center'
   });
+  this.pressSpace.resolution = 2;
+  this.pressSpace.anchor.set(0.5);
+
+  if (NORD.app.platform == "mobile")
+    this.pressSpace.text = "TAP YOUR SIDE TO SHOOT";
+  if (NORD.game.config.players == 'one')
+    this.pressSpace.text = "PRESS SPACE TO SHOOT";
+  if (NORD.game.config.players == 'two')
+    this.pressSpace.text = "PRESS L. SHIFT TO SHOOT      PRESS SPACE TO SHOOT";
+  if (NORD.game.config.players == 'three')
+    this.pressSpace.text = "PRESS SPACE TO SHOOT";
+
   this.containerScores.addChild(this.pressSpace);
   this.pressSpace.x = 0;
-  this.pressSpace.y = 200;
-  this.pressSpace.visible = false; // this.kittyPointLeft = Util.createSprite({ parent: this.container, atlas: 'texture_atlas', texture: 'kitty_point.png', aX: 0.5, aY: 0.5, x: -90, y: -160 });
+  this.pressSpace.y = 150;
+  this.pressSpace.visible = false;
+
+  // this.kittyPointLeft = Util.createSprite({ parent: this.container, atlas: 'texture_atlas', texture: 'kitty_point.png', aX: 0.5, aY: 0.5, x: -90, y: -160 });
   // this.kittyPointRight = Util.createSprite({ parent: this.container, atlas: 'texture_atlas', texture: 'kitty_point.png', aX: 0.5, aY: 0.5, x: 90, y: -160 });
   // this.kittyPointLeft.visible = false;
   // this.kittyPointRight.visible = false;
@@ -2054,7 +2069,16 @@ var RoundGenerator = function RoundGenerator(field) {
 
   this.field.on('gun_ready', function(paddle) {
     if (paddle.side === 'RIGHT' && !NORD.game.isShootTutorial) {
-      _this12.pressSpace.texture = NORD.assetsManager.getTexture('texture_atlas', NORD.app.platform === 'mobile' ? 'tap_to_shoot.png' : NORD.game.config.players == 'one' ? 'press_space.png' : 'press_both.png');
+
+      if (NORD.app.platform == "mobile")
+        _this12.pressSpace.text = "TAP YOUR SIDE TO SHOOT";
+      if (NORD.game.config.players == 'one')
+        _this12.pressSpace.text = "PRESS SPACE TO SHOOT";
+      if (NORD.game.config.players == 'two')
+        _this12.pressSpace.text = "PRESS L. SHIFT TO SHOOT      PRESS SPACE TO SHOOT";
+      if (NORD.game.config.players == 'three')
+        _this12.pressSpace.text = "PRESS SPACE TO SHOOT";
+
       _this12.pressSpace.visible = true;
     }
   });
