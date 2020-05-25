@@ -42,6 +42,7 @@ NORD.ScreenMainMenu = function(config) {
   d.removeChild(olddiv);
 
   localStorage.setItem('savedServerRegion', "asia");
+  localStorage.setItem('audioStatus', false);
 
   var _this = this;
   NORD.mainMenu = this;
@@ -324,6 +325,9 @@ NORD.ScreenMainMenu = function(config) {
       }
     }
   });
+  // NORD.mainMenu.audioButton.setState(true);
+  NORD.audioManager.switchMute(true);
+
 
   /***************************************************************************************Play Button*************************************************************************************/
   this.playButton = Util.createButton('btn', this, null, '', 0, 200, 147, 68, NORD.game.tweenClickSimple, NORD.assetsManager.getAsset('play_button'), {
