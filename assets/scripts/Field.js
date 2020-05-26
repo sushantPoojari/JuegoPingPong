@@ -423,7 +423,9 @@ NORD.Field = function() {
   NORD.app.on('update', this.update, this);
   NORD.app.on('update_after', this.updateAfter, this);
 
-
+  this.fieldBlur = new PIXI.filters.BlurFilter();
+  this.filters = [this.fieldBlur];
+  this.fieldBlur.blur = 0;
 };
 
 NORD.Field.prototype = Object.create(PIXI.Container.prototype);

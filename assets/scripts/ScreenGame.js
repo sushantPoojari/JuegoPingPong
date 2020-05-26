@@ -78,6 +78,20 @@ NORD.ScreenGame = function(config) {
     scaleXY: 0.4
   });
 
+  this.buttonPauseFiller = Util.createSprite({
+    parent: this,
+    texture: 'PauseButton',
+    aX: 0.5,
+    aY: 0.5,
+    x: -710 / 2 + 32 / 2 + 10,
+    y: -550 / 2 + 32 / 2 + 30,
+    scaleXY: 0.4
+  });
+
+  this.pauseBlur = new PIXI.filters.BlurFilter();
+  this.buttonPauseFiller.filters = [this.pauseBlur];
+  this.pauseBlur.blur = 0;
+
 
   this.buttonPause.on('button_click', function(data) {
     var _this2 = this;
@@ -189,6 +203,10 @@ NORD.ScreenGame = function(config) {
   this.addChild(this.leftPlayerText);
 
 
+  this.fieldleftPlayerTextBlur = new PIXI.filters.BlurFilter();
+  this.leftPlayerText.filters = [this.fieldleftPlayerTextBlur];
+  this.fieldleftPlayerTextBlur.blur = 0;
+
   this.rightPlayerText = new PIXI.Text("", {
     fontFamily: 'Squada One',
     fontSize: 26,
@@ -199,6 +217,10 @@ NORD.ScreenGame = function(config) {
   this.rightPlayerText.anchor.set(1, 0.5);
   this.rightPlayerText.position.set(this.field.config.FIELD_WIDTH / 2.5, -this.field.config.FIELD_HEIGHT / 2.45);
   this.addChild(this.rightPlayerText);
+
+  this.fieldrightPlayerTextBlur = new PIXI.filters.BlurFilter();
+  this.rightPlayerText.filters = [this.fieldrightPlayerTextBlur];
+  this.fieldrightPlayerTextBlur.blur = 0;
   // }
   // //sushant
 
@@ -254,11 +276,15 @@ NORD.ScreenGame.prototype.toGame = function(board) {
   var pauseButton = PIXI.Texture.fromFrame('PauseButton');
   var closeButton = PIXI.Texture.fromFrame('CloseButton');
   this.buttonPause.regularSkin.texture = pauseButton;
+  this.buttonPauseFiller.texture = pauseButton;
   this.buttonPause.scale.set(0.90);
+  this.buttonPauseFiller.scale.set(0.40);
 
   if (NORD.game.currentPlayer == 'three') {
     this.buttonPause.regularSkin.texture = closeButton;
     this.buttonPause.scale.set(0.75);
+    this.buttonPauseFiller.texture = closeButton;
+    this.buttonPauseFiller.scale.set(0.4);
   }
 
   this.field.initGame(this.createBoard(this.boardName));
@@ -279,6 +305,10 @@ NORD.ScreenGame.prototype.toMainMenu = function() {
   var self = this;
   NORD.audioManager.stopAudio('BGM');
   NORD.audioManager.playAudio('BGM');
+  NORD.game.field.fieldBlur.blur = 0;
+  NORD.game.screenGame.pauseBlur.blur = 0;
+  NORD.game.screenGame.fieldleftPlayerTextBlur.blur = 0;
+  NORD.game.screenGame.fieldrightPlayerTextBlur.blur = 0;
   TweenMax.killAll(false, false, true);
   this.tween({
     name: 'hide_anim'
@@ -666,6 +696,7 @@ NORD.PanelEndGame = function(config) {
         name: 'hide'
       }, function() {
         NORD.game.screenGame.buttonPause.regularSkin.alpha = 1.0;
+        NORD.game.screenGame.buttonPauseFiller.alpha = 1.0;
         NORD.game.config.players = NORD.game.currentPlayer;
         NORD.game.screenGame.toMainMenu();
       });
@@ -826,22 +857,14 @@ NORD.PanelEndGame.prototype.show = function(data) {
   //const { winner, playerLeftScore, playerRightScore } = data;
   var winner = data.winner;
   var playerLeftScore = data.playerLeftScore;
-  var playerRightScore = data.playerRightScore; // this.scoreLeft.setScore(playerLeftScore);
-  // this.scoreRight.setScore(playerRightScore);
+  var playerRightScore = data.playerRightScore;
 
-  // //sushant
-  // if (MultiplayerStarted) {
-  //   this.removeChild(this.textWin);
-  //   this.textWin = new PIXI.Text(winner + " \nwins", {
-  //     fontFamily: 'Squada One',
-  //     fontSize: 26,
-  //     fill: 'white',
-  //     align: 'center'
-  //   });
-  //   this.textWin.anchor.set(0.5);
-  //   this.textWin.position.set(0, -40);
-  //   this.addChild(this.textWin);
-  // } else
+
+  NORD.game.field.fieldBlur.blur = 10;
+  NORD.game.screenGame.pauseBlur.blur = 5;
+  NORD.game.screenGame.fieldleftPlayerTextBlur.blur = 5;
+  NORD.game.screenGame.fieldrightPlayerTextBlur.blur = 5;
+
   this.setText(winner);
 
 
@@ -859,6 +882,10 @@ NORD.PanelEndGame.prototype.tween = function(data, callback) {
     this.alpha = 0;
     this.y = -30;
     TweenMax.to(NORD.game.screenGame.buttonPause.regularSkin, 6 / 30, {
+      alpha: 0,
+      ease: Power2.easeOut
+    });
+    TweenMax.to(NORD.game.screenGame.buttonPauseFiller, 6 / 30, {
       alpha: 0,
       ease: Power2.easeOut
     });
@@ -880,6 +907,10 @@ NORD.PanelEndGame.prototype.tween = function(data, callback) {
     this.state = 'hide_anim';
     this.interactiveChildren = false;
     TweenMax.to(NORD.game.screenGame.buttonPause.regularSkin, 6 / 30, {
+      alpha: 1,
+      ease: Power2.easeOut
+    });
+    TweenMax.to(NORD.game.screenGame.buttonPauseFiller, 6 / 30, {
       alpha: 1,
       ease: Power2.easeOut
     });
@@ -923,19 +954,19 @@ NORD.PanelPause = function(config) {
   this.visible = false;
   this.interactiveChildren = false; // this.alpha = 0;
 
-  var TransparentLayer = Util.createSprite({
-    parent: this,
-    texture: 'TransparentLayer',
-    aX: 0.5,
-    aY: 0.5,
-    scaleX: window.innerWidth,
-    scaleY: window.innerHeight,
-  });
+  // var TransparentLayer = Util.createSprite({
+  //   parent: this,
+  //   texture: 'TransparentLayer',
+  //   aX: 0.5,
+  //   aY: 0.5,
+  //   scaleX: window.innerWidth,
+  //   scaleY: window.innerHeight,
+  // });
+  //
+  // TransparentLayer.alpha = 0.5;
 
-  TransparentLayer.alpha = 0.5;
-
-  var blurFilter1 = new PIXI.filters.BlurFilter();
-  TransparentLayer.filters = [blurFilter1];
+  // var blurFilter1 = new PIXI.filters.BlurFilter();
+  // TransparentLayer.filters = [blurFilter1];
 
   this.bg = Util.createSprite({
     parent: this,
@@ -1048,6 +1079,7 @@ NORD.PanelPause = function(config) {
 
         NORD.app.apiCallback('statistics', 'exit');
         NORD.game.screenGame.buttonPause.regularSkin.alpha = 1.0;
+        NORD.game.screenGame.buttonPauseFiller.alpha = 1.0;
         NORD.game.field.setPause(false);
         NORD.game.screenGame.toMainMenu();
       });
@@ -1077,11 +1109,15 @@ NORD.PanelPause.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelPause.prototype.constructor = NORD.PanelPause;
 
 NORD.PanelPause.prototype.show = function(data) {
+  NORD.game.field.fieldBlur.blur = 10;
+  NORD.game.screenGame.pauseBlur.blur = 5;
   NORD.game.config.players = NORD.game.currentPlayer;
   this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
   this.scoreHeader.text = "YOUR SCORE";
 
   if (!MultiplayerStarted) {
+    NORD.game.screenGame.fieldleftPlayerTextBlur.blur = 5;
+    NORD.game.screenGame.fieldrightPlayerTextBlur.blur = 5;
     NORD.game.field.setPause(true);
     TweenMax.pauseAll();
   }
@@ -1094,6 +1130,10 @@ NORD.PanelPause.prototype.hide = function(data, callback) {
   this.tween({
     name: 'hide_anim'
   }, function() {
+    NORD.game.field.fieldBlur.blur = 0;
+    NORD.game.screenGame.pauseBlur.blur = 0;
+    NORD.game.screenGame.fieldleftPlayerTextBlur.blur = 0;
+    NORD.game.screenGame.fieldrightPlayerTextBlur.blur = 0;
     if (!MultiplayerStarted) {
       NORD.game.field.setPause(false);
       TweenMax.resumeAll();
@@ -1128,6 +1168,10 @@ NORD.PanelPause.prototype.tween = function(data, callback) {
     this.state = 'hide_anim';
     this.interactiveChildren = false;
     TweenMax.to(NORD.game.screenGame.buttonPause.regularSkin, 6 / 30, {
+      alpha: 1,
+      ease: Power2.easeOut
+    });
+    TweenMax.to(NORD.game.screenGame.buttonPauseFiller, 6 / 30, {
       alpha: 1,
       ease: Power2.easeOut
     });
@@ -1331,6 +1375,7 @@ NORD.PanelPause2 = function(config) {
 
         NORD.app.apiCallback('statistics', 'exit');
         NORD.game.screenGame.buttonPause.regularSkin.alpha = 1.0;
+        NORD.game.screenGame.buttonPauseFiller.alpha = 1.0;
         NORD.game.field.setPause(false);
         NORD.game.screenGame.toMainMenu();
       });
@@ -1360,11 +1405,15 @@ NORD.PanelPause2.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelPause2.prototype.constructor = NORD.PanelPause;
 
 NORD.PanelPause2.prototype.show = function(data) {
+  NORD.game.field.fieldBlur.blur = 10;
+  NORD.game.screenGame.pauseBlur.blur = 5;
   NORD.game.config.players = NORD.game.currentPlayer;
   this.scoreLabel.text = NORD.game.field.players.RIGHT.roundScore;
   this.scoreLabel2.text = NORD.game.field.players.LEFT.roundScore;
 
   if (!MultiplayerStarted) {
+    NORD.game.screenGame.fieldleftPlayerTextBlur.blur = 5;
+    NORD.game.screenGame.fieldrightPlayerTextBlur.blur = 5;
     NORD.game.field.setPause(true);
     TweenMax.pauseAll();
   }
@@ -1377,6 +1426,10 @@ NORD.PanelPause2.prototype.hide = function(data, callback) {
   this.tween({
     name: 'hide_anim'
   }, function() {
+    NORD.game.field.fieldBlur.blur = 0;
+    NORD.game.screenGame.pauseBlur.blur = 0;
+    NORD.game.screenGame.fieldleftPlayerTextBlur.blur = 0;
+    NORD.game.screenGame.fieldrightPlayerTextBlur.blur = 0;
     if (!MultiplayerStarted) {
       NORD.game.field.setPause(false);
       TweenMax.resumeAll();
@@ -1411,6 +1464,10 @@ NORD.PanelPause2.prototype.tween = function(data, callback) {
     this.state = 'hide_anim';
     this.interactiveChildren = false;
     TweenMax.to(NORD.game.screenGame.buttonPause.regularSkin, 6 / 30, {
+      alpha: 1,
+      ease: Power2.easeOut
+    });
+    TweenMax.to(NORD.game.screenGame.buttonPauseFiller, 6 / 30, {
       alpha: 1,
       ease: Power2.easeOut
     });
@@ -1558,6 +1615,7 @@ NORD.PanelQuit = function(config) {
 
         NORD.app.apiCallback('statistics', 'exit');
         NORD.game.screenGame.buttonPause.regularSkin.alpha = 1.0;
+        NORD.game.screenGame.buttonPauseFiller.alpha = 1.0;
         NORD.game.field.setPause(false);
         NORD.game.screenGame.toMainMenu();
       });
@@ -1619,6 +1677,10 @@ NORD.PanelQuit.prototype.tween = function(data, callback) {
     this.state = 'hide_anim';
     this.interactiveChildren = false;
     TweenMax.to(NORD.game.screenGame.buttonPause.regularSkin, 6 / 30, {
+      alpha: 1,
+      ease: Power2.easeOut
+    });
+    TweenMax.to(NORD.game.screenGame.buttonPauseFiller, 6 / 30, {
       alpha: 1,
       ease: Power2.easeOut
     });
