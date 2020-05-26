@@ -928,11 +928,14 @@ NORD.PanelPause = function(config) {
     texture: 'TransparentLayer',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 100,
-    scaleY: 100,
+    scaleX: window.innerWidth,
+    scaleY: window.innerHeight,
   });
 
-  TransparentLayer.alpha = 0.85;
+  TransparentLayer.alpha = 0.5;
+
+  var blurFilter1 = new PIXI.filters.BlurFilter();
+  TransparentLayer.filters = [blurFilter1];
 
   this.bg = Util.createSprite({
     parent: this,
@@ -1175,11 +1178,14 @@ NORD.PanelPause2 = function(config) {
     texture: 'TransparentLayer',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 100,
-    scaleY: 100,
+    scaleX: window.innerWidth,
+    scaleY: window.innerHeight,
   });
 
-  TransparentLayer.alpha = 0.85;
+  TransparentLayer.alpha = 0.5;
+
+  var blurFilter1 = new PIXI.filters.BlurFilter();
+  TransparentLayer.filters = [blurFilter1];
 
   this.bg = Util.createSprite({
     parent: this,
@@ -1453,11 +1459,14 @@ NORD.PanelQuit = function(config) {
     texture: 'TransparentLayer',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 100,
-    scaleY: 100,
+    scaleX: window.innerWidth,
+    scaleY: window.innerHeight,
   });
 
-  TransparentLayer.alpha = 0.85;
+  TransparentLayer.alpha = 0.5;
+
+  var blurFilter1 = new PIXI.filters.BlurFilter();
+  TransparentLayer.filters = [blurFilter1];
 
   this.bg = Util.createSprite({
     parent: this,

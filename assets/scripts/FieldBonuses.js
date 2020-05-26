@@ -857,6 +857,10 @@ var GameStartText = function GameStartText() {
     scaleXY: 1
   });
 
+  var blurFilter1 = new PIXI.filters.BlurFilter();
+  blurFilter1.blur = 50;
+  this.bg = [blurFilter1];
+
   this.textReady = Util.createSprite({
     texture: 'GreenRibbon',
     parent: this,
