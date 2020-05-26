@@ -469,8 +469,8 @@ NORD.Field.Ball.prototype.startImpulse = function(dir) {
   this.angle = angle;
   var impulse = Util.getMoveVector(speed, angle);
 
-  impulse.x = 4;
-  impulse.y = 0;
+  // impulse.x = 4;
+  // impulse.y = 0;
   //sushant
   if (MultiplayerStarted) {
     this.distortionVelocityReceived = false;

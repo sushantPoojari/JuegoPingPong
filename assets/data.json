@@ -48,7 +48,7 @@
     "ballMaxSpeedAction": 9,
     "ballSpeedUpFirstHits": 2,
     "ballSpeedUpHits": 2,
-    "ballSpeedUpK": 1.07,
+    "ballSpeedUpK": 1.01,
     "bonusPaddleSizeContainerDuration": 10,
     "bonusPaddleSizeBonusDuration": 10,
     "bonusPaddleSizeBonusSize": 35.438685208596745,

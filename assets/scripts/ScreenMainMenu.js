@@ -42,7 +42,7 @@ NORD.ScreenMainMenu = function(config) {
   d.removeChild(olddiv);
 
   localStorage.setItem('savedServerRegion', "asia");
-  localStorage.setItem('audioStatus', false);
+  // localStorage.setItem('audioStatus', false);
 
   var _this = this;
   NORD.mainMenu = this;
@@ -326,7 +326,7 @@ NORD.ScreenMainMenu = function(config) {
     }
   });
   // NORD.mainMenu.audioButton.setState(true);
-  NORD.audioManager.switchMute(true);
+  // NORD.audioManager.switchMute(false);
 
 
   /***************************************************************************************Play Button*************************************************************************************/
