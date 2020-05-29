@@ -101,9 +101,6 @@ NORD.initGameDefinitions = function() {
   }]);
   var audioFormats = ['.ogg', '.m4a'];
   NORD.definitionsManager.assetsGroupMain = new AssetsGroup('main', [{
-    name: 'texture_atlas',
-    url: 'assets/texture_atlas.json'
-  }, {
     name: 'data',
     url: 'assets/data.json'
   }, {
@@ -576,6 +573,21 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'mainmenubg',
     url: 'assets/images/title/mainmenubg.png'
+  }, {
+    name: 'dummy',
+    url: 'assets/images/submode/DownArrow.png'
+  }, {
+    name: 'tut_p1_down',
+    url: 'assets/images/tutorial/tut_p1_down.png'
+  }, {
+    name: 'tut_p2_down',
+    url: 'assets/images/tutorial/tut_p2_down.png'
+  }, {
+    name: 'tut_p1_up',
+    url: 'assets/images/tutorial/tut_p1_up.png'
+  }, {
+    name: 'tut_p2_up',
+    url: 'assets/images/tutorial/tut_p2_up.png'
   }]);
 }; //=========================================================================================================================================================================//
 //=========================================================================================================================================================================//
@@ -829,10 +841,6 @@ NORD.Game.prototype = Object.create(EventEmitter.prototype);
 NORD.Game.prototype.constructor = NORD.Game;
 
 NORD.Game.prototype.init = function() {
-  // this.physics = new p2.World({ gravity: [0, 0] });
-  // this.bgGradient = NORD.assetsManager.getSprite('texture_atlas', 'bg_gradient.png');
-  // NORD.GUIManager.containerBack.addChild(this.bgGradient);
-  // this.bgGradient.anchor.set(0.5, 0.5);
   this.config.actionHintShows++;
   this.saveConfig();
   NORD.App.playerController = new NORD.PlayerController();

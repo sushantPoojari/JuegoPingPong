@@ -4,9 +4,9 @@
 
 // require("core-js/modules/es6.function.name");
 
-NORD.GUI = function () { };
+NORD.GUI = function() {};
 
-NORD.GUI.GUIManager = function () {
+NORD.GUI.GUIManager = function() {
   EventEmitter.call(this);
   this.rootContainer = new PIXI.Container();
   this.stage = new NORD.GUI.Stage({});
@@ -39,7 +39,7 @@ NORD.GUI.GUIManager = function () {
 NORD.GUI.GUIManager.prototype = Object.create(EventEmitter.prototype);
 NORD.GUI.GUIManager.prototype.constructor = NORD.GUI.GUIManager;
 
-NORD.GUI.GUIManager.prototype.initViewOver = function () {
+NORD.GUI.GUIManager.prototype.initViewOver = function() {
   var self = this;
   var color = 0xFFFFFF;
   this.containerViewOver = new PIXI.Container();
@@ -59,13 +59,13 @@ NORD.GUI.GUIManager.prototype.initViewOver = function () {
   }
 };
 
-NORD.GUI.GUIManager.prototype.update = function () {
+NORD.GUI.GUIManager.prototype.update = function() {
   var w = window.innerWidth;
   var h = window.innerHeight;
   if (this.realScreenWidth != w || this.realScreenHeight != h) this.resize(w, h);
 };
 
-NORD.GUI.GUIManager.prototype.setAppSize = function (appWidthMin, appWidthMax, appHeightMin, appHeightMax) {
+NORD.GUI.GUIManager.prototype.setAppSize = function(appWidthMin, appWidthMax, appHeightMin, appHeightMax) {
   this.appWidthMin = appWidthMin;
   this.appWidthMax = appWidthMax;
   this.appHeightMin = appHeightMin;
@@ -73,11 +73,11 @@ NORD.GUI.GUIManager.prototype.setAppSize = function (appWidthMin, appWidthMax, a
   this.autoresize();
 };
 
-NORD.GUI.GUIManager.prototype.autoresize = function () {
+NORD.GUI.GUIManager.prototype.autoresize = function() {
   this.resize(window.innerWidth, window.innerHeight);
 };
 
-NORD.GUI.GUIManager.prototype.resize = function (w, h) {
+NORD.GUI.GUIManager.prototype.resize = function(w, h) {
   this.realScreenWidth = w;
   this.realScreenHeight = h;
   this.rootContainer.x = this.realScreenWidth / 2;
@@ -122,10 +122,11 @@ NORD.GUI.GUIManager.prototype.resize = function (w, h) {
     appHeight: this.appHeight,
     appScale: this.appScale
   });
-  if (this.realScreenWidth > this.realScreenHeight) this.setOrientation('landscape'); else this.setOrientation('portrait');
+  if (this.realScreenWidth > this.realScreenHeight) this.setOrientation('landscape');
+  else this.setOrientation('portrait');
 };
 
-NORD.GUI.GUIManager.prototype.updateVewOver = function () {
+NORD.GUI.GUIManager.prototype.updateVewOver = function() {
   this.overTop.width = 6000;
   this.overTop.height = 6000;
   this.overTop.y = -this.realAppHeight / 2 - 3000;
@@ -140,7 +141,7 @@ NORD.GUI.GUIManager.prototype.updateVewOver = function () {
   this.overRight.x = this.realAppWidth / 2 + 3000;
 };
 
-NORD.GUI.GUIManager.prototype.setOrientation = function (orientation) {
+NORD.GUI.GUIManager.prototype.setOrientation = function(orientation) {
   if (this.orientation == orientation) return;
   this.orientation = orientation; // console.log('OrientationChange:', this.orientation);
 
@@ -152,7 +153,7 @@ NORD.GUI.GUIManager.prototype.setOrientation = function (orientation) {
 // ======================================================================================================================================== //
 
 
-NORD.GUI.BasePanel = function (data) {
+NORD.GUI.BasePanel = function(data) {
   PIXI.Container.call(this);
   var self = this;
   this.parentPanel = null;
@@ -284,7 +285,7 @@ NORD.GUI.BasePanel = function (data) {
   // this.updatePosition();
   // console.log('Panel create:', data);
 
-  this.addListener('added', function () {
+  this.addListener('added', function() {
     self.updateSize();
     self.updatePosition();
   });
@@ -299,13 +300,13 @@ NORD.GUI.BasePanel = function (data) {
 NORD.GUI.BasePanel.prototype = Object.create(PIXI.Container.prototype);
 NORD.GUI.BasePanel.prototype.constructor = NORD.GUI.BasePanel;
 
-NORD.GUI.BasePanel.prototype.showViewRect = function (color) {
+NORD.GUI.BasePanel.prototype.showViewRect = function(color) {
   this.isViewRect = true;
   this.viewRectColor = color;
   this.updateViewRect();
 };
 
-NORD.GUI.BasePanel.prototype.updateViewRect = function () {
+NORD.GUI.BasePanel.prototype.updateViewRect = function() {
   if (!this.isViewRect) return;
 
   if (this.viewRect != null) {
@@ -321,13 +322,17 @@ NORD.GUI.BasePanel.prototype.updateViewRect = function () {
   this.addChildAt(this.viewRect, 0);
 };
 
-NORD.GUI.BasePanel.prototype.updatePositionType = function (type) {
+NORD.GUI.BasePanel.prototype.updatePositionType = function(type) {
   if (this._positionType == type) return;
 
   if (this._positionType == 'absolute' || this.positionType == 'center-center') {
     var x = 0;
     var y = 0;
-    if (type == 'center-top') y = -this.parentPanel.height / 2 + this.height / 2; else if (type == 'center-bot') y = this.parentPanel.height / 2 - this.height / 2; else if (type == 'left-center') x = -this.parentPanel.width / 2 + this.width / 2; else if (type == 'right-center') x = this.parentPanel.width / 2 - this.width / 2; else if (type == 'right-top') {
+    if (type == 'center-top') y = -this.parentPanel.height / 2 + this.height / 2;
+    else if (type == 'center-bot') y = this.parentPanel.height / 2 - this.height / 2;
+    else if (type == 'left-center') x = -this.parentPanel.width / 2 + this.width / 2;
+    else if (type == 'right-center') x = this.parentPanel.width / 2 - this.width / 2;
+    else if (type == 'right-top') {
       x = this.parentPanel.width / 2 - this.width / 2;
       y = -this.parentPanel.height / 2 + this.height / 2;
     } else if (type == 'right-bot') {
@@ -348,7 +353,7 @@ NORD.GUI.BasePanel.prototype.updatePositionType = function (type) {
   this.updatePosition();
 };
 
-NORD.GUI.BasePanel.prototype.updatePosition = function () {
+NORD.GUI.BasePanel.prototype.updatePosition = function() {
   if (!this.parent) return;
   var x = 0;
   var y = 0;
@@ -357,7 +362,11 @@ NORD.GUI.BasePanel.prototype.updatePosition = function () {
     x = this._x;
     y = this._y;
   } else if (this.parentPanel != null) {
-    if (this.positionType == 'center-top') y = -this.parentPanel.height / 2 + this.height / 2; else if (this.positionType == 'center-bot') y = this.parentPanel.height / 2 - this.height / 2; else if (this.positionType == 'left-center') x = -this.parentPanel.width / 2 + this.width / 2; else if (this.positionType == 'right-center') x = this.parentPanel.width / 2 - this.width / 2; else if (this.positionType == 'right-top') {
+    if (this.positionType == 'center-top') y = -this.parentPanel.height / 2 + this.height / 2;
+    else if (this.positionType == 'center-bot') y = this.parentPanel.height / 2 - this.height / 2;
+    else if (this.positionType == 'left-center') x = -this.parentPanel.width / 2 + this.width / 2;
+    else if (this.positionType == 'right-center') x = this.parentPanel.width / 2 - this.width / 2;
+    else if (this.positionType == 'right-top') {
       x = this.parentPanel.width / 2 - this.width / 2;
       y = -this.parentPanel.height / 2 + this.height / 2;
     } else if (this.positionType == 'right-bot') {
@@ -380,8 +389,8 @@ NORD.GUI.BasePanel.prototype.updatePosition = function () {
   this.transform.position.y = y;
 };
 
-NORD.GUI.BasePanel.prototype.initBlockInputBg = function (width, height, onClick) {
-  this.invisibleBg = new PIXI.Sprite(NORD.assetsManager.getTexture('texture_atlas', 'Util/rect_white.png'));
+NORD.GUI.BasePanel.prototype.initBlockInputBg = function(width, height, onClick) {
+  this.invisibleBg = new PIXI.Sprite(NORD.assetsManager.getTexture('dummy'));
   this.addChildAt(this.invisibleBg, 0);
   this.invisibleBg.width = width;
   this.invisibleBg.height = height;
@@ -392,13 +401,15 @@ NORD.GUI.BasePanel.prototype.initBlockInputBg = function (width, height, onClick
   this.invisibleBg.on('tap', onClick, this);
 };
 
-NORD.GUI.BasePanel.prototype.updateSize = function () {
+NORD.GUI.BasePanel.prototype.updateSize = function() {
   if (!this.parent) return;
   var width = this.width;
   var height = this.height;
 
   if (this.parentPanel != null) {
-    if (this.sizeType == 'relative-height') height = this.parentPanel.height * this.heightRelative; else if (this.sizeType == 'relative-width') width = this.parentPanel.width * this.widthRelative; else if (this.sizeType == 'relative') {
+    if (this.sizeType == 'relative-height') height = this.parentPanel.height * this.heightRelative;
+    else if (this.sizeType == 'relative-width') width = this.parentPanel.width * this.widthRelative;
+    else if (this.sizeType == 'relative') {
       height = this.parentPanel.height * this.heightRelative;
       width = this.parentPanel.width * this.widthRelative;
     }
@@ -411,11 +422,12 @@ NORD.GUI.BasePanel.prototype.updateSize = function () {
 
   for (var i = 0; i < this.childPanels.length; i++) {
     var childPanel = this.childPanels[i];
-    if (childPanel.visible) childPanel.updateSize(); else childPanel.updateSize();
+    if (childPanel.visible) childPanel.updateSize();
+    else childPanel.updateSize();
   }
 };
 
-NORD.GUI.BasePanel.prototype.addPanel = function (panel) {
+NORD.GUI.BasePanel.prototype.addPanel = function(panel) {
   var n = this.childPanels.indexOf(panel);
 
   if (n == -1) {
@@ -427,13 +439,13 @@ NORD.GUI.BasePanel.prototype.addPanel = function (panel) {
   }
 };
 
-NORD.GUI.BasePanel.prototype.tween = function (name, callback) { } // if(callback == undefined) callback = null;
+NORD.GUI.BasePanel.prototype.tween = function(name, callback) {} // if(callback == undefined) callback = null;
   // ======================================================================================================================================== //
   // ======================================================================================================================================== //
   // ======================================================================================================================================== //
-  ;
+;
 
-NORD.GUI.Stage = function (config) {
+NORD.GUI.Stage = function(config) {
   config.sizeType = 'absolute';
   config.width = 100;
   config.height = 100;
@@ -451,7 +463,7 @@ NORD.GUI.Stage.prototype.constructor = NORD.GUI.Stage; // ======================
 // ======================================================================================================================================== //
 // ======================================================================================================================================== //
 
-NORD.GUI.Button = function (config) {
+NORD.GUI.Button = function(config) {
   if (!config.regularSkin && config.regularSkinData) config.regularSkin = Util.createSprite(config.regularSkinData);
   config.width = config.width || config.regularSkin.width || 100;
   config.height = config.height || config.regularSkin.height || 100;
@@ -484,13 +496,13 @@ NORD.GUI.Button = function (config) {
 NORD.GUI.Button.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.GUI.Button.prototype.constructor = NORD.GUI.Button;
 
-NORD.GUI.Button.prototype.onClickListener = function (event) {
+NORD.GUI.Button.prototype.onClickListener = function(event) {
   if (!(this.phase == 'regular')) return;
   var self = this;
   this.phase = 'clicking';
 
   if (this.tweenClick == null) {
-    TweenMax.delayedCall(0.2, function () {
+    TweenMax.delayedCall(0.2, function() {
       self.phase = 'regular';
     });
     if (this.soundClick != null) this.soundClick.play();
@@ -511,11 +523,11 @@ NORD.GUI.Button.prototype.onClickListener = function (event) {
   }
 };
 
-NORD.GUI.Button.prototype.onMouseOverListener = function (event) { };
+NORD.GUI.Button.prototype.onMouseOverListener = function(event) {};
 
-NORD.GUI.Button.prototype.onMouseOutListener = function (event) { };
+NORD.GUI.Button.prototype.onMouseOutListener = function(event) {};
 
-NORD.GUI.Button.tweenClickSimple = function (data) {
+NORD.GUI.Button.tweenClickSimple = function(data) {
   // if(!data.time) {
   //   if(data.completeCallback != undefined) data.completeCallback();
   //   return;
@@ -543,7 +555,7 @@ NORD.GUI.Button.tweenClickSimple = function (data) {
 // ======================================================================================================================================== //
 
 
-NORD.GUI.TextBmp = function (text, style) {
+NORD.GUI.TextBmp = function(text, style) {
   PIXI.BitmapText.call(this, text, style);
 };
 
@@ -552,44 +564,31 @@ NORD.GUI.TextBmp.prototype.constructor = NORD.GUI.TextBmp; // ==================
 // ======================================================================================================================================== //
 // ======================================================================================================================================== //
 
-NORD.GUI.ButtonAudio = function (config) {
+NORD.GUI.ButtonAudio = function(config) {
   NORD.GUI.Button.call(this, config);
-  this.state = 'off'; // var buttonOverBg = new PIXI.Sprite(assetsManager.getTexture('texture_atlas', 'button_regular_over_bg.png'));
-  // this.addChildAt(buttonOverBg, 0);
-  // buttonOverBg.anchor.set(0.5, 0.5);
-  // buttonOverBg.alpha = 0;
-  // this.on('mouse_over', function(e)
-  // {
-  //   buttonOverBg.alpha = 1;
-  // }, this);
-  // this.on('mouse_out', function(e)
-  // {
-  //   buttonOverBg.alpha = 0;
-  // }, this);
-  // this.mouseOverBg = buttonOverBg;
-  // this.textureOn = NORD.assetsManager.getTexture(config.skin.on.atlas, config.skin.on.texture);
+  this.state = 'off';
 
-  if(config.skin.on.atlas != undefined) this.textureOn = NORD.assetsManager.getTexture(config.skin.on.atlas, config.skin.on.texture);
-  else this.textureOn = NORD.assetsManager.getTexture( config.skin.on.texture);
-  if(config.skin.off.atlas != undefined) this.textureOff = NORD.assetsManager.getTexture(config.skin.off.atlas, config.skin.off.texture);
-  else this.textureOff = NORD.assetsManager.getTexture( config.skin.off.texture);
+  if (config.skin.on.atlas != undefined) this.textureOn = NORD.assetsManager.getTexture(config.skin.on.atlas, config.skin.on.texture);
+  else this.textureOn = NORD.assetsManager.getTexture(config.skin.on.texture);
+  if (config.skin.off.atlas != undefined) this.textureOff = NORD.assetsManager.getTexture(config.skin.off.atlas, config.skin.off.texture);
+  else this.textureOff = NORD.assetsManager.getTexture(config.skin.off.texture);
   this.regularSkin = new PIXI.Sprite(this.textureOff);
   this.addChild(this.regularSkin);
   this.regularSkin.anchor.set(0.5, 0.5);
-  if(config.scaleXY == undefined)
+  if (config.scaleXY == undefined)
     this.regularSkin.scale.x = this.regularSkin.scale.y = 0.35;
   else
     this.regularSkin.scale.x = this.regularSkin.scale.y = config.scaleXY;
 
   this.on('button_click', this.onClick, this);
-  NORD.audioManager.on('audio_mute_change', function (data) {
+  NORD.audioManager.on('audio_mute_change', function(data) {
     localStorage.setItem('audioStatus', data.isMute);
     this.setState(data.isMute);
   }, this);
   this.setState(NORD.audioManager.isMute);
 
   var audios = NORD.assetsManager.getAllAudios();
-  audios.forEach(function (audio) {
+  audios.forEach(function(audio) {
     audio.mute(NORD.audioManager.isMute);
   });
 };
@@ -597,7 +596,7 @@ NORD.GUI.ButtonAudio = function (config) {
 NORD.GUI.ButtonAudio.prototype = Object.create(NORD.GUI.Button.prototype);
 NORD.GUI.ButtonAudio.prototype.constructor = NORD.GUI.ButtonAudio;
 
-NORD.GUI.ButtonAudio.prototype.setState = function (v) {
+NORD.GUI.ButtonAudio.prototype.setState = function(v) {
   if (this.state == v) return;
   this.state = v;
   this.regularSkin.texture = !v ? this.textureOn : this.textureOff; // app.setAudioState(this.state);
@@ -608,16 +607,16 @@ NORD.GUI.ButtonAudio.prototype.setState = function (v) {
 // }
 
 
-NORD.GUI.ButtonAudio.prototype.onClick = function (e) {
+NORD.GUI.ButtonAudio.prototype.onClick = function(e) {
   NORD.audioManager.switchMute();
 }; // ======================================================================================================================================== //
 // ======================================================================================================================================== //
 // ======================================================================================================================================== //
 
 
-NORD.Controls = function () { };
+NORD.Controls = function() {};
 
-NORD.Controls.NumberStepper = function (config) {
+NORD.Controls.NumberStepper = function(config) {
   PIXI.Container.call(this);
   if (!config) config = {};
   this.min = config.min || 0;
@@ -625,7 +624,8 @@ NORD.Controls.NumberStepper = function (config) {
   this.step = config.step || (this.max - this.min) / 100;
   Object.defineProperty(this, 'value', {
     set: function set(value) {
-      if (value > this.max) value = this.max; else if (value < this.min) value = this.min;
+      if (value > this.max) value = this.max;
+      else if (value < this.min) value = this.min;
       if (this.state.getState().value === value) return;
       var progress = (value - this.min) / (this.max - this.min);
       this.state.setState({
@@ -639,7 +639,8 @@ NORD.Controls.NumberStepper = function (config) {
   });
   Object.defineProperty(this, 'progress', {
     set: function set(progress) {
-      if (progress > 1.0) progress = 1.0; else if (progress < 0) progress = 0;
+      if (progress > 1.0) progress = 1.0;
+      else if (progress < 0) progress = 0;
       if (this.state.getState().progress === progress) return;
       var value = this.min + (this.max - this.min) * progress;
       this.state.setState({
@@ -650,7 +651,7 @@ NORD.Controls.NumberStepper = function (config) {
     get: function get() {
       return this.state.getState().progress;
     }
-  }); // this.spriteBg = Util.createSprite({ atlas: 'texture_atlas', texture: 'Controls/Slider/bg.png', parent: this, aX: 0.5, aY: 0.5 });
+  });
 
   this.textValue = new PIXI.Text('xxx', {
     fontFamily: 'Arial',
@@ -665,21 +666,19 @@ NORD.Controls.NumberStepper = function (config) {
   this.addChild(this.textValue); // text.interactive = false;
 
   this.buttonPlus = Util.createButton('btn', config.panel, this, '', 38, 0, 16, 16, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
-    atlas: 'texture_atlas',
-    texture: 'button_stepper_plus.png',
+    texture: 'dummy',
     aX: 0.5,
     aY: 0.5
   });
-  this.buttonPlus.addListener('button_click', function (data) {
+  this.buttonPlus.addListener('button_click', function(data) {
     this.value += this.step;
   }, this);
   this.buttonMinus = Util.createButton('btn', config.panel, this, '', -38, 0, 16, 16, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
-    atlas: 'texture_atlas',
-    texture: 'button_stepper_minus.png',
+    texture: 'dummy',
     aX: 0.5,
     aY: 0.5
   });
-  this.buttonMinus.addListener('button_click', function (data) {
+  this.buttonMinus.addListener('button_click', function(data) {
     this.value -= this.step;
   }, this);
   this.state = new Util.StateStore();
@@ -698,7 +697,7 @@ NORD.Controls.NumberStepper = function (config) {
 NORD.Controls.NumberStepper.prototype = Object.create(PIXI.Container.prototype);
 NORD.Controls.NumberStepper.prototype.constructor = NORD.Controls.NumberStepper;
 
-NORD.Controls.NumberStepper.prototype.onStateChange = function (data) {
+NORD.Controls.NumberStepper.prototype.onStateChange = function(data) {
   var number = Math.round(data.state.value * 100) / 100;
   this.textValue.text = number;
 }; // ======================================================================================================================================== //
@@ -706,7 +705,7 @@ NORD.Controls.NumberStepper.prototype.onStateChange = function (data) {
 // ======================================================================================================================================== //
 
 
-NORD.Controls.Slider = function (config, sliderConfig) {
+NORD.Controls.Slider = function(config, sliderConfig) {
   NORD.GUI.BasePanel.call(this, config);
   this.orientation = sliderConfig.orientation;
   this.sliderLength = sliderConfig.sliderLength;
@@ -741,16 +740,14 @@ NORD.Controls.Slider = function (config, sliderConfig) {
     }
   });
   this.spriteBg = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'Controls/Slider/bg.png',
+    texture: 'dummy',
     parent: this,
     aX: 0.5,
     aY: 0.5
   });
   this.spriteBg.rotation = this.orientation === 'vertical' ? 0 : Math.PI / 2;
   this.spriteSlider = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'Controls/Slider/thumb.png',
+    texture: 'dummy',
     parent: this,
     aX: 0.5,
     aY: 0.5
@@ -781,35 +778,37 @@ NORD.Controls.Slider = function (config, sliderConfig) {
 NORD.Controls.Slider.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.Controls.Slider.prototype.constructor = NORD.Controls.Slider;
 
-NORD.Controls.Slider.prototype.onStateChange = function (data) {
-  if (this.state.getState().phase === 'wait') { } else if (this.state.getState().phase === 'slide') { }
+NORD.Controls.Slider.prototype.onStateChange = function(data) {
+  if (this.state.getState().phase === 'wait') {} else if (this.state.getState().phase === 'slide') {}
 
-  if (this.orientation === 'horizontal') this.spriteSlider.x = -this.sliderLength / 2 + this.sliderLength * data.state.progress; else if (this.orientation === 'vertical') this.spriteSlider.y = this.sliderLength / 2 - this.sliderLength * data.state.progress;
+  if (this.orientation === 'horizontal') this.spriteSlider.x = -this.sliderLength / 2 + this.sliderLength * data.state.progress;
+  else if (this.orientation === 'vertical') this.spriteSlider.y = this.sliderLength / 2 - this.sliderLength * data.state.progress;
 };
 
-NORD.Controls.Slider.prototype.onMouseDownListener = function (event) {
+NORD.Controls.Slider.prototype.onMouseDownListener = function(event) {
   if (this.state.getState().phase === 'wait') this.state.setState({
     phase: 'slide'
   });
 };
 
-NORD.Controls.Slider.prototype.onMouseUpListener = function (event) {
+NORD.Controls.Slider.prototype.onMouseUpListener = function(event) {
   if (this.state.getState().phase === 'slide') this.state.setState({
     phase: 'wait'
   });
 };
 
-NORD.Controls.Slider.prototype.onClickListener = function (event) { };
+NORD.Controls.Slider.prototype.onClickListener = function(event) {};
 
-NORD.Controls.Slider.prototype.onMouseOverListener = function (event) { };
+NORD.Controls.Slider.prototype.onMouseOverListener = function(event) {};
 
-NORD.Controls.Slider.prototype.onMouseOutListener = function (event) { };
+NORD.Controls.Slider.prototype.onMouseOutListener = function(event) {};
 
-NORD.Controls.Slider.prototype.update = function () {
+NORD.Controls.Slider.prototype.update = function() {
   if (this.state.getState().phase === 'slide') {
     var p = this.toLocal(NORD.app.mouseGlobal);
     var pos = 0;
-    if (this.orientation === 'horizontal') pos = p.x; else if (this.orientation === 'vertical') pos = p.y;
+    if (this.orientation === 'horizontal') pos = p.x;
+    else if (this.orientation === 'vertical') pos = p.y;
     pos = Math.max(Math.min(pos, this.sliderLength / 2), -this.sliderLength / 2);
     var progress = Math.abs(this.sliderLength / 2 - pos) / this.sliderLength;
     if (this.orientation === 'horizontal') progress = 1 - progress;

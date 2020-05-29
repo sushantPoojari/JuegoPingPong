@@ -35,11 +35,10 @@ NORD.PanelSettings = function(config) {
     if (_this.config[key].on) {
       _this.config[key].on('change', _this.updateConfig, _this);
     }
-  }); // this.logo = Util.createSprite({ atlas: 'texture_atlas', texture: 'logo.png', parent: this, aX: 0.5, aY: 0.5 });
+  });
 
   this.bg = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'Util/black_rect.png',
+    texture: 'dummy',
     parent: this,
     aX: 0.5,
     aY: 0.5
@@ -72,8 +71,7 @@ NORD.PanelSettings = function(config) {
   this.createPanelBonuses3();
   this.createPanelBonuses4();
   this.buttonClose = Util.createButton('btn', this, null, '', 640 / 2 - 32 / 2 - 5, -480 / 2 + 32 / 2 + 5, 32, 32, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
-    atlas: 'texture_atlas',
-    texture: 'button_close.png',
+    texture: 'CloseButton',
     aX: 0.5,
     aY: 0.5
   });
@@ -83,8 +81,7 @@ NORD.PanelSettings = function(config) {
     });
   }, this);
   this.buttonSave = Util.createButton('btn', this, null, '', 200, 225 - 20, 85, 30, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
-    atlas: 'texture_atlas',
-    texture: 'button_save.png',
+    texture: 'dummy',
     aX: 0.5,
     aY: 0.5
   });
@@ -93,8 +90,7 @@ NORD.PanelSettings = function(config) {
     this.saveJson();
   }, this);
   this.buttonPrev = Util.createButton('btn', this, null, '', -210, 225 - 20, 60, 30, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
-    atlas: 'texture_atlas',
-    texture: 'button_prev.png',
+    texture: 'dummy',
     aX: 0.5,
     aY: 0.5
   });
@@ -104,8 +100,7 @@ NORD.PanelSettings = function(config) {
     this.setPage(this.pages[n]);
   }, this);
   this.buttonNext = Util.createButton('btn', this, null, '', -140, 225 - 20, 60, 30, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
-    atlas: 'texture_atlas',
-    texture: 'button_next.png',
+    texture: 'dummy',
     aX: 0.5,
     aY: 0.5
   });
@@ -115,21 +110,7 @@ NORD.PanelSettings = function(config) {
     this.setPage(this.pages[n]);
   }, this);
   this.setPage(this.pages[0]);
-  this.updateConfig(); // console.log(Power2.easeOut.getRatio(0.9));
-  // console.log(Power2);
-  // var btnConfig = { name: 'btn', parentPanel: this, positionType: 'left-bot', xRelative: 10, yRelative: -10, width: 264, height: 96,
-  //                   tweenClick: NORD.game.tweenClickSimple, soundClick: NORD.game.soundClickSimple(),
-  //                   regularSkin: Util.createSprite({ atlas: 'texture_atlas', texture: 'button_play.png', aX: 0.5, aY: 0.5 }) };
-  // var btn = new NORD.GUI.Button(btnConfig);
-  // btn.addListener('button_click', function(data)
-  // {
-  //  console.log('Click!');
-  // });
-  // var btn = Util.createButton('btn', this, null, 'right-bot', -10, -10, 264, 96, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), { atlas: 'texture_atlas', texture: 'button_play.png', aX: 0.5, aY: 0.5 });
-  // btn.addListener('button_click', function(data)
-  // {
-  //  console.log('Click!');
-  // });
+  this.updateConfig();
 
   if (window.localStorage.enable_settings) {
     var keyUp = Util.keyboard({

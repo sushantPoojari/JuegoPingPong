@@ -171,8 +171,7 @@ NORD.Field.Wall.prototype.initBumperWall = function(config) {
   this.body.fieldObject = this;
   Matter.World.add(this.field.physics, [this.body]);
   this.bg = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'bumper.png',
+    texture: 'dummy',
     parent: this,
     aX: 0.5,
     aY: 0.5
@@ -1086,8 +1085,7 @@ var createParticle = function createParticle(data) {
     isExist: true
   };
   particle.sprite = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'fire_tail_p_1.png',
+    texture: 'dummy',
     parent: data.container,
     aX: 0.5,
     aY: 0.5
@@ -1231,8 +1229,7 @@ NORD.Field.Paddle = function(field, side) {
   }, this);
   this.updateDeccelerationRation();
   this.tutUp = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'tut_p' + (side === 'LEFT' ? 2 : 1) + '_up.png',
+    texture: 'tut_p' + (side === 'LEFT' ? 2 : 1) + '_up',
     parent: this,
     aX: 0.5,
     aY: 0.5,
@@ -1240,16 +1237,14 @@ NORD.Field.Paddle = function(field, side) {
     scaleXY: 0.7
   });
   this.tutDown = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'tut_p' + (side === 'LEFT' ? 2 : 1) + '_down.png',
+    texture: 'tut_p' + (side === 'LEFT' ? 2 : 1) + '_down',
     parent: this,
     aX: 0.5,
     aY: 0.5,
     y: 0,
     scaleXY: 0.7
   });
-  this.tutUp.visible = this.tutDown.visible = false; // this.shootViewTexture1 = NORD.assetsManager.getTexture('texture_atlas', 'gun_1.png');
-  // this.shootViewTexture2 = NORD.assetsManager.getTexture('texture_atlas', 'gun_2.png');
+  this.tutUp.visible = this.tutDown.visible = false;
 
   this.shootView = Util.createSprite({
     texture: 'Bullet-tip',
@@ -1313,19 +1308,11 @@ NORD.Field.Paddle = function(field, side) {
   // this.shootsTotal = this.shootsTotalDefault;
 
   this.blinkShootView = new Blink(this.shootView);
-  this.blinkPaddle = new Blink(this); // this.body = Matter.Bodies.circle(0, 0, 3, { isStatic: true, inertia: Infinity, restitution: 1.0, friction: 0.0, frictionStatic: 0.0, frictionAir: 0.0, inertia: Infinity, slop: 0.00001 }, 100);
-  // Matter.World.add(this.field.physics, [this.body]);
-  // this.bg = Util.createSprite({ atlas: 'texture_atlas', texture: 'paddle.png', parent: this, aX: 0.5, aY: 0.5 });
-  // this.paddleMask = new PIXI.Graphics();
-  // this.addChild(this.paddleMask);
-  // this.paddleMask.beginFill(0xFFFFFF);
-  // this.paddleMask.drawRect(0, -400, 200, 800);
-  // this.bg.mask = this.paddleMask;
-  // this.paddleMask.interactive = true;
+  this.blinkPaddle = new Blink(this);
+
 
   this.touchArea = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'paddle.png',
+    texture: 'dummy',
     parent: this,
     aX: 0.5,
     aY: 0.5

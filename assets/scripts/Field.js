@@ -1798,8 +1798,7 @@ NORD.Field.PaddleControllerHuman.prototype.updatePosition = function() {
 var ControlArea = function ControlArea(field, x, y, width, height) {
   this.field = field;
   this.touchArea = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'paddle.png',
+    texture: 'dummy',
     parent: this.field,
     aX: 0.5,
     aY: 0.5
@@ -1893,8 +1892,7 @@ var RoundGenerator = function RoundGenerator(field) {
 
   this.gravityModeK = Util.randomRangeInt(0, 1);
   this.roundModeLabel = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'label_round_mode_kitty.png',
+    texture: 'dummy',
     aX: 0.5,
     aY: 0.5
   });
@@ -1926,11 +1924,6 @@ var RoundGenerator = function RoundGenerator(field) {
   this.pressSpace.y = 150;
   this.pressSpace.visible = false;
 
-  // this.kittyPointLeft = Util.createSprite({ parent: this.container, atlas: 'texture_atlas', texture: 'kitty_point.png', aX: 0.5, aY: 0.5, x: -90, y: -160 });
-  // this.kittyPointRight = Util.createSprite({ parent: this.container, atlas: 'texture_atlas', texture: 'kitty_point.png', aX: 0.5, aY: 0.5, x: 90, y: -160 });
-  // this.kittyPointLeft.visible = false;
-  // this.kittyPointRight.visible = false;
-
   this.kittyPointLeft = new KittyPoint(this.containerGraphics, -50, -200);
   this.kittyPointRight = new KittyPoint(this.containerGraphics, 50, -200);
   this.multiballPointLeft = new MultiballPoint(this.containerGraphics, -50, -200);
@@ -1943,8 +1936,7 @@ var RoundGenerator = function RoundGenerator(field) {
 
     this.point1 = Util.createSprite({
       parent: parent,
-      atlas: 'texture_atlas',
-      texture: 'kitty_hit_no.png',
+      texture: 'dummy',
       aX: 0.5,
       aY: 0.5,
       x: x - 12,
@@ -1952,8 +1944,7 @@ var RoundGenerator = function RoundGenerator(field) {
     });
     this.point2 = Util.createSprite({
       parent: parent,
-      atlas: 'texture_atlas',
-      texture: 'kitty_hit_no.png',
+      texture: 'dummy',
       aX: 0.5,
       aY: 0.5,
       x: x + 12,
@@ -1962,8 +1953,8 @@ var RoundGenerator = function RoundGenerator(field) {
     this.points = 0;
 
     this.clear = function() {
-      _this9.point1.texture = NORD.assetsManager.getTexture('texture_atlas', 'kitty_hit_no.png');
-      _this9.point2.texture = NORD.assetsManager.getTexture('texture_atlas', 'kitty_hit_no.png');
+      _this9.point1.texture = NORD.assetsManager.getTexture('dummy');
+      _this9.point2.texture = NORD.assetsManager.getTexture('dummy');
       _this9.point1.scale.x = _this9.point1.scale.y = 0.5;
       _this9.point2.scale.x = _this9.point2.scale.y = 0.5; // this.point1.visible = this.point2.visible = true;
 
@@ -1988,8 +1979,7 @@ var RoundGenerator = function RoundGenerator(field) {
 
     this.point1 = Util.createSprite({
       parent: parent,
-      atlas: 'texture_atlas',
-      texture: 'multiball_goal_no.png',
+      texture: 'dummy',
       aX: 0.5,
       aY: 0.5,
       x: x - 12,
@@ -1997,8 +1987,7 @@ var RoundGenerator = function RoundGenerator(field) {
     });
     this.point2 = Util.createSprite({
       parent: parent,
-      atlas: 'texture_atlas',
-      texture: 'multiball_goal_no.png',
+      texture: 'dummy',
       aX: 0.5,
       aY: 0.5,
       x: x + 12,
@@ -2007,15 +1996,14 @@ var RoundGenerator = function RoundGenerator(field) {
     this.points = 0;
 
     this.clear = function() {
-      _this10.point1.texture = NORD.assetsManager.getTexture('texture_atlas', 'multiball_goal_yes.png');
-      _this10.point2.texture = NORD.assetsManager.getTexture('texture_atlas', 'multiball_goal_yes.png');
+      _this10.point1.texture = NORD.assetsManager.getTexture('dummy');
+      _this10.point2.texture = NORD.assetsManager.getTexture('dummy');
       _this10.points = 0;
       _this10.point1.visible = _this10.point2.visible = false;
     };
 
     this.goal = function(side) {
-      _this10.points++; // if(this.points === 1) this.point1.texture = NORD.assetsManager.getTexture('texture_atlas', 'multiball_goal_yes.png');
-      // if(this.points === 2) this.point2.texture = NORD.assetsManager.getTexture('texture_atlas', 'multiball_goal_yes.png');
+      _this10.points++;
 
       if (_this10.points === 1)(side === 'LEFT' ? _this10.point1 : _this10.point2).visible = false;
       if (_this10.points === 2)(side === 'LEFT' ? _this10.point2 : _this10.point1).visible = false;
@@ -2031,8 +2019,7 @@ var RoundGenerator = function RoundGenerator(field) {
 
     this.point1 = Util.createSprite({
       parent: parent,
-      atlas: 'texture_atlas',
-      texture: 'shoot_point.png',
+      texture: 'dummy',
       aX: 0.5,
       aY: 0.5,
       x: x - 12,
@@ -2040,8 +2027,7 @@ var RoundGenerator = function RoundGenerator(field) {
     });
     this.point2 = Util.createSprite({
       parent: parent,
-      atlas: 'texture_atlas',
-      texture: 'shoot_point.png',
+      texture: 'dummy',
       aX: 0.5,
       aY: 0.5,
       x: x + 12,
@@ -2050,8 +2036,8 @@ var RoundGenerator = function RoundGenerator(field) {
     this.points = 0;
 
     this.clear = function() {
-      _this11.point1.texture = NORD.assetsManager.getTexture('texture_atlas', 'shoot_point.png');
-      _this11.point2.texture = NORD.assetsManager.getTexture('texture_atlas', 'shoot_point.png');
+      _this11.point1.texture = NORD.assetsManager.getTexture('dummy');
+      _this11.point2.texture = NORD.assetsManager.getTexture('dummy');
       _this11.point1.scale.x = _this11.point1.scale.y = 0.5;
       _this11.point2.scale.x = _this11.point2.scale.y = 0.5; // this.point1.visible = this.point2.visible = true;
 

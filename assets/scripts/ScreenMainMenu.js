@@ -78,13 +78,12 @@ NORD.ScreenMainMenu = function(config) {
   var logo = Util.createSprite({
     parent: this,
     x: 0,
-    y: -140,
-    atlas: 'texture_atlas',
-    texture: 'logo.png',
+    y: 0,
+    texture: 'titelBase',
     aX: 0.5,
     aY: 0.5,
-    scaleX: 0.4,
-    scaleY: 0.4
+    scaleX: 0.1,
+    scaleY: 0.1
   });
   logo.alpha = 0;
   this.containerSwitchers = new PIXI.Container();
@@ -298,15 +297,15 @@ NORD.ScreenMainMenu = function(config) {
   });
 
   this.switcherMode.on('switch_start', function(side) {
-    if (side === 'right' && _this.actionHint.visible) {
-      _this.clearPulse(); // console.log('CLEAR:', this.switcherMode.containerRight.alpha);
-
-    } else if (side === 'left' && _this.actionHintShows % 2 == 0 && !NORD.game.config.isActionPlayed) {
-      // console.log('PLAY:', this.switcherMode.containerRight.alpha);
-      _this.clearPulse();
-
-      _this.tweenPulse();
-    }
+    // if (side === 'right' && _this.actionHint.visible) {
+    //   _this.clearPulse(); // console.log('CLEAR:', this.switcherMode.containerRight.alpha);
+    //
+    // } else if (side === 'left' && _this.actionHintShows % 2 == 0 && !NORD.game.config.isActionPlayed) {
+    //   // console.log('PLAY:', this.switcherMode.containerRight.alpha);
+    //   _this.clearPulse();
+    //
+    //   _this.tweenPulse();
+    // }
   });
   /***************************************************************************************Audio Button*************************************************************************************/
   this.audioButton = new NORD.GUI.ButtonAudio({
@@ -393,38 +392,6 @@ NORD.ScreenMainMenu = function(config) {
     });
     items[1].y -= 4; // console.log('Align:', totalHeight, freeSpace)
   }
-
-
-  this.actionHint = Util.createSprite({
-    parent: this,
-    x: 195,
-    y: 18,
-    rotation: -6.7 * Util.TO_RADIANS,
-    atlas: 'texture_atlas',
-    texture: 'action_hint.png',
-    aX: 0.5,
-    aY: 0.5,
-    scaleX: 0.41,
-    scaleY: 0.41
-  }); // this.actionBorder = Util.createSprite({ parent: this.switcherMode.containerRight, atlas: 'texture_atlas', texture: 'action_border.png', aX: 0.5, aY: 0.5, scaleXY: 0.79, alpha: 0.0 });
-  // this.actionBorder.alpha = 0.0;
-  // this.actionBorder.width = this.switcherPlayers.sideRight.spriteOn.width;
-  // this.actionBorder.height = this.switcherPlayers.sideRight.spriteOn.height;
-  // this.actionBorder.height -= 2;
-
-  this.actionWhite = Util.createSprite({
-    parent: this.switcherMode.containerRight,
-    atlas: 'texture_atlas',
-    texture: 'action_white.png',
-    aX: 0.5,
-    aY: 0.5,
-    scaleXY: 0.79,
-    alpha: 0.0
-  });
-  this.actionWhite.alpha = 0.0; // this.actionHintShows = NORD.game.config.actionHintShows;
-
-  this.actionHintShows = 0; // var audioButton = new NORD.GUI.ButtonAudio({ parentPanel: this, x: 200, y: 0, width: 100, height: 100 });
-
 
   this.randomNamePopup = new NORD.randomNamePopup({
     name: 'panel_randomName',
@@ -534,12 +501,12 @@ NORD.ScreenMainMenu.prototype.toMainMenu = function() {
 
   //NORD.game.screenMainMenu.buttonText.text = NORD.App.playerController.getTierType() + " | Wins: " + NORD.App.playerController.config.playerRankNumber;
   // this.actionHintShows ++;
-  this.actionHint.visible = this.actionHintShows % 2 == 0 && !NORD.game.config.isActionPlayed;
-  //sushant
-  this.actionHint.visible = false;
-  //sushant
-  this.actionHint.alpha = 1.0; // this.actionBorder.alpha = 0.0;
-  // console.log('FFFF":', this.actionHint.visible, NORD.game.config.isActionPlayed);
+  // this.actionHint.visible = this.actionHintShows % 2 == 0 && !NORD.game.config.isActionPlayed;
+  // //sushant
+  // this.actionHint.visible = false;
+  // //sushant
+  // this.actionHint.alpha = 1.0; // this.actionBorder.alpha = 0.0;
+  // // console.log('FFFF":', this.actionHint.visible, NORD.game.config.isActionPlayed);
 
   this.tween({
     name: 'show_anim'
@@ -563,7 +530,7 @@ NORD.ScreenMainMenu.prototype.clearPulse = function() {
   } // this.actionBorder.alpha = 0.0;
 
 
-  this.actionWhite.alpha = 0.0;
+  // this.actionWhite.alpha = 0.0;
   this.switcherMode.containerRight.scale.x = this.switcherMode.containerRight.scale.y = 1.0;
   this.switcherMode.containerRight.alpha = 1.0;
 };
@@ -650,10 +617,10 @@ NORD.ScreenMainMenu.prototype.tween = function(data, callback) {
     this.state = 'show_anim';
     this.visible = true;
     this.alpha = 0;
-    this.actionHint.visible = this.actionHintShows % 2 == 0 && !NORD.game.config.isActionPlayed;
-
-    //sushant
-    this.actionHint.visible = false;
+    // this.actionHint.visible = this.actionHintShows % 2 == 0 && !NORD.game.config.isActionPlayed;
+    //
+    // //sushant
+    // this.actionHint.visible = false;
     //sushant
 
     if (NORD.game.config.players !== 'one') {
@@ -668,9 +635,9 @@ NORD.ScreenMainMenu.prototype.tween = function(data, callback) {
       // this.switcherDificulty.interactiveChildren = true;
     }
 
-    if (this.actionHint.visible && NORD.game.config.mode === 'classic') {
-      this.tweenPulse();
-    }
+    // if (this.actionHint.visible && NORD.game.config.mode === 'classic') {
+    //   this.tweenPulse();
+    // }
 
     var time = 12 / 30;
     TweenMax.to(this, time, {
@@ -707,9 +674,9 @@ NORD.ScreenMainMenu.prototype.tween = function(data, callback) {
     this.interactiveChildren = true;
     this.clearPulse();
 
-    if (this.actionHint.visible && NORD.game.config.mode === 'classic') {
-      this.tweenPulse();
-    }
+    // if (this.actionHint.visible && NORD.game.config.mode === 'classic') {
+    //   this.tweenPulse();
+    // }
 
     if (callback) callback();
   }
@@ -983,26 +950,6 @@ NORD.MenuSwitcher = function(config, switcherConfig, switcher) {
   if (this.bottomRight) setSideInteractive(this.bottomRight);
   if (this.bottomCenter) setSideInteractive(this.bottomCenter);
   if (this.playAll) setSideInteractive(this.playAll);
-  // this.spriteBg = Util.createSprite({ atlas: 'texture_atlas', texture: 'Controls/Slider/bg.png', parent: this, aX: 0.5, aY: 0.5 });
-  // this.spriteBg.rotation = this.orientation === 'vertical'?0:Math.PI/2;
-  //
-  // this.spriteSlider = Util.createSprite({ atlas: 'texture_atlas', texture: 'Controls/Slider/thumb.png', parent: this, aX: 0.5, aY: 0.5 });
-  // this.spriteSlider.interactive = true;
-  //
-  // this.spriteSlider.on('click', this.onClickListener, this);
-  // this.spriteSlider.on('tap', this.onClickListener, this);
-  // this.spriteSlider.on('pointerdown', this.onMouseDownListener, this);
-  // this.spriteSlider.on('pointerup', this.onMouseUpListener, this);
-  // this.spriteSlider.on('pointerupoutside', this.onMouseUpListener, this);
-  // // this.spriteSlider.on('touchdown', this.onMouseDownListener, this);
-  // this.spriteSlider.on('mouseover', this.onMouseOverListener, this);
-  // this.spriteSlider.on('mouseout', this.onMouseOutListener, this);
-  //
-  // this.state = new Util.StateStore();
-  // this.state.on('state_change', this.onStateChange, this);
-  // this.state.setState({ phase: 'wait' });
-  // this.state.setState({ value: 0.0 });
-  // this.state.setState({ progress: 0.0 });
 
   this.setSide(switcherConfig.selected); // NORD.app.on('update', this.update, this);
 };
@@ -1171,15 +1118,13 @@ NORD.BoardsCarousel = function(config, carouselConfig) {
 
     var spriteOff = Util.createSprite({
       parent: container,
-      atlas: 'texture_atlas',
-      texture: boardName + '_off.png',
+      texture: 'dummy',
       aX: 0.5,
       aY: 0.5
     });
     var spriteOn = Util.createSprite({
       parent: container,
-      atlas: 'texture_atlas',
-      texture: boardName + '_on.png',
+      texture: 'dummy',
       aX: 0.5,
       aY: 0.5
     });
@@ -1569,7 +1514,7 @@ PaddleView2.prototype.drawPaddle = function(graphics, color, vertices) {
 };
 
 NORD.ScreenMainMenu.prototype.createSwitcher = function(x, y, labelName, switcherName, selected, onChange) {
-  // const label = Util.createSprite({ parent: this, x: -112, y: y, atlas: 'texture_atlas', texture: labelName+'.png', aX: 1.0, aY: 0.5 });
+
   var config = null;
 
   if (switcherName == 'players') {
@@ -2333,7 +2278,7 @@ NORD.subModeSelectionPopup.prototype.hide = function(data, callback) {
 };
 
 NORD.subModeSelectionPopup.prototype.createSwitcher = function(x, y, labelName, switcherName, selected, onChange) {
-  // const label = Util.createSprite({ parent: this, x: -112, y: y, atlas: 'texture_atlas', texture: labelName+'.png', aX: 1.0, aY: 0.5 });
+
   var config = null;
 
   if (switcherName == 'Normal') {

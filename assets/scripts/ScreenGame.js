@@ -58,8 +58,7 @@ NORD.ScreenGame = function(config) {
 
   if (window.localStorage.enable_settings) {
     this.buttonSettings = Util.createButton('btn', this, null, '', 640 / 2 - 32 / 2 - 5, -480 / 2 + 32 / 2 + 5, 32, 32, NORD.game.tweenClickSimple, NORD.game.soundClickSimple(), {
-      atlas: 'texture_atlas',
-      texture: 'button_settings.png',
+      texture: 'dummy',
       aX: 0.5,
       aY: 0.5
     });
@@ -105,7 +104,7 @@ NORD.ScreenGame = function(config) {
       else
         _this2.panelPause.show();
     }); // this.toMainMenu();
-  }, this); // this.logo = Util.createSprite({ atlas: 'texture_atlas', texture: 'logo.png', parent: this, aX: 0.5, aY: 0.5 });
+  }, this);
 
   NORD.app.on('update', this.update, this);
 
@@ -473,9 +472,7 @@ NORD.ScreenGame.ScoreText.prototype.constructor = NORD.ScreenGame.ScoreText;
 
 NORD.ScreenGame.ScoreText.prototype.setScore = function(score) {
   this.scoreText.text = score;
-  // this.score = score;
-  // var texture = NORD.assetsManager.getTexture('texture_atlas', 'score_number_000' + String(this.score + 1) + '.png');
-  // this.sprite.texture = texture;
+
 };
 
 NORD.ScreenGame.ScoreText.prototype.getScore = function() {
@@ -672,8 +669,7 @@ NORD.PanelEndGame = function(config) {
   this.textWin = Util.createSprite({
     parent: this,
     y: -48,
-    atlas: 'texture_atlas',
-    texture: 'text_computer_win.png',
+    texture: 'dummy',
     aX: 0.5,
     aY: 0.5
   });
@@ -731,25 +727,6 @@ NORD.PanelEndGame = function(config) {
 
     window.open(NORD.SHARE_URL.TWITTER, '_blank');
   }, this);
-
-  // this.scoreLeft = new NORD.ScreenGame.ScoreText();
-  // this.addChild(this.scoreLeft);
-  // this.scoreLeft.x = -35;
-  // this.scoreLeft.y = -4;
-  //
-  // this.scoreLine = Util.createSprite({ parent: this, y: -4, atlas: 'texture_atlas', texture: 'score_line.png', aX: 0.5, aY: 0.5 });
-  // this.addChild(this.scoreLine);
-  //
-  // this.scoreRight = new NORD.ScreenGame.ScoreText();
-  // this.addChild(this.scoreRight);
-  // this.scoreRight.x = 35;
-  // this.scoreRight.y = -4;
-  //
-  // this.scoreLeft.scale.x = this.scoreRight.scale.x = this.scoreLeft.scale.y = this.scoreRight.scale.y = 0.70;
-  // this.scoreLine.scale.x = this.scoreLine.scale.y = 0.70;
-  // this.scoreLeft.scale = this.scoreRight.scale = { x: 0.8, y: 0.8 };
-  // this.scoreLeft.width = this.scoreRight.width = 44;
-  // this.scoreLeft.height = this.scoreRight.height = 44;
 };
 
 NORD.PanelEndGame.prototype = Object.create(NORD.GUI.BasePanel.prototype);

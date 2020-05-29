@@ -18,8 +18,7 @@ NORD.Field.BonusContainer = function(field, config) {
   this.radius = 17;
   this.warning = Util.createSprite({
     parent: this,
-    atlas: 'texture_atlas',
-    texture: 'bonus_0001.png',
+    texture: 'dummy',
     aX: 0.5,
     aY: 0.5
   });
@@ -29,36 +28,31 @@ NORD.Field.BonusContainer = function(field, config) {
   this.contactType = config.contactType || 'single';
   if (this.bonusType === 'PADDLE_SIZE') this.bg = Util.createSprite({
     parent: this,
-    atlas: 'texture_atlas',
-    texture: 'bonus_0004.png',
+    texture: 'dummy',
     aX: 0.5,
     aY: 0.5
   });
   if (this.bonusType === 'PADDLE_SPEED') this.bg = Util.createSprite({
     parent: this,
-    atlas: 'texture_atlas',
-    texture: 'bonus_0005.png',
+    texture: 'dummy',
     aX: 0.5,
     aY: 0.5
   });
   if (this.bonusType === 'NEW_BALL') this.bg = Util.createSprite({
     parent: this,
-    atlas: 'texture_atlas',
-    texture: 'bonus_0003.png',
+    texture: 'dummy',
     aX: 0.5,
     aY: 0.5
   });
   if (this.bonusType === 'BALL_MAX_SPEED') this.bg = Util.createSprite({
     parent: this,
-    atlas: 'texture_atlas',
-    texture: 'bonus_0002.png',
+    texture: 'dummy',
     aX: 0.5,
     aY: 0.5
   });
   if (this.bonusType === 'SHOOT') this.bg = Util.createSprite({
     parent: this,
-    atlas: 'texture_atlas',
-    texture: 'bonus_0006.png',
+    texture: 'dummy',
     aX: 0.5,
     aY: 0.5
   });
@@ -89,8 +83,7 @@ NORD.Field.BonusContainer = function(field, config) {
     });
     this.bgHit = Util.createSprite({
       parent: this,
-      atlas: 'texture_atlas',
-      texture: 'kitty_hit.png',
+      texture: 'dummy',
       aX: 0.5,
       aY: 0.5
     });
@@ -419,8 +412,7 @@ NORD.Field.GravityWell = function(field, config) {
   this.time = config.time != undefined ? config.time : 5;
   this.color = 0xC4FF38;
   this.bg = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'area_blue.png',
+    texture: 'portalDotImage',
     parent: this,
     aX: 0.5,
     aY: 0.5
@@ -428,8 +420,7 @@ NORD.Field.GravityWell = function(field, config) {
   this.gravityCenter = Util.createSprite({
     x: config.x,
     y: config.y,
-    atlas: 'texture_atlas',
-    texture: 'gravity_center.png',
+    texture: 'portalDotImage',
     parent: field.containerGravityHole,
     aX: 0.5,
     aY: 0.5
@@ -590,8 +581,7 @@ NORD.Field.InvisibleArea = function(field, config) {
   this.time = config.time != undefined ? config.time : 5;
   this.color = 0xC4FF38;
   this.bg = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'area_blue.png',
+    texture: 'portalDotImage',
     parent: this,
     aX: 0.5,
     aY: 0.5
@@ -715,12 +705,11 @@ NORD.Field.FireZone = function(field, config) {
   this.speedUp = config.speedUp;
   this.color = 0xC4FF38;
   this.bg = Util.createSprite({
-    atlas: 'texture_atlas',
-    texture: 'fire_ring.png',
+    texture: 'dummy',
     parent: this,
     aX: 0.5,
     aY: 0.5
-  }); // this.gravityCenter = Util.createSprite({ atlas: 'texture_atlas', texture: 'gravity_center.png', parent: this, aX: 0.5, aY: 0.5 });
+  });
 
   this.bg.width = this.bg.height = this.radius * 2; // this.bgMask = new PIXI.Graphics();
   // this.addChild(this.bgMask);
