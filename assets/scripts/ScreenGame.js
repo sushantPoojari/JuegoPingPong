@@ -110,7 +110,7 @@ NORD.ScreenGame = function(config) {
 
 
   //sushant
-  this.loadingIndicator = new PIXI.Sprite(NORD.assetsManager.getTexture('loadingIcon'));
+  this.loadingIndicator = new PIXI.Sprite(NORD.assetsManager.getTexture('dummy'));
   this.loadingIndicator.anchor.set(0.5);
   this.loadingIndicator.position.set(this.field.config.FIELD_WIDTH / 2.1, -this.field.config.FIELD_HEIGHT / 1.92);
   this.loadingIndicator.scale.x = 0.5;
@@ -167,7 +167,8 @@ NORD.ScreenGame = function(config) {
   NORD.events.on(NORD.EVENT_CODE.PING_RECIEVED, function(data) {
     NORD.game.screenMainMenu.subModeSelectionPopup.regionPanelServerName.text = " " + data + "ms";
     NORD.game.screenGame.ServerPing = data;
-    NORD.game.screenGame.ActualServerpingText.text = "  " + data + "ms";
+    if (MultiplayerStarted)
+      NORD.game.screenGame.ActualServerpingText.text = "  " + data + "ms";
   });
 
   // this.pingText = new PIXI.Text("My T.Diff - 0ms", {
@@ -272,8 +273,8 @@ NORD.ScreenGame.prototype.toGame = function(board) {
   var self = this;
   this.boardName = board;
 
-  var pauseButton = PIXI.Texture.fromFrame('PauseButton');
-  var closeButton = PIXI.Texture.fromFrame('CloseButton');
+  var pauseButton = PIXI.Texture.from('PauseButton');
+  var closeButton = PIXI.Texture.from('CloseButton');
   this.buttonPause.regularSkin.texture = pauseButton;
   this.buttonPauseFiller.texture = pauseButton;
   this.buttonPause.scale.set(0.90);
@@ -428,6 +429,9 @@ NORD.ScreenGame.prototype.tween = function(data, callback) {
         this.rightPlayerText.text = NORD.playersName.playerName;
       if (NORD.playersName.opponentName)
         this.leftPlayerText.text = NORD.playersName.opponentName;
+    } else {
+      NORD.game.field.sideImage.children[0].visible = false;
+      NORD.game.field.sideImage.children[1].visible = false;
     }
     //sushant
 
@@ -733,14 +737,14 @@ NORD.PanelEndGame.prototype = Object.create(NORD.GUI.BasePanel.prototype);
 NORD.PanelEndGame.prototype.constructor = NORD.PanelEndGame;
 
 NORD.PanelEndGame.prototype.setText = function(winner) {
-  var bluePanel = PIXI.Texture.fromFrame('BluePanel');
-  var redPanel = PIXI.Texture.fromFrame('RedPanel');
-  var stars = PIXI.Texture.fromFrame('Stars');
-  var stars2 = PIXI.Texture.fromFrame('Stars2');
-  var upperBluePanel = PIXI.Texture.fromFrame('UpperBluePanel');
-  var upperRedPanel = PIXI.Texture.fromFrame('UpperRedPanel');
-  var redDots = PIXI.Texture.fromFrame('RedDots');
-  var redDots2 = PIXI.Texture.fromFrame('RedDots2');
+  var bluePanel = PIXI.Texture.from('BluePanel');
+  var redPanel = PIXI.Texture.from('RedPanel');
+  var stars = PIXI.Texture.from('Stars');
+  var stars2 = PIXI.Texture.from('Stars2');
+  var upperBluePanel = PIXI.Texture.from('UpperBluePanel');
+  var upperRedPanel = PIXI.Texture.from('UpperRedPanel');
+  var redDots = PIXI.Texture.from('RedDots');
+  var redDots2 = PIXI.Texture.from('RedDots2');
 
   this.buttonHome.position.y = 90;
   this.fb_ShareButton.visible = true;

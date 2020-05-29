@@ -1234,7 +1234,7 @@ NORD.Field.Paddle = function(field, side) {
     aX: 0.5,
     aY: 0.5,
     y: 0,
-    scaleXY: 0.7
+    scaleXY: 0.5
   });
   this.tutDown = Util.createSprite({
     texture: 'tut_p' + (side === 'LEFT' ? 2 : 1) + '_down',
@@ -1242,7 +1242,7 @@ NORD.Field.Paddle = function(field, side) {
     aX: 0.5,
     aY: 0.5,
     y: 0,
-    scaleXY: 0.7
+    scaleXY: 0.5
   });
   this.tutUp.visible = this.tutDown.visible = false;
 

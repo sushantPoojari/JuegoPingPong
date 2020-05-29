@@ -87,7 +87,7 @@ NORD.initGameDefinitions = function() {
     heightMax: 500
   };
   NORD.definitionsManager.stageColor = 0x00003A;
-  NORD.definitionsManager.appName = 'Retro-Ping-Pong';
+  NORD.definitionsManager.appName = 'Pong-Wars';
   NORD.definitionsManager.appVersion = '1.0'; // NORD.definitionsManager.colorYellow = 0xC2C200;
 
   NORD.definitionsManager.colorYellow = 0xded704;
@@ -241,26 +241,8 @@ NORD.initGameDefinitions = function() {
     url: 'assets/sound/ButtonTap',
     formats: audioFormats
   }, {
-    name: 'PopupSub',
-    url: 'assets/images/popup/PopupSub.png'
-  }, {
-    name: 'PopupSmall',
-    url: 'assets/images/popup/PopupSmall.png'
-  }, {
-    name: 'SubPanel01',
-    url: 'assets/images/popup/SubPanel01.png'
-  }, {
-    name: 'RefreshIcon',
-    url: 'assets/images/popup/RefreshIcon.png'
-  }, {
-    name: 'loadingIcon',
-    url: 'assets/images/popup/loadingIcon.png'
-  }, {
     name: 'loadIcon',
     url: 'assets/images/popup/LoadingBar.png'
-  }, {
-    name: 'teleport1',
-    url: 'assets/images/popup/load.png'
   }, {
     name: 'portalDotImage',
     url: 'assets/images/popup/gameplayPopup/Mode/Dot-Image.png'
@@ -312,9 +294,6 @@ NORD.initGameDefinitions = function() {
   }, {
     name: 'ParallelLine',
     url: 'assets/images/popup/gameplayPopup/Mode/Parallel-Line.png'
-  }, {
-    name: 'BG',
-    url: 'assets/images/main/BG.png'
   }, {
     name: 'SinglePlayer',
     url: 'assets/images/main/SinglePlayer.png'
@@ -572,7 +551,10 @@ NORD.initGameDefinitions = function() {
     url: 'assets/images/title/mask.png'
   }, {
     name: 'mainmenubg',
-    url: 'assets/images/title/mainmenubg.png'
+    url: 'assets/images/common/MenuBG.png'
+  }, {
+    name: 'bgLine',
+    url: 'assets/images/common/bgLine.png'
   }, {
     name: 'dummy',
     url: 'assets/images/submode/DownArrow.png'

@@ -38,21 +38,21 @@ NORD.MultiplayerSelectionPopup = function(config) {
   this.interactiveChildren = false;
   // this.connectionState = Math.ceil( Math.random()*2.0) == 1 ? NORD.CONNECTION_STATE.CREATING_ROOM : NORD.CONNECTION_STATE.SEARCH_FOR_ROOM;
 
-  this.backBG = new PIXI.NineSlicePlane(NORD.assetsManager.getTexture('PopupSmall'), 15, 15, 15, 15);
+  this.backBG = new PIXI.NineSlicePlane(NORD.assetsManager.getTexture('dummy'), 15, 15, 15, 15);
   this.backBG.width = 640 + 15;
   this.backBG.height = 480 + 15;
   this.backBG.position.x = -(640 + 15) * 0.5;
   this.backBG.position.y = -(480 + 15) * 0.5;
   this.addChild(this.backBG);
 
-  this.bg = new PIXI.NineSlicePlane(NORD.assetsManager.getTexture('PopupSmall'), 15, 15, 15, 15);
+  this.bg = new PIXI.NineSlicePlane(NORD.assetsManager.getTexture('dummy'), 15, 15, 15, 15);
   this.bg.width = 520;
   this.bg.height = 378;
   this.bg.position.x = -260;
   this.bg.position.y = -189;
   this.addChild(this.bg);
 
-  this.transparentBg = new PIXI.NineSlicePlane(NORD.assetsManager.getTexture('PopupSub'), 15, 15, 15, 15);
+  this.transparentBg = new PIXI.NineSlicePlane(NORD.assetsManager.getTexture('dummy'), 15, 15, 15, 15);
   this.transparentBg.width = 500;
   this.transparentBg.height = 250;
   this.transparentBg.position.x = -250;

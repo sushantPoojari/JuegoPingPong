@@ -74,6 +74,14 @@ NORD.ScreenMainMenu = function(config) {
   this.containerSwitchers = new PIXI.Container();
   this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
 
+  var bgLine = Util.createSprite({
+    parent: bg,
+    texture: 'bgLine',
+    aX: 0.5,
+    aY: 0.5,
+    y: bg.width / 2.1,
+  });
+
   /*********************************************************************************Game Logo**************************************************************************************************/
   var logo = Util.createSprite({
     parent: this,
@@ -1616,7 +1624,7 @@ NORD.randomNamePopup = function(config) {
 
   this.backBG = Util.createSprite({
     parent: this,
-    texture: 'BG',
+    texture: 'mainmenubg',
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.55
@@ -1880,11 +1888,28 @@ NORD.subModeSelectionPopup = function(config) {
 
   this.bg = Util.createSprite({
     parent: this,
-    texture: 'BG',
+    texture: 'mainmenubg',
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.465
   });
+
+  var bgLine = Util.createSprite({
+    parent: this.bg,
+    texture: 'bgLine',
+    aX: 0.5,
+    aY: 0.5,
+    y: this.bg.width / 2.1,
+  });
+
+  var bgLine1 = Util.createSprite({
+    parent: this.bg,
+    texture: 'bgLine',
+    aX: 0.5,
+    aY: 0.5,
+    y: -this.bg.width / 2.1,
+  });
+  bgLine1.angle = 180;
 
   this.popupHeader = new PIXI.Text('SELECT A GAME BOARD', {
     fontFamily: 'Squada One',
@@ -1921,7 +1946,7 @@ NORD.subModeSelectionPopup = function(config) {
 
         MainMenuLocation.panelTutorial.popupHeader.text = words[0].title; // mode name
         MainMenuLocation.panelTutorial.description.text = words[0].description; // game details
-        MainMenuLocation.panelTutorial.gameScreenShot.texture = PIXI.Texture.fromFrame(words[0].image); //image
+        MainMenuLocation.panelTutorial.gameScreenShot.texture = PIXI.Texture.from(words[0].image); //image
 
         MainMenuLocation.panelTutorial.show()
       });
@@ -2208,8 +2233,8 @@ NORD.subModeSelectionPopup.prototype.disableAllButtons = function() {
 NORD.subModeSelectionPopup.prototype.show = function(data) {
   var config = NORD.game.config;
 
-  var NormalPlay = PIXI.Texture.fromFrame('PlayButton');
-  var RandomPlay = PIXI.Texture.fromFrame('RandomPlayButton');
+  var NormalPlay = PIXI.Texture.from('PlayButton');
+  var RandomPlay = PIXI.Texture.from('RandomPlayButton');
   this.playButton.regularSkin.texture = NormalPlay;
 
   this.switchNormalMode.visible = true;
@@ -2648,11 +2673,28 @@ NORD.PanelTutorial = function(config) {
 
   this.bg = Util.createSprite({
     parent: this,
-    texture: 'BG',
+    texture: 'mainmenubg',
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.465
   });
+
+  var bgLine = Util.createSprite({
+    parent: this.bg,
+    texture: 'bgLine',
+    aX: 0.5,
+    aY: 0.5,
+    y: this.bg.width / 2.1,
+  });
+
+  var bgLine1 = Util.createSprite({
+    parent: this.bg,
+    texture: 'bgLine',
+    aX: 0.5,
+    aY: 0.5,
+    y: -this.bg.width / 2.1,
+  });
+  bgLine1.angle = 180;
 
   this.popupHeader = new PIXI.Text('MODE NAME', {
     parent: this,
@@ -2779,7 +2821,7 @@ NORD.PanelTutorial.prototype.navigate = function(data) {
 
   this.popupHeader.text = words[MainMenuLocation.panelTutorial.counterValue].title; // mode name
   this.description.text = words[MainMenuLocation.panelTutorial.counterValue].description; // game details
-  this.gameScreenShot.texture = PIXI.Texture.fromFrame(words[MainMenuLocation.panelTutorial.counterValue].image); //image
+  this.gameScreenShot.texture = PIXI.Texture.from(words[MainMenuLocation.panelTutorial.counterValue].image); //image
 };
 
 NORD.PanelTutorial.prototype.show = function(data) {

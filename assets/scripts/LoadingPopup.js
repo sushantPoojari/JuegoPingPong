@@ -20,11 +20,27 @@ NORD.LoadingPopup = function(config) {
 
   this.bg = Util.createSprite({
     parent: this,
-    texture: 'BG',
+    texture: 'mainmenubg',
     aX: 0.5,
     aY: 0.5,
     scaleXY: 0.465
   });
+  var bgLine = Util.createSprite({
+    parent: this.bg,
+    texture: 'bgLine',
+    aX: 0.5,
+    aY: 0.5,
+    y: this.bg.width / 2.1,
+  });
+
+  var bgLine1 = Util.createSprite({
+    parent: this.bg,
+    texture: 'bgLine',
+    aX: 0.5,
+    aY: 0.5,
+    y: -this.bg.width / 2.1,
+  });
+  bgLine1.angle = 180;
 
   var dividerLine = Util.createSprite({
     parent: this,
