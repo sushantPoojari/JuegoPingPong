@@ -3210,6 +3210,7 @@ var createTeleport1 = function createTeleport1(field, config, data) {
     bonusContainer.x = -80;
     bonusContainer.y = -100;
   }
+
   if (NORD.game.field.roundMode === 'BLACK_HOLE_MODE') {
     bonusContainer.bg.texture = NORD.assetsManager.getTexture('Blackhole');
 
@@ -3233,21 +3234,23 @@ var createTeleport1 = function createTeleport1(field, config, data) {
       texture: 'spiral',
       aX: 0.5,
       aY: 0.5,
-      scaleXY: 0.4,
+      scaleXY: 0.35,
     });
     var dottedCluster = Util.createSprite({
       parent: bonusContainer,
       texture: 'Cluster-Dots',
       aX: 0.5,
       aY: 0.5,
-      scaleXY: 0.2,
+      scaleXY: 0.06,
     });
     if (data.data == "teleport2") {
       teleport1.rotation = Math.PI;
       teleport2.rotation = Math.PI;
-      teleport2.x = -5;
+      teleport2.x = 25;
+      dottedCluster.x = 20;
     } else {
-      teleport2.x = 5;
+      teleport2.x = -25;
+      dottedCluster.x = -20;
       teleport2.scale.y *= -1;
       dottedCluster.scale.y *= -1;
     }
@@ -3256,7 +3259,9 @@ var createTeleport1 = function createTeleport1(field, config, data) {
     bonusContainer.addChild(teleport2);
     bonusContainer.addChild(dottedCluster);
     teleport1.mask = teleport2;
-    // teleport1.mask = dottedCluster;
+    var fieldleftPlayerTextBlur = new PIXI.filters.BlurFilter();
+    teleport1.filters = [fieldleftPlayerTextBlur];
+    fieldleftPlayerTextBlur.blur = 3;
     if (data.data == "teleport2") {
       rotateAction();
 
@@ -3364,21 +3369,23 @@ var createTeleport2 = function createTeleport2(field, config, data) {
       texture: 'spiral',
       aX: 0.5,
       aY: 0.5,
-      scaleXY: 0.4,
+      scaleXY: 0.35,
     });
     var dottedCluster = Util.createSprite({
       parent: bonusContainer,
       texture: 'Cluster-Dots',
       aX: 0.5,
       aY: 0.5,
-      scaleXY: 0.2,
+      scaleXY: 0.06,
     });
     if (data.data == "teleport1") {
       teleport1.rotation = Math.PI;
       teleport2.rotation = Math.PI;
-      teleport2.x = -5;
+      teleport2.x = 25;
+      dottedCluster.x = 20;
     } else {
-      teleport2.x = 5;
+      teleport2.x = -25;
+      dottedCluster.x = -20;
       teleport2.scale.y *= -1;
       dottedCluster.scale.y *= -1;
     }
@@ -3387,6 +3394,9 @@ var createTeleport2 = function createTeleport2(field, config, data) {
     bonusContainer.addChild(teleport2);
     bonusContainer.addChild(dottedCluster);
     teleport1.mask = teleport2;
+    var fieldleftPlayerTextBlur = new PIXI.filters.BlurFilter();
+    teleport1.filters = [fieldleftPlayerTextBlur];
+    fieldleftPlayerTextBlur.blur = 3;
     if (data.data == "teleport1") {
       rotateAction();
 
