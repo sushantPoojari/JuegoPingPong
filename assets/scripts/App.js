@@ -643,7 +643,6 @@ NORD.App.prototype.init = function() {
   });
   NORD.GUIManager.on('app_resize', this.onAppResize, this);
   NORD.GUIManager.setAppSize(NORD.definitionsManager.appSize.widthMin, NORD.definitionsManager.appSize.widthMax, NORD.definitionsManager.appSize.heightMin, NORD.definitionsManager.appSize.heightMax);
-  console.log('App[' + this.name + '], version: ' + this.version + ', platform: ' + this.platform);
 };
 
 NORD.App.prototype.boot = function() {
@@ -860,7 +859,6 @@ NORD.Game.prototype.init = function() {
 
 NORD.Game.prototype.setConfig = function(config) {
   this.config = config;
-  console.log('Set config:', config);
   this.saveConfig();
 };
 
@@ -958,7 +956,6 @@ var createPaddle = function createPaddle() {
 };
 
 function createP(startPoint, endAngle, size, side) {
-  console.log('CCC:', startPoint, endAngle, size, side);
   size = 20;
   var vertices = [];
   var p = {
@@ -980,7 +977,6 @@ function createP(startPoint, endAngle, size, side) {
     else vertices.push(ppp);
   }
 
-  console.log('F:', sign, step, step < 0, vertices);
   return vertices;
 }
 

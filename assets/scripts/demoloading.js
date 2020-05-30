@@ -70,7 +70,6 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
   };
 
   DemoLoadBalancing.prototype.onGetRegionsResult = function(errorCode, errorMsg, regions) {
-    console.log("onGetRegionsResult:", errorCode, errorMsg, regions);
     ServerRegionListArray = [];
     ServerRegionList = regions;
 
@@ -80,7 +79,6 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
         var region = Object.keys(regions).find(key => regions[key] === urlAddress);
 
         urlAddress = urlAddress.replace("wss", "https");
-        console.log(urlAddress);
 
         if (this.checkCorrespondingRegion(region) != null) {
           ServerRegionListArray.push({
@@ -159,13 +157,10 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
     p.ping(address, function(err, data) {
       // Also display error if err is returned.
       if (err) {
-        console.log("error loading resource")
         data = data + " " + err;
       }
       data = data.replace("error", "");
       data = parseInt(data);
-      // console.log(data)
-      console.log("Ping -----> 2 ", data);
 
 
       ServerRegionListArray[RegionCounter].data = data;
@@ -266,14 +261,12 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
       fetch(addr)
         .then((resp) => resp.json())
         .then(function(data) {
-          console.log(data);
           if (!hasGotOne) {
             callaback(addr);
           }
           hasGotOne = true;
         })
         .catch(function(error) {
-          console.log(error);
           if (!hasGotOne) {
             callaback(addr);
           }
@@ -315,8 +308,6 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
   DemoLoadBalancing.prototype.onStateChange = function(state) {
     // "namespace" import for static members shorter acceess
     var LBC = Photon.LoadBalancing.LoadBalancingClient;
-
-    console.log("DemoLoadBalancing change state ", state, LBC.StateToName(state));
 
     // var stateText = document.getElementById("statetxt");
     // stateText.textContent = LBC.StateToName(state);
@@ -395,7 +386,6 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
     this.output("Demo: Rooms total: " + rooms.length);
   };
   DemoLoadBalancing.prototype.onJoinRoom = function(isJoined) {
-    console.log("DemoLoadBalancing.prototype.onJoinRoom " + isJoined);
     this.output("Game " + this.myRoom().name + " joined");
     DemoLoadFunction.updateRoomInfo();
     if (this.myRoom().isVisible) {
@@ -444,11 +434,9 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
     }
   };
   DemoLoadBalancing.prototype.onActorJoin = function(actor) {
-    console.log("actor " + actor.actorNr + " joined at ");
     DemoLoadFunction.updateRoomInfo();
   };
   DemoLoadBalancing.prototype.onActorLeave = function(actor) {
-    console.log("actor " + actor.actorNr + " left");
     DemoLoadFunction.updateRoomInfo();
     MultiplayerStarted = false;
   };
@@ -458,7 +446,6 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
         message: message
           // senderName: "user" + this.myActor().actorNr
       });
-      console.log(this.myActor().actorNr + message);
     } catch (err) {
       this.output("error: " + err.message);
     }

@@ -3,6 +3,9 @@
 // require("core-js/modules/es6.object.assign");
 
 // require("core-js/modules/es6.string.blink");
+var DiamondLayer;
+var ParallelLayer1;
+var ParallelLayer2;
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -106,7 +109,11 @@ NORD.Field.Wall.prototype.initRectWall = function(config) {
     scaleX: 0.39,
     scaleY: 0.45
   });
-  if (config.y > 0) this.topParallelLine.rotation = Math.PI;
+  if (config.y > 0) {
+    this.topParallelLine.rotation = Math.PI;
+    ParallelLayer1 = this;
+  } else
+    ParallelLayer2 = this;
 };
 
 NORD.Field.Wall.prototype.initDiamondWall = function(config) {
@@ -132,7 +139,7 @@ NORD.Field.Wall.prototype.initDiamondWall = function(config) {
   Matter.Body.setAngle(this.body, Math.PI / 4);
   this.bg = new PIXI.Graphics();
   this.addChild(this.bg);
-  this.bg.beginFill(this.color, 0);
+  this.bg.beginFill(this.color, 1);
   this.bg.drawRect(-10, -10, 20, 20);
   this.bg.width = width;
   this.bg.height = height; // this.bg.x = -width/2;
@@ -145,10 +152,12 @@ NORD.Field.Wall.prototype.initDiamondWall = function(config) {
     aX: 0.5,
     aY: 0.5,
     scaleX: 0.45,
-    scaleY: 0.45
+    scaleY: 0.45,
   });
   this.addChild(this.diamondImage);
   this.bg.rotation = this.body.angle; // console.log('Diamond created!');
+
+  DiamondLayer = this;
 };
 
 NORD.Field.Wall.prototype.initBumperWall = function(config) {
@@ -467,6 +476,159 @@ NORD.Field.Ball.prototype.startImpulse = function(dir) {
   var angle = side === 'LEFT' ? Util.randomRange(90 + k, 90 + 180 - k) : Util.randomRange(90 + 180 + k, 90 + 360 - k);
   this.angle = angle;
   var impulse = Util.getMoveVector(speed, angle);
+
+  if (NORD.game.config.board == "board_3") {
+    if (this.y > 0 && impulse.y > 0)
+      impulse.y = impulse.y * -1;
+    if (this.y < 0 && impulse.y < 0)
+      impulse.y = impulse.y * -1;
+
+
+    // debugger;
+    moveUpWards1();
+
+    function moveUpWards1() {
+      if (DiamondLayer.tweenSpeed != null)
+        DiamondLayer.tweenSpeed.kill();
+      DiamondLayer.tweenSpeed = TweenMax.to(DiamondLayer, 4, {
+        y: DiamondLayer.diamondImage.x + 0.2,
+        ease: Power1.easeOut,
+        onUpdate: tweenUpdate1,
+        onComplete: function onComplete() {
+          console.log("downWards---");
+          moveDownWards1();
+        }
+      });
+    };
+
+    function moveDownWards1() {
+      if (DiamondLayer.tweenSpeed != null)
+        DiamondLayer.tweenSpeed.kill();
+      DiamondLayer.tweenSpeed = TweenMax.to(DiamondLayer, 8, {
+        y: DiamondLayer.diamondImage.x - 0.2,
+        ease: Power1.easeOut,
+        onUpdate: tweenUpdate2,
+        onComplete: function onComplete() {
+          moveUpWards1();
+        }
+      });
+    };
+
+    function tweenUpdate1() {
+      Matter.Body.setPosition(DiamondLayer.body, {
+        x: DiamondLayer.body.position.x,
+        y: DiamondLayer.body.position.y - 0.2
+      });
+    }
+
+    function tweenUpdate2() {
+      Matter.Body.setPosition(DiamondLayer.body, {
+        x: DiamondLayer.body.position.x,
+        y: DiamondLayer.body.position.y + 0.2
+      });
+    }
+  }
+  if (NORD.game.config.board == "board_1") {
+    if (ParallelLayer1.tweenSpeed != null)
+      ParallelLayer1.tweenSpeed.kill();
+    Matter.Body.setPosition(ParallelLayer1.body, {
+      x: ParallelLayer1.body.position.x,
+      y: 120
+    });
+    moveUpWards1();
+
+    function moveUpWards1() {
+      if (ParallelLayer1.tweenSpeed != null)
+        ParallelLayer1.tweenSpeed.kill();
+      ParallelLayer1.tweenSpeed = TweenMax.to(ParallelLayer1, 4, {
+        y: ParallelLayer1.topParallelLine.x + 0.2,
+        ease: Power1.easeOut,
+        onUpdate: tweenUpdate1,
+        onComplete: function onComplete() {
+          console.log("downWards---");
+          moveDownWards1();
+        }
+      });
+    };
+
+    function moveDownWards1() {
+      if (ParallelLayer1.tweenSpeed != null)
+        ParallelLayer1.tweenSpeed.kill();
+      ParallelLayer1.tweenSpeed = TweenMax.to(ParallelLayer1, 4, {
+        y: ParallelLayer1.topParallelLine.x - 0.2,
+        ease: Power1.easeOut,
+        onUpdate: tweenUpdate2,
+        onComplete: function onComplete() {
+          moveUpWards1();
+        }
+      });
+    };
+
+    function tweenUpdate1() {
+      Matter.Body.setPosition(ParallelLayer1.body, {
+        x: ParallelLayer1.body.position.x,
+        y: ParallelLayer1.body.position.y - 0.2
+      });
+    }
+
+    function tweenUpdate2() {
+      Matter.Body.setPosition(ParallelLayer1.body, {
+        x: ParallelLayer1.body.position.x,
+        y: ParallelLayer1.body.position.y + 0.2
+      });
+    }
+
+    ///////////////
+    if (ParallelLayer2.tweenSpeed != null)
+      ParallelLayer2.tweenSpeed.kill();
+    Matter.Body.setPosition(ParallelLayer2.body, {
+      x: ParallelLayer2.body.position.x,
+      y: -120
+    });
+    moveDownWards12();
+
+    function moveUpWards12() {
+      if (ParallelLayer2.tweenSpeed != null)
+        ParallelLayer2.tweenSpeed.kill();
+      ParallelLayer2.tweenSpeed = TweenMax.to(ParallelLayer2, 4, {
+        y: ParallelLayer2.topParallelLine.x + 0.2,
+        ease: Power1.easeOut,
+        onUpdate: tweenUpdate12,
+        onComplete: function onComplete() {
+          console.log("downWards---");
+          moveDownWards12();
+        }
+      });
+    };
+
+    function moveDownWards12() {
+      if (ParallelLayer2.tweenSpeed != null)
+        ParallelLayer2.tweenSpeed.kill();
+      ParallelLayer2.tweenSpeed = TweenMax.to(ParallelLayer2, 4, {
+        y: ParallelLayer2.topParallelLine.x - 0.2,
+        ease: Power1.easeOut,
+        onUpdate: tweenUpdate22,
+        onComplete: function onComplete() {
+          moveUpWards12();
+        }
+      });
+    };
+
+    function tweenUpdate12() {
+      Matter.Body.setPosition(ParallelLayer2.body, {
+        x: ParallelLayer2.body.position.x,
+        y: ParallelLayer2.body.position.y - 0.2
+      });
+    }
+
+    function tweenUpdate22() {
+      Matter.Body.setPosition(ParallelLayer2.body, {
+        x: ParallelLayer2.body.position.x,
+        y: ParallelLayer2.body.position.y + 0.2
+      });
+    }
+  }
+
 
   // impulse.x = 4;
   // impulse.y = 0;

@@ -2078,10 +2078,10 @@ var RoundGenerator = function RoundGenerator(field) {
     }
   });
   this.field.on('init_game', function() {
-    self.updateScore();
+    self.updateScore(1);
   });
   this.field.on('goal', function(data) {
-    self.updateScore();
+    self.updateScore(2);
   }, this);
   this.field.on('multiball_goal', function(data) {
     if (MultiplayerStarted) {
@@ -2320,7 +2320,32 @@ RoundGenerator.prototype.initGame = function(mode) {
   this.roundModeLabelBg.visible = false; // }
 };
 
-RoundGenerator.prototype.updateScore = function() {
+RoundGenerator.prototype.updateScore = function(val) {
+
+  if (NORD.game.config.board == "board_1" && val == 2) {
+    if (ParallelLayer1.tweenSpeed != null)
+      ParallelLayer1.tweenSpeed.kill();
+    Matter.Body.setPosition(ParallelLayer1.body, {
+      x: ParallelLayer1.body.position.x,
+      y: 120
+    });
+    if (ParallelLayer2.tweenSpeed != null)
+      ParallelLayer2.tweenSpeed.kill();
+    Matter.Body.setPosition(ParallelLayer2.body, {
+      x: ParallelLayer2.body.position.x,
+      y: -120
+    });
+  }
+  if (NORD.game.config.board == "board_3" && val == 2) {
+    if (DiamondLayer.tweenSpeed != null)
+      DiamondLayer.tweenSpeed.kill();
+    Matter.Body.setPosition(DiamondLayer.body, {
+      x: DiamondLayer.body.position.x,
+      y: 0
+    });
+  }
+
+
   this.scoreLeft.setScore(this.field.playerLeft.roundScore);
   this.scoreRight.setScore(this.field.playerRight.roundScore);
 };

@@ -67,8 +67,6 @@ NORD.PlayerController = function() {
   // Object.keys(settingsData).forEach(function(key) {
   //   if (_this.config[key]) _this.config[key].value = settingsData[key];
   // });
-
-  console.log("Player Details ", this.config.playerName, " Mode ", this.config.mode, " ALl adjective name count ", allNameAdjective.length, " Nouns count " + allNameNouns.length);
 };
 
 NORD.PlayerController.prototype = Object.create(PIXI.Container.prototype);
