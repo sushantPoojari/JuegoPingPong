@@ -635,6 +635,20 @@ NORD.GameEventHandler.prototype.onReciveEvent = function(eventType, data) {
           y: NORD.game.ballImpulse.y
         });
 
+        if (NORD.game.field.ball.ballMovement != null)
+          NORD.game.field.ball.ballMovement.kill();
+        var val = 1;
+        if (NORD.game.field.ball.angle < 0)
+          val = -1;
+
+        NORD.game.field.ball.ballMovement = TweenMax.to(NORD.game.field.ball, 2.0, {
+          angle: NORD.game.field.ball.angle + (360 * val),
+          ease: Power2.easeOut,
+          onComplete: function onComplete() {
+            NORD.game.field.ball.ballMovement.kill();
+          }
+        });
+
         if (positionNeedToChange) {
           LeftPaddle.paddleGettingTeleported = true;
 
@@ -858,7 +872,7 @@ NORD.GameEventHandler.prototype.onReciveEvent = function(eventType, data) {
       {
 
         LeftPaddle.stun();
-       // NORD.audioManager.playAudio('shoot_hit');
+        // NORD.audioManager.playAudio('shoot_hit');
         NORD.game.field.emit('bullet_hit_paddle', LeftPaddle);
         RightPaddle.currentBullet.destroy();
         RightPaddle.currentBullet = null;

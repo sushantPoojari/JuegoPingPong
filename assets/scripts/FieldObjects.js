@@ -1088,6 +1088,19 @@ NORD.Field.Ball.prototype.hitWall = function(wall) {
   // console.log('Hit Wall:', wall, wall.wallType);
   // if(wall && !wall.ballNoCorrectVelocity) this.correctVelocity();
 
+  if (NORD.game.field.ball.ballMovement != null)
+    NORD.game.field.ball.ballMovement.kill();
+  var val = 1;
+  if (NORD.game.field.ball.angle < 0)
+    val = -1;
+
+  NORD.game.field.ball.ballMovement = TweenMax.to(NORD.game.field.ball, 2.0, {
+    angle: NORD.game.field.ball.angle + (360 * val),
+    ease: Power2.easeOut,
+    onComplete: function onComplete() {
+      NORD.game.field.ball.ballMovement.kill();
+    }
+  });
 };
 
 NORD.Field.Ball.prototype.hitPaddle = function(paddle) {
@@ -1146,6 +1159,21 @@ NORD.Field.Ball.prototype.hitPaddle = function(paddle) {
   // if (this.isBig) NORD.audioManager.playAudio(p + '_hit_big_ball');
   // else NORD.audioManager.playAudio(p + '_hit_ball');
   this.isFirstHit = true;
+
+
+  if (NORD.game.field.ball.ballMovement != null)
+    NORD.game.field.ball.ballMovement.kill();
+  var val = 1;
+  if (NORD.game.field.ball.angle < 0)
+    val = -1;
+
+  NORD.game.field.ball.ballMovement = TweenMax.to(NORD.game.field.ball, 2.0, {
+    angle: NORD.game.field.ball.angle + (360 * val),
+    ease: Power2.easeOut,
+    onComplete: function onComplete() {
+      NORD.game.field.ball.ballMovement.kill();
+    }
+  });
 
   // this.getTotalDuration();
 };
