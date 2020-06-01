@@ -998,8 +998,6 @@ NORD.Field.prototype.ballHitPaddle = function(ball, paddle) {
     if (paddle.side == "RIGHT") {
       ball.hitPaddle(paddle);
       NORD.audioManager.playAudio('BallHitPaddle');
-    } else {
-      console.log("---------------------------------------------------");
     }
   } else {
     ball.hitPaddle(paddle);
@@ -2405,7 +2403,6 @@ RoundGenerator.prototype.initRound = function() {
     PositionType = Math.floor(Math.random() * 2);
   }
   this.field.roundMode = this.roundMode;
-  console.log("mode selected", this.roundMode);
   this.initRoundMode();
 
   this.ballSize = 80;
@@ -3552,7 +3549,6 @@ function moveRPaddle() {
   });
 
   function tweenUpdate() {
-    console.log("Right Paddle Position Y", RightPaddle.bodyY);
     RightPaddle.setTo(RightPaddle.body.position.x, RightPaddle.bodyY);
 
   }
