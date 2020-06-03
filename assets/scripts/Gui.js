@@ -41,7 +41,7 @@ NORD.GUI.GUIManager.prototype.constructor = NORD.GUI.GUIManager;
 
 NORD.GUI.GUIManager.prototype.initViewOver = function() {
   var self = this;
-  var color = 0xFFFFFF;
+  var color = 0x060f25;
   this.containerViewOver = new PIXI.Container();
   this.rootContainer.addChild(this.containerViewOver);
   this.overTop = createOver();

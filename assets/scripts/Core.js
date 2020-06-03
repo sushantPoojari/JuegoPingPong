@@ -14,7 +14,7 @@ NORD.GUIManager = null;
 NORD.app = null;
 NORD.game = null;
 
-NORD.run = function () {
+NORD.run = function() {
   NORD.renderer = PIXI.autoDetectRenderer(100, 100, {
     antialias: true,
     transparent: false,
@@ -23,7 +23,7 @@ NORD.run = function () {
     roundPixels: false
   });
   document.getElementById('game_container').appendChild(NORD.renderer.view);
-  NORD.renderer.backgroundColor = 0x00003A; // NORD.renderer.backgroundColor = 0xCCCCCC;
+  NORD.renderer.backgroundColor = 0x060f25; // NORD.renderer.backgroundColor = 0xCCCCCC;
 
   NORD.renderer.view.style.position = "absolute";
   NORD.renderer.view.style.top = "0px";
@@ -41,8 +41,8 @@ NORD.run = function () {
   requestAnimationFrame(NORD.app.loop);
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-  String.prototype.splice = function (idx, rem, str) {
+document.addEventListener("DOMContentLoaded", function() {
+  String.prototype.splice = function(idx, rem, str) {
     return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
   };
 
@@ -51,15 +51,15 @@ document.addEventListener("DOMContentLoaded", function () {
 // ======================================================================================================================================== //
 // ======================================================================================================================================== //
 
-window.onfocus = function () {
+window.onfocus = function() {
   if (NORD.app != null) NORD.app.windowFocusChange(true);
 };
 
-window.onblur = function () {
+window.onblur = function() {
   if (NORD.app != null) NORD.app.windowFocusChange(false);
 };
 
-window.addEventListener("beforeunload", function (e) {
+window.addEventListener("beforeunload", function(e) {
   if (NORD.game.field.state.getState().gamePhase == 'GAME') {
     NORD.app.apiCallback('statistics', 'exit');
   }

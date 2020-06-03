@@ -69,7 +69,8 @@ NORD.ScreenMainMenu = function(config) {
     texture: 'mainmenubg',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.465
+    scaleX: 0.3746,
+    scaleY: 0.465,
   });
   this.containerSwitchers = new PIXI.Container();
   this.addChild(this.containerSwitchers); // this.containerSwitchers.y = - 200;
@@ -79,7 +80,7 @@ NORD.ScreenMainMenu = function(config) {
     texture: 'bgLine',
     aX: 0.5,
     aY: 0.5,
-    y: bg.width / 2.1,
+    y: bg.width / 1.7,
   });
 
   /*********************************************************************************Game Logo**************************************************************************************************/
@@ -1627,7 +1628,8 @@ NORD.randomNamePopup = function(config) {
     texture: 'mainmenubg',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.55
+    scaleX: 0.3746,
+    scaleY: 0.465,
   });
 
   this.addChild(this.backBG);
@@ -1891,7 +1893,8 @@ NORD.subModeSelectionPopup = function(config) {
     texture: 'mainmenubg',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.465
+    scaleX: 0.3746,
+    scaleY: 0.465,
   });
 
   var bgLine = Util.createSprite({
@@ -1899,7 +1902,7 @@ NORD.subModeSelectionPopup = function(config) {
     texture: 'bgLine',
     aX: 0.5,
     aY: 0.5,
-    y: this.bg.width / 2.1,
+    y: this.bg.width / 1.7,
   });
 
   var bgLine1 = Util.createSprite({
@@ -1907,7 +1910,7 @@ NORD.subModeSelectionPopup = function(config) {
     texture: 'bgLine',
     aX: 0.5,
     aY: 0.5,
-    y: -this.bg.width / 2.1,
+    y: -this.bg.width / 1.7,
   });
   bgLine1.angle = 180;
 
@@ -2676,7 +2679,8 @@ NORD.PanelTutorial = function(config) {
     texture: 'mainmenubg',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.465
+    scaleX: 0.3746,
+    scaleY: 0.465,
   });
 
   var bgLine = Util.createSprite({
@@ -2684,7 +2688,7 @@ NORD.PanelTutorial = function(config) {
     texture: 'bgLine',
     aX: 0.5,
     aY: 0.5,
-    y: this.bg.width / 2.1,
+    y: this.bg.width / 1.7,
   });
 
   var bgLine1 = Util.createSprite({
@@ -2692,7 +2696,7 @@ NORD.PanelTutorial = function(config) {
     texture: 'bgLine',
     aX: 0.5,
     aY: 0.5,
-    y: -this.bg.width / 2.1,
+    y: -this.bg.width / 1.7,
   });
   bgLine1.angle = 180;
 

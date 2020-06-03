@@ -23,14 +23,15 @@ NORD.LoadingPopup = function(config) {
     texture: 'mainmenubg',
     aX: 0.5,
     aY: 0.5,
-    scaleXY: 0.465
+    scaleX: 0.3746,
+    scaleY: 0.465,
   });
   var bgLine = Util.createSprite({
     parent: this.bg,
     texture: 'bgLine',
     aX: 0.5,
     aY: 0.5,
-    y: this.bg.width / 2.1,
+    y: this.bg.width / 1.7,
   });
 
   var bgLine1 = Util.createSprite({
@@ -38,7 +39,7 @@ NORD.LoadingPopup = function(config) {
     texture: 'bgLine',
     aX: 0.5,
     aY: 0.5,
-    y: -this.bg.width / 2.1,
+    y: -this.bg.width / 1.7,
   });
   bgLine1.angle = 180;
 
