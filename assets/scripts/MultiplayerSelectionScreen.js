@@ -391,6 +391,9 @@ NORD.RandomSearchInstance.prototype.createRandomRoom = function() {
   });
 
   var option = this.getRandomRoomOption();
+
+  console.log("%%%%%%%%%%%%%%%" + option.customGameProperties.mode + " " + option.customGameProperties.gameType + " " + option.customGameProperties.modeType + " " + option.customGameProperties.board + " ");
+
   var name = NORD.App.playerController.getName();
   name += Date.now();
   DemoLoadFunction.createRoom(name, option);
@@ -460,7 +463,8 @@ NORD.RandomSearchInstance.prototype.getRandomRoomOption = function(mode) {
   var gameModeList = [];
   var positionList = [];
   if (NORD.game.config.mode == "classic") {
-    modType = NORD.game.panelSettings.actionMode;
+    NORD.game.panelSettings.actionMode = NORD.MULTIPLAYER_GAME_MODE_TYPE.NONE;
+    modType = NORD.MULTIPLAYER_GAME_MODE_TYPE.NONE;
     boardType = NORD.game.config.board;
   } else {
     modType = NORD.game.panelSettings.actionMode;
@@ -480,8 +484,6 @@ NORD.RandomSearchInstance.prototype.getRandomRoomOption = function(mode) {
     if (gameModeList[i] == "TELEPORT_MODE" || gameModeList[i] == "BLACK_HOLE_MODE")
       positionList.push(Math.floor(Math.random() * 2));
   }
-
-  console.log("%%%%%%%%%%%", NORD.game.panelSettings.actionMode, "%%%%%%%%%%%", NORD.game.config.board);
 
   var option = {
     isVisible: true,
