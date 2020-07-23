@@ -86,6 +86,7 @@ var DemoLoadBalancing = /** @class */ (function(_super) {
             address: urlAddress,
             country: this.checkCorrespondingRegion(region),
           });
+          console.log(urlAddress);
         }
       }
     }

@@ -34,8 +34,8 @@ NORD.ScreenMainMenu = function(config) {
   var progress = document.getElementById("myProgress");
   var grad1 = document.getElementById("grad1");
   var grad2 = document.getElementById("grad2");
-  var title = document.getElementById("title");
-  d.removeChild(title);
+  // var title = document.getElementById("title");
+  // d.removeChild(title);
   d.removeChild(grad1);
   d.removeChild(grad2);
   d.removeChild(progress);
