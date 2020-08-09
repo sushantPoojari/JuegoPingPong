@@ -3,6 +3,9 @@
 
 <head>
 	<title>Pong-Wars</title>
+	<meta name="viewport"
+		content="width=device-width,user-scalable=no,initial-scale=1, minimum-scale=1,maximum-scale=1"/>
+
 	<style>
 		* {
 			margin: 0;
@@ -80,6 +83,57 @@
 		inactive: function() { console.log('Font(s) Failure'); }
   });
 
+	// Set the name of the hidden property and the change event for visibility
+var hidden, visibilityChange;
+if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support
+  hidden = "hidden";
+  visibilityChange = "visibilitychange";
+} else if (typeof document.msHidden !== "undefined") {
+  hidden = "msHidden";
+  visibilityChange = "msvisibilitychange";
+} else if (typeof document.webkitHidden !== "undefined") {
+  hidden = "webkitHidden";
+  visibilityChange = "webkitvisibilitychange";
+}
+
+var videoElement = document.getElementById("videoElement");
+
+// If the page is hidden, pause the video;
+// if the page is shown, play the video
+var previouslyPlaying = false;
+function handleVisibilityChange() {
+  if (document[hidden]) {
+		if(!NORD.audioManager.isMute){
+			previouslyPlaying = true;
+			NORD.audioManager.switchMute(true);
+		}
+  } else {
+		if(previouslyPlaying){
+			previouslyPlaying = false;
+		NORD.audioManager.switchMute(false);}
+  }
+}
+
+// Warn if the browser doesn't support addEventListener or the Page Visibility API
+if (typeof document.addEventListener === "undefined" || hidden === undefined) {
+  console.log("This demo requires a browser, such as Google Chrome or Firefox, that supports the Page Visibility API.");
+} else {
+  // Handle page visibility change
+  document.addEventListener(visibilityChange, handleVisibilityChange, false);
+
+  // // When the video pauses, set the title.
+  // // This shows the paused
+  // videoElement.addEventListener("pause", function(){
+  //   document.title = 'Paused';
+  // }, false);
+	//
+  // // When the video plays, set the title.
+  // videoElement.addEventListener("play", function(){
+  //   document.title = 'Playing';
+  // }, false);
+
+}
+
 
 </script>
 
@@ -99,8 +153,8 @@
 <img id="backGroundImage"></img>
 
 <div id="grad1"></div>
-<!-- <img id="title" src="assets/images/main/gameTitle.png"></img>
-<img id="juego" src="assets/images/main/Juego.png"></img> -->
+<!-- <img id="title" src="assets/images/main/gameTitle.png"></img> -->
+<img id="juego" src="assets/images/main/Juego.png"></img>
 </div>
 <script>
 changeBg();

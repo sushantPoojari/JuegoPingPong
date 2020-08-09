@@ -19,7 +19,7 @@ NORD.run = function() {
     antialias: true,
     transparent: false,
     resolution: 1,
-    autoResize: false,
+    autoResize: true,
     roundPixels: false
   });
   document.getElementById('game_container').appendChild(NORD.renderer.view);

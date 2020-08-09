@@ -86,6 +86,8 @@ NORD.initGameDefinitions = function() {
     heightMin: 500,
     heightMax: 500
   };
+
+  var d = document.getElementById('game_container');
   NORD.definitionsManager.stageColor = 0x00003A;
   NORD.definitionsManager.appName = 'Pong-Wars';
   NORD.definitionsManager.appVersion = '1.0'; // NORD.definitionsManager.colorYellow = 0xC2C200;

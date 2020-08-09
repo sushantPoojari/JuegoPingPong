@@ -294,6 +294,7 @@ NORD.AudioManager = function() {
   EventEmitter.call(this);
   this.assetsManager = NORD.assetsManager;
   let val = localStorage.getItem('audioStatus');
+  this.isAudioPlaying = false;
   this.isMute = val == null ? false : (val == 'true' ? true : false);
 };
 
